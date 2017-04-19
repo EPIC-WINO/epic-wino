@@ -19,6 +19,7 @@ import java.sql.Time;
 public interface ServiciosProgmsPost {
     
     /**
+     * @obj consultar los recursos concedidos a clases para un periodo academico
      * @pre el semestre debe ser 1 o 2 unicamente
      * @param año el año donde se realiza el programa
      * @param semestre el año donde se realiza el programa (1 o 2)
