@@ -20,7 +20,7 @@ public interface ClaseDAO {
     
     public Clase load(int id) throws PersistenceException;
     
-    public List<Clase> loadClases() throws PersistenceException;
+    public List<Clase> loadClasesPA(int año, int semestre) throws PersistenceException;
     
     public List<RecursoConcedido> loadRecursosConcedidos(int idCl) throws PersistenceException;
     

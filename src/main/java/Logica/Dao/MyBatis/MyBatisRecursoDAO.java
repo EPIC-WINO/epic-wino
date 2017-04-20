@@ -5,9 +5,12 @@
  */
 package Logica.Dao.MyBatis;
 
+import Logica.Dao.MyBatis.Mappers.ClaseMapper;
+import Logica.Dao.MyBatis.Mappers.RecursoMapper;
 import Logica.Dao.PersistenceException;
 import Logica.Dao.RecursoDAO;
 import Logica.Entidades.Recurso;
+import com.google.inject.Inject;
 import java.util.List;
 
 /**
@@ -15,10 +18,13 @@ import java.util.List;
  * @author Esteban
  */
 public class MyBatisRecursoDAO implements RecursoDAO {
-
+    
+    @Inject
+    private RecursoMapper recursoMapper;
+    
     @Override
     public void save(Recurso rec) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        recursoMapper.agregarRecurso(rec);
     }
 
     @Override
