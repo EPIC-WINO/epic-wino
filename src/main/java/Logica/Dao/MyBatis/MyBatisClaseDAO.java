@@ -6,9 +6,11 @@
 package Logica.Dao.MyBatis;
 
 import Logica.Dao.ClaseDAO;
+import Logica.Dao.MyBatis.Mappers.ClaseMapper;
 import Logica.Dao.PersistenceException;
 import Logica.Entidades.Clase;
 import Logica.Entidades.RecursoConcedido;
+import com.google.inject.Inject;
 import java.util.List;
 
 /**
@@ -16,10 +18,13 @@ import java.util.List;
  * @author Esteban
  */
 public class MyBatisClaseDAO implements ClaseDAO {
+    
+    @Inject
+    private ClaseMapper claseMapper;
 
     @Override
     public void save(Clase c) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        claseMapper.agregarClase(c);
     }
 
     @Override
@@ -28,8 +33,8 @@ public class MyBatisClaseDAO implements ClaseDAO {
     }
 
     @Override
-    public List<Clase> loadClases() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Clase> loadClasesPA(int año, int semestre) throws PersistenceException {
+        return claseMapper.consultarClases(año, semestre);
     }
 
     @Override
@@ -39,7 +44,7 @@ public class MyBatisClaseDAO implements ClaseDAO {
 
     @Override
     public void saveRecursoConcedido(int idCl, int idRe) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        claseMapper.agregarRecursoConcedido(idCl, idRe);
     }
     
 }

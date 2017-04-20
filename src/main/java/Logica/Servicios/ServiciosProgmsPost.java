@@ -25,7 +25,7 @@ public interface ServiciosProgmsPost {
      * @param semestre el año donde se realiza el programa (1 o 2)
      * @return el listado de recursos prestados para el programa en determinado periodo academico
      */
-    public abstract List<RecursoConcedido> ConsultarRecursosConcedidos(int año, int semestre);
+    public abstract List<RecursoConcedido> ConsultarRecursosConcedidos(int año, int semestre) throws ExcepcionServiciosProgmsPost;
     
     /**
      * @obj registrar una clase para un programa

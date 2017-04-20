@@ -12,12 +12,22 @@ import java.io.Serializable;
  * @author Esteban
  */
 public class RecursoConcedido implements Serializable{
+    private Clase clase;
     private Recurso recurso;
 
-    public RecursoConcedido(int id, Recurso recurso) {
+    public RecursoConcedido(Clase clase, Recurso recurso) {
+        this.clase = clase;
         this.recurso = recurso;
     }
 
+    public Clase getClase() {
+        return clase;
+    }
+
+    public void setClase(Clase clase) {
+        this.clase = clase;
+    }
+    
     public Recurso getRecurso() {
         return recurso;
     }
