@@ -10,6 +10,7 @@ import java.util.List;
 /**
  *
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
+ * @author Fabian Ardila
  */
 public class MyBatisProgramaDAO implements ProgramaDAO{
 
@@ -24,6 +25,15 @@ public class MyBatisProgramaDAO implements ProgramaDAO{
     @Override
     public List<Programa> loadProgramas(int anio, int semestre) throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
+    }
+
+    @Override
+    public Programa loadProgram(int id_program,int periodo) throws PersistenceException {
+        try {
+            return programaMapper.cosultarProgramaPorPeriodo(id_program, periodo);
+        } catch (org.apache.ibatis.exceptions.PersistenceException e) {
+            throw new PersistenceException("Error al consultar el programa con id: "+id_program+" en el periodo: "+periodo);
+        }
     }
     
 }

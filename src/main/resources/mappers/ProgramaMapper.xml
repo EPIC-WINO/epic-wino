@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Logica.Dao.MyBatis.Mappers.ProgramaMapper">
+    
+    <!-- cosultarProgramaPorPeriodo -->
+    <select parameterType="map" id="cosultarProgramaPorPeriodo" resultMap="ProgramaResult">
+        select 
+            prog.id as id,
+            prog.nombre as nombre,
+            prog.nivel as nivel,
+            prog.duracion as duracion,
+            prog.jornada as jornada,
+            prog.modalidad as modalidad,
+            prog.codigo_SNIES as codigo_SNIES,
+        
+            asig.id as asig_id,
+            asig.nombre as asig_nombre,
+        
+            mate.id as asig_mate_id,
+            mate.nombre as asig_mate_nombre,
+            mate.asignatura_id as asig_mate_asignatura,
+            mate.creditos as asig_mate_creditos,
+            mate.descripcion as asig_mate_descripcion,
+            mate.profesor_id as asig_mate_profesor.
+            mate.periodo as asig_mate_periodo,
+            mate.cohorte as asig_mate_cohorte,
+        
+            prof.id as asig_mate_prof_id,
+            prof.nombre as asig_mate_prof_nombre,
+        
+            clas.id as asig_mate_clas_id,
+            clas.fecha as asig_mate_clas_fecha,
+            clas.hora_inicio as asig_mate_clas_horaInicio,
+            clas.hora_fin as asig_mate_clas_horaFin,
+            clas.materia_id as asig_mate_clas_materia
+        from Programas as prog 
+        left join Asignaturas as asig on prog.id = asig.programa_id
+        left join Materias as mate on asig.id = mate.asignatura_id
+        left join Profesores as prof on mate.profesor_id = prof.id
+        left join Clases as clas on clas.materia_id = mate.id
+        where prog.id = #{programa_id}
+        and mate.periodo = #{periodo};
+    </select>
+    
+    <resultMap type="Programa" id="ProgramaResult">
+        <id property="id" column="id"/>
+        <result property="nombre" column="nombre"/>
+        <result property="nivel" column="nivel"/>
+        <result property="duracion" column="duracion"/>
+        <result property="jornada" column="jornada"/>
+        <result property="modalidad" column="modalidad"/>
+        <result property="codigoSNIES" column="codigo_SNIES"/>
+        <collection property="asignaturas" columnPrefix="asig_" ofType="Asignatura" resultMap="AsignaturaResult"/>
+    </resultMap>
+    
+    <resultMap type="Asignatura" id="AsignaturaResult">
+        <id property="id" column="id"/>
+        <result property="nombre" column="nombre"/>
+        <collection property="materias" columnPrefix="mate_" ofType="Materia" resultMap="MateriaResult"/>
+    </resultMap>
+    
+    <resultMap type="Materia" id="MateriaResult">
+        <id property="id" column="id"/>
+        <result property="nombre" column="nombre"/>
+        <result property="creditos" column="creditos"/>
+        <result property="descripcion" column="descripcion"/>
+        <result property="periodo" column="periodo"/>
+        <result property="cohorte" column="cohorte"/>
+        <association property="profesor" columnPrefix="prof_" javaType="Profesor" resultMap="ProfesorResult"/>
+        <collection property="clases" columnPrefix="clas_" ofType="Clase" resultMap="ClaseResult"/>
+    </resultMap>
+    
+    <resultMap type="Profesor" id="ProfesorResult">
+        <id property="id" column="id"/>
+        <result property="nombre" column="nombre"/>
+        <!--La coleccion de comites-->
+    </resultMap>
+    
+    <resultMap type="Clase" id="ClaseResult">
+        <id property="id" column="id"/>
+        <result property="fecha" column="fecha"/>
+        <result property="hora_inicio" column="horaInicio"/>
+        <result property="hora_fin" column="horaFin"/>
+        <!--Los recursos concedidos-->
+    </resultMap>
+</mapper>
