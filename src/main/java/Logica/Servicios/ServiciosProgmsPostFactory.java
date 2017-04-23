@@ -27,7 +27,7 @@ public class ServiciosProgmsPostFactory {
                 
                 @Override
                 protected void initialize() {
-                        install(JdbcHelper.MySQL);                        
+                        install(JdbcHelper.PostgreSQL);                        
                         setClassPathResource("mybatis-config.xml");                        
                         bind(ServiciosProgmsPost.class).to(ServiciosProgmsPostImpl.class);
                         bind(RecursoDAO.class).to(MyBatisRecursoDAO.class);
@@ -41,7 +41,7 @@ public class ServiciosProgmsPostFactory {
                 
                 @Override
                 protected void initialize() {
-                        install(JdbcHelper.MySQL);                        
+                        install(JdbcHelper.PostgreSQL);                        
                         setClassPathResource("mybatis-config-h2.xml");                        
                         bind(ServiciosProgmsPost.class).to(ServiciosProgmsPostImpl.class);
                         bind(RecursoDAO.class).to(MyBatisRecursoDAO.class);

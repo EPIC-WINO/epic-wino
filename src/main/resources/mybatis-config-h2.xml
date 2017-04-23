@@ -5,7 +5,15 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias type='edu.eci.pdsw.samples.entities.Cliente' alias='Cliente'/>
+        <typeAlias type='Logica.Entidades.Programa' alias='Programa'/>
+        <typeAlias type='Logica.Entidades.Asignatura' alias='Asignatura'/>
+        <typeAlias type='Logica.Entidades.Clase' alias='Clase'/>
+        <typeAlias type='Logica.Entidades.Materia' alias='Materia'/>
+        <typeAlias type='Logica.Entidades.Profesor' alias='Profesor'/>
+        <typeAlias type='Logica.Entidades.Comite' alias='Comite'/>
+        <typeAlias type='Logica.Entidades.Recurso' alias='Recurso'/>
+        <typeAlias type='Logica.Entidades.RecursoConcedido' alias='RecursoConcedido'/>
+        <typeAlias type='Logica.Entidades.Reunion' alias='Reunion'/>
     </typeAliases>
 
 
@@ -23,7 +31,7 @@
     </environments>
     
     <mappers>
-        <mapper resource="mappers/ClienteMapper.xml"></mapper>      
+        <mapper resource="mappers/ProgramaMapper.xml"></mapper>      
     </mappers> 
     
 </configuration>

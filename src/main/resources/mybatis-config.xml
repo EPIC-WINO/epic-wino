@@ -8,7 +8,15 @@
     </settings>-->
     
     <typeAliases>
-        <typeAlias type='edu.eci.pdsw.samples.entities.Cliente' alias='Cliente'/>
+        <typeAlias type='Logica.Entidades.Programa' alias='Programa'/>
+        <typeAlias type='Logica.Entidades.Asignatura' alias='Asignatura'/>
+        <typeAlias type='Logica.Entidades.Clase' alias='Clase'/>
+        <typeAlias type='Logica.Entidades.Materia' alias='Materia'/>
+        <typeAlias type='Logica.Entidades.Profesor' alias='Profesor'/>
+        <typeAlias type='Logica.Entidades.Comite' alias='Comite'/>
+        <typeAlias type='Logica.Entidades.Recurso' alias='Recurso'/>
+        <typeAlias type='Logica.Entidades.RecursoConcedido' alias='RecursoConcedido'/>
+        <typeAlias type='Logica.Entidades.Reunion' alias='Reunion'/>
     </typeAliases>
         
                         
@@ -16,16 +24,16 @@
         <environment id="development">
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/bdprueba" />
-                <property name="username" value="bdprueba" />
-                <property name="password" value="bdprueba" />
+                <property name="driver" value="org.postgresql.Driver" />
+                <property name="url" value="jdbc:postgresql://ec2-54-225-71-119.compute-1.amazonaws.com:5432/d63jjl7m4fg3ns?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory" />
+                <property name="username" value="rtdgdvowknglnm" />
+                <property name="password" value="e67f687fc6b44443a2d0bc971f55a04984b74645471971352332d1938e52df70" />
             </dataSource>
         </environment>
     </environments>
         
     <mappers>
-        <mapper resource="mappers/ClienteMapper.xml"></mapper>       
+        <mapper resource="mappers/ProgramaMapper.xml"></mapper>       
     </mappers> 
         
         
