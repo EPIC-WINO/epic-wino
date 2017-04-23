@@ -83,4 +83,9 @@ public class Reunion {
     public void setHoraFin(Time horaFin) {
         this.horaFin = horaFin;
     }
+
+    @Override
+    public String toString() {
+        return "Reunion{" + "id=" + id + ", comite=" + comite + ", fecha=" + fecha + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + '}';
+    }
 }

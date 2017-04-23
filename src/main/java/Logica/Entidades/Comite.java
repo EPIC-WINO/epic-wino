@@ -67,4 +67,9 @@ public class Comite {
     public void setReuniones(List<Reunion> reuniones) {
         this.reuniones = reuniones;
     }
+
+    @Override
+    public String toString() {
+        return "Comite{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
 }

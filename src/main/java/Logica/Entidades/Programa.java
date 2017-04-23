@@ -127,5 +127,10 @@ public class Programa {
     public void setAsignaturas(List<Asignatura> asignaturas) {
         this.asignaturas = asignaturas;
     }
+
+    @Override
+    public String toString() {
+        return "Programa{" + "id=" + id + ", nombre=" + nombre + ", nivel=" + nivel + ", duracion=" + duracion + ", jornada=" + jornada + ", modalidad=" + modalidad + ", codigoSNIES=" + codigoSNIES + '}';
+    }
     
 }

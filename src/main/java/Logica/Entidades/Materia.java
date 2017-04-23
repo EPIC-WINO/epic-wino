@@ -17,6 +17,7 @@ public class Materia {
     private int cohorte;
     private List<Materia> prerequisitos;
     private List<Materia> corequisitos;
+    private List<Clase> clases;
 
     /**
      * @return the id
@@ -156,5 +157,24 @@ public class Materia {
      */
     public void setCorrequisitos(List<Materia> correquisitos) {
         this.corequisitos = correquisitos;
+    }
+
+    /**
+     * @return the clases
+     */
+    public List<Clase> getClases() {
+        return clases;
+    }
+
+    /**
+     * @param clases the clases to set
+     */
+    public void setClases(List<Clase> clases) {
+        this.clases = clases;
+    }
+
+    @Override
+    public String toString() {
+        return "Materia{" + "id=" + id + ", nombre=" + nombre + ", asignatura=" + asignatura + ", creditos=" + creditos + ", descripcion=" + descripcion + ", profesor=" + profesor + ", periodo=" + periodo + ", cohorte=" + cohorte + '}';
     }
 }

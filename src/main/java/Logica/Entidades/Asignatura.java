@@ -67,4 +67,9 @@ public class Asignatura {
     public void setMaterias(List<Materia> materias) {
         this.materias = materias;
     }
+
+    @Override
+    public String toString() {
+        return "Asignatura{" + "id=" + id + ", nombre=" + nombre + ", programa=" + programa + '}';
+    }
 }

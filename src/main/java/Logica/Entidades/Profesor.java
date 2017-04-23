@@ -69,4 +69,9 @@ public class Profesor {
     public void setComites(List<Comite> comites) {
         this.comites = comites;
     }
+
+    @Override
+    public String toString() {
+        return "Profesor{" + "id=" + id + ", nombre=" + nombre + ", materia=" + materia + '}';
+    }
 }
