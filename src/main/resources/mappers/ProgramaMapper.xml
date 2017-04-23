@@ -24,7 +24,7 @@
             mate.asignatura_id as asig_mate_asignatura,
             mate.creditos as asig_mate_creditos,
             mate.descripcion as asig_mate_descripcion,
-            mate.profesor_id as asig_mate_profesor.
+            mate.profesor_id as asig_mate_profesor,
             mate.periodo as asig_mate_periodo,
             mate.cohorte as asig_mate_cohorte,
         
