@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Logica.Servicios;
 
 import Logica.Dao.ClaseDAO;
@@ -32,7 +27,7 @@ public class ServiciosProgmsPostFactory {
                 
                 @Override
                 protected void initialize() {
-                        install(JdbcHelper.MySQL);                        
+                        install(JdbcHelper.PostgreSQL);                        
                         setClassPathResource("mybatis-config.xml");                        
                         bind(ServiciosProgmsPost.class).to(ServiciosProgmsPostImpl.class);
                         bind(RecursoDAO.class).to(MyBatisRecursoDAO.class);
@@ -46,7 +41,7 @@ public class ServiciosProgmsPostFactory {
                 
                 @Override
                 protected void initialize() {
-                        install(JdbcHelper.MySQL);                        
+                        install(JdbcHelper.PostgreSQL);                        
                         setClassPathResource("mybatis-config-h2.xml");                        
                         bind(ServiciosProgmsPost.class).to(ServiciosProgmsPostImpl.class);
                         bind(RecursoDAO.class).to(MyBatisRecursoDAO.class);
