@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Logica.Servicios.impl;
 
 import Logica.Dao.ClaseDAO;
 import Logica.Dao.PersistenceException;
+import Logica.Dao.ProgramaDAO;
 import Logica.Dao.RecursoDAO;
 import Logica.Entidades.Clase;
+import Logica.Entidades.Programa;
 import Logica.Entidades.Recurso;
 import Logica.Entidades.RecursoConcedido;
 import Logica.Servicios.ExcepcionServiciosProgmsPost;
@@ -22,8 +19,11 @@ import java.util.logging.Logger;
 /**
  *
  * @author Esteban
+ * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
 public class ServiciosProgmsPostImpl implements ServiciosProgmsPost{
+    
+    private static final Logger LOGGER = Logger.getLogger(ServiciosProgmsPostImpl.class.getName());
 
     @Inject
     private RecursoDAO daoRecurso;
@@ -31,17 +31,20 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost{
     @Inject 
     private ClaseDAO daoClase;
     
+    @Inject 
+    private ProgramaDAO daoPrograma;
+    
     @Override
-    public List<RecursoConcedido> ConsultarRecursosConcedidos(int año, int semestre) throws ExcepcionServiciosProgmsPost {
+    public List<RecursoConcedido> consultarRecursosConcedidos(int anio, int semestre) throws ExcepcionServiciosProgmsPost {
         try {
             List<RecursoConcedido> rcs = new ArrayList<>();
-            List<Clase> clases = daoClase.loadClasesPA(año, semestre);
+            List<Clase> clases = daoClase.loadClasesPA(anio, semestre);
             for(Clase cl : clases){
                 rcs.addAll(cl.getRecursos());
             }
             return rcs;
         } catch (PersistenceException ex) {
-            throw new ExcepcionServiciosProgmsPost("Error al consultar los recursos asociados al periodo "+año+"-"+semestre,ex);
+            throw new ExcepcionServiciosProgmsPost("Error al consultar los recursos asociados al periodo "+anio+"-"+semestre,ex);
         }
     }
 
@@ -71,5 +74,14 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost{
             throw new ExcepcionServiciosProgmsPost("Error al prestar el recurso: "+rec.getNombre(),ex);
         }
     }
-    
+
+    @Override
+    public List<Programa> consultarProgramas(int anio, int semestre) throws ExcepcionServiciosProgmsPost {
+        try {
+            return daoPrograma.loadProgramas(anio, semestre);
+        } catch (PersistenceException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            throw new ExcepcionServiciosProgmsPost("Error obteniendo los programas", ex);
+        }
+    }
 }
