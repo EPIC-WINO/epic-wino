@@ -20,6 +20,7 @@ import javax.faces.bean.SessionScoped;
 /**
  *
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
+ * @author Camila Gomez <maria.gomez-ra@mail.escuelaing.edu.co>
  */
 @ManagedBean(name = "reporteBean")
 @SessionScoped
