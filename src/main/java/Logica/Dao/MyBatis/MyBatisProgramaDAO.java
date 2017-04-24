@@ -23,11 +23,11 @@ public class MyBatisProgramaDAO implements ProgramaDAO{
     }
 
     @Override
-    public List<Programa> loadProgramas(int periodo) throws PersistenceException {
+    public List<Programa> loadProgramas(int anio, int semestre) throws PersistenceException {
         try {
-            return programaMapper.consultarProgramas(periodo);
+            return programaMapper.consultarProgramas((anio*10)+semestre);
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
-            throw new PersistenceException("Error al consultar los programas en el periodo "+periodo);
+            throw new PersistenceException("Error al consultar los programas en el periodo "+((anio*10)+semestre));
         }
     }
 
