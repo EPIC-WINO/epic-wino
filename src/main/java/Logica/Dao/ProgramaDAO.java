@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProgramaDAO {
     public void save(Programa programa) throws PersistenceException;
     
-    public List<Programa> loadProgramas(int anio, int semestre) throws PersistenceException;
+    public List<Programa> loadProgramas(int periodo) throws PersistenceException;
     
     public Programa loadProgram(int programId,int periodo) throws PersistenceException;
 }
