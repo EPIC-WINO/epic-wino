@@ -109,7 +109,7 @@
         <result property="periodo" column="periodo"/>
         <result property="cohorte" column="cohorte"/>
         <association property="profesor" columnPrefix="prof_" javaType="Profesor" resultMap="ProfesorResult"/>
-        <collection property="clases" columnPrefix="clas_" ofType="Clase" resultMap="ClaseResult"/>
+        <collection property="clases" columnPrefix="clas_" ofType="Clase" resultMap="Logica.Dao.MyBatis.Mappers.ClaseMapper.ClaseResult"/>
     </resultMap>
     
     <resultMap type="Profesor" id="ProfesorResult">
@@ -118,11 +118,4 @@
         <!--La coleccion de comites-->
     </resultMap>
     
-    <resultMap type="Clase" id="ClaseResult">
-        <id property="id" column="id"/>
-        <result property="fecha" column="fecha"/>
-        <result property="hora_inicio" column="horaInicio"/>
-        <result property="hora_fin" column="horaFin"/>
-        <!--Los recursos concedidos-->
-    </resultMap>
 </mapper>

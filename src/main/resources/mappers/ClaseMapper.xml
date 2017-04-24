@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Logica.Dao.MyBatis.Mappers.RecursoMapper">
+    <select parameterType="map" id="consultarClases" resultMap="ClaseResult">
+        select 
+          
+        
+            
+        
+            clas.id as asig_mate_clas_id,
+            clas.fecha as asig_mate_clas_fecha,
+            clas.hora_inicio as asig_mate_clas_horaInicio,
+            clas.hora_fin as asig_mate_clas_horaFin,
+            clas.materia_id as asig_mate_clas_materia,
+            
+            recc.clase_id as asig_mate_clas_recc_clase,
+            recc.recurso_id as asig_mate_clas_recc_recurso,
+        
+            rec.id as asig_mate_clas_recc_rec_id,
+            rec.nombre as asig_mate_clas_recc_rec_nombre,
+            rec.descripcion as asig_mate_clas_recc_rec_descripcion,
+            rec.cantidad as asig_mate_clas_recc_rec_cantidad,
+            rec.categoria as asig_mate_clas_recc_rec_categoria
+            
+        from clases as clas 
+        left join recursos_concedidos as recc on clas.id=recc.clase_id
+        left join recursos as rec on recc.clase_id=rec.id
+        where  YEAR(clas.fecha)=#{año} and (((MONTH(clas.fecha)&lt 6*#{semestre}) and (MONTH(clas.fecha)&gt 6*(#{semestre}-1)))or (MONTH(clas.fecha)= 6*#{semestre}))
+        order by clas.fecha and clas.hora_inicio;
+    </select>
+    <resultMap type="Clase" id="ClaseResult">
+        <id property="id" column="id"/>
+        <result property="fecha" column="fecha"/>
+        <result property="hora_inicio" column="horaInicio"/>
+        <result property="hora_fin" column="horaFin"/>
+        <collection property="recursos" columnPrefix="recc_" ofType="RecursoConcedido" resultMap="RecursoConcedidoResult"/>
+    </resultMap>
+    <resultMap type="RecursoConcedido" id="RecursoConcedidoResult">
+        <association  property="clase" columnPrefix="clase_" javaType="Clase" resultMap="ClaseResult"/>
+        <association  property="recurso" columnPrefix="rec_" javaType="Recurso" resultMap="RecursoResult"/>
+    </resultMap>
+    <resultMap type="Recurso" id="RecursoResult">
+       <id property="id" column="id"/>
+       <result property="nombre" column="nombre"/>
+       <result property="descripcion" column="descripcion"/>
+       <result property="cantidad" column="cantidad"/>
+       <result property="categoria" column="categoria"/>
+    </resultMap>
+    
+</mapper>
+
+
+       
