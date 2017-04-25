@@ -4,25 +4,36 @@
       xmlns:p="http://primefaces.org/ui" 
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
-    
     <h:outputStylesheet name="css/mycss.css" />
-    <h1>Reporte de recursos</h1>
     
     <h:body>
-        
-        <h:form id="ReporteRecursos" style="text-align: left;">
-            <p><p:inputText id="Año" value="#{ReporteRecursosBean.anio}" label="Año"></p:inputText></p>
-            <p><p:inputText id="Semestre" value="#{ReporteRecursosBean.semestre}" label="Semestre" ></p:inputText></p>
+        <h:form id="ReporteRecursos" style="text-align: center;">
+            <h1>Reporte de Recursos</h1>
+            <p:outputLabel for="anio" value="Año" style=" font-family: Times New Roman, Times, Garamond, Georgia, Cambria; font-weight: normal; font-size: 1.75em; margin:10px;"/>
+             <div>
+                <p></p>
+            </div>
+            <p:inputText id="anio" value="#{ReporteRecursosBean.anio}" label="Ano"></p:inputText>
+            <div>
+                <p></p>
+            </div>
+            <p:outputLabel for="Semestre" value="Semestre" style="font-family: Times New Roman, Times, Garamond, Georgia, Cambria; font-weight: normal; font-size: 1.75em; margin:10px;"/>
+             <div>
+                <p></p>
+            </div>
+            <p:inputText id="Semestre" value="#{ReporteRecursosBean.semestre}" label="Semestre" ></p:inputText>
+            <center>
+                <p:commandButton  value="Realizar Reporte" update="ReporteRecursos" actionListener="#{ReporteRecursosBean.actualizarReporte()}" style="display: block; margin: .5em 0 0 0;"></p:commandButton>
+            </center>
+            <h2>Lista de recursos necesarios</h2>
             <p:dataTable    var="recurso" value="#{ReporteRecursosBean.recursos}"  >
-                <f:facet name="header">
-                     Lista de recursos necesarios
-                </f:facet>
+              
                 <p:column  style="width:16px;text-align:center"/> 
                  <p:column headerText="Recurso">
-                     <h:outputText value="#{recurso.nombre}" />
+                     <h:outputText value="#{recurso.recurso.nombre}" />
                  </p:column>
                  <p:column headerText="Descripcion">
-                 <h:outputText value="#{recurso.descripcion}" />
+                 <h:outputText value="#{recurso.recurso.descripcion}" />
                   </p:column>
                  <p:column headerText="Fecha de utilización">
                  <h:outputText value="#{recurso.clase.fecha}" />
@@ -31,8 +42,6 @@
                      <h:outputText value="#{recurso.clase.hora}" />
                  </p:column>
             </p:dataTable>
-                
-           
         </h:form>
     </h:body>
 </html>
