@@ -4,6 +4,7 @@ import Logica.Dao.ClaseDAO;
 import Logica.Dao.MyBatis.MyBatisClaseDAO;
 import Logica.Dao.MyBatis.MyBatisRecursoDAO;
 import Logica.Dao.RecursoDAO;
+import Logica.Servicios.impl.ServiciosProgmsPostDummy;
 import static com.google.inject.Guice.createInjector;
 import com.google.inject.Injector;
 import org.mybatis.guice.XMLMyBatisModule;
@@ -59,6 +60,10 @@ public class ServiciosProgmsPostFactory {
 
     public ServiciosProgmsPost getServiciosProgmsPostTesting(){
         return testInjector.getInstance(ServiciosProgmsPost.class);   
+    }
+    
+    public ServiciosProgmsPost getServiciosProgmsPostDummy() {
+        return new ServiciosProgmsPostDummy();
     }
 
 

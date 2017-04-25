@@ -10,6 +10,7 @@ import Logica.Servicios.ServiciosProgmsPost;
 import Logica.Servicios.ServiciosProgmsPostFactory;
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,12 +37,28 @@ public class ReporteProgramacionBean implements Serializable {
     public ReporteProgramacionBean() {
         LOGGER.log(Level.FINEST, "Se instancia {0}", this.getClass().getName());
         
-        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
+        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy(); // FIXME BORRAR
     }
     
     @PostConstruct
     public void init() {
         
+    }
+    
+    public List<Materia> getMaterias() { // TODO loggers
+        List<Materia> m = new ArrayList<>();
+        
+        for(Programa p : this.getProgramas()) {
+            for(Asignatura a: p.getAsignaturas()) {
+                m.addAll(a.getMaterias());
+            }
+        }
+        
+        return m;
+    }
+    
+    public Asignatura getAsignatura(Materia m) { // TODO loggers
+        return m.getAsignatura();
     }
     
     public List<Programa> getProgramas() {

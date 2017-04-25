@@ -14,15 +14,21 @@
     <h:body>
         <h:form id="Reporte">
             <h1>Reporte de Programación</h1>
-            <p:dataTable var="materia" value="#{reporteBean.materia}">
+            <p:dataTable var="materia" value="#{reporteBean.materias}">
                 <f:facet name="header">
                     Reporte del Programa 
                 </f:facet>
                 <p:column headerText="Cohorte">
                     <h:outputText value="#{reporteBean.getCohorte(materia)}" />
                 </p:column>
-                <p:column headerText="Asignaturas">
-                    <h:outputText value="#{reporte.asignaturas}" />
+                <p:column headerText="Asignatura">
+                    <h:outputText value="#{reporteBean.getAsignatura(materia).nombre}" />
+                </p:column>
+                <p:column headerText="Materia">
+                    <h:outputText value="#{materia.nombre}" />
+                </p:column>
+                <p:column headerText="Profesor">
+                    <h:outputText value="#{reporteBean.getProfesor(materia).nombre}" />
                 </p:column>
             </p:dataTable>
         </h:form>
