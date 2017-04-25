@@ -2,6 +2,7 @@
  */
 package Logica.Entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,12 @@ public class Profesor {
     private Materia materia;
     private List<Comite> comites;
 
+    public Profesor(int id, String nombre) {
+        this.id = id;
+        this.nombre  = nombre;
+        comites = new ArrayList<>();
+    }
+    
     /**
      * @return the id
      */

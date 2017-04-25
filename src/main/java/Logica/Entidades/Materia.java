@@ -19,6 +19,11 @@ public class Materia {
     private List<Materia> corequisitos;
     private List<Clase> clases;
 
+    public Materia(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+    
     /**
      * @return the id
      */
@@ -171,6 +176,10 @@ public class Materia {
      */
     public void setClases(List<Clase> clases) {
         this.clases = clases;
+        
+        for(Clase c : clases) {
+            c.setMateria(this);
+        }
     }
 
     @Override

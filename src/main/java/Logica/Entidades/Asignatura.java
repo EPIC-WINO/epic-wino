@@ -1,5 +1,6 @@
 package Logica.Entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,12 @@ public class Asignatura {
     private Programa programa;
     private List<Materia> materias;
 
+    public Asignatura(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+        materias = new ArrayList<>();
+    }
+    
     /**
      * @return the id
      */
@@ -66,6 +73,10 @@ public class Asignatura {
      */
     public void setMaterias(List<Materia> materias) {
         this.materias = materias;
+        
+        for(Materia m : materias) {
+            m.setAsignatura(this);
+        }
     }
 
     @Override

@@ -14,7 +14,8 @@ public class Clase implements Serializable{
     private Date fecha;
     private Time hora_inicio;
     private Time hora_fin;
-    private ArrayList<RecursoConcedido> recursos; 
+    private ArrayList<RecursoConcedido> recursos;
+    private Materia materia;
 
     public Clase(int id, Date fecha, Time hora_inicio, Time hora_fin) {
         this.id = id;
@@ -75,5 +76,19 @@ public class Clase implements Serializable{
     @Override
     public String toString() {
         return "Clase{" + "id=" + id + ", fecha=" + fecha + ", hora_inicio=" + hora_inicio+ ", hora_fin=" + hora_fin + ", recursos=" + recursos +"}\n";
+    }
+
+    /**
+     * @return the materia
+     */
+    public Materia getMateria() {
+        return materia;
+    }
+
+    /**
+     * @param materia the materia to set
+     */
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
 }
