@@ -190,6 +190,10 @@ public class ReporteProgramacionBean implements Serializable {
         this.semestre = semestre;
     }
     
+    public String cambiarVista() {
+        return "ReporteProgramacion.xhtml";
+    }
+    
     
     
 }

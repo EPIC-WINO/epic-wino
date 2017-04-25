@@ -22,9 +22,10 @@
         <h:form id="SolicitudReporte">
             <h1>Reporte de Programación</h1>
             <p>Indique el año</p>
-            <p> <p:inputText id="Año" value="#{reporteBean.Anio}" label="AñodelPrograma"></p:inputText> </p>
+            <p> <p:inputText id="Año" value="#{reporteBean.anio}" label="AñodelPrograma"></p:inputText> </p>
             <p>Indique el semestre</p>
-            <p> <p:inputText id="Semestre" value="#{reporteBean.Semestre}" label="SemestredelPrograma"></p:inputText> </p>
+            <p> <p:inputText id="Semestre" value="#{reporteBean.semestre}" label="SemestredelPrograma"></p:inputText> </p>
+            <p:commandButton action ="#{reporteBean.cambiarVista()}" title="Mostrar" value="Mostrar" />
         </h:form>
     </h:body>
 </html>
