@@ -29,17 +29,17 @@ public class MyBatisClaseDAO implements ClaseDAO {
 
     @Override
     public Clase load(int id) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null; // TODO implementar
     }
 
     @Override
-    public List<Clase> loadClasesPA(int año, int semestre) throws PersistenceException {
-        return claseMapper.consultarClases(año, semestre);
+    public List<Clase> loadClasesPA(int anio, int semestre) throws PersistenceException {
+        return claseMapper.consultarClases(anio, semestre);
     }
 
     @Override
     public List<RecursoConcedido> loadRecursosConcedidos(int idCl) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null; // TODO implementar
     }
 
     @Override

@@ -3,13 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="Logica.Dao.MyBatis.Mappers.RecursoMapper">
+<mapper namespace="Logica.Dao.MyBatis.Mappers.ClaseMapper">
     <select parameterType="map" id="consultarClases" resultMap="ClaseResult">
         select 
-          
-        
-            
-        
             clas.id as asig_mate_clas_id,
             clas.fecha as asig_mate_clas_fecha,
             clas.hora_inicio as asig_mate_clas_horaInicio,
@@ -28,7 +24,7 @@
         from clases as clas 
         left join recursos_concedidos as recc on clas.id=recc.clase_id
         left join recursos as rec on recc.clase_id=rec.id
-        where  YEAR(clas.fecha)=#{año} and (((MONTH(clas.fecha)&lt 6*#{semestre}) and (MONTH(clas.fecha)&gt 6*(#{semestre}-1)))or (MONTH(clas.fecha)= 6*#{semestre}))
+        where  YEAR(clas.fecha) = #{anio} and (((MONTH(clas.fecha) &lt; 6* #{semestre}) and (MONTH(clas.fecha) &gt; 6*( #{semestre}-1)))or (MONTH(clas.fecha)= 6* #{semestre}))
         order by clas.fecha and clas.hora_inicio;
     </select>
     <resultMap type="Clase" id="ClaseResult">

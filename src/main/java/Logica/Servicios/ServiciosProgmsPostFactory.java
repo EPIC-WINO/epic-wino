@@ -2,7 +2,9 @@ package Logica.Servicios;
 
 import Logica.Dao.ClaseDAO;
 import Logica.Dao.MyBatis.MyBatisClaseDAO;
+import Logica.Dao.MyBatis.MyBatisProgramaDAO;
 import Logica.Dao.MyBatis.MyBatisRecursoDAO;
+import Logica.Dao.ProgramaDAO;
 import Logica.Dao.RecursoDAO;
 import Logica.Servicios.impl.ServiciosProgmsPostDummy;
 import static com.google.inject.Guice.createInjector;
@@ -31,6 +33,7 @@ public class ServiciosProgmsPostFactory {
                         install(JdbcHelper.PostgreSQL);                        
                         setClassPathResource("mybatis-config.xml");                        
                         bind(ServiciosProgmsPost.class).to(ServiciosProgmsPostImpl.class);
+                        bind(ProgramaDAO.class).to(MyBatisProgramaDAO.class);
                         bind(RecursoDAO.class).to(MyBatisRecursoDAO.class);
                         bind(ClaseDAO.class).to(MyBatisClaseDAO.class);
                 }
@@ -45,6 +48,7 @@ public class ServiciosProgmsPostFactory {
                         install(JdbcHelper.PostgreSQL);                        
                         setClassPathResource("mybatis-config-h2.xml");                        
                         bind(ServiciosProgmsPost.class).to(ServiciosProgmsPostImpl.class);
+                        bind(ProgramaDAO.class).to(MyBatisProgramaDAO.class);
                         bind(RecursoDAO.class).to(MyBatisRecursoDAO.class);
                         bind(ClaseDAO.class).to(MyBatisClaseDAO.class);
                 }

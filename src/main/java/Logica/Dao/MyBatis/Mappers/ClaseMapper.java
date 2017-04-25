@@ -29,12 +29,12 @@ public interface ClaseMapper {
     public Clase consultarClase(@Param("idclase") int id);
     
     /**
+     * @param anio
      * @obj consultar en la base de datos todas las clases asociadas a un año y un semestre
      * @return consulta de todas las clases
-     * @param año año del periodod academico
      * @param semestre semestre del periodo academico 1 o 2
      */
-    public List<Clase> consultarClases(@Param("año") int año,
+    public List<Clase> consultarClases(@Param("anio") int anio,
             @Param("semestre") int semestre);
     
     /**

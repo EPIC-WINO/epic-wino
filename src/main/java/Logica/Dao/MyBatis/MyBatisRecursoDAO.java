@@ -5,7 +5,6 @@
  */
 package Logica.Dao.MyBatis;
 
-import Logica.Dao.MyBatis.Mappers.ClaseMapper;
 import Logica.Dao.MyBatis.Mappers.RecursoMapper;
 import Logica.Dao.PersistenceException;
 import Logica.Dao.RecursoDAO;

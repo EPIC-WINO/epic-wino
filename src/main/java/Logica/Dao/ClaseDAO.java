@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Logica.Dao;
 
 import Logica.Entidades.Clase;
 import Logica.Entidades.RecursoConcedido;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +14,7 @@ public interface ClaseDAO {
     
     public Clase load(int id) throws PersistenceException;
     
-    public List<Clase> loadClasesPA(int año, int semestre) throws PersistenceException;
+    public List<Clase> loadClasesPA(int anio, int semestre) throws PersistenceException;
     
     public List<RecursoConcedido> loadRecursosConcedidos(int idCl) throws PersistenceException;
     

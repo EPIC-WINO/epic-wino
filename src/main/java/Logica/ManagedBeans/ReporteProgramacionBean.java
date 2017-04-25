@@ -37,7 +37,7 @@ public class ReporteProgramacionBean implements Serializable {
     public ReporteProgramacionBean() {
         LOGGER.log(Level.FINEST, "Se instancia {0}", this.getClass().getName());
         
-        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy(); // FIXME BORRAR
+        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
     }
     
     @PostConstruct
