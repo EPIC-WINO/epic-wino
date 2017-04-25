@@ -8,12 +8,33 @@ and open the template in the editor.
     Author     : fabian
 */
 h1 {
-    font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
-    font-weight: normal;
-    font-size: 1.75em;
+    font-family:  Times New Roman, Times, Garamond, Georgia, Cambria;
+    font-weight: bold;
+    color: #CC0000;
+    font-size: 2.75em;
     letter-spacing: .2em;
-    line-height: 1.1em;
+    line-height: 2.1em;
     margin:0px;
     text-align: center;
     text-transform: uppercase;
+}
+
+p{
+    font-family:  Times New Roman, Times, Garamond, Georgia, Cambria;
+    font-weight: normal;
+    color: black;
+    font-size: 1.75em;
+    letter-spacing: .2em;
+    line-height: 2.1em;
+    margin:0px;
+    text-align: center;
+}
+.imagen{
+    background-image:url(\imagenes\LogoECI.jgp);
+    background-position:top center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    width:150px;
+    height:100px;
+    display:block;
 }
