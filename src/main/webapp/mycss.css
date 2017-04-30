@@ -11,10 +11,10 @@ h1 {
     
     font-weight: bold;
     color: #990000;
-    font-size: 2.75em;
+    font-size: 40px;
     letter-spacing: .2em;
     line-height: 2.1em;
-    margin:0px;
+    margin: 0 0 20px 0;
     text-align: center;
     text-transform: uppercase;
 }
@@ -23,7 +23,7 @@ h2 {
     
     font-weight: bold;
     color: #CC0000;
-    font-size: 1.80em;
+    font-size: 10px;
     letter-spacing: .2em;
     line-height: 3.1em;
     margin:0px;
@@ -31,10 +31,10 @@ h2 {
     text-transform: uppercase;
 }
 
-p{
+p {
     font-weight: normal;
     color: black;
-    font-size: 1.75em;
+    font-size: 4px;
     letter-spacing: .2em;
     line-height: 2.1em;
     margin:0px;
@@ -63,20 +63,40 @@ body {
     border-bottom: 3px solid #990000;
 }
 .label {
-    display: block;
-    margin: 0 auto 0 auto;
+    display: inline;
+    margin: 60px auto 0 auto;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-size: 30px;
-    padding: 30px 0 20px 0;
+    font-size: 20px;
+    padding: 70px 20px 10px 70px;
     text-align: center;
     color: black;
 }
 .input {
-    display: block;
+    display: inline;
+    font-size: 20px;
     margin: 0 auto 0 auto;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     margin-bottom: 20px;
 }
 .content .button {
+    display: inline;
     margin: 30px;
+    color: #990000;
+}
+.header img {
+    padding: 2px 0 2px 2px;
+}
+.table {
+    max-width: 98%;
+    margin: auto;
+    padding-bottom: 13px;
+    padding-top: 20px;
+}
+.content .button:hover {
+    background-color: #E3E3E3;
+    -webkit-box-shadow: 0px 0px 7px 0px #990000;
+}
+.content .button:after {
+    background-color: #E2E2E2;
+    -webkit-box-shadow: none;
 }

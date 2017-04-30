@@ -48,7 +48,7 @@ public class ReporteRecursosBean implements Serializable {
     
     public ReporteRecursosBean() {
         LOGGER.log(Level.FINEST, "Se instancia {0}", this.getClass().getName());
-        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
+        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
     }
     
    
