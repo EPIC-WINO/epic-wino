@@ -78,6 +78,10 @@ body {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     margin-bottom: 20px;
 }
+.input:focus {
+    border: 1px solid #990000;
+    -webkit-box-shadow: 0px 0px 7px 0px #990000;
+}
 .content .button {
     display: inline;
     margin: 30px;
@@ -92,13 +96,13 @@ body {
     padding-bottom: 13px;
     padding-top: 20px;
 }
-.content .button:hover {
+.content .button:hover, .content .button:focus {
     background-color: #D8D8D8;
     -webkit-box-shadow: 0px 0px 7px 0px #990000;
 }
-.content .button:after {
+.content .button::after {
     background-color: #D8D8D8;
-    -webkit-box-shadow: none;
+    -webkit-box-shadow: 0px 0px 7px 0px #990000;
 }
 .columnText {
     color: #990000;
