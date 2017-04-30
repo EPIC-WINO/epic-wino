@@ -21,7 +21,6 @@
                 <p:inputText id="Semestre" value="#{ReporteRecursosBean.semestre}" label="Semestre" styleClass="input"/>
                 <p:commandButton  value="Mostrar" update="ReporteRecursos" actionListener="#{ReporteRecursosBean.actualizarReporte()}" styleClass="button"/>
                 <p:dataTable    var="recurso" value="#{ReporteRecursosBean.recursos}" styleClass="table" >
-
                     <p:column  style="width:16px;text-align:center"/> 
                      <p:column headerText="Recurso" styleClass="columnText">
                          <h:outputText value="#{recurso.recurso.nombre}" />
