@@ -1,0 +1,82 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 25, 2017, 1:22:44 AM
+    Author     : fabian
+*/
+h1 {
+    
+    font-weight: bold;
+    color: #990000;
+    font-size: 2.75em;
+    letter-spacing: .2em;
+    line-height: 2.1em;
+    margin:0px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+h2 {
+    
+    font-weight: bold;
+    color: #CC0000;
+    font-size: 1.80em;
+    letter-spacing: .2em;
+    line-height: 3.1em;
+    margin:0px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+p{
+    font-weight: normal;
+    color: black;
+    font-size: 1.75em;
+    letter-spacing: .2em;
+    line-height: 2.1em;
+    margin:0px;
+    text-align: center;
+}
+body {
+    margin: 0;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    background-image: url("../images/escuela.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.content {
+    align-self: center;
+    background-color: white;
+    display: block;
+    max-width: 85%;
+    margin: auto;
+    border: 2px solid #990000;
+    position: relative;
+}
+.header {
+    background-color: white;
+    display: block;
+    border-bottom: 3px solid #990000;
+}
+.label {
+    display: block;
+    margin: 0 auto 0 auto;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 30px;
+    padding: 30px 0 20px 0;
+    text-align: center;
+    color: black;
+}
+.input {
+    display: block;
+    margin: 0 auto 0 auto;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    margin-bottom: 20px;
+}
+.content .button {
+    margin: 30px;
+}
