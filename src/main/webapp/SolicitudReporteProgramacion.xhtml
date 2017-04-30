@@ -8,22 +8,16 @@
     </h:head>
     <h:body>
         <div class="header">
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
+            <img src="/images/logo.jpg" alt="Escuela Colombiana de Ingenieria Julio Garavito"/>
         </div>
-        <br></br>
-        <br></br>
         <div class="content">            
             <h1>Reporte de Programación</h1>
-            <p:outputLabel fro="Anio" value="Indique el año" styleClass="label"/>
+            <p:outputLabel fro="Anio" value="Año" styleClass="label"/>
             <p:inputText id="Anio" value="#{reporteBean.anio}" label="AñodelPrograma" styleClass="input"/>      
-            <p:outputLabel for="Semestre" value="Indique el semestre" styleClass="label"/>          
+            <p:outputLabel for="Semestre" value="Semestre" styleClass="label"/>          
             <p:inputText id="Semestre" value="#{reporteBean.semestre}" label="SemestredelPrograma" styleClass="input"/>            
-            <center>
-                <p:commandButton action ="#{reporteBean.cambiarVista()}" title="Mostrar" value="Mostrar" styleClass="button"/>
-            </center>
+            <p:commandButton action ="#{reporteBean.cambiarVista()}" title="Mostrar" value="Mostrar" styleClass="button"/>
+
         </div>
     </h:body>
 </html>
