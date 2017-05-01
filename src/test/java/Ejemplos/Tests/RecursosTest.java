@@ -36,13 +36,13 @@ public class RecursosTest {
     @Before
     public void setUp() {
     }
-    /*
+    /**
     @Test
     public void CE1() throws ExcepcionServiciosProgmsPost {
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Recurso rc1 = new Recurso(50, "Computadores Portatiles", "Ordenador pequeño personal transportable",48);
-        Recurso rc2 = new Recurso(51, "Equipo Teleconferencia", "Permite el intercambio de informacion entre maquinas",9);
+        Recurso rc1 = new Recurso(50, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "");
+        Recurso rc2 = new Recurso(51, "Equipo Teleconferencia", "Permite el intercambio de informacion entre maquinas",9, "");
         sp.registrarRecurso(rc1);sp.registrarRecurso(rc2);
         
         Clase cl = new Clase(40,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
@@ -113,5 +113,5 @@ public class RecursosTest {
                     + "cuando esta se debe los diferentes recursos a la misma clase."
                     ,rccs.next().getRecurso().getId()!=rccs.next().getRecurso().getId());
     }
-    */
+    **/
 }
