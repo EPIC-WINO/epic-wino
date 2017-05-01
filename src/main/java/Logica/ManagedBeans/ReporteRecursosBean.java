@@ -1,27 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Logica.ManagedBeans;
 
-
-/**
- *
- * @author juan
- */
-
-import Logica.Entidades.Asignatura;
-import Logica.Entidades.Clase;
-import Logica.Entidades.Materia;
-import Logica.Entidades.Profesor;
-import Logica.Entidades.Programa;
-import Logica.Entidades.RecursoConcedido;
-import Logica.Servicios.ExcepcionServiciosProgmsPost;
+import Logica.Entidades.Recurso;
 import Logica.Servicios.ServiciosProgmsPost;
 import Logica.Servicios.ServiciosProgmsPostFactory;
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,19 +13,21 @@ import javax.faces.bean.SessionScoped;
 
 /**
  *
+ * @author Juan Andrade
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
 @ManagedBean(name = "reporterecursosbean")
 @SessionScoped
-public class ReporteRecursosBean implements Serializable {
+public class ReporteRecursosBean implements Serializable { // FIXME logica cambio
     
     private static final Logger LOGGER = Logger.getLogger(ReporteProgramacionBean.class.getName());
+    private static final long serialVersionUID = 1L;
     
     private final ServiciosProgmsPost servProg;
     
     private int anio;
     private int semestre;
-    private List<RecursoConcedido> recursos;
+    private List<Recurso> recursos;
     
     
     public ReporteRecursosBean() {
@@ -52,17 +36,13 @@ public class ReporteRecursosBean implements Serializable {
     }
     
    
-    public List<RecursoConcedido> getRecursos(int anio,int semestre){
-        ArrayList<RecursoConcedido> x=new ArrayList<RecursoConcedido>();
-        try {
-            x=(ArrayList<RecursoConcedido>)servProg.consultarRecursosConcedidos( anio, semestre);
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.log(Level.SEVERE, "Error consultando programas", ex);
-        }
+    public List<Recurso> getRecursos(int anio,int semestre){
+        ArrayList<Recurso> x=new ArrayList<>();
+        
         return x;
         
     }
-    public void setRecursos(List<RecursoConcedido> recursos){
+    public void setRecursos(List<Recurso> recursos){
         this.recursos=recursos;
     }
     

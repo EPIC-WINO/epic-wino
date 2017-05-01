@@ -25,9 +25,10 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "reporteBean")
 @SessionScoped
-public class ReporteProgramacionBean implements Serializable {
+public class ReporteProgramacionBean implements Serializable { // FIXME logica cambio
     
     private static final Logger LOGGER = Logger.getLogger(ReporteProgramacionBean.class.getName());
+    private static final long serialVersionUID = 1L;
     
     private final ServiciosProgmsPost servProg;
     
@@ -69,7 +70,7 @@ public class ReporteProgramacionBean implements Serializable {
                 + "semestre: {1})", new int[]{anio, semestre});
         List<Programa> r = null;
         try {
-            r = servProg.consultarProgramas(anio, semestre);
+            r = servProg.consultarProgramas(anio*10 + semestre);
         } catch (ExcepcionServiciosProgmsPost ex) {
             LOGGER.log(Level.SEVERE, "Error consultando programas", ex);
         }

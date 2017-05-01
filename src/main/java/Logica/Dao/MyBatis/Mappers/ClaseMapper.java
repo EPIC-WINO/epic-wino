@@ -6,7 +6,7 @@
 package Logica.Dao.MyBatis.Mappers;
 
 import Logica.Entidades.Clase;
-import Logica.Entidades.RecursoConcedido;
+import Logica.Entidades.Recurso;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -42,7 +42,7 @@ public interface ClaseMapper {
      * @param idCl identificador de la clase
      * @return recursos prestados a la clase
      */
-    public List<RecursoConcedido> consultarRecursosConcedidos(@Param("idclase") int idCl);
+    public List<Recurso> consultarRecursosConcedidos(@Param("idclase") int idCl); // FIXME logica cambio
     
     /**
      * @obj agregar a la base de datos un recurso requerido por una clase para realizarse

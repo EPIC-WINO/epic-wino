@@ -7,7 +7,6 @@ package Ejemplos.Tests;
 
 import Logica.Entidades.Clase;
 import Logica.Entidades.Recurso;
-import Logica.Entidades.RecursoConcedido;
 import Logica.Servicios.ExcepcionServiciosProgmsPost;
 import Logica.Servicios.ServiciosProgmsPost;
 import Logica.Servicios.ServiciosProgmsPostFactory;

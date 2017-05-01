@@ -8,12 +8,12 @@ import Logica.Entidades.Materia;
 import Logica.Entidades.Profesor;
 import Logica.Entidades.Programa;
 import Logica.Entidades.Recurso;
-import Logica.Entidades.RecursoConcedido;
 import Logica.Servicios.ExcepcionServiciosProgmsPost;
 import Logica.Servicios.ServiciosProgmsPost;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -84,30 +84,70 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         
         programas.add(p);
     }
-    
+
     @Override
-    public List<RecursoConcedido> consultarRecursosConcedidos(int anio, int semestre) throws ExcepcionServiciosProgmsPost {
+    public void registrarMateria(Materia materia) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void registrarClase(Clase c) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void registrarRecurso(Recurso rec) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void registrarPrestamoClase(int clase, Recurso rec) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Programa> consultarProgramas(int anio, int semestre) throws ExcepcionServiciosProgmsPost {
+    public List<Programa> consultarProgramas(int periodo) throws ExcepcionServiciosProgmsPost {
         return programas;
+    }
+
+    @Override
+    public void agregarClase(Materia materia, Clase clase) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Materia> consultarMaterias(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Recurso> consultarRecursos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean consultarDisponibilidadRecurso(Recurso recurso, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Profesor> consultarProfesores(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean consultarDisponibilidadProfesor(Profesor profesor, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Asignatura> consultarAsignaturas(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registrarAsignatura(Asignatura asignatura) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Materia> consultarPrerrequisitos(Materia materia) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Materia> consultarCorrequisitos(Materia materia) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Integer> consultarPeriodos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
