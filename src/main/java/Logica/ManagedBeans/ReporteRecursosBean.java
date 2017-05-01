@@ -34,14 +34,17 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
         LOGGER.log(Level.FINEST, "Se instancia {0}", this.getClass().getName());
         servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
     }
-    
    
     public List<Recurso> getRecursos(int anio,int semestre){
         ArrayList<Recurso> x=new ArrayList<>();
-        
         return x;
-        
     }
+    
+    public List<Integer> getAnios(){
+        List<Integer> m = servProg.periodos();
+        return m;
+    }
+    
     public void setRecursos(List<Recurso> recursos){
         this.recursos=recursos;
     }
