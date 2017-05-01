@@ -19,14 +19,15 @@
                 <h1>Reporte de Recursos</h1>
                 <p:outputLabel for="anio" value="Año" styleClass="label"/>
                 <p:selectOneMenu id="anio" value="#{ReporteRecursosBean.anio}">
-                    <f:selectItem itemLabel="Option 1" />
+                    <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{ReporteRecursosBean.anios}" />
                 </p:selectOneMenu>
-                <!--<p:inputText id="anio" value="#{ReporteRecursosBean.anio}" label="Ano" styleClass="input"/>-->
                 <p:outputLabel for="Semestre" value="Semestre" styleClass="label"/>
                 <p:selectOneMenu id="Semestre" value="#{ReporteRecursosBean.semestre}">
-                    <f:selectItem itemLabel="Option 1" />
-                </p:selectOneMenu>
-                 <!--<p:inputText id="Semestre" value="#{ReporteRecursosBean.semestre}" label="Semestre" styleClass="input"/>-->
+                    <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="1" />
+                    <f:selectItems value="2" />
+                </p:selectOneMenu>         
                 <p:commandButton  value="Mostrar" update="ReporteRecursos" actionListener="#{ReporteRecursosBean.actualizarReporte()}" styleClass="button"/>
                 <p:dataTable    var="recurso" value="#{ReporteRecursosBean.recursos}" styleClass="table" >
                     <p:column  style="width:16px;text-align:center"/> 

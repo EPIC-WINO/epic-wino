@@ -5,7 +5,9 @@ import Logica.Servicios.ServiciosProgmsPost;
 import Logica.Servicios.ServiciosProgmsPostFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -40,10 +42,20 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
         return x;
     }
     
-    public List<Integer> getAnios(){
-        List<Integer> m = servProg.periodos();
-        return m;
+    public Map<Integer,Integer> getAnios(){
+        Map<Integer,Integer> periodos  = new HashMap<Integer,Integer>();
+        List<Integer> periods = servProg.consultarPeriodos();
+        for (Integer i : periods) {
+            if (i%2 == 0){
+                i = (i-2)/10;
+            } else {
+                i = (i-1)/10;
+            }
+            periodos.put(i, i);
+        }
+        return periodos;
     }
+  
     
     public void setRecursos(List<Recurso> recursos){
         this.recursos=recursos;
