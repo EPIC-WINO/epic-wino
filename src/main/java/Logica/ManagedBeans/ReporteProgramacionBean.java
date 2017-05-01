@@ -31,13 +31,14 @@ public class ReporteProgramacionBean implements Serializable {
     
     private final ServiciosProgmsPost servProg;
     
+    private String programa;
     private int anio;
     private int semestre;
     
     public ReporteProgramacionBean() {
         LOGGER.log(Level.FINEST, "Se instancia {0}", this.getClass().getName());
         
-        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
+        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
     }
     
     @PostConstruct
@@ -49,8 +50,10 @@ public class ReporteProgramacionBean implements Serializable {
         List<Materia> m = new ArrayList<>();
         
         for(Programa p : this.getProgramas()) {
-            for(Asignatura a: p.getAsignaturas()) {
-                m.addAll(a.getMaterias());
+            if (p.getNombre() == this.programa) {
+                for(Asignatura a: p.getAsignaturas()) {
+                    m.addAll(a.getMaterias());
+                }
             }
         }
         
@@ -172,6 +175,14 @@ public class ReporteProgramacionBean implements Serializable {
         }
         
         return r;
+    }
+    
+    public void setPrograma(String prog) {
+        this.programa = prog;
+    }
+    
+    public String getPrograma() {
+        return this.programa;
     }
 
     /**
