@@ -131,4 +131,26 @@ public interface ServiciosProgmsPost {
      * @return lista no nula de los periodos registrados
      */
     List<Integer> consultarPeriodos();
+    
+    /**
+     * @obj registrar un nuevo recurso
+     * @param recurso a ser registrado
+     * @throws ExcepcionServiciosProgmsPost el recurso ya existe ; 
+     * esta mal definido un atributo o no esta definido en primer lugar
+     * @throws NullPointerException el recurso es null
+     */
+    void registrarRecurso(Recurso recurso) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * @obj registrar el uso de un recurso a una clase
+     * @param recurso a ser prestado
+     * @param clase a la cual va a ser prestado el recurso
+     * @throws ExcepcionServiciosProgmsPost el recurso ya esta asignado a la clase ;
+     * no esta disponible el recurso para la hora de la clase ; 
+     * el recurso no existe ; la clase no existe ;
+     * algun atributo de la clase o el recurso no esta bien definido o no esta
+     * definido en primer lugar ;
+     * @throws NullPointerException algun parametro es null
+     */
+    void registrarPrestamoRecursoClase(Recurso recurso, Clase clase) throws ExcepcionServiciosProgmsPost;
 }

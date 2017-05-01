@@ -151,5 +151,15 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     public List<Integer> consultarPeriodos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void registrarRecurso(Recurso recurso) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registrarPrestamoRecursoClase(Recurso recurso, Clase clase) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
