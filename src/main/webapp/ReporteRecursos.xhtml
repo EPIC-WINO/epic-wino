@@ -22,18 +22,18 @@
                 <p:commandButton  value="Mostrar" update="ReporteRecursos" actionListener="#{ReporteRecursosBean.actualizarReporte()}" styleClass="button"/>
                 <p:dataTable    var="recurso" value="#{ReporteRecursosBean.recursos}" styleClass="table" >
                     <p:column  style="width:16px;text-align:center"/> 
-                     <p:column headerText="Recurso" styleClass="columnText">
-                         <h:outputText value="#{recurso.recurso.nombre}" />
-                     </p:column>
-                     <p:column headerText="Descripcion" styleClass="columnText">
-                     <h:outputText value="#{recurso.recurso.descripcion}" />
-                      </p:column>
-                     <p:column headerText="Fecha de utilización" styleClass="columnText">
-                     <h:outputText value="#{recurso.clase.fecha}" />
-                     </p:column>
-                     <p:column headerText="Hora de uso" styleClass="columnText">
-                         <h:outputText value="#{recurso.clase.hora}" />
-                     </p:column>
+                    <p:column headerText="Recurso" styleClass="columnText">
+                        <h:outputText value="#{recurso.recurso.nombre}" />
+                    </p:column>
+                    <p:column headerText="Descripcion" styleClass="columnText">
+                        <h:outputText value="#{recurso.recurso.descripcion}" />
+                    </p:column>
+                    <p:column headerText="Fecha de utilización" styleClass="columnText">
+                        <h:outputText value="#{recurso.clase.fecha}" />
+                    </p:column>
+                    <p:column headerText="Hora de uso" styleClass="columnText">
+                        <h:outputText value="#{recurso.clase.hora}" />
+                    </p:column>
                 </p:dataTable>
             </h:form>
         </div>
