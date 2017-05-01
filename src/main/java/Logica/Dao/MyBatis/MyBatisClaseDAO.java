@@ -9,8 +9,9 @@ import Logica.Dao.ClaseDAO;
 import Logica.Dao.MyBatis.Mappers.ClaseMapper;
 import Logica.Dao.PersistenceException;
 import Logica.Entidades.Clase;
-import Logica.Entidades.RecursoConcedido;
+import Logica.Entidades.Recurso;
 import com.google.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,8 +39,8 @@ public class MyBatisClaseDAO implements ClaseDAO {
     }
 
     @Override
-    public List<RecursoConcedido> loadRecursosConcedidos(int idCl) throws PersistenceException {
-        return null; // TODO implementar
+    public List<Recurso> loadRecursosConcedidos(int idCl) throws PersistenceException { // FIXME logica cambio
+        return new ArrayList<>(); // TODO implementar
     }
 
     @Override

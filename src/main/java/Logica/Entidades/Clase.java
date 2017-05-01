@@ -9,12 +9,12 @@ import java.util.ArrayList;
  *
  * @author Esteban
  */
-public class Clase implements Serializable{
+public class Clase implements Serializable{ // FIXME logica cambio
     private int id;
     private Date fecha;
     private Time hora_inicio;
     private Time hora_fin;
-    private ArrayList<RecursoConcedido> recursos;
+    private ArrayList<Recurso> recursos;
     private Materia materia;
 
     public Clase(int id, Date fecha, Time hora_inicio, Time hora_fin) {
@@ -25,7 +25,7 @@ public class Clase implements Serializable{
         this.recursos = new ArrayList<>();
     }
 
-    public Clase(int id, Date fecha, Time hora_inicio, Time hora_fin, ArrayList<RecursoConcedido> recursos) {
+    public Clase(int id, Date fecha, Time hora_inicio, Time hora_fin, ArrayList<Recurso> recursos) {
         this.id = id;
         this.fecha = fecha;
         this.hora_inicio = hora_inicio;
@@ -65,11 +65,11 @@ public class Clase implements Serializable{
         this.hora_fin = hora_fin;
     }
 
-    public ArrayList<RecursoConcedido> getRecursos() {
+    public ArrayList<Recurso> getRecursos() {
         return recursos;
     }
 
-    public void setRecursos(ArrayList<RecursoConcedido> recursos) {
+    public void setRecursos(ArrayList<Recurso> recursos) {
         this.recursos = recursos;
     }
     

@@ -1,19 +1,20 @@
 package Logica.Servicios.impl;
 
 import Logica.Dao.ClaseDAO;
-import Logica.Dao.PersistenceException;
 import Logica.Dao.ProgramaDAO;
 import Logica.Dao.RecursoDAO;
+import Logica.Entidades.Asignatura;
 import Logica.Entidades.Clase;
+import Logica.Entidades.Materia;
+import Logica.Entidades.Profesor;
 import Logica.Entidades.Programa;
 import Logica.Entidades.Recurso;
-import Logica.Entidades.RecursoConcedido;
 import Logica.Servicios.ExcepcionServiciosProgmsPost;
 import Logica.Servicios.ServiciosProgmsPost;
 import com.google.inject.Inject;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -33,55 +34,71 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost{
     
     @Inject 
     private ProgramaDAO daoPrograma;
+
+    @Override
+    public void registrarMateria(Materia materia) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Programa> consultarProgramas(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void agregarClase(Materia materia, Clase clase) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Materia> consultarMaterias(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Recurso> consultarRecursos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean consultarDisponibilidadRecurso(Recurso recurso, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Profesor> consultarProfesores(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean consultarDisponibilidadProfesor(Profesor profesor, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Asignatura> consultarAsignaturas(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registrarAsignatura(Asignatura asignatura) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Materia> consultarPrerrequisitos(Materia materia) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Materia> consultarCorrequisitos(Materia materia) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Integer> consultarPeriodos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
-    @Override
-    public List<RecursoConcedido> consultarRecursosConcedidos(int anio, int semestre) throws ExcepcionServiciosProgmsPost {
-        try {
-            List<RecursoConcedido> rcs = new ArrayList<>();
-            List<Clase> clases = daoClase.loadClasesPA(anio, semestre);
-            for(Clase cl : clases){
-                rcs.addAll(cl.getRecursos());
-            }
-            return rcs;
-        } catch (PersistenceException ex) {
-            throw new ExcepcionServiciosProgmsPost("Error al consultar los recursos asociados al periodo "+anio+"-"+semestre,ex);
-        }
-    }
-
-    @Override
-    public void registrarClase(Clase c) throws ExcepcionServiciosProgmsPost {
-        try {
-            daoClase.save(c);
-        } catch (PersistenceException ex) {
-            throw new ExcepcionServiciosProgmsPost("Error al consultar la clase con identificador "+c.getId(),ex);
-        }
-    }
-
-    @Override
-    public void registrarRecurso(Recurso rec) throws ExcepcionServiciosProgmsPost {
-        try {
-            daoRecurso.save(rec);
-        } catch (PersistenceException ex) {
-            throw new ExcepcionServiciosProgmsPost("Error al registrar el recurso: "+rec.getNombre(),ex);
-        }
-    }
-
-    @Override
-    public void registrarPrestamoClase(int clase, Recurso rec) throws ExcepcionServiciosProgmsPost {
-        try {
-            daoClase.saveRecursoConcedido(clase, rec.getId());
-        } catch (PersistenceException ex) {
-            throw new ExcepcionServiciosProgmsPost("Error al prestar el recurso: "+rec.getNombre(),ex);
-        }
-    }
-
-    @Override
-    public List<Programa> consultarProgramas(int anio, int semestre) throws ExcepcionServiciosProgmsPost {
-        try {
-            return daoPrograma.loadProgramas(anio, semestre);
-        } catch (PersistenceException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
-            throw new ExcepcionServiciosProgmsPost("Error obteniendo los programas", ex);
-        }
-    }
+    
 }

@@ -13,18 +13,22 @@ import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
 import Logica.Servicios.impl.ServiciosProgmsPostImpl;
+import org.apache.log4j.Category;
 
 /**
  *
  * @author Esteban
  */
+@SuppressWarnings("deprecation")
 public class ServiciosProgmsPostFactory {
     
-    private static ServiciosProgmsPostFactory instance = new ServiciosProgmsPostFactory();
+    private static final Category LOG = Category.getInstance(ServiciosProgmsPostFactory.class.getName());
+    private static final ServiciosProgmsPostFactory INSTANCE = new ServiciosProgmsPostFactory();
     private static Injector injector;
     private static Injector testInjector;
 
     private ServiciosProgmsPostFactory() {
+        LOG.debug("Se instancia " + ServiciosProgmsPostFactory.class.getName());
         
         injector = createInjector(new XMLMyBatisModule() {
                 
@@ -55,6 +59,8 @@ public class ServiciosProgmsPostFactory {
         
             }
         );
+        
+        LOG.debug("Se instancian los injectors correctamente");
     }
     
     public ServiciosProgmsPost getServiciosProgmsPost(){
@@ -70,10 +76,8 @@ public class ServiciosProgmsPostFactory {
         return new ServiciosProgmsPostDummy();
     }
 
-
-    
     public static ServiciosProgmsPostFactory getInstance(){
-        return instance;
+        return INSTANCE;
     }
     
 }

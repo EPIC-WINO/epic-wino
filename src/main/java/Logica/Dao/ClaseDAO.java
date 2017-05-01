@@ -1,14 +1,14 @@
 package Logica.Dao;
 
 import Logica.Entidades.Clase;
-import Logica.Entidades.RecursoConcedido;
+import Logica.Entidades.Recurso;
 import java.util.List;
 
 /**
  *
  * @author Esteban
  */
-public interface ClaseDAO {
+public interface ClaseDAO { // FIXME corregir
     
     public void save(Clase c) throws PersistenceException;
     
@@ -16,7 +16,7 @@ public interface ClaseDAO {
     
     public List<Clase> loadClasesPA(int anio, int semestre) throws PersistenceException;
     
-    public List<RecursoConcedido> loadRecursosConcedidos(int idCl) throws PersistenceException;
+    public List<Recurso> loadRecursosConcedidos(int idCl) throws PersistenceException;
     
     public void saveRecursoConcedido(int idCl, int idRe) throws PersistenceException;
 }
