@@ -18,14 +18,14 @@ import javax.faces.bean.SessionScoped;
  * @author Juan Andrade
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
-@ManagedBean(name = "reporterecursosbean")
+@ManagedBean(name = "reporteRecursoBean")
 @SessionScoped
 public class ReporteRecursosBean implements Serializable { // FIXME logica cambio
     
     private static final Logger LOGGER = Logger.getLogger(ReporteProgramacionBean.class.getName());
     private static final long serialVersionUID = 1L;
     
-    private final ServiciosProgmsPost servProg;
+    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
     
     private int anio;
     private int semestre;
@@ -34,26 +34,27 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     
     public ReporteRecursosBean() {
         LOGGER.log(Level.FINEST, "Se instancia {0}", this.getClass().getName());
-        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
     }
    
-    public List<Recurso> getRecursos(int anio,int semestre){
-        ArrayList<Recurso> x=new ArrayList<>();
-        return x;
+    public List<Recurso> getRecursos(){
+        return servProg.consultarRecursos();
     }
     
     public Map<Integer,Integer> getAnios(){
-        Map<Integer,Integer> periodos  = new HashMap<Integer,Integer>();
+        Map<Integer,Integer> periodos  = new HashMap<>();
         List<Integer> periods = servProg.consultarPeriodos();
         for (Integer i : periods) {
-            if (i%2 == 0){
-                i = (i-2)/10;
-            } else {
-                i = (i-1)/10;
-            }
+            i /= 10;
             periodos.put(i, i);
         }
         return periodos;
+    }
+    
+    public Map<Integer, Integer> getSemestres() {
+        Map<Integer, Integer> m = new HashMap<>();
+        m.put(1, 1);
+        m.put(2, 2);
+        return m;
     }
   
     
@@ -76,7 +77,7 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
         LOGGER.log(Level.FINEST, "Se establece el anio (Antes: {0} | Despues: {1})", new int[]{this.anio, anio});
         this.anio = anio;
     }
-
+    
     /**
      * @return the semestre
      */
@@ -95,5 +96,9 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     }
     
     
+    
+    public void actualizarReporte() {
+        // TODO implementar
+    }
     
 }

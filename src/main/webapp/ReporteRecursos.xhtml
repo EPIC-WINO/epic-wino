@@ -19,30 +19,29 @@
             <h:form id="ReporteRecursos" style="text-align: center;"> 
                 <h1>Reporte de Recursos</h1>
                 <p:outputLabel for="anio" value="Año" styleClass="label"/>
-                <p:selectOneMenu id="anio" value="#{ReporteRecursosBean.anio}">
+                <p:selectOneMenu id="anio" value="#{reporteRecursoBean.anio}">
                     <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{ReporteRecursosBean.anios}" />
+                    <f:selectItems value="#{reporteRecursoBean.anios}" />
                 </p:selectOneMenu>
-                <p:outputLabel for="Semestre" value="Semestre" styleClass="label"/>
-                <p:selectOneMenu id="Semestre" value="#{ReporteRecursosBean.semestre}">
-                    <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true" />
-                    <f:selectItems value="1" />
-                    <f:selectItems value="2" />
+                <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>
+                <p:selectOneMenu id="semestre" value="#{reporteRecursoBean.semestre}">
+                    <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{reporteRecursoBean.semestres}" />
                 </p:selectOneMenu>         
-                <p:commandButton  value="Mostrar" update="ReporteRecursos" actionListener="#{ReporteRecursosBean.actualizarReporte()}" styleClass="button"/>
-                <p:dataTable    var="recurso" value="#{ReporteRecursosBean.recursos}" styleClass="table" >
+                <p:commandButton  value="Mostrar" update="ReporteRecursos" actionListener="#{reporteRecursoBean.actualizarReporte()}" styleClass="button"/>
+                <p:dataTable    var="recurso" value="#{reporteRecursoBean.recursos}" styleClass="table" >
                     <p:column  style="width:16px;text-align:center"/> 
                     <p:column headerText="Recurso" styleClass="columnText">
-                        <h:outputText value="#{recurso.recurso.nombre}" />
+                        <h:outputText value="#{recurso.nombre}" />
                     </p:column>
                     <p:column headerText="Descripcion" styleClass="columnText">
-                        <h:outputText value="#{recurso.recurso.descripcion}" />
+                        <h:outputText value="" />
                     </p:column>
                     <p:column headerText="Fecha de utilización" styleClass="columnText">
-                        <h:outputText value="#{recurso.clase.fecha}" />
+                        <h:outputText value="" />
                     </p:column>
                     <p:column headerText="Hora de uso" styleClass="columnText">
-                        <h:outputText value="#{recurso.clase.hora}" />
+                        <h:outputText value="" />
                     </p:column>
                 </p:dataTable>
             </h:form>
