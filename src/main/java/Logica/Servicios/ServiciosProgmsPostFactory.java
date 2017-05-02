@@ -30,7 +30,7 @@ public class ServiciosProgmsPostFactory {
     private ServiciosProgmsPostFactory() {
         LOG.debug("Se instancia " + ServiciosProgmsPostFactory.class.getName());
         
-        injector = createInjector(new XMLMyBatisModule() {
+        /*injector = createInjector(new XMLMyBatisModule() {
                 
                 @Override
                 protected void initialize() {
@@ -58,18 +58,18 @@ public class ServiciosProgmsPostFactory {
                 }
         
             }
-        );
+        );*/
         
         LOG.debug("Se instancian los injectors correctamente");
     }
     
     public ServiciosProgmsPost getServiciosProgmsPost(){
-        return injector.getInstance(ServiciosProgmsPost.class);   
+        return null; //injector.getInstance(ServiciosProgmsPost.class);   
     }
 
 
     public ServiciosProgmsPost getServiciosProgmsPostTesting(){
-        return testInjector.getInstance(ServiciosProgmsPost.class);   
+        return null; //testInjector.getInstance(ServiciosProgmsPost.class);   
     }
     
     public ServiciosProgmsPost getServiciosProgmsPostDummy() {

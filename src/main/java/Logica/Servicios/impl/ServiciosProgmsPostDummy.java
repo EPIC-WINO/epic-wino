@@ -109,7 +109,14 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Recurso> consultarRecursos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Recurso> a = new ArrayList<>();
+        a.add(new Recurso(0, "Recurso 1", "des recurso", 5, "audiovisual"));
+        a.add(new Recurso(1, "Recurso 2", "des recurso", 5, "audiovisual"));
+        a.add(new Recurso(2, "Recurso 3", "des recurso", 5, "audiovisual"));
+        a.add(new Recurso(3, "Recurso 4", "des recurso", 5, "audiovisual"));
+        a.add(new Recurso(4, "Recurso 5", "des recurso", 5, "audiovisual"));
+        
+        return a;
     }
 
     @Override
@@ -149,7 +156,11 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Integer> consultarPeriodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Integer> a = new ArrayList<>();
+        a.add(20171);
+        a.add(20172);
+        a.add(20181);
+        return a;
     }
 
     @Override
