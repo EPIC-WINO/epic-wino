@@ -61,6 +61,9 @@ body {
     background-color: white;
     display: block;
     border-bottom: 3px solid #990000;
+    border-top: 3px solid #990000;
+    min-height: 120px;
+    
 }
 .cotent .layout {
     align-self: center;
@@ -131,3 +134,24 @@ body {
 .homeHeader img {
     float: left;
 }
+
+.optionsHeader {
+    text-decoration: none;
+    list-style: none;
+}
+
+.optionsHeader img {
+    float: left;
+    margin: auto 50px auto 10px;
+}
+
+.optionsHeader button {
+    border: 0;
+}
+
+.optionsHeader .barMenu {
+    text-align: center;
+    
+}
+
+
