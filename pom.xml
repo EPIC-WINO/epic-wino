@@ -45,7 +45,9 @@
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
-        </dependency>        
+        </dependency> 
+
+       <!-- logger -->       
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -69,6 +71,8 @@
             <artifactId>mybatis</artifactId>
             <version>3.2.2</version>
         </dependency>
+        
+        <!-- logger -->
         
         <!-- Dependencia de PostgreSQL -->
         <dependency>
