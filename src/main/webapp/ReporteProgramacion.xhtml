@@ -13,7 +13,10 @@
             <h1>Reporte de Programación</h1>
             <center>
                 <p:outputLabel for="programa" value="Programa" styleClass="label"/>
-                <p:inputText id="programa" value="#{reporteBean.programa}" label="AñodelPrograma" styleClass="input"/>
+                <p:selectOneMenu id="programa" value="#{reporteBean.programa}">
+                    <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{reporteBean.programas}" />
+                </p:selectOneMenu>
                 <p:outputLabel for="Anio" value="Año" styleClass="label"/>
                 <p:inputText id="Anio" value="#{reporteBean.anio}" label="AñodelPrograma" styleClass="input"/>      
                 <p:outputLabel for="Semestre" value="Semestre" styleClass="label"/>          
