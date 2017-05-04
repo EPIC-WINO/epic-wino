@@ -68,7 +68,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     public List<Programa> getProgramas() {
         LOGGER.log(Level.FINEST, "Se intenta obtener los programas (anio: {0}, "
                 + "semestre: {1})", new int[]{anio, semestre});
-        List<Programa> r = null;
+        List<Programa> r = null; 
         try {
             r = servProg.consultarProgramas(anio*10 + semestre);
         } catch (ExcepcionServiciosProgmsPost ex) {
