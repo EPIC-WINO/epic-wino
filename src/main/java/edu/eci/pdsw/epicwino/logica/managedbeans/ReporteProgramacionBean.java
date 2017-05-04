@@ -10,13 +10,16 @@ import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPostFactory;
 import java.io.Serializable;
 import java.sql.Time;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 /**
  *
@@ -37,7 +40,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     private int semestre;
     
     public ReporteProgramacionBean() {
-        LOGGER.log(Level.FINEST, "Se instancia {0}", this.getClass().getName());
+        LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
         
         servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
     }
@@ -50,13 +53,13 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     public List<Materia> getMaterias() { // TODO loggers
         List<Materia> m = new ArrayList<>();
         
-        for(Programa p : this.getProgramas()) {
+        /*for(Programa p : this.getProgramas()) {
             if (p.getNombre() == this.programa) {
                 for(Asignatura a: p.getAsignaturas()) {
                     m.addAll(a.getMaterias());
                 }
             }
-        }
+        }*/
         
         return m;
     }
@@ -65,42 +68,65 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         return null; // TODO implementar
     }
     
-    public List<Programa> getProgramas() {
-        LOGGER.log(Level.FINEST, "Se intenta obtener los programas (anio: {0}, "
-                + "semestre: {1})", new int[]{anio, semestre});
+    public Map<Integer,Integer> getAnios(){
+        LOGGER.debug("Se obtienen los anios");
+        Map<Integer,Integer> periodos  = new HashMap<>();
+        List<Integer> periods = servProg.consultarPeriodos();
+        for (Integer i : periods) {
+            i /= 10;
+            periodos.put(i, i);
+        }
+        return periodos;
+    }
+    
+    public Map<Integer, Integer> getSemestres() {
+        LOGGER.debug("Se obtienen los semestres");
+        Map<Integer, Integer> m = new HashMap<>();
+        m.put(1, 1);
+        m.put(2, 2);
+        return m;
+    }
+    
+    public Map<String,String> getProgramas() {
+        LOGGER.debug(MessageFormat.format("Se intenta obtener los programas (anio: {0}, "
+                + "semestre: {1})", anio, semestre));
         List<Programa> r = null; 
+        Map<String,String> programs  = new HashMap<>();
         try {
             r = servProg.consultarProgramas(anio*10 + semestre);
+            for (Programa p:r){
+                String n=p.getNombre();
+                programs.put(n,n);
+            }
         } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.log(Level.SEVERE, "Error consultando programas", ex);
+            LOGGER.error("Error consultando programas", ex);
         }
         
-        return r;
+        return programs;
     }
     
     public List<Asignatura> getAsignaturas(Programa programa) {
-        LOGGER.log(Level.FINEST, "Se intenta obtener las asignaturas del programa"
-                + "({0})", programa);
+        LOGGER.debug(MessageFormat.format("Se intenta obtener las asignaturas del programa"
+                + "({0})", programa));
         
         List<Asignatura> r = null;
         if (programa != null) {
             r = programa.getAsignaturas();
         } else {
-            LOGGER.log(Level.WARNING, "Error consultando asignaturas: el programa es null.");
+            LOGGER.error("Error consultando asignaturas: el programa es null.");
         }
         
         return r;
     }
     
     public List<Materia> getMaterias(Asignatura asignatura) {
-        LOGGER.log(Level.FINEST, "Se intenta obtener las materias de la asignatura"
-                + "({0})", asignatura);
-        
+        LOGGER.debug(MessageFormat.format("Se intenta obtener las materias de la asignatura"
+                + "({0})", asignatura));
         List<Materia> r = null;
         if (asignatura != null) {
             r = asignatura.getMaterias();
         } else {
-            LOGGER.log(Level.WARNING, "Error consultando materias: la asignatura es null.");
+             LOGGER.error("Error consultando materias: la asignatura es null.");
         }
         
         return r;
@@ -138,7 +164,8 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
      * @return the anio
      */
     public int getAnio() {
-        LOGGER.log(Level.FINEST, "Se obtiene el anio ({0})", anio);
+        LOGGER.debug(MessageFormat.format("Se obtiene el anio ({0})", anio));
+        
         return anio;
     }
 
@@ -146,7 +173,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
      * @param anio the anio to set
      */
     public void setAnio(int anio) {
-        LOGGER.log(Level.FINEST, "Se establece el anio (Antes: {0} | Despues: {1})", new int[]{this.anio, anio});
+        LOGGER.debug(MessageFormat.format("Se establece el anio (Antes: {0} | Despues: {1})", this.anio, anio));
         this.anio = anio;
     }
 
@@ -154,7 +181,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
      * @return the semestre
      */
     public int getSemestre() {
-        LOGGER.log(Level.FINEST, "Se obtiene el semestre ({0})", semestre);
+        LOGGER.debug(MessageFormat.format("Se obtiene el semestre ({0})", semestre));
         return semestre;
     }
 
@@ -162,15 +189,13 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
      * @param semestre the semestre to set
      */
     public void setSemestre(int semestre) {
-        LOGGER.log(Level.FINEST, "Se establece el semestre (Antes: {0} | "
-                + "Despues {1})", new int[]{this.semestre, semestre});
+        LOGGER.debug(MessageFormat.format("Se establece el semestre (Antes: {0} | "
+                + "Despues {1})", this.semestre, semestre));
         this.semestre = semestre;
-    }
+    }  
     
-    public String cambiarVista() {
-        return "ReporteProgramacion.xhtml";
-    }
-    
-    
-    
+    public void actualizarReporte(){
+        
+    } 
+
 }
