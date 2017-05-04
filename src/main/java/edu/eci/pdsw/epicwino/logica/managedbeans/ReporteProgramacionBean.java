@@ -67,7 +67,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     public Asignatura getAsignatura(Materia m) { // TODO loggers
         return null; // TODO implementar
     }
-    
+  
     public Map<Integer,Integer> getAnios(){
         LOGGER.debug("Se obtienen los anios");
         Map<Integer,Integer> periodos  = new HashMap<>();
