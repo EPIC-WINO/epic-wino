@@ -9,10 +9,11 @@ import Logica.Entidades.Programa;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
- * @author Esteban
+ * @author Esteban Murcia
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
 public interface ServiciosProgmsPost {
@@ -37,13 +38,19 @@ public interface ServiciosProgmsPost {
     
     /**
      * @obj agregar una clase a una materia determinada
-     * @param materia a agregarle la clase
+     * @param idMateria id de materia a agregarle la clase
      * @param clase a ser agregada
      * @throws ExcepcionServiciosProgmsPost algun atributo de la clase esta mal definido
      * o no esta definido en primer lugar ; la materia no existe
      * @throws NullPointerException si algun parametro es nulo
      */
-    void agregarClase(Materia materia, Clase clase) throws ExcepcionServiciosProgmsPost;
+    void agregarClase(int idMateria, Clase clase) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * @obj consulta todas las materias registradas
+     * @return lista no nula de las materias registradas
+     */
+    List<Materia> consultarMaterias();
     
     /**
      * @obj consulta las materias que estan presentes en un periodo determinado
@@ -54,14 +61,29 @@ public interface ServiciosProgmsPost {
     List<Materia> consultarMaterias(int periodo) throws ExcepcionServiciosProgmsPost;
     
     /**
+     * @obj consultar las materias que estan dentro de una asignatura en un periodo determinado
+     * @param periodo de las materias
+     * @param idAsignatura id de la asignatura que contiene las materias
+     * @return lista no nula de materias
+     * @throws ExcepcionServiciosProgmsPost no existe el periodo; la asignatura no existe
+     */
+    List<Materia> consultarMaterias(int periodo, int idAsignatura) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * @obj consultar los recursos disponibles que tienen una categoria, en una fecha y horas especificas
+     * @param nombreCategoria nombre de la categoria de los recursos
+     * @param fecha en la que son usados los recursos
+     * @param horaInicio hora de inicio del uso de los recursos
+     * @param horaFin hora de finalizacion del uso de los recursos
+     * @throws ExcepcionServiciosProgmsPost
      * @obj consular los recursos presentes para prestamo
      * @return lista no nula de recursos presentes para prestamo
      */
-    List<Recurso> consultarRecursos();
+    List<Recurso> consultarRecursos(String nombreCategoria, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost; // FIXME -----------
     
     /**
      * @obj consultar la disponibilidad de un recurso para prestamo en un dia y hora especificos
-     * @param recurso a consultarle la disponibilidad
+     * @param idRecurso a consultarle la disponibilidad
      * @param fecha a consultar la disponibilidad
      * @param horaInicio hora de inicio del bloque a consultar la disponibilidad
      * @param horaFin hora de finalizacion del bloque a consultar la disponibilidad
@@ -69,7 +91,7 @@ public interface ServiciosProgmsPost {
      * @throws ExcepcionServiciosProgmsPost el recurso no existe ; 
      * @throws NullPointerException si algun parametro es null
      */
-    boolean consultarDisponibilidadRecurso(Recurso recurso, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost;
+    boolean consultarDisponibilidadRecurso(int idRecurso, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost;
     
     /**
      * @obj consultar los profesores presentes en un periodo
@@ -81,7 +103,7 @@ public interface ServiciosProgmsPost {
     
     /**
      * @obj consultar la disponibilidad de un profesor en una fecha y bloque de tiempo
-     * @param profesor a consultar disponibilidad
+     * @param idProfesor id del profesor a consultar disponibilidad
      * @param fecha de la consulta
      * @param horaInicio hora de inicio del bloque a consultar la disponibilidad
      * @param horaFin hora de finalizacion del bloque a consultar la disponibilidad
@@ -89,48 +111,121 @@ public interface ServiciosProgmsPost {
      * @throws ExcepcionServiciosProgmsPost el profesor no existe
      * @throws NullPointerException algun parametro es null
      */
-    boolean consultarDisponibilidadProfesor(Profesor profesor, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost;
+    boolean consultarDisponibilidadProfesor(int idProfesor, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost;
     
     /**
      * @obj consultar las asignaturas en un periodo de tiempo
+     * @param idPrograma id del programa
      * @param periodo donde estan presentes las asignaturas
      * @return lista no nula de asignaturas presentes en el periodo
      * @throws ExcepcionServiciosProgmsPost el periodo es invalido, Ej: es negativo
      */
-    List<Asignatura> consultarAsignaturas(int periodo) throws ExcepcionServiciosProgmsPost;
+    List<Asignatura> consultarAsignaturas(int periodo, int idPrograma) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * @obj consultar las asignaturas que tienen una materia especifica
+     * @param idMateria id de la materia
+     * @return lista no nula de asignaturas (al menos una asignatura) que tienen entre sus materias a la materia especificada
+     * @throws ExcepcionServiciosProgmsPost la materia no existe ; no hay ninguna asignatura con la materia (inconsistencia)
+     */
+    List<Asignatura> consultarAsignaturas(int idMateria) throws ExcepcionServiciosProgmsPost;
     
     /**
      * @obj registrar una nueva asignatura
+     * @param idPrograma id del programa que tiene a la asignatura
      * @param asignatura a registrar
      * @throws ExcepcionServiciosProgmsPost la asignatura ya esta registrada ;
      * algun atributo esta mal definido o no esta definido en primer lugar
      * @throws NullPointerException la asignatura es null
      */
-    void registrarAsignatura(Asignatura asignatura) throws ExcepcionServiciosProgmsPost;
+    void registrarAsignatura(Asignatura asignatura, int idPrograma) throws ExcepcionServiciosProgmsPost;
     
     /**
      * @obj consultar los prerrequisitos de una materia
-     * @param materia a consultar los prerrequisitos
+     * @param idMateria id de materia a consultar los prerrequisitos
      * @return lista no nula de materias que son prerequisitos de la materia
      * @throws ExcepcionServiciosProgmsPost la materia no existe
-     * @throws NullPointerException la materia es null
      */
-    List<Materia> consultarPrerrequisitos(Materia materia) throws ExcepcionServiciosProgmsPost;
+    List<Materia> consultarPrerrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost;
     
     /**
      * @obj consultar los correquisitos de una materia
-     * @param materia a consultar los correquisitos
+     * @param idMateria id de materia a consultar los correquisitos
      * @return lista no nula de materias que son correquisitos de la materia
      * @throws ExcepcionServiciosProgmsPost la materia no existe
-     * @throws NullPointerException la materia es null
      */
-    List<Materia> consultarCorrequisitos(Materia materia) throws ExcepcionServiciosProgmsPost;
+    List<Materia> consultarCorrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost;
     
     /**
      * @obj consultar los periodos registrados
      * @return lista no nula de los periodos registrados
      */
     List<Integer> consultarPeriodos();
+    
+    /**
+     * @obj consultar los periodos de los que se tiene registro un programa
+     * @param idPrograma id del programa
+     * @return lista no nula de periodos
+     * @throws ExcepcionServiciosProgmsPost el programa no existe
+     */
+    List<Integer> consultarPeriodos(int idPrograma) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * @obj consultar las clases de una materia en un periodo
+     * @param periodo
+     * @param idMateria id de la materia a consultarle sus clases
+     * @return lista no nula de clases
+     * @throws ExcepcionServiciosProgmsPost la materia no existe
+     */
+    List<Clase> consultarClases(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost;
+
+    /**
+     * @obj consultar las categorias de todos los recursos presentes
+     * @return lista no nula de nombre de las categorias de los recursos
+     */
+    List<String> consultarCategoriasRecursos();
+    
+    /**
+     * @obj consultar los cohortes por asignatura a partir de una materia y su periodo
+     * @param idMateria id de la materia
+     * @param periodo de consulta
+     * @return mapa de asignaturas con sus cohortes respectivos en donde se tiene a la materia
+     * @throws ExcepcionServiciosProgmsPost la materia no existe en ese periodo
+     */
+    Map<Asignatura, Integer> consultarCohortesPorAsignatura(int idMateria, int periodo) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * @obj consultar un programa a partir de la asignatura que esta contenida en ella
+     * @param idAsignatura id de la asignatura
+     * @return programa de la asignatura
+     * @throws ExcepcionServiciosProgmsPost la asignatura no existe
+     */
+    Programa consultarPrograma(int idAsignatura) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * @obj agrega un nuevo cohorte
+     * @param idPrograma id del programa de la materia del nuevo cohorte
+     * @param idMateria id de la materia con el nuevo cohorte
+     * @param numCohorte numero del cohorte
+     * @throws ExcepcionServiciosProgmsPost el cohorte ya existe; 
+     * la materia no existe; el programa no existe 
+     */
+    void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * @obj consultar un profesor a partir de su materia y su periodo
+     * @param periodo de la materia
+     * @param idMateria id de la materia
+     * @return profesor que dicta la materia en el periodo
+     * @throws ExcepcionServiciosProgmsPost la materia no existe en ese periodo
+     */
+    Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * @obj consultar las categorias presentes de todos los recursos
+     * @return lista no nula de los nombres de categorias
+     */
+    List<String> consultarCategorias();
     
     /**
      * @obj registrar un nuevo recurso
@@ -143,7 +238,7 @@ public interface ServiciosProgmsPost {
     
     /**
      * @obj registrar el uso de un recurso a una clase
-     * @param recurso a ser prestado
+     * @param idRecurso id del recurso a ser prestado
      * @param clase a la cual va a ser prestado el recurso
      * @throws ExcepcionServiciosProgmsPost el recurso ya esta asignado a la clase ;
      * no esta disponible el recurso para la hora de la clase ; 
@@ -152,5 +247,5 @@ public interface ServiciosProgmsPost {
      * definido en primer lugar ;
      * @throws NullPointerException algun parametro es null
      */
-    void registrarPrestamoRecursoClase(Recurso recurso, Clase clase) throws ExcepcionServiciosProgmsPost;
+    void registrarPrestamoRecursoClase(int idRecurso, Clase clase) throws ExcepcionServiciosProgmsPost;
 }

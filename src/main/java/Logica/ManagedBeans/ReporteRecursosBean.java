@@ -5,6 +5,7 @@ import Logica.Servicios.ServiciosProgmsPost;
 import Logica.Servicios.ServiciosProgmsPostFactory;
 import java.io.Serializable;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
    
     public List<Recurso> getRecursos(){
         LOGGER.debug("Se obtiene la lista de recursos");
-        return servProg.consultarRecursos();
+        return new ArrayList<>(); // FIXME implementar
     }
     
     public Map<Integer,Integer> getAnios(){
