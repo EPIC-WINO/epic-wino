@@ -6,10 +6,10 @@
     <h:head></h:head>
         <link rel="stylesheet" type="text/css" href="mycss.css"/>
     <h:body>
-        <div class="header">
+        <!--<div class="header">
             <img src="/images/logo.jpg" alt="Escuela Colombiana de Ingenieria Julio Garavito"/>
-        </div>
-        <div class="content">
+        </div>-->
+        <!--<div class="content">-->
             <h1>Reporte de Programación</h1>
             <center>
                 <p:outputLabel for="programa" value="Programa" styleClass="label"/>
@@ -17,11 +17,17 @@
                     <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{reporteBean.programas}" />
                 </p:selectOneMenu>
-                <p:outputLabel for="Anio" value="Año" styleClass="label"/>
-                <p:inputText id="Anio" value="#{reporteBean.anio}" label="AñodelPrograma" styleClass="input"/>      
-                <p:outputLabel for="Semestre" value="Semestre" styleClass="label"/>          
-                <p:inputText id="Semestre" value="#{reporteBean.semestre}" label="SemestredelPrograma" styleClass="input"/>            
-                <p:commandButton action ="#{reporteBean.cambiarVista()}" title="Mostrar" value="Mostrar" styleClass="button"/>
+                <p:outputLabel for="anio" value="Año" styleClass="label"/>
+                <p:selectOneMenu id="anio" value="#{reporteBean.anio}">
+                    <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{reporteBean.anios}" />
+                </p:selectOneMenu>  
+                <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>          
+                <p:selectOneMenu id="semestre" value="#{reporteBean.semestre}">
+                    <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{reporteBean.semestres}" />
+                </p:selectOneMenu>            
+                <p:commandButton action ="#{reporteBean.acturalizarReporte()}" title="Mostrar" value="Mostrar" styleClass="button"/>
             </center>
             <p:dataTable var="materia" value="#{reporteBean.materias}" styleClass="table">
                 <p:column headerText="Cohorte" styleClass="columnText">
@@ -37,6 +43,6 @@
                     <h:outputText value="#{reporteBean.getProfesor(materia).nombre}" styleClass="outputText"/>
                 </p:column>
             </p:dataTable>
-        </div>
+        <!--</div>-->
     </h:body>
 </html>
