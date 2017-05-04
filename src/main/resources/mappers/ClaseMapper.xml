@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="Logica.Dao.MyBatis.Mappers.ClaseMapper">
-    <select parameterType="map" id="consultarClases" resultMap="ClaseResult">
+<mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.ClaseMapper">
+    <select parameterType="map" id="consultarClasesConRecursos" resultMap="ClaseResult">
         select 
             clas.id as asig_mate_clas_id,
             clas.fecha as asig_mate_clas_fecha,
@@ -27,11 +27,33 @@
         where  (EXTRACT(YEAR from clas.fecha)= #{anio}) and (((EXTRACT(MONTH from clas.fecha) &lt; 6*#{semestre}) and (EXTRACT(MONTH from clas.fecha)&gt; 6*(#{semestre}-1)))or (EXTRACT(MONTH from clas.fecha)= 6*#{semestre})) and (recc.clase_id is not null) and (recc.recurso_id is not null)
         order by clas.fecha, clas.hora_inicio;
     </select>
+    <select parameterType="map" id="consultarClases" resultMap="ClaseResult">
+        select 
+            clas.id as id,
+            clas.fecha fecha,
+            clas.hora_inicio as hora_inicio,
+            clas.hora_fin as hora_fin,
+            
+        
+            rec.id as rec_id,
+            rec.nombre as rec_nombre,
+            rec.descripcion as rec_descripcion,
+            rec.cantidad as rec_cantidad,
+            rec.categoria as rec_categoria
+            
+        from grupos de materias
+        left join clases as clas on (gruposdematerias.materia_id=clas.materia_id)and (gruposdematerias.periodo=clas.periodo)
+        left join recursos_concedidos as recc on clas.id=recc.clase_id
+        left join recursos as rec on recc.recurso_id=rec.id
+        where (gruposdematerias.materia_id=#{idMateria}) and (gruposdematerias.periodo= #{periodo})
+        order by clas.fecha, clas.hora_inicio;
+    </select>
+    
     <resultMap type="Clase" id="ClaseResult">
         <id property="id" column="id"/>
         <result property="fecha" column="fecha"/>
-        <result property="hora_inicio" column="horaInicio"/>
-        <result property="hora_fin" column="horaFin"/>
+        <result property="horaInicio" column="hora_inicio"/>
+        <result property="horaFin" column="hora_fin"/>
         <collection property="recursos" columnPrefix="rec_" ofType="Recurso" resultMap="RecursoResult"/>
     </resultMap>
     <resultMap type="Recurso" id="RecursoResult">

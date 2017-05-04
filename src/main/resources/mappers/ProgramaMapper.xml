@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Logica.Dao.MyBatis.Mappers.ProgramaMapper">
+<mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.ProgramaMapper">
     
     <!-- cosultarProgramaPorPeriodo -->
     <select parameterType="map" id="cosultarProgramaPorPeriodo" resultMap="ProgramaResult">
@@ -116,14 +116,11 @@
     <resultMap type="Profesor" id="ProfesorResult">
         <id property="id" column="id"/>
         <result property="nombre" column="nombre"/>
+        <result property="tipoID" column="tipo"/>
+        <result property="correo" column="correo"/>
+        <result property="telefono" column="telefono"/>
+        
         <!--La coleccion de comites-->
     </resultMap>
-    <resultMap type="Periodo" id="PeriodoResult">
-        <id property="periodo" column="GrupoDeMateria_periodo"/>
-    </resultMap>
-    <resultMap type="Cohorte" id="CohorteResult">
-        <id property="cohorte" column="cohorte"/>
-    </resultMap>
-    
     
 </mapper>
