@@ -43,7 +43,7 @@ p {
 body {
     margin: 0;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    background-image: url("../images/escuela.jpg");
+    //background-image: url("../images/escuela.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;

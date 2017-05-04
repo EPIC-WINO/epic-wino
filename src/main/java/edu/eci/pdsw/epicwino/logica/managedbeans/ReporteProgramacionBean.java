@@ -78,7 +78,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         }
         return periodos;
     }
-    
+
     public Map<Integer, Integer> getSemestres() {
         LOGGER.debug("Se obtienen los semestres");
         Map<Integer, Integer> m = new HashMap<>();
