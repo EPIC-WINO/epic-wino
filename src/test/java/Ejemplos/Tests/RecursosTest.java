@@ -5,11 +5,11 @@
  */
 package Ejemplos.Tests;
 
-import Logica.Entidades.Clase;
-import Logica.Entidades.Recurso;
-import Logica.Servicios.ExcepcionServiciosProgmsPost;
-import Logica.Servicios.ServiciosProgmsPost;
-import Logica.Servicios.ServiciosProgmsPostFactory;
+import edu.eci.pdsw.epicwino.logica.entidades.Clase;
+import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
+import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
+import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
+import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPostFactory;
 import java.util.Collection;
 import java.util.Iterator;
 import org.junit.Before;
