@@ -106,16 +106,24 @@
         <result property="nombre" column="nombre"/>
         <result property="creditos" column="creditos"/>
         <result property="descripcion" column="descripcion"/>
-        <result property="periodo" column="periodo"/>
-        <result property="cohorte" column="cohorte"/>
-        <association property="profesor" columnPrefix="prof_" javaType="Profesor" resultMap="ProfesorResult"/>
-        <collection property="clases" columnPrefix="clas_" ofType="Clase" resultMap="Logica.Dao.MyBatis.Mappers.ClaseMapper.ClaseResult"/>
+        <collection property="gruposdemateria" columnPrefix="grup_" ofType="GrupoDeMateria" resultMap="GrupoDeMateriaResult"/>
     </resultMap>
-    
+    <resultMap type="GrupoDeMateria" id="GrupoDeMateriaResult">
+        <id property="periodo" column="periodo"/>
+        <association property="profesor" javaType="Profesor" resultMap='ProfesorResult'></association>
+        <collection property="clases" columnPrefix="clas_" ofType="Clase" resultMap="Logica.Dao.MyBatis.Mappers.ClaseMapper.ClaseResult"/>    
+    </resultMap>
     <resultMap type="Profesor" id="ProfesorResult">
         <id property="id" column="id"/>
         <result property="nombre" column="nombre"/>
         <!--La coleccion de comites-->
     </resultMap>
+    <resultMap type="Periodo" id="PeriodoResult">
+        <id property="periodo" column="GrupoDeMateria_periodo"/>
+    </resultMap>
+    <resultMap type="Cohorte" id="CohorteResult">
+        <id property="cohorte" column="cohorte"/>
+    </resultMap>
+    
     
 </mapper>
