@@ -10,16 +10,18 @@ import java.util.List;
 public class Asignatura {
     private int id;
     private String nombre;
-    private Programa programa;
     private List<Materia> materias;
     
-
+    public Asignatura() {
+        
+    }
+    
     public Asignatura(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
         materias = new ArrayList<>();
     }
-    
+
     /**
      * @return the id
      */
@@ -49,20 +51,6 @@ public class Asignatura {
     }
 
     /**
-     * @return the programa
-     */
-    public Programa getPrograma() {
-        return programa;
-    }
-
-    /**
-     * @param programa the programa to set
-     */
-    public void setPrograma(Programa programa) {
-        this.programa = programa;
-    }
-
-    /**
      * @return the materias
      */
     public List<Materia> getMaterias() {
@@ -74,14 +62,10 @@ public class Asignatura {
      */
     public void setMaterias(List<Materia> materias) {
         this.materias = materias;
-        
-        for(Materia m : materias) {
-            m.setAsignatura(this);
-        }
     }
-
+    
     @Override
     public String toString() {
-        return "Asignatura{" + "id=" + id + ", nombre=" + nombre + ", programa=" + programa + '}';
+        return "Asignatura{" + "id=" + id + ", nombre=" + nombre + '}';
     }
 }

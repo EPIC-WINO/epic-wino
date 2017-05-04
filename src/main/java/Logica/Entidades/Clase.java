@@ -9,86 +9,96 @@ import java.util.ArrayList;
  *
  * @author Esteban
  */
-public class Clase implements Serializable{ // FIXME logica cambio
+public class Clase implements Serializable {
     private int id;
     private Date fecha;
-    private Time hora_inicio;
-    private Time hora_fin;
+    private Time horaInicio;
+    private Time horaFin;
     private ArrayList<Recurso> recursos;
-    private Materia materia;
 
-    public Clase(int id, Date fecha, Time hora_inicio, Time hora_fin) {
-        this.id = id;
-        this.fecha = fecha;
-        this.hora_inicio = hora_inicio;
-        this.hora_fin = hora_fin;
-        this.recursos = new ArrayList<>();
-    }
-
-    public Clase(int id, Date fecha, Time hora_inicio, Time hora_fin, ArrayList<Recurso> recursos) {
-        this.id = id;
-        this.fecha = fecha;
-        this.hora_inicio = hora_inicio;
-        this.hora_fin = hora_fin;
-        this.recursos = recursos;
+    public Clase() {
+        
     }
     
+    public Clase(int id, Date fecha, Time horaInicio, Time horaFin) {
+        this.id = id;
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+    }
+
+    /**
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return the fecha
+     */
     public Date getFecha() {
         return fecha;
     }
 
+    /**
+     * @param fecha the fecha to set
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-    public Time getHora_inicio() {
-        return hora_inicio;
+    /**
+     * @return the horaInicio
+     */
+    public Time getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setHora_inicio(Time hora_inicio) {
-        this.hora_inicio = hora_inicio;
+    /**
+     * @param horaInicio the horaInicio to set
+     */
+    public void setHoraInicio(Time horaInicio) {
+        this.horaInicio = horaInicio;
     }
 
-    public Time getHora_fin() {
-        return hora_fin;
+    /**
+     * @return the horaFin
+     */
+    public Time getHoraFin() {
+        return horaFin;
     }
 
-    public void setHora_fin(Time hora_fin) {
-        this.hora_fin = hora_fin;
+    /**
+     * @param horaFin the horaFin to set
+     */
+    public void setHoraFin(Time horaFin) {
+        this.horaFin = horaFin;
     }
 
+    /**
+     * @return the recursos
+     */
     public ArrayList<Recurso> getRecursos() {
         return recursos;
     }
 
+    /**
+     * @param recursos the recursos to set
+     */
     public void setRecursos(ArrayList<Recurso> recursos) {
         this.recursos = recursos;
     }
-    
+
     @Override
     public String toString() {
-        return "Clase{" + "id=" + id + ", fecha=" + fecha + ", hora_inicio=" + hora_inicio+ ", hora_fin=" + hora_fin + ", recursos=" + recursos +"}\n";
-    }
-
-    /**
-     * @return the materia
-     */
-    public Materia getMateria() {
-        return materia;
-    }
-
-    /**
-     * @param materia the materia to set
-     */
-    public void setMateria(Materia materia) {
-        this.materia = materia;
+        return "Clase{" + "id=" + id + ", fecha=" + fecha + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + '}';
     }
 }

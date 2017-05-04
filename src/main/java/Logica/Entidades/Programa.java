@@ -23,19 +23,6 @@ public class Programa {
         this.nombre = nombre;
         asignaturas = new ArrayList<>();
     }
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
      * @return the nombre
@@ -133,15 +120,10 @@ public class Programa {
      */
     public void setAsignaturas(List<Asignatura> asignaturas) {
         this.asignaturas = asignaturas;
-        
-        for(Asignatura a : asignaturas) {
-            a.setPrograma(this);
-        }
     }
 
     @Override
     public String toString() {
         return "Programa{" + "id=" + id + ", nombre=" + nombre + ", nivel=" + nivel + ", duracion=" + duracion + ", jornada=" + jornada + ", modalidad=" + modalidad + ", codigoSNIES=" + codigoSNIES + '}';
     }
-    
 }

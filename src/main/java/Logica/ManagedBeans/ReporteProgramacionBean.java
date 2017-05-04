@@ -62,7 +62,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     }
     
     public Asignatura getAsignatura(Materia m) { // TODO loggers
-        return m.getAsignatura();
+        return null; // TODO implementar
     }
     
     public List<Programa> getProgramas() {
@@ -107,75 +107,23 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     }
     
     public int getCohorte(Materia materia) {
-        LOGGER.log(Level.FINEST, "Se intenta obtener el cohorte de la materia"
-                + "({0})", materia);
-        
-        int r = 0;
-        if (materia != null) {
-            r = materia.getCohorte();
-        } else {
-            LOGGER.log(Level.WARNING, "Error consultando cohorte: la materia es null.");
-        }
-        
-        return r;
+        return 0; // TODO implementar
     }
     
     public Profesor getProfesor(Materia materia) {
-        LOGGER.log(Level.FINEST, "Se intenta obtener el profesor de la materia"
-                + "({0})", materia);
-        
-        Profesor r = null;
-        if (materia != null) {
-            r = materia.getProfesor();
-        } else {
-            LOGGER.log(Level.WARNING, "Error consultando profesor: la materia es null.");
-        }
-        
-        return r;
+        return null; // TODO implementar
     }
     
     public List<Clase> getClases(Materia materia) {
-        LOGGER.log(Level.FINEST, "Se intenta obtener las clase de la materia"
-                + "({0})", materia);
-        
-        List<Clase> r = null;
-        if (materia != null) {
-            r = materia.getClases();
-        } else {
-            LOGGER.log(Level.WARNING, "Error consultando clases: la materia es null.");
-        }
-        
-        return r;
+        return null; // TODO implementar
     }
     
     public Time getHoraInicio(Clase clase) {
-        LOGGER.log(Level.FINEST, "Se intenta obtener la hora de inicio de la clase"
-                + "({0})", clase);
-        
-        Time r = null;
-        if (clase != null) {
-            r = clase.getHora_inicio();
-        } else {
-            LOGGER.log(Level.WARNING, "Error consultando la hora de inicio de "
-                    + "la clase: la clase es null.");
-        }
-        
-        return r;
+        return null; // TODO implementar
     }
     
     public Time getHoraFin(Clase clase) {
-        LOGGER.log(Level.FINEST, "Se intenta obtener la hora de inicio de la clase"
-                + "({0})", clase);
-        
-        Time r = null;
-        if (clase != null) {
-            r = clase.getHora_fin();
-        } else {
-            LOGGER.log(Level.WARNING, "Error consultando la hora de inicio de "
-                    + "la clase: la clase es null.");
-        }
-        
-        return r;
+        return null; // TODO implementar
     }
     
     public void setPrograma(String prog) {

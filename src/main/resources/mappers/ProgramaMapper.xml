@@ -106,7 +106,7 @@
         <result property="nombre" column="nombre"/>
         <result property="creditos" column="creditos"/>
         <result property="descripcion" column="descripcion"/>
-        <collection property="gruposdemateria" columnPrefix="grup_" ofType="GrupoDeMateria" resultMap="GrupoDeMateriaResult"/>
+        <collection property="gruposDeMateria" columnPrefix="grup_" ofType="GrupoDeMateria" resultMap="GrupoDeMateriaResult"/>
     </resultMap>
     <resultMap type="GrupoDeMateria" id="GrupoDeMateriaResult">
         <id property="periodo" column="periodo"/>

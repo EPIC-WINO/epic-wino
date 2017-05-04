@@ -12,15 +12,21 @@ import java.util.List;
 public class Profesor {
     private int id;
     private String nombre;
-    private Materia materia;
+    private String tipoID;
+    private String correo;
+    private String telefono;
     private List<Comite> comites;
 
+    public Profesor() {
+        
+    }
+    
     public Profesor(int id, String nombre) {
         this.id = id;
         this.nombre  = nombre;
         comites = new ArrayList<>();
     }
-    
+
     /**
      * @return the id
      */
@@ -50,17 +56,45 @@ public class Profesor {
     }
 
     /**
-     * @return the materia
+     * @return the tipoID
      */
-    public Materia getMateria() {
-        return materia;
+    public String getTipoID() {
+        return tipoID;
     }
 
     /**
-     * @param materia the materia to set
+     * @param tipoID the tipoID to set
      */
-    public void setMateria(Materia materia) {
-        this.materia = materia;
+    public void setTipoID(String tipoID) {
+        this.tipoID = tipoID;
+    }
+
+    /**
+     * @return the correo
+     */
+    public String getCorreo() {
+        return correo;
+    }
+
+    /**
+     * @param correo the correo to set
+     */
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    /**
+     * @return the telefono
+     */
+    public String getTelefono() {
+        return telefono;
+    }
+
+    /**
+     * @param telefono the telefono to set
+     */
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     /**
@@ -79,6 +113,6 @@ public class Profesor {
 
     @Override
     public String toString() {
-        return "Profesor{" + "id=" + id + ", nombre=" + nombre + ", materia=" + materia + '}';
+        return "Profesor{" + "id=" + id + ", nombre=" + nombre + ", tipoID=" + tipoID + ", correo=" + correo + ", telefono=" + telefono + '}';
     }
 }
