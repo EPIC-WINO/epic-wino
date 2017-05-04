@@ -23,20 +23,16 @@
             
         from clases as clas 
         left join recursos_concedidos as recc on clas.id=recc.clase_id
-        left join recursos as rec on recc.clase_id=rec.id
-        where  YEAR(clas.fecha) = #{anio} and (((MONTH(clas.fecha) &lt; 6* #{semestre}) and (MONTH(clas.fecha) &gt; 6*( #{semestre}-1)))or (MONTH(clas.fecha)= 6* #{semestre}))
-        order by clas.fecha and clas.hora_inicio;
+        left join recursos as rec on recc.recurso_id=rec.id
+        where  (EXTRACT(YEAR from clas.fecha)= #{anio}) and (((EXTRACT(MONTH from clas.fecha) &lt; 6*#{semestre}) and (EXTRACT(MONTH from clas.fecha)&gt; 6*(#{semestre}-1)))or (EXTRACT(MONTH from clas.fecha)= 6*#{semestre})) and (recc.clase_id is not null) and (recc.recurso_id is not null)
+        order by clas.fecha, clas.hora_inicio;
     </select>
     <resultMap type="Clase" id="ClaseResult">
         <id property="id" column="id"/>
         <result property="fecha" column="fecha"/>
         <result property="hora_inicio" column="horaInicio"/>
         <result property="hora_fin" column="horaFin"/>
-        <collection property="recursos" columnPrefix="recc_" ofType="RecursoConcedido" resultMap="RecursoConcedidoResult"/>
-    </resultMap>
-    <resultMap type="RecursoConcedido" id="RecursoConcedidoResult">
-        <association  property="clase" columnPrefix="clase_" javaType="Clase" resultMap="ClaseResult"/>
-        <association  property="recurso" columnPrefix="rec_" javaType="Recurso" resultMap="RecursoResult"/>
+        <collection property="recursos" columnPrefix="rec_" ofType="Recurso" resultMap="RecursoResult"/>
     </resultMap>
     <resultMap type="Recurso" id="RecursoResult">
        <id property="id" column="id"/>
@@ -47,6 +43,5 @@
     </resultMap>
     
 </mapper>
-
 
        
