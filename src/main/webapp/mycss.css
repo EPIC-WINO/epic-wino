@@ -105,7 +105,6 @@ body {
 }
 .header img {
     padding: 2px 0 2px 2px;
-    margin: 0 auto 0 auto;
 }
 .table {
     max-width: 98%;
@@ -148,11 +147,57 @@ body {
 
 .optionsHeader button {
     border: 0;
+    margin: 70px 0 0 0;
+    background-color: white;
+    border-right: 1.3px solid #990000;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 17px;
+    padding: 0 10px 0 10px;
 }
 
 .optionsHeader .barMenu {
     text-align: center;
-    min-height: 500px;
+    min-height: 90px;
+    
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.menuBarButton {
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown:hover .menuBarButton {
+    background-color: #990000;
+    color: white;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown-content {
+    display: none;
+    position: absolute; 
+    background-color: #f9f9f9; /*Color de ls opciones desplegables*/
+    min-width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 5px 5px;
+    text-decoration: none;
+    display: block;
 }
 
 

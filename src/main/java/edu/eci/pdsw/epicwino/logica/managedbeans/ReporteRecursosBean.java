@@ -101,7 +101,7 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     
     public void actualizarReporte() {
         LOGGER.info("Se actualiza el reporte de la vista");
-        recursos = servProg.consultarRecursosProgramados((anio * 10) + semestre);
+        //recursos = servProg.consultarRecursosProgramados((anio * 10) + semestre);
     }
     
 }
