@@ -31,14 +31,18 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     private int semestre;
     private List<Recurso> recursos;
     
-    
     public ReporteRecursosBean() {
         LOGGER.debug("Se instancia " + this.getClass().getName());
     }
    
     public List<Recurso> getRecursos(){
         LOGGER.debug("Se obtiene la lista de recursos");
-        return new ArrayList<>(); // FIXME implementar
+        return recursos;
+    }
+    
+    public void setRecursos(List<Recurso> recursos){
+        LOGGER.debug("Se establecen los recursos");
+        this.recursos=recursos;
     }
     
     public Map<Integer,Integer> getAnios(){
@@ -58,12 +62,6 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
         m.put(1, 1);
         m.put(2, 2);
         return m;
-    }
-  
-    
-    public void setRecursos(List<Recurso> recursos){
-        LOGGER.debug("Se establecen los recursos");
-        this.recursos=recursos;
     }
     
     /**
@@ -102,8 +100,8 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     
     
     public void actualizarReporte() {
-        // TODO implementar
         LOGGER.info("Se actualiza el reporte de la vista");
+        recursos = servProg.consultarRecursosProgramados((anio * 10) + semestre);
     }
     
 }

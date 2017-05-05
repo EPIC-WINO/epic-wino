@@ -105,6 +105,7 @@ body {
 }
 .header img {
     padding: 2px 0 2px 2px;
+    margin: 0 auto 0 auto;
 }
 .table {
     max-width: 98%;
@@ -151,7 +152,7 @@ body {
 
 .optionsHeader .barMenu {
     text-align: center;
-    
+    min-height: 500px;
 }
 
 
