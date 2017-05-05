@@ -6,10 +6,38 @@
     <h:head></h:head>
         <link rel="stylesheet" type="text/css" href="mycss.css"/>
     <h:body>
-        <!--<div class="header">
-            <img src="/images/logo.jpg" alt="Escuela Colombiana de Ingenieria Julio Garavito"/>
-        </div>-->
-        <!--<div class="content">-->
+        <div class="header">
+            <ul class="optionsHeader">
+                <li>
+                    <img src="/images/logo.jpg" alt="Escuela Colombiana de Ingenieria Julio Garavito"/>
+                    <div class="barMenu">
+                        <div class="dropdown">
+                            <button class="menuBarButton">Inicio</button>
+                        </div>
+                        <div class="dropdown">
+                            <button class="menuBarButton">Programación</button>
+                            <div class="dropdown-content">
+                              
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="menuBarButton">Registros</button>
+                        </div>
+                        <div class="dropdown">
+                            <button class="menuBarButton">Reportes</button>
+                            <div class="dropdown-content">
+                                <a href="ReporteRecursos.xhtml" target="_self">Reporte de Recursos</a>
+                                <a href="ReporteProgramacion.xhtml" target="_self">Reporte de Programacion</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="menuBarButton">Profesores</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
             <h1>Reporte de Programación</h1>
             <center>
                 <p:outputLabel for="programa" value="Programa" styleClass="label"/>
