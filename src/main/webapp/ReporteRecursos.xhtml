@@ -37,10 +37,12 @@
                 <p:selectOneMenu id="semestre" value="#{reporteRecursoBean.semestre}">
                     <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{reporteRecursoBean.semestres}" />
-                </p:selectOneMenu>         
-                <p:commandButton  value="Mostrar" update="ReporteRecursos" actionListener="#{reporteRecursoBean.actualizarReporte()}" styleClass="button"/>
-                <p:dataTable    var="recurso" value="#{reporteRecursoBean.recursos}" styleClass="table" >
-                    <p:column  style="width:16px;text-align:center"/> 
+                </p:selectOneMenu>  
+                
+                <p:commandButton  value="Mostrar" update="reporte" actionListener="#{reporteRecursoBean.actualizarReporte()}" styleClass="button"/>
+                
+                <p:dataTable id="reporte" var="recurso" value="#{reporteRecursoBean.recursos}" styleClass="table" >
+                    <p:column  style="width:16px;text-align:center"/> <!--Es necesaria esta columna?-->
                     <p:column headerText="Recurso" styleClass="columnText">
                         <h:outputText value="#{recurso.nombre}" />
                     </p:column>
