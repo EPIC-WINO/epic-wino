@@ -12,10 +12,15 @@ import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
 import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import com.google.inject.Inject;
+import edu.eci.pdsw.epicwino.logica.dao.PersistenceException;
+import edu.eci.pdsw.epicwino.logica.entidades.GrupoDeMateria;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import org.apache.log4j.Logger;
 
 /**
@@ -23,17 +28,17 @@ import org.apache.log4j.Logger;
  * @author Esteban
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
-public class ServiciosProgmsPostImpl implements ServiciosProgmsPost{
-    
+public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
+
     private static final Logger LOGGER = Logger.getLogger(ServiciosProgmsPostImpl.class.getName());
 
     @Inject
     private RecursoDAO daoRecurso;
-    
-    @Inject 
+
+    @Inject
     private ClaseDAO daoClase;
-    
-    @Inject 
+
+    @Inject
     private ProgramaDAO daoPrograma;
 
     @Override
@@ -43,7 +48,21 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost{
 
     @Override
     public List<Programa> consultarProgramas(int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info("Se consultan los programas con periodo " + periodo);
+
+        if (!(0 <= periodo && periodo <= 99999)) {
+            throw new ExcepcionServiciosProgmsPost("El periodo es invalido");
+        }
+
+        List<Programa> p = null;
+        try {
+            p = daoPrograma.loadProgramas(periodo);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error consultando los programas", ex);
+            throw new ExcepcionServiciosProgmsPost("Error consultando los programas", ex);
+        }
+
+        return p;
     }
 
     @Override
@@ -53,12 +72,32 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost{
 
     @Override
     public List<Materia> consultarMaterias() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Integer> periodos = this.consultarPeriodos();
+        
+        Set<Materia> materias = new TreeSet<>();
+        for (Integer periodo : periodos) {
+            try {
+                materias.addAll(this.consultarMaterias(periodo));
+            } catch (ExcepcionServiciosProgmsPost ex) {
+            }
+        }
+        
+        return new ArrayList<>(materias);
     }
 
     @Override
     public List<Materia> consultarMaterias(int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Programa> programas = this.consultarProgramas(periodo);
+
+        Set<Materia> materias = new TreeSet<>();
+        
+        for (Programa programa : programas) {
+            for (Asignatura asignatura : programa.getAsignaturas()) {
+                materias.addAll(asignatura.getMaterias());
+            }
+        }
+        
+        return new ArrayList<>(materias);
     }
 
     @Override
@@ -113,12 +152,54 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost{
 
     @Override
     public List<Integer> consultarPeriodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Integer> p = null;
+        try {
+            p = daoPrograma.loadPeriodos();
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error consultando los periodos", ex);
+        }
+
+        return p;
     }
 
     @Override
     public List<Integer> consultarPeriodos(int idPrograma) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Integer> per = this.consultarPeriodos();
+
+        boolean found = false;
+        Set<Integer> periodos = new TreeSet<>();
+
+        for (Integer i : per) {
+            List<Programa> programas = this.consultarProgramas(i);
+            for (int j = 0; j < programas.size(); j++) {
+                Programa pro = programas.get(j);
+                if (idPrograma == pro.getId()) {
+                    found = true;
+                    List<Asignatura> asignaturas = pro.getAsignaturas();
+                    for (Asignatura asignatura : asignaturas) {
+                        periodos.addAll(this.consultarPeriodosPorAsignatura(asignatura));
+                    }
+                }
+            }
+        }
+
+        if (found == false) {
+            throw new ExcepcionServiciosProgmsPost("No existe el programa " + idPrograma);
+        }
+
+        return new ArrayList<>(periodos);
+    }
+
+    private List<Integer> consultarPeriodosPorAsignatura(Asignatura a) {
+        Set<Integer> set = new TreeSet<>();
+
+        for (Materia m : a.getMaterias()) {
+            for (GrupoDeMateria grupo : m.getGruposDeMateria()) {
+                set.add(grupo.getPeriodo());
+            }
+        }
+
+        return new ArrayList<>(set);
     }
 
     @Override
@@ -138,7 +219,29 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost{
 
     @Override
     public Programa consultarPrograma(int idAsignatura) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info("Se consulta el programa de la asignatura con ID: " + idAsignatura);
+
+        List<Programa> programas = new ArrayList<>();
+        for (Integer periodo : this.consultarPeriodos()) {
+            programas.addAll(this.consultarProgramas(periodo));
+        }
+
+        Programa pro = null;
+        for (int i = 0; i < programas.size() && pro == null; i++) {
+            List<Asignatura> p = programas.get(i).getAsignaturas();
+            for (int j = 0; j < p.size() && pro == null; j++) {
+                Asignatura a = p.get(i);
+                if (a.getId() == idAsignatura) {
+                    pro = programas.get(i);
+                }
+            }
+        }
+
+        if (pro == null) {
+            throw new ExcepcionServiciosProgmsPost("La asignatura no existe");
+        }
+
+        return pro;
     }
 
     @Override

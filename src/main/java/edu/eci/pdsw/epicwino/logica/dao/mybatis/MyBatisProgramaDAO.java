@@ -23,11 +23,11 @@ public class MyBatisProgramaDAO implements ProgramaDAO{
     }
 
     @Override
-    public List<Programa> loadProgramas(int anio, int semestre) throws PersistenceException {
+    public List<Programa> loadProgramas(int periodo) throws PersistenceException {
         try {
-            return programaMapper.consultarProgramas((anio*10)+semestre);
+            return programaMapper.consultarProgramas(periodo);
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
-            throw new PersistenceException("Error al consultar los programas en el periodo "+((anio*10)+semestre));
+            throw new PersistenceException("Error al consultar los programas en el periodo " + periodo);
         }
     }
 
@@ -38,6 +38,11 @@ public class MyBatisProgramaDAO implements ProgramaDAO{
         } catch (org.apache.ibatis.exceptions.PersistenceException e) {
             throw new PersistenceException("Error al consultar el programa con id: "+id_program+" en el periodo: "+periodo);
         }
+    }
+
+    @Override
+    public List<Integer> loadPeriodos() throws PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
     }
     
 }

@@ -124,6 +124,20 @@ public class Programa {
 
     @Override
     public String toString() {
-        return "Programa{" + "id=" + id + ", nombre=" + nombre + ", nivel=" + nivel + ", duracion=" + duracion + ", jornada=" + jornada + ", modalidad=" + modalidad + ", codigoSNIES=" + codigoSNIES + '}';
+        return "Programa{" + "id=" + getId() + ", nombre=" + nombre + ", nivel=" + nivel + ", duracion=" + duracion + ", jornada=" + jornada + ", modalidad=" + modalidad + ", codigoSNIES=" + codigoSNIES + '}';
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }
