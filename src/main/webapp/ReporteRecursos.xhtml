@@ -51,14 +51,14 @@
             <h:form id="ReporteRecursos" style="text-align: center;"> 
                 <h1>Reporte de Recursos</h1>
                 <p:outputLabel for="anio" value="Año" styleClass="label"/>
-                <p:selectOneMenu id="anio" value="#{reporteRecursoBean.anio}">
+                <p:selectOneMenu id="anio" value="#{reporteRecursoBean.anio}" styleClass="scroll">
                     <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{reporteRecursoBean.anios}" />
                 </p:selectOneMenu>
                 <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>
-                <p:selectOneMenu id="semestre" value="#{reporteRecursoBean.semestre}">
+                <p:selectOneMenu id="semestre" value="#{reporteRecursoBean.semestre}" styleClass="scroll">
                     <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{reporteRecursoBean.semestres}" />
+                    <f:selectItems value="#{reporteRecursoBean.semestres}" styleClass="selectItems"/>
                 </p:selectOneMenu>  
                 
                 <p:commandButton  value="Mostrar" update="reporte" actionListener="#{reporteRecursoBean.actualizarReporte()}" styleClass="button"/>
