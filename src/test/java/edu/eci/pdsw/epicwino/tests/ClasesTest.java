@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ejemplos.Tests;
+package edu.eci.pdsw.epicwino.tests;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Clase;
 import edu.eci.pdsw.epicwino.logica.entidades.Materia;
