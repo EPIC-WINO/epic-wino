@@ -45,17 +45,17 @@
             <h1>Reporte de Programación</h1>
             <center>
                 <p:outputLabel for="programa" value="Programa" styleClass="label"/>
-                <p:selectOneMenu id="programa" value="#{reporteBean.programa}">
+                <p:selectOneMenu id="programa" value="#{reporteBean.programa}" styleClass="scroll">
                     <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{reporteBean.programas}" />
                 </p:selectOneMenu>
                 <p:outputLabel for="anio" value="Año" styleClass="label"/>
-                <p:selectOneMenu id="anio" value="#{reporteBean.anio}">
+                <p:selectOneMenu id="anio" value="#{reporteBean.anio}" styleClass="scroll">
                     <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{reporteBean.anios}" />
                 </p:selectOneMenu>  
                 <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>          
-                <p:selectOneMenu id="semestre" value="#{reporteBean.semestre}">
+                <p:selectOneMenu id="semestre" value="#{reporteBean.semestre}" styleClass="scroll">
                     <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{reporteBean.semestres}" />
                 </p:selectOneMenu>            
