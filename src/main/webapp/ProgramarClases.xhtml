@@ -1,14 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3c.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui" 
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-    <h:head>
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
         <link rel="stylesheet" type="text/css" href="mycss.css"/>
-    </h:head>
-
     <h:body>
         <div class="header">
             <ul class="optionsHeader">
@@ -45,41 +41,8 @@
                 </li>
             </ul>
         </div>
-
-        
         <div class="content">
-            <h:form id="ReporteRecursos" style="text-align: center;"> 
-                <h1>Reporte de Recursos</h1>
-                <p:outputLabel for="anio" value="Año" styleClass="label"/>
-                <p:selectOneMenu id="anio" value="#{reporteRecursoBean.anio}">
-                    <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{reporteRecursoBean.anios}" />
-                </p:selectOneMenu>
-                <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>
-                <p:selectOneMenu id="semestre" value="#{reporteRecursoBean.semestre}">
-                    <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{reporteRecursoBean.semestres}" />
-                </p:selectOneMenu>  
-                
-                <p:commandButton  value="Mostrar" update="reporte" actionListener="#{reporteRecursoBean.actualizarReporte()}" styleClass="button"/>
-                
-                <p:dataTable id="reporte" var="recurso" value="#{reporteRecursoBean.recursos}" styleClass="table" >
-                    <p:column  style="width:16px;text-align:center"/> <!--Es necesaria esta columna?-->
-                    <p:column headerText="Recurso" styleClass="columnText">
-                        <h:outputText value="#{recurso.nombre}" />
-                    </p:column>
-                    <p:column headerText="Descripcion" styleClass="columnText">
-                        <h:outputText value="" />
-                    </p:column>
-                    <p:column headerText="Fecha de utilización" styleClass="columnText">
-                        <h:outputText value="" />
-                    </p:column>
-                    <p:column headerText="Hora de uso" styleClass="columnText">
-                        <h:outputText value="" />
-                    </p:column>
-                </p:dataTable>
-            </h:form>
+            <h1>Programación de Clases</h1>
         </div>
     </h:body>
 </html>
-
