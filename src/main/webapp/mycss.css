@@ -220,7 +220,7 @@ body {
 
 /*---------Menú de incio-------*/
 .content .menu {
-    margin: 70px auto 13px auto;
+    margin: 50px auto 50px auto;
     text-align: center;
 }
 
@@ -228,7 +228,6 @@ body {
     border: 1px solid #990000;
     padding: 10px 24px; 
     cursor: pointer;
-    margin-bottom: 10px; 
     border-radius: 5%;
 }
 
