@@ -84,7 +84,17 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public void agregarClase(int idMateria, Clase clase) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info(MessageFormat.format("Se agrega la clase {0} a la materia con ID: {1}", clase, idMateria));
+        
+        if (clase == null) {
+            throw new NullPointerException("La clase es null");
+        }
+        
+        try {
+            daoClase.saveClase(clase, idMateria);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error al guardar la clase", ex);
+        }
     }
 
     @Override
@@ -246,17 +256,45 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public void registrarAsignatura(Asignatura asignatura, int idPrograma) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info(MessageFormat.format("Se registra la asignatura {0} en el programa ({1})", asignatura, idPrograma));
+        
+        if (asignatura == null) {
+            throw new NullPointerException("La asignatura es null");
+        }
+        
+        try {
+            daoAsignatura.saveAsignatura(asignatura);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error al guardar la asignatura " + asignatura);
+        }
     }
 
     @Override
     public List<Materia> consultarPrerrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info("Consultar los prerrequisitos de la materia " + idMateria);
+        
+        List<Materia> materias = null;
+        try {
+            materias = daoMateria.loadPrerrequisitos(idMateria);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error consultando los prerrequisitos de la materia " + idMateria, ex);
+        }
+        
+        return materias;
     }
 
     @Override
     public List<Materia> consultarCorrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info("Consultar los correquisitos de la materia " + idMateria);
+        
+        List<Materia> materias = null;
+        try {
+            materias = daoMateria.loadCorrequisitos(idMateria);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error consultando los correquisitos de la materia " + idMateria, ex);
+        }
+        
+        return materias;
     }
 
     @Override
@@ -319,7 +357,26 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClases(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Materia> materias = this.consultarMaterias(periodo);
+        
+        boolean found = false;
+        Set<Clase> clases = new TreeSet<>();
+        for (int i = 0; i < materias.size() && !found; i++) {
+            Materia materia = materias.get(i);
+            if (materia.getId() == idMateria) {
+                found = true;
+                for (GrupoDeMateria grupo : materia.getGruposDeMateria()) {
+                    clases.addAll(grupo.getClases());
+                }
+            }
+        }
+        
+        if (!found) {
+            throw new ExcepcionServiciosProgmsPost(MessageFormat.format("La "
+                    + "materia ({1}) no existe en el periodo {0}", idMateria, periodo));
+        }
+        
+        return new ArrayList<>(clases);
     }
 
     @Override
@@ -361,7 +418,15 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info(MessageFormat.format("Registra nuevo cohorte "
+                    + "({2}) en el programa ({0}), materia ({1})", idPrograma, idMateria, numCohorte));
+        
+        try {
+            daoMateria.agregarCohorte(idPrograma, idMateria, numCohorte);
+        } catch (PersistenceException ex) {
+            LOGGER.error(MessageFormat.format("Error agregando el cohorte "
+                    + "({2}) en el programa ({0}), materia ({1})", idPrograma, idMateria, numCohorte));
+        }
     }
 
     @Override
@@ -376,7 +441,13 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public void registrarRecurso(Recurso recurso) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info("Registra recurso " + recurso);
+        
+        try {
+            daoRecurso.save(recurso);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error registrando recurso " + recurso, ex);
+        }
     }
 
     @Override
