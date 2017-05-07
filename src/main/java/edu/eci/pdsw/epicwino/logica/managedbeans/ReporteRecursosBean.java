@@ -1,6 +1,7 @@
 package edu.eci.pdsw.epicwino.logica.managedbeans;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
+import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPostFactory;
 import java.io.Serializable;
@@ -99,9 +100,9 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     
     
     
-    public void actualizarReporte() {
+    public void actualizarReporte() throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Se actualiza el reporte de la vista");
-        //recursos = servProg.consultarRecursosProgramados((anio * 10) + semestre);
+        recursos = servProg.consultarRecursosProgramados((anio * 10) + semestre);
     }
     
 }

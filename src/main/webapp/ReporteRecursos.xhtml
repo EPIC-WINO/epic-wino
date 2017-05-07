@@ -63,13 +63,12 @@
                 
                 <p:commandButton  value="Mostrar" update="reporte" actionListener="#{reporteRecursoBean.actualizarReporte()}" styleClass="button"/>
                 
-                <p:dataTable id="reporte" var="recurso" value="#{reporteRecursoBean.recursos}" styleClass="table" >
-                    <p:column  style="width:16px;text-align:center"/> <!--Es necesaria esta columna?-->
+                <p:dataTable id="reporte" var="recurso" value="#{reporteRecursoBean.recursos}" styleClass="table" >      
                     <p:column headerText="Recurso" styleClass="columnText">
                         <h:outputText value="#{recurso.nombre}" />
                     </p:column>
                     <p:column headerText="Descripcion" styleClass="columnText">
-                        <h:outputText value="" />
+                        <h:outputText value="#{recurso.descripcion}" />
                     </p:column>
                     <p:column headerText="Fecha de utilización" styleClass="columnText">
                         <h:outputText value="" />
