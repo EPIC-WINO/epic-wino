@@ -67,7 +67,7 @@
                 <p:commandButton action ="#{reporteBean.acturalizarReporte()}" title="Mostrar" value="Mostrar" styleClass="button"/>
                 
                 <p:dataTable var="materia" value="#{reporteBean.materias}" styleClass="table">
-                    <p:column headerText="Cohorte" styleClass="columnText">
+                    <p:column headerText="Cohorte" styleClass="columnText" style="width:8%;" >
                         <h:outputText value="#{reporteBean.getCohorte(materia)}" styleClass="outputText"/>
                     </p:column>
                     
@@ -83,6 +83,19 @@
                         <h:outputText value="#{reporteBean.getProfesor(materia).nombre}" styleClass="outputText"/>
                     </p:column>
                     
+                    <p:column headerText="Horas" styleClass="columnText">
+                        <h:outputText value="" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="Sesiones" styleClass="columnText">
+                        <h:outputText value="" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="" styleClass="columnText">
+                        <p:commandButton update=":carForm:display" oncomplete="PF('carDialog').show()" icon="fa-columns">
+                            <f:setPropertyActionListener value="#{car}" target="#{dndCarsView.selectedCar}" />
+                        </p:commandButton>
+                    </p:column>
                 </p:dataTable>
             </h:form>
         </div>
