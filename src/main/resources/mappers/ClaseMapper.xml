@@ -27,6 +27,7 @@
         where  (EXTRACT(YEAR from clas.fecha)= #{anio}) and (((EXTRACT(MONTH from clas.fecha) &lt; 6*#{semestre}) and (EXTRACT(MONTH from clas.fecha)&gt; 6*(#{semestre}-1)))or (EXTRACT(MONTH from clas.fecha)= 6*#{semestre})) and (recc.clase_id is not null) and (recc.recurso_id is not null)
         order by clas.fecha, clas.hora_inicio;
     </select>
+    
     <select parameterType="map" id="consultarClases" resultMap="ClaseResult">
         select 
             clas.id as id,
@@ -47,6 +48,24 @@
         where (gruposdematerias.materia_id=#{idMateria}) and (gruposdematerias.periodo= #{periodo})
         order by clas.fecha, clas.hora_inicio;
     </select>
+    
+    <select parameterType="map" id="consultarRecursosConcedidos" resultMap="RecursoResult">
+        select 
+            
+            rec.id as id,
+            rec.nombre as nombre,
+            rec.descripcion as descripcion,
+            rec.cantidad as cantidad,
+            rec.categoria as categoria
+        from recursos_concedidos as recc
+        left join recursos as rec on recc.recurso_id=rec.id
+        where recc.clase_id= #{idCl};   
+    </select>
+    
+    <insert  id="saveClase" >
+            insert INTO clases(id,fecha,hora_inicio,hora_fin,materia_id,periodo)
+            VALUES (#{clase.id},#{clase.fecha},#{clase.horainicio},#{clase.horafin},#{idMateria},#{periodo})
+    </insert>  
     
     <resultMap type="Clase" id="ClaseResult">
         <id property="id" column="id"/>

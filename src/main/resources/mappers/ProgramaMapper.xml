@@ -104,6 +104,9 @@
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
         where prog.id = #{programa_id}
     </select>
+    <select id="loadPeriodos" resultType="java.lang.Integer">
+        select DISTINCT periodo from asignaturas_grupos
+    </select>
     <select id="consultarUnCohorte" resultType="java.lang.Integer">
         select cohorte from asignaturas_grupos
         where materia_id=#{idMateria} and periodo=#{periodo} and asignaturas_id=#{idAsignatura}
