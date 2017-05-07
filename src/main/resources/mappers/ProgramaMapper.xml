@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Logica.Dao.MyBatis.Mappers.ProgramaMapper">
+<mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.ProgramaMapper">
     
     <!-- cosultarProgramaPorPeriodo -->
     <select parameterType="map" id="cosultarProgramaPorPeriodo" resultMap="ProgramaResult">
@@ -21,28 +21,38 @@
         
             mate.id as asig_mate_id,
             mate.nombre as asig_mate_nombre,
-            mate.asignatura_id as asig_mate_asignatura,
             mate.creditos as asig_mate_creditos,
             mate.descripcion as asig_mate_descripcion,
-            mate.profesor_id as asig_mate_profesor,
-            mate.periodo as asig_mate_periodo,
-            mate.cohorte as asig_mate_cohorte,
+           
+            grup.periodo as asig_mate_grup_periodo,
         
-            prof.id as asig_mate_prof_id,
-            prof.nombre as asig_mate_prof_nombre,
+            prof.id as asig_mate_grup_prof_id,
+            prof.nombre as asig_mate_grup_prof_nombre,
+            prof.tipo as asig_mate_grup_prof_tipo,
+            prof.correo as asig_mate_grup_prof_correo,
+            prof.telefono as asig_mate_grup_prof_telefono,
         
-            clas.id as asig_mate_clas_id,
-            clas.fecha as asig_mate_clas_fecha,
-            clas.hora_inicio as asig_mate_clas_horaInicio,
-            clas.hora_fin as asig_mate_clas_horaFin,
-            clas.materia_id as asig_mate_clas_materia
-        from Programas as prog 
-        left join Asignaturas as asig on prog.id = asig.programa_id
-        left join Materias as mate on asig.id = mate.asignatura_id
-        left join Profesores as prof on mate.profesor_id = prof.id
-        left join Clases as clas on clas.materia_id = mate.id
-        where prog.id = #{programa_id}
-        and mate.periodo = #{periodo};
+            clas.id as asig_mate_grup_clas_id,
+            clas.fecha as asig_mate_grup_clas_fecha,
+            clas.hora_inicio as asig_mate_grup_clas_horainicio,
+            clas.hora_fin as asig_mate_grup_clas_horafin,
+            
+            rec.id as asig_mate_grup_clas_rec_id,
+            rec.nombre as asig_mate_grup_clas_rec_nombre,
+            rec.descripcion as asig_mate_grup_clas_rec_descripcion,
+            rec.cantidad as asig_mate_grup_clas_rec_cantidad,
+            rec.categoria as asig_mate_grup_clas_rec_categoria,
+            
+      
+        from programas as prog 
+        left join asignaturas as asig on prog.id = asig.programa_id
+        left join materias as mate on asig.id = mate.asignatura_id
+        left join gruposdematerias as grup on mate.id=grup.materia_id
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id
+        where prog.id = #{programa_id} and grup.periodo = #{periodo}
     </select>
     
     <!-- consultarProgramas -->
@@ -61,28 +71,44 @@
         
             mate.id as asig_mate_id,
             mate.nombre as asig_mate_nombre,
-            mate.asignatura_id as asig_mate_asignatura,
             mate.creditos as asig_mate_creditos,
             mate.descripcion as asig_mate_descripcion,
-            mate.profesor_id as asig_mate_profesor,
-            mate.periodo as asig_mate_periodo,
-            mate.cohorte as asig_mate_cohorte,
+           
+            grup.periodo as asig_mate_grup_periodo,
         
-            prof.id as asig_mate_prof_id,
-            prof.nombre as asig_mate_prof_nombre,
+            prof.id as asig_mate_grup_prof_id,
+            prof.nombre as asig_mate_grup_prof_nombre,
+            prof.tipo as asig_mate_grup_prof_tipo,
+            prof.correo as asig_mate_grup_prof_correo,
+            prof.telefono as asig_mate_grup_prof_telefono,
         
-            clas.id as asig_mate_clas_id,
-            clas.fecha as asig_mate_clas_fecha,
-            clas.hora_inicio as asig_mate_clas_horaInicio,
-            clas.hora_fin as asig_mate_clas_horaFin,
-            clas.materia_id as asig_mate_clas_materia
-        from Programas as prog 
-        left join Asignaturas as asig on prog.id = asig.programa_id
-        left join Materias as mate on asig.id = mate.asignatura_id
-        left join Profesores as prof on mate.profesor_id = prof.id
-        left join Clases as clas on clas.materia_id = mate.id
-        where mate.periodo = #{periodo};
+            clas.id as asig_mate_grup_clas_id,
+            clas.fecha as asig_mate_grup_clas_fecha,
+            clas.hora_inicio as asig_mate_grup_clas_horainicio,
+            clas.hora_fin as asig_mate_grup_clas_horafin,
+            
+            rec.id as asig_mate_grup_clas_rec_id,
+            rec.nombre as asig_mate_grup_clas_rec_nombre,
+            rec.descripcion as asig_mate_grup_clas_rec_descripcion,
+            rec.cantidad as asig_mate_grup_clas_rec_cantidad,
+            rec.categoria as asig_mate_grup_clas_rec_categoria,
+            
+      
+        from programas as prog 
+        left join asignaturas as asig on prog.id = asig.programa_id
+        left join materias as mate on asig.id = mate.asignatura_id
+        left join gruposdematerias as grup on mate.id=grup.materia_id
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id
+        where prog.id = #{programa_id}
     </select>
+    <select id="consultarUnCohorte" resultType="java.lang.Integer">
+        select cohorte from asignaturas_grupos
+        where materia_id=#{idMateria} and periodo=#{periodo} and asignaturas_id=#{idAsignatura}
+    </select>
+
     
     <resultMap type="Programa" id="ProgramaResult">
         <id property="id" column="id"/>
@@ -106,15 +132,20 @@
         <result property="nombre" column="nombre"/>
         <result property="creditos" column="creditos"/>
         <result property="descripcion" column="descripcion"/>
-        <result property="periodo" column="periodo"/>
-        <result property="cohorte" column="cohorte"/>
-        <association property="profesor" columnPrefix="prof_" javaType="Profesor" resultMap="ProfesorResult"/>
+        <collection property="gruposDeMateria" columnPrefix="grup_" ofType="GrupoDeMateria" resultMap="GrupoDeMateriaResult"/>
+    </resultMap>
+    <resultMap type="GrupoDeMateria" id="GrupoDeMateriaResult">
+        <id property="periodo" column="periodo"/>
+        <association property="profesor" javaType="Profesor" resultMap='ProfesorResult'></association>
         <collection property="clases" columnPrefix="clas_" ofType="Clase" resultMap="Logica.Dao.MyBatis.Mappers.ClaseMapper.ClaseResult"/>
     </resultMap>
-    
     <resultMap type="Profesor" id="ProfesorResult">
         <id property="id" column="id"/>
         <result property="nombre" column="nombre"/>
+        <result property="tipoID" column="tipo"/>
+        <result property="correo" column="correo"/>
+        <result property="telefono" column="telefono"/>
+        
         <!--La coleccion de comites-->
     </resultMap>
     

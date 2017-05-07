@@ -5,15 +5,15 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias type='Logica.Entidades.Programa' alias='Programa'/>
-        <typeAlias type='Logica.Entidades.Asignatura' alias='Asignatura'/>
-        <typeAlias type='Logica.Entidades.Clase' alias='Clase'/>
-        <typeAlias type='Logica.Entidades.Materia' alias='Materia'/>
-        <typeAlias type='Logica.Entidades.Profesor' alias='Profesor'/>
-        <typeAlias type='Logica.Entidades.Comite' alias='Comite'/>
-        <typeAlias type='Logica.Entidades.Recurso' alias='Recurso'/>
-        <typeAlias type='Logica.Entidades.RecursoConcedido' alias='RecursoConcedido'/>
-        <typeAlias type='Logica.Entidades.Reunion' alias='Reunion'/>
+        <typeAlias type='edu.eci.pdsw.epicwino.logica.entidades.Programa' alias='Programa'/>
+        <typeAlias type='edu.eci.pdsw.epicwino.logica.entidades.Asignatura' alias='Asignatura'/>
+        <typeAlias type='edu.eci.pdsw.epicwino.logica.entidades.Clase' alias='Clase'/>
+        <typeAlias type='edu.eci.pdsw.epicwino.logica.entidades.Materia' alias='Materia'/>
+        <typeAlias type='edu.eci.pdsw.epicwino.logica.entidades.Profesor' alias='Profesor'/>
+        <typeAlias type='edu.eci.pdsw.epicwino.logica.entidades.Comite' alias='Comite'/>
+        <typeAlias type='edu.eci.pdsw.epicwino.logica.entidades.Recurso' alias='Recurso'/>
+        <typeAlias type='edu.eci.pdsw.epicwino.logica.entidades.Reunion' alias='Reunion'/>
+        <typeAlias type='edu.eci.pdsw.epicwino.logica.entidades.GrupoDeMateria' alias='GrupoDeMateria'/>
     </typeAliases>
 
 
@@ -34,6 +34,8 @@
         <mapper resource="mappers/ProgramaMapper.xml"></mapper>
         <mapper resource="mappers/ClaseMapper.xml"></mapper>
         <mapper resource="mappers/RecursoMapper.xml"></mapper>
+        <mapper resource="mappers/AsignaturaMapper.xml"></mapper>
+        <mapper resource="mappers/MateriaMapper.xml"></mapper>
     </mappers> 
     
 </configuration>

@@ -4,27 +4,100 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
-    <h:outputStylesheet name="css/mycss.css" />
+        <link rel="stylesheet" type="text/css" href="mycss.css"/>
     <h:body>
-        <h:form id="Reporte">
-            <h1>Reporte de Programación</h1>
-            <p:dataTable var="materia" value="#{reporteBean.materias}">
-                <f:facet name="header">
-                    Reporte del Programa 
-                </f:facet>
-                <p:column headerText="Cohorte">
-                    <h:outputText value="#{reporteBean.getCohorte(materia)}" />
-                </p:column>
-                <p:column headerText="Asignatura">
-                    <h:outputText value="#{reporteBean.getAsignatura(materia).nombre}" />
-                </p:column>
-                <p:column headerText="Materia">
-                    <h:outputText value="#{materia.nombre}" />
-                </p:column>
-                <p:column headerText="Profesor">
-                    <h:outputText value="#{reporteBean.getProfesor(materia).nombre}" />
-                </p:column>
-            </p:dataTable>
-        </h:form>
+        <div class="header">
+            <ul class="optionsHeader">
+                <li>
+                    <img src="/images/logo.jpg" alt="Escuela Colombiana de Ingenieria Julio Garavito"/>
+                    <div class="barMenu">
+                        <div class="dropdown">
+                            <button onclick="location.href='index.xhtml'" class="menuBarButton">Inicio</button>
+                        </div>
+                        <div class="dropdown">
+                            <button class="menuBarButton">Programación</button>
+                            <div class="dropdown-content">
+                                <a href="ProgramarMateria.xhtml" target="_self">Programar Materia</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="menuBarButton">Registros</button>
+                            <div class="dropdown-content">
+                                <a href="MateriasRegistradas.xhtml" target="_self">Materias Registradas</a>
+                                <a href="RegistrarMateria.xhtml" target="_self">Registrar Materia</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="menuBarButton">Reportes</button>
+                            <div class="dropdown-content">
+                                <a href="ReporteRecursos.xhtml" target="_self">Reporte de Recursos</a>
+                                <a href="ReporteProgramacion.xhtml" target="_self">Reporte de Programacion</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="menuBarButton">Profesores</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <h:form id="reporteProgramacion" style="text-align: center;">
+                
+                <h1>Reporte de Programación</h1>
+                
+                <p:outputLabel for="programa" value="Programa" styleClass="label"/>
+                <p:selectOneMenu id="programa" value="#{reporteBean.programa}" styleClass="scroll">
+                    <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{reporteBean.programas}" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel for="anio" value="Año" styleClass="label"/>
+                <p:selectOneMenu id="anio" value="#{reporteBean.anio}" styleClass="scroll">
+                    <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{reporteBean.anios}" />
+                </p:selectOneMenu>  
+                
+                <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>          
+                <p:selectOneMenu id="semestre" value="#{reporteBean.semestre}" styleClass="scroll">
+                    <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{reporteBean.semestres}" />
+                </p:selectOneMenu>            
+                
+                <p:commandButton action ="#{reporteBean.acturalizarReporte()}" title="Mostrar" value="Mostrar" styleClass="button"/>
+                
+                <p:dataTable var="materia" value="#{reporteBean.materias}" styleClass="table">
+                    <p:column headerText="Cohorte" styleClass="columnText" style="width:8%;" >
+                        <h:outputText value="#{reporteBean.getCohorte(materia)}" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="Asignatura" styleClass="columnText">
+                        <h:outputText value="#{reporteBean.getAsignatura(materia).nombre}" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="Materia" styleClass="columnText">
+                        <h:outputText value="#{materia.nombre}" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="Profesor" styleClass="columnText">
+                        <h:outputText value="#{reporteBean.getProfesor(materia).nombre}" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="Horas" styleClass="columnText">
+                        <h:outputText value="" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="Sesiones" styleClass="columnText">
+                        <h:outputText value="" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="" styleClass="columnText" style="width:4%">
+                        <p:commandButton update=":carForm:display" oncomplete="PF('carDialog').show()" icon="fa-columns">
+                            <f:setPropertyActionListener value="#{car}" target="#{dndCarsView.selectedCar}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
     </h:body>
 </html>
