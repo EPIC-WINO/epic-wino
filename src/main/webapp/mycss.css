@@ -182,7 +182,7 @@ body {
     color: white;
 }
 
-.dropdown-content a:hover, .scroll .selectItems:hover {background-color: #D8D8D8}
+.dropdown-content a:hover {background-color: #D8D8D8}
 
 .dropdown-content {
     display: none;
