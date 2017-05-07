@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.pdsw.epicwino.logica.dao.mybatis;
 
 import edu.eci.pdsw.epicwino.logica.dao.ClaseDAO;
@@ -11,12 +6,12 @@ import edu.eci.pdsw.epicwino.logica.dao.PersistenceException;
 import edu.eci.pdsw.epicwino.logica.entidades.Clase;
 import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
 import com.google.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Esteban
+ * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
 public class MyBatisClaseDAO implements ClaseDAO {
     
@@ -24,23 +19,18 @@ public class MyBatisClaseDAO implements ClaseDAO {
     private ClaseMapper claseMapper;
 
     @Override
-    public void save(Clase c) throws PersistenceException {
-        claseMapper.agregarClase(c);
+    public void saveClase(Clase c, int idMateria) throws PersistenceException {
+        claseMapper.agregarClase(c, idMateria);
     }
 
     @Override
-    public Clase load(int id) throws PersistenceException {
-        return null; // TODO implementar
+    public List<Clase> loadClases(int periodo) throws PersistenceException {
+        return claseMapper.consultarClases(periodo / 10, periodo % 10); // XXX refactorizar
     }
 
     @Override
-    public List<Clase> loadClasesPA(int anio, int semestre) throws PersistenceException {
-        return claseMapper.consultarClases(anio, semestre);
-    }
-
-    @Override
-    public List<Recurso> loadRecursosConcedidos(int idCl) throws PersistenceException { // FIXME logica cambio
-        return new ArrayList<>(); // TODO implementar
+    public List<Recurso> loadRecursosConcedidos(int idCl) throws PersistenceException {
+        return claseMapper.consultarRecursosConcedidos(idCl);
     }
 
     @Override

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Clase;
@@ -16,10 +11,11 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface ClaseMapper {
     /**
-     * @obj agregar a la base de datos una nueva clase
+     * @obj agregar a la base de datos una nueva clase en una materia
      * @param c clase a agregar
+     * @param idMateria id de la materia
      */
-    public void agregarClase(@Param("clase") Clase c);
+    public void agregarClase(@Param("clase") Clase c, @Param("materia") int idMateria);
     
     /**
      * @obj consultar en la base de datos la clase asociada con la id
@@ -42,7 +38,7 @@ public interface ClaseMapper {
      * @param idCl identificador de la clase
      * @return recursos prestados a la clase
      */
-    public List<Recurso> consultarRecursosConcedidos(@Param("idclase") int idCl); // FIXME logica cambio
+    public List<Recurso> consultarRecursosConcedidos(@Param("idclase") int idCl);
     
     /**
      * @obj agregar a la base de datos un recurso requerido por una clase para realizarse

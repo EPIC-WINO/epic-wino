@@ -1,5 +1,5 @@
-- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-05-07 01:21:04.67
+-- Created by Vertabelo (http://vertabelo.com)
+-- Last modification date: 2017-05-07 03:27:48.832
 
 -- tables
 -- Table: asignaturas
@@ -64,6 +64,8 @@ CREATE TABLE materias (
     CONSTRAINT materias_pk PRIMARY KEY (id)
 );
 
+COMMENT ON TABLE materias IS 'El id es el mnemonico de la materia';
+
 -- Table: profesores
 CREATE TABLE profesores (
     id int  NOT NULL,
@@ -92,6 +94,8 @@ CREATE TABLE programas (
     codigo_SNIES int  NOT NULL,
     CONSTRAINT id_programa PRIMARY KEY (id)
 );
+
+COMMENT ON TABLE programas IS 'La duración se mide en meses ';
 
 -- Table: recursos
 CREATE TABLE recursos (
@@ -133,118 +137,91 @@ CREATE TABLE reuniones (
 ALTER TABLE asignaturas ADD CONSTRAINT Asignatura_Programa
     FOREIGN KEY (programa_id)
     REFERENCES programas (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Asignaturas_Grupos_Asignaturas (table: asignaturas_grupos)
 ALTER TABLE asignaturas_grupos ADD CONSTRAINT Asignaturas_Grupos_Asignaturas
     FOREIGN KEY (asignaturas_id)
     REFERENCES asignaturas (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Asignaturas_Grupos_GrupoDeMateria (table: asignaturas_grupos)
 ALTER TABLE asignaturas_grupos ADD CONSTRAINT Asignaturas_Grupos_GrupoDeMateria
     FOREIGN KEY (materia_id, periodo)
-    REFERENCES gruposdematerias (materia_id, periodo)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
+    REFERENCES gruposdematerias (materia_id, periodo)
 ;
 
 -- Reference: Clase_RecursoConcedido (table: recursos_concedidos)
 ALTER TABLE recursos_concedidos ADD CONSTRAINT Clase_RecursoConcedido
     FOREIGN KEY (clase_id)
     REFERENCES clases (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Clases_GrupoDeMateria (table: clases)
 ALTER TABLE clases ADD CONSTRAINT Clases_GrupoDeMateria
     FOREIGN KEY (materia_id, periodo)
     REFERENCES gruposdematerias (materia_id, periodo)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Comite_Reunion (table: reuniones)
 ALTER TABLE reuniones ADD CONSTRAINT Comite_Reunion
     FOREIGN KEY (comite_id)
     REFERENCES comites (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: GrupoDeMateria_Materias (table: gruposdematerias)
 ALTER TABLE gruposdematerias ADD CONSTRAINT GrupoDeMateria_Materias
     FOREIGN KEY (materia_id)
-    REFERENCES materias (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
+    REFERENCES materias (id)
 ;
 
 -- Reference: GrupoDeMateria_Profesores (table: gruposdematerias)
 ALTER TABLE gruposdematerias ADD CONSTRAINT GrupoDeMateria_Profesores
     FOREIGN KEY (profesor_id)
     REFERENCES profesores (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: HorarioProfesores_Profesores (table: horario_profesores)
 ALTER TABLE horario_profesores ADD CONSTRAINT HorarioProfesores_Profesores
     FOREIGN KEY (profesor_id)
     REFERENCES profesores (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Materia_Requisito (table: requisitos)
 ALTER TABLE requisitos ADD CONSTRAINT Materia_Requisito
     FOREIGN KEY (requisito)
     REFERENCES materias (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Materias_Asignaturas (table: materias)
 ALTER TABLE materias ADD CONSTRAINT Materias_Asignaturas
     FOREIGN KEY (asignaturas_id)
     REFERENCES asignaturas (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Profesor_Comite_Comite (table: profesores_comite)
 ALTER TABLE profesores_comite ADD CONSTRAINT Profesor_Comite_Comite
     FOREIGN KEY (comite_id)
     REFERENCES comites (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Profesor_Comite_Profesor (table: profesores_comite)
 ALTER TABLE profesores_comite ADD CONSTRAINT Profesor_Comite_Profesor
     FOREIGN KEY (profesor_id)
     REFERENCES profesores (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: RecursoConcedido_Recurso (table: recursos_concedidos)
 ALTER TABLE recursos_concedidos ADD CONSTRAINT RecursoConcedido_Recurso
     FOREIGN KEY (recurso_id)
     REFERENCES recursos (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Requisito_Materia (table: requisitos)
 ALTER TABLE requisitos ADD CONSTRAINT Requisito_Materia
     FOREIGN KEY (materia_id)
     REFERENCES materias (id)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
+
+-- End of file.
+

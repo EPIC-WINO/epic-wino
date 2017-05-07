@@ -8,15 +8,37 @@ import java.util.List;
  *
  * @author Esteban
  */
-public interface ClaseDAO { // FIXME corregir
-    
-    public void save(Clase c) throws PersistenceException;
-    
-    public Clase load(int id) throws PersistenceException;
-    
-    public List<Clase> loadClasesPA(int anio, int semestre) throws PersistenceException;
-    
-    public List<Recurso> loadRecursosConcedidos(int idCl) throws PersistenceException;
-    
-    public void saveRecursoConcedido(int idCl, int idRe) throws PersistenceException;
+public interface ClaseDAO {
+
+    /**
+     * @obj guarda una clase en una materia
+     * @param clase a guardar
+     * @param idMateria id de la materia en donde guardar
+     * @throws PersistenceException falla en persistencia
+     */
+    public void saveClase(Clase clase, int idMateria) throws PersistenceException;
+
+    /**
+     * @obj consultar todas las clases en un periodo
+     * @param periodo
+     * @return lista no nula de clases
+     * @throws PersistenceException falla en persistencia
+     */
+    public List<Clase> loadClases(int periodo) throws PersistenceException;
+
+    /**
+     * @obj consultar los recursos usados por una clase
+     * @param idClase id de la clase
+     * @return lista no nula de recursos
+     * @throws PersistenceException falla en persistencia
+     */
+    public List<Recurso> loadRecursosConcedidos(int idClase) throws PersistenceException;
+
+    /**
+     * @obj guarda el uso de un recurso en una clase en persistencia
+     * @param idClase id de la clase
+     * @param idRecurso id del recurso
+     * @throws PersistenceException falla en persistencia
+     */
+    public void saveRecursoConcedido(int idClase, int idRecurso) throws PersistenceException;
 }

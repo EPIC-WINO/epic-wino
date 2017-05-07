@@ -1,8 +1,6 @@
 package edu.eci.pdsw.epicwino.logica.servicios.impl;
 
-import edu.eci.pdsw.epicwino.logica.dao.ClaseDAO;
 import edu.eci.pdsw.epicwino.logica.dao.ProgramaDAO;
-import edu.eci.pdsw.epicwino.logica.dao.RecursoDAO;
 import edu.eci.pdsw.epicwino.logica.entidades.Asignatura;
 import edu.eci.pdsw.epicwino.logica.entidades.Clase;
 import edu.eci.pdsw.epicwino.logica.entidades.Materia;
@@ -12,6 +10,7 @@ import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
 import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import com.google.inject.Inject;
+import edu.eci.pdsw.epicwino.logica.dao.AsignaturaDAO;
 import edu.eci.pdsw.epicwino.logica.dao.PersistenceException;
 import edu.eci.pdsw.epicwino.logica.entidades.GrupoDeMateria;
 import java.sql.Date;
@@ -23,6 +22,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.log4j.Logger;
+import edu.eci.pdsw.epicwino.logica.dao.ClaseDAO;
+import edu.eci.pdsw.epicwino.logica.dao.MateriaDAO;
+import edu.eci.pdsw.epicwino.logica.dao.RecursoDAO;
 
 /**
  *
@@ -41,10 +43,24 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Inject
     private ProgramaDAO daoPrograma;
+    
+    @Inject 
+    private AsignaturaDAO daoAsignatura;
+    
+    @Inject
+    private MateriaDAO daoMateria;
 
     @Override
     public void registrarMateria(Materia materia) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (materia == null){
+            throw new NullPointerException("La materia es null");
+        }
+        
+        try {
+            daoMateria.saveMateria(materia);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error guardando la materia " + materia, ex);
+        }
     }
 
     @Override

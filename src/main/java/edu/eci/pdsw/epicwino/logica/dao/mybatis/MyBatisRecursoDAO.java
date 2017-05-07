@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.pdsw.epicwino.logica.dao.mybatis;
 
 import edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.RecursoMapper;
@@ -15,6 +10,7 @@ import java.util.List;
 /**
  *
  * @author Esteban
+ * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
 public class MyBatisRecursoDAO implements RecursoDAO {
     
@@ -27,13 +23,8 @@ public class MyBatisRecursoDAO implements RecursoDAO {
     }
 
     @Override
-    public Recurso load(int idRec) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<Recurso> loadRecursos() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return recursoMapper.consultarRecursos();
     }
     
 }
