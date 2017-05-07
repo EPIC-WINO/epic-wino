@@ -30,18 +30,16 @@
     <select parameterType="map" id="consultarClases" resultMap="ClaseResult">
         select 
             clas.id as id,
-            clas.fecha fecha,
-            clas.hora_inicio as hora_inicio,
-            clas.hora_fin as hora_fin,
-            
-        
+            clas.hora_inicio as horainicio,
+            clas.hora_fin as horafin,
+           
             rec.id as rec_id,
             rec.nombre as rec_nombre,
             rec.descripcion as rec_descripcion,
             rec.cantidad as rec_cantidad,
             rec.categoria as rec_categoria
             
-        from grupos de materias
+        from gruposdematerias
         left join clases as clas on (gruposdematerias.materia_id=clas.materia_id)and (gruposdematerias.periodo=clas.periodo)
         left join recursos_concedidos as recc on clas.id=recc.clase_id
         left join recursos as rec on recc.recurso_id=rec.id
@@ -52,8 +50,8 @@
     <resultMap type="Clase" id="ClaseResult">
         <id property="id" column="id"/>
         <result property="fecha" column="fecha"/>
-        <result property="horaInicio" column="hora_inicio"/>
-        <result property="horaFin" column="hora_fin"/>
+        <result property="horaInicio" column="horainicio"/>
+        <result property="horaFin" column="horafin"/>
         <collection property="recursos" columnPrefix="rec_" ofType="Recurso" resultMap="RecursoResult"/>
     </resultMap>
     <resultMap type="Recurso" id="RecursoResult">
@@ -65,5 +63,6 @@
     </resultMap>
     
 </mapper>
+
 
        
