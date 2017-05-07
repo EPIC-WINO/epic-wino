@@ -21,8 +21,7 @@
         
             mate.id as asig_mate_id,
             mate.nombre as asig_mate_nombre,
-            mate.credi
-        tos as asig_mate_creditos,
+            mate.creditos as asig_mate_creditos,
             mate.descripcion as asig_mate_descripcion,
            
             grup.periodo as asig_mate_grup_periodo,

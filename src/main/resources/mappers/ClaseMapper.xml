@@ -30,6 +30,7 @@
     <select parameterType="map" id="consultarClases" resultMap="ClaseResult">
         select 
             clas.id as id,
+            clas.fecha as fecha,
             clas.hora_inicio as horainicio,
             clas.hora_fin as horafin,
            
