@@ -35,7 +35,7 @@
                             <button class="menuBarButton">Reportes</button>
                             <div class="dropdown-content">
                                 <a href="ReporteRecursos.xhtml" target="_self">Reporte de Recursos</a>
-                                <a href="ReporteProgramacion.xhtml" target="_self">Reporte de Programacion</a>
+                                <a href="ReporteProgramacion.xhtml" target="_self">Reporte de Programación</a>
                             </div>
                         </div>
                         <div class="dropdown">
@@ -58,7 +58,7 @@
                 <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>
                 <p:selectOneMenu id="semestre" value="#{reporteRecursoBean.semestre}" styleClass="scroll">
                     <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{reporteRecursoBean.semestres}" styleClass="selectItems"/>
+                    <f:selectItems value="#{reporteRecursoBean.semestres}" />
                 </p:selectOneMenu>  
                 
                 <p:commandButton  value="Mostrar" update="reporte" actionListener="#{reporteRecursoBean.actualizarReporte()}" styleClass="button"/>
