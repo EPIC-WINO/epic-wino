@@ -42,39 +42,49 @@
             </ul>
         </div>
         <div class="content">
-            <h1>Reporte de Programación</h1>
-            <center>
+            <h:form id="reporteProgramacion" style="text-align: center;">
+                
+                <h1>Reporte de Programación</h1>
+                
                 <p:outputLabel for="programa" value="Programa" styleClass="label"/>
                 <p:selectOneMenu id="programa" value="#{reporteBean.programa}" styleClass="scroll">
                     <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{reporteBean.programas}" />
                 </p:selectOneMenu>
+                
                 <p:outputLabel for="anio" value="Año" styleClass="label"/>
                 <p:selectOneMenu id="anio" value="#{reporteBean.anio}" styleClass="scroll">
                     <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{reporteBean.anios}" />
                 </p:selectOneMenu>  
+                
                 <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>          
                 <p:selectOneMenu id="semestre" value="#{reporteBean.semestre}" styleClass="scroll">
                     <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{reporteBean.semestres}" />
                 </p:selectOneMenu>            
+                
                 <p:commandButton action ="#{reporteBean.acturalizarReporte()}" title="Mostrar" value="Mostrar" styleClass="button"/>
-            </center>
-            <p:dataTable var="materia" value="#{reporteBean.materias}" styleClass="table">
-                <p:column headerText="Cohorte" styleClass="columnText">
-                    <h:outputText value="#{reporteBean.getCohorte(materia)}" styleClass="outputText"/>
-                </p:column>
-                <p:column headerText="Asignatura" styleClass="columnText">
-                    <h:outputText value="#{reporteBean.getAsignatura(materia).nombre}" styleClass="outputText"/>
-                </p:column>
-                <p:column headerText="Materia" styleClass="columnText">
-                    <h:outputText value="#{materia.nombre}" styleClass="outputText"/>
-                </p:column>
-                <p:column headerText="Profesor" styleClass="columnText">
-                    <h:outputText value="#{reporteBean.getProfesor(materia).nombre}" styleClass="outputText"/>
-                </p:column>
-            </p:dataTable>
+                
+                <p:dataTable var="materia" value="#{reporteBean.materias}" styleClass="table">
+                    <p:column headerText="Cohorte" styleClass="columnText">
+                        <h:outputText value="#{reporteBean.getCohorte(materia)}" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="Asignatura" styleClass="columnText">
+                        <h:outputText value="#{reporteBean.getAsignatura(materia).nombre}" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="Materia" styleClass="columnText">
+                        <h:outputText value="#{materia.nombre}" styleClass="outputText"/>
+                    </p:column>
+                    
+                    <p:column headerText="Profesor" styleClass="columnText">
+                        <h:outputText value="#{reporteBean.getProfesor(materia).nombre}" styleClass="outputText"/>
+                    </p:column>
+                    
+                </p:dataTable>
+            </h:form>
         </div>
     </h:body>
 </html>
