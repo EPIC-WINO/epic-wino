@@ -239,7 +239,14 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Recurso> consultarRecursosProgramados(int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Recurso> recursos=new ArrayList();
+        Recurso r1=new Recurso(1,"Computadores","Computadores dell para uso de las clases",5,"Multimedia");
+        Recurso r2=new Recurso(2,"Video Beam","Video Beam para usar en clases",6,"Multimedia");
+        Recurso r3=new Recurso(3,"Salones de computo","Salones con 20 computadores para uso de estudiantes",3,"Multimedia");
+        recursos.add(r1);
+        recursos.add(r2);
+        recursos.add(r3);
+        return recursos; 
     }
     
 }
