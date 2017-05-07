@@ -217,3 +217,28 @@ body {
     -webkit-box-shadow: 0px 0px 8px #959595;
     box-shadow: 0px 0px 8px #959595;
 }
+
+/*---------Menú de incio-------*/
+.content .menu {
+    margin: 70px auto 13px auto;
+    text-align: center;
+}
+
+.content .menu button {
+    border: 1px solid #990000;
+    padding: 10px 24px; 
+    cursor: pointer;
+    margin-bottom: 10px; 
+    border-radius: 5%;
+}
+
+.content .menu button:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.content button:hover {
+    -webkit-box-shadow: 0px 0px 7px 0px #990000;
+}
+

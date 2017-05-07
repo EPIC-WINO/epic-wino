@@ -91,7 +91,7 @@
                         <h:outputText value="" styleClass="outputText"/>
                     </p:column>
                     
-                    <p:column headerText="" styleClass="columnText">
+                    <p:column headerText="" styleClass="columnText" style="width:4%">
                         <p:commandButton update=":carForm:display" oncomplete="PF('carDialog').show()" icon="fa-columns">
                             <f:setPropertyActionListener value="#{car}" target="#{dndCarsView.selectedCar}" />
                         </p:commandButton>
