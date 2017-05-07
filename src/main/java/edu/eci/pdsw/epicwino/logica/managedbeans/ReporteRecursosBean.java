@@ -27,8 +27,8 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     
     private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
     
-    private int anio;
-    private int semestre;
+    private int anio = 0;
+    private int semestre = 0;
     private List<Recurso> recursos;
     
     public ReporteRecursosBean() {
@@ -101,7 +101,9 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     
     public void actualizarReporte() throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Se actualiza el reporte de la vista");
-        recursos = servProg.consultarRecursosProgramados((anio * 10) + semestre);
+        if (anio != 0 && semestre != 0){
+            recursos = servProg.consultarRecursosProgramados((anio * 10) + semestre);
+        }
     }
     
 }
