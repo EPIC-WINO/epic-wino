@@ -16,6 +16,7 @@ import edu.eci.pdsw.epicwino.logica.dao.PersistenceException;
 import edu.eci.pdsw.epicwino.logica.entidades.GrupoDeMateria;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ import org.apache.log4j.Logger;
  */
 public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
-    private static final Logger LOGGER = Logger.getLogger(ServiciosProgmsPostImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ServiciosProgmsPostImpl.class);
 
     @Inject
     private RecursoDAO daoRecurso;
@@ -48,21 +49,21 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Programa> consultarProgramas(int periodo) throws ExcepcionServiciosProgmsPost {
-        LOGGER.info("Se consultan los programas con periodo " + periodo);
+        LOGGER.info("Se consultan los programas en el periodo " + periodo);
 
         if (!(0 <= periodo && periodo <= 99999)) {
-            throw new ExcepcionServiciosProgmsPost("El periodo es invalido");
+            throw new ExcepcionServiciosProgmsPost(MessageFormat.format("El periodo es invalido ({0})", periodo));
         }
 
-        List<Programa> p = null;
+        List<Programa> programas = null;
         try {
-            p = daoPrograma.loadProgramas(periodo);
+            programas = daoPrograma.loadProgramas(periodo);
         } catch (PersistenceException ex) {
             LOGGER.error("Error consultando los programas", ex);
             throw new ExcepcionServiciosProgmsPost("Error consultando los programas", ex);
         }
 
-        return p;
+        return programas;
     }
 
     @Override
@@ -72,8 +73,10 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Materia> consultarMaterias() {
+        LOGGER.info("Consulta todas las materias");
+
         List<Integer> periodos = this.consultarPeriodos();
-        
+
         Set<Materia> materias = new TreeSet<>();
         for (Integer periodo : periodos) {
             try {
@@ -81,28 +84,52 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             } catch (ExcepcionServiciosProgmsPost ex) {
             }
         }
-        
+
         return new ArrayList<>(materias);
     }
 
     @Override
     public List<Materia> consultarMaterias(int periodo) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info("Consulta todas las materias en el periodo " + periodo);
+
         List<Programa> programas = this.consultarProgramas(periodo);
 
         Set<Materia> materias = new TreeSet<>();
-        
+
         for (Programa programa : programas) {
             for (Asignatura asignatura : programa.getAsignaturas()) {
                 materias.addAll(asignatura.getMaterias());
             }
         }
-        
+
         return new ArrayList<>(materias);
     }
 
     @Override
     public List<Materia> consultarMaterias(int periodo, int idAsignatura) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info(MessageFormat.format("Consulta todas las materias de la "
+                + "asignatura ({0}) en el periodo {1}", idAsignatura, periodo));
+
+        List<Programa> programas = this.consultarProgramas(periodo);
+
+        boolean found = false;
+        Set<Materia> materias = new TreeSet<>();
+
+        for (Programa programa : programas) {
+            List<Asignatura> asignaturas = programa.getAsignaturas();
+            for (Asignatura asignatura : asignaturas) {
+                if (asignatura.getId() == idAsignatura) {
+                    found = true;
+                    materias.addAll(asignatura.getMaterias());
+                }
+            }
+        }
+
+        if (!found) {
+            throw new ExcepcionServiciosProgmsPost("La asignatura con ID: " + idAsignatura + " no existe");
+        }
+
+        return new ArrayList<>(materias);
     }
 
     @Override
@@ -127,12 +154,78 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Asignatura> consultarAsignaturas(int periodo, int idPrograma) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info(MessageFormat.format("Consulta las asignaturas del "
+                + "programa ({0}) en el periodo {1}", idPrograma, periodo));
+
+        List<Programa> programas = this.consultarProgramas(periodo);
+
+        boolean found = false;
+        Set<Asignatura> asignaturas = new TreeSet<>();
+        for (int i = 0; i < programas.size() && !found; i++) {
+            Programa p = programas.get(i);
+            if (p.getId() == idPrograma) {
+                found = true;
+                asignaturas.addAll(p.getAsignaturas());
+            }
+        }
+
+        if (!found) {
+            throw new ExcepcionServiciosProgmsPost("El programa con ID: "
+                    + idPrograma + " no existe");
+        }
+
+        return new ArrayList<>(asignaturas);
     }
 
     @Override
     public List<Asignatura> consultarAsignaturas(int idMateria) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOGGER.info(MessageFormat.format("Consulta las asignaturas que tiene la materia ({0})", idMateria));
+
+        List<Asignatura> as = this.consultarAsignaturas();
+
+        boolean found = false;
+        Set<Asignatura> asignaturas = new TreeSet<>();
+        for (Asignatura asignatura : asignaturas) {
+            List<Materia> materias = asignatura.getMaterias();
+            boolean f = false;
+            for (int i = 0; i < materias.size() && !f; i++) {
+                if (materias.get(i).getId() == idMateria) {
+                    found = true;
+                    f = true;
+                    asignaturas.add(asignatura);
+                }
+            }
+        }
+
+        if (!found) {
+            throw new ExcepcionServiciosProgmsPost("La materia no existe");
+        }
+
+        return new ArrayList<>(asignaturas);
+
+    }
+
+    private List<Asignatura> consultarAsignaturas() {
+        LOGGER.debug("Consulta todas las asignaturas");
+
+        List<Integer> periodos = this.consultarPeriodos();
+
+        Set<Programa> progs = new TreeSet<>();
+        for (Integer i : periodos) {
+            try {
+                progs.addAll(this.consultarProgramas(i));
+            } catch (ExcepcionServiciosProgmsPost ex) {
+                // se ignora
+            }
+        }
+
+        Set<Asignatura> asignaturas = new TreeSet<>();
+
+        for (Programa programa : progs) {
+            asignaturas.addAll(programa.getAsignaturas());
+        }
+
+        return new ArrayList<>(asignaturas);
     }
 
     @Override
@@ -152,6 +245,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Integer> consultarPeriodos() {
+        LOGGER.info("Se consultan todos los periodos");
+
         List<Integer> p = null;
         try {
             p = daoPrograma.loadPeriodos();
@@ -164,15 +259,17 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Integer> consultarPeriodos(int idPrograma) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info("Se consultan todos los periodos en los que esta el programa con ID: " + idPrograma);
+
         List<Integer> per = this.consultarPeriodos();
 
         boolean found = false;
         Set<Integer> periodos = new TreeSet<>();
 
         for (Integer i : per) {
-            List<Programa> programas = this.consultarProgramas(i);
-            for (int j = 0; j < programas.size(); j++) {
-                Programa pro = programas.get(j);
+            List<Programa> progs = this.consultarProgramas(i);
+            for (int j = 0; j < progs.size(); j++) {
+                Programa pro = progs.get(j);
                 if (idPrograma == pro.getId()) {
                     found = true;
                     List<Asignatura> asignaturas = pro.getAsignaturas();
@@ -191,6 +288,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     private List<Integer> consultarPeriodosPorAsignatura(Asignatura a) {
+        LOGGER.debug(MessageFormat.format("Se consultan los periodos en una asignatura (ID: {0})", a.getId()));
+
         Set<Integer> set = new TreeSet<>();
 
         for (Materia m : a.getMaterias()) {
