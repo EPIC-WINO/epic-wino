@@ -26,6 +26,7 @@ import edu.eci.pdsw.epicwino.logica.dao.ClaseDAO;
 import edu.eci.pdsw.epicwino.logica.dao.MateriaDAO;
 import edu.eci.pdsw.epicwino.logica.dao.RecursoDAO;
 import java.util.Calendar;
+import java.util.logging.Level;
 
 /**
  *
@@ -532,6 +533,19 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<String> consultarNiveles() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Integer> periodos = this.consultarPeriodos();
+        
+        Set<String> niveles = new TreeSet<>();
+        for (Integer periodo : periodos) {
+            try {
+                for (Programa programa : this.consultarProgramas(periodo)) {
+                    niveles.add(programa.getNivel());
+                }
+            } catch (ExcepcionServiciosProgmsPost ex) {
+                // lo ignora
+            }
+        }
+        
+        return new ArrayList<>(niveles);
     }
 }
