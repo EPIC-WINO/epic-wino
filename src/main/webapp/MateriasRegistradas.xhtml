@@ -43,6 +43,38 @@
         </div>
         <div class="content">
             <h1>Materias Registradas</h1>
+            <p:outputLabel for="programa" value="Programa" styleClass="label"/>
+                <p:selectOneMenu id="programa" value="#{materiasRegistradasBean.programa}" styleClass="scroll">
+                    <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{materiasRegistradasBean.programas}" />
+                </p:selectOneMenu>
+            <p:outputLabel for="nivel" value="Nivel" styleClass="label"/>
+                <p:selectOneMenu id="nivel" value="" styleClass="scroll">
+                    <f:selectItem itemLabel="Nivel" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="" />
+                </p:selectOneMenu>
+            <p:outputLabel for="anio" value="Año" styleClass="label"/>
+                <p:selectOneMenu id="anio" value="#{materiasRegistradasBean.anio}" styleClass="scroll">
+                    <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{materiasRegistradasBean.anios}" />
+                </p:selectOneMenu>
+            <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>
+                <p:selectOneMenu id="semestre" value="#{materiasRegistradasBean.semestre}" styleClass="scroll">
+                    <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{materiasRegistradasBean.semestres}" />
+                </p:selectOneMenu>  
+                
+                <p:commandButton  value="Mostrar" update="asignaturas" actionListener="#{materiasRegistradasBean.actualizarMaterias()}" styleClass="button"/>
+                
+                <p:dataTable id="asignaturas" var="asignatura" value="#{materiasRegistradasBean.asignaturas}" styleClass="table" >
+                    <p:column headerText="Asignatura" styleClass="columnText">
+                        <h:outputText value="#{asignatura.nombre}" styleClass="outputText"/>
+                    </p:column>
+                    <p:column headerText="Materia" styleClass="columnText">
+                        <h:outputText value="" styleClass="outputText"/>
+                    </p:column>
+                </p:dataTable>
+                
         </div>
     </h:body>
 </html>
