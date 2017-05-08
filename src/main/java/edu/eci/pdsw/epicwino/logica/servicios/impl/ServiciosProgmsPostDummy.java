@@ -98,6 +98,9 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
        
         p2.setAsignaturas(asignaturas2);
         
+        p1.setNivel("Especializacion");
+        p2.setNivel("Maestria");
+        
         programas.add(p1);
         programas.add(p2);
      
@@ -181,7 +184,14 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Asignatura> consultarAsignaturas(int periodo, int idPrograma) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Asignatura> asignaturas=new ArrayList();
+        Asignatura a0=new Asignatura(0,"Fundamentos de gerencia de proyectos");
+        Asignatura a1=new Asignatura(1,"Teorias gerenciales");
+        Asignatura a2=new Asignatura(2,"Fundamentos de la informacion");
+        asignaturas.add(a0);
+        asignaturas.add(a1);
+        asignaturas.add(a2);
+        return asignaturas;
     }
 
     @Override
@@ -258,7 +268,10 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<String> consultarNiveles() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<String> n=new ArrayList();
+        n.add("Especializacion");
+        n.add("Maestria");
+        return n;
     }
     
 }
