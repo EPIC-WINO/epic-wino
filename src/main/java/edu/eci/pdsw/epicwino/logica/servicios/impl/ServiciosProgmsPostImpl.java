@@ -295,7 +295,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         }
 
         try {
-            daoAsignatura.saveAsignatura(asignatura);
+            daoAsignatura.saveAsignatura(asignatura, idPrograma);
         } catch (PersistenceException ex) {
             LOGGER.error("Error al guardar la asignatura " + asignatura);
         }

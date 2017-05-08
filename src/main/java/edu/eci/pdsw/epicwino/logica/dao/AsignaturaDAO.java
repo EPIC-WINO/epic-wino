@@ -11,7 +11,8 @@ public interface AsignaturaDAO {
     /**
      * @obj guardar una asignatura
      * @param asignatura a guardar
+     * @param idPrograma id del programa
      * @throws PersistenceException falla en persistencia
      */
-    void saveAsignatura(Asignatura asignatura) throws PersistenceException;
+    void saveAsignatura(Asignatura asignatura, int idPrograma) throws PersistenceException;
 }
