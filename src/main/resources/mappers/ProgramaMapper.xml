@@ -52,7 +52,7 @@
         left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
         left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
-        where prog.id = #{programa_id} and grup.periodo = #{periodo};
+        where prog.id = #{program_id} and grup.periodo = #{periodo};
     </select>
     
     <!-- consultarProgramas -->
@@ -102,7 +102,7 @@
         left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
         left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
-        where prog.id = #{programa_id};
+        where grup.periodo= #{periodo};
     </select>
     <select id="loadPeriodos" resultType="java.lang.Integer">
         select DISTINCT periodo from asignaturas_grupos;
