@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface ProgramaMapper {
     
+    public void registrarPrograma(@Param("programa") Programa programa);
+    
     public Programa cosultarProgramaPorPeriodo (@Param("programa_id") int programaId, @Param("periodo") int periodo);
     
     public List<Programa> consultarProgramas (@Param("periodo") int periodo);

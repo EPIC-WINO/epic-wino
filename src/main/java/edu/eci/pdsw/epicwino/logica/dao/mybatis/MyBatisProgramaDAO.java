@@ -19,7 +19,7 @@ public class MyBatisProgramaDAO implements ProgramaDAO{
     
     @Override
     public void save(Programa programa) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
+        programaMapper.registrarPrograma(programa);
     }
 
     @Override

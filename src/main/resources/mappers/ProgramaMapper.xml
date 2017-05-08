@@ -116,6 +116,9 @@
         where materia_id=#{idMateria} and periodo=#{periodo} and asignaturas_id=#{idAsignatura};
     </select>
 
+    <insert id="registrarPrograma">
+        <!-- TODO implementar -->
+    </insert>
     
     <resultMap type="Programa" id="ProgramaResult">
         <id property="id" column="id"/>

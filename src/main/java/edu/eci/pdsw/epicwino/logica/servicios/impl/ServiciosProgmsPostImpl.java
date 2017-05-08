@@ -398,6 +398,9 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClases(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info(MessageFormat.format("Se consultan las clases de la materia"
+                + "({0}) en el periodo ({1})", idMateria, periodo));
+        
         List<Materia> materias = this.consultarMaterias(periodo);
 
         boolean found = false;
@@ -422,6 +425,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<String> consultarCategoriasRecursos() {
+        LOGGER.info("Se consultan las categorias de todos los recursos");
+        
         List<Recurso> recursos = new ArrayList<>();
         try {
             recursos = daoRecurso.loadRecursos();
@@ -439,6 +444,9 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public Map<Asignatura, Integer> consultarCohortesPorAsignatura(int idMateria, int periodo) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info(MessageFormat.format("Se consultan los cohortes por asignatura a partir"
+                + "de la materia ({0}) en el periodo {1}", idMateria, periodo));
+        
         List<Asignatura> asignaturas = this.consultarAsignaturas();
 
         Map<Asignatura, Integer> cohortes = new HashMap<>();
@@ -513,6 +521,9 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public void registrarPrestamoRecursoClase(int idRecurso, Clase clase) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info(MessageFormat.format("Se registra el prestamo del recurso "
+                + "({0}) a la clase ({1})", idRecurso, clase));
+        
         if (clase == null) {
             throw new NullPointerException("La clase es null");
         }
@@ -526,6 +537,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Recurso> consultarRecursosProgramados(int periodo) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info("Se consulta los recursos programados en el periodo " + periodo);
+        
         List<Materia> materias = this.consultarMaterias(periodo);
 
         Set<Recurso> recursos = new TreeSet<>();
@@ -544,6 +557,9 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public int consultarCohorte(int idMateria, int idAsignatura, int periodo) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info(MessageFormat.format("Se consulta el cohorte de la materia "
+                + "({0}) en la asignatura ({1}), en el periodo {2}", idMateria, idAsignatura, periodo));
+        
         if (!this.materiaExiste(idMateria)) {
             throw new ExcepcionServiciosProgmsPost("La materia no existe");
         }
@@ -566,6 +582,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<String> consultarNiveles() {
+        LOGGER.info("Se consultan los niveles de los programas");
+        
         List<Integer> periodos = this.consultarPeriodos();
 
         Set<String> niveles = new TreeSet<>();
@@ -583,6 +601,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     private boolean materiaExiste(int idMateria) {
+        LOGGER.debug("Se consulta si la materia " + idMateria + " existe");
+        
         List<Materia> materias = this.consultarMaterias();
 
         boolean found = false;
@@ -594,6 +614,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     private boolean asignaturaExiste(int idAsignatura) {
+        LOGGER.debug("Se consulta si la asignatura " + idAsignatura + " existe");
+        
         List<Asignatura> asignaturas = this.consultarAsignaturas();
 
         boolean found = false;
@@ -605,6 +627,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     private boolean programaExiste(int idPrograma) {
+        LOGGER.debug("Se consulta si el programa " + idPrograma + " existe");
+        
         List<Integer> periodos = this.consultarPeriodos();
 
         Set<Programa> programas = new TreeSet<>();
@@ -626,6 +650,30 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
     
     private boolean periodoExiste(int periodo) {
+        LOGGER.debug("Se consulta si el periodo " + periodo + " existe");
         return this.consultarPeriodos().contains(periodo);
+    }
+
+    @Override
+    public void registrarPrograma(Programa programa) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info(MessageFormat.format("Registra programa ({0})", programa));
+        
+        if (programa == null) {
+            throw new NullPointerException("El programa es null");
+        }
+        
+        if (programa.getAsignaturas() == null) {
+            throw new ExcepcionServiciosProgmsPost("Atributo de programa mal definido: asignaturas");
+        }
+        
+        if (this.programaExiste(programa.getId())) {
+            throw new ExcepcionServiciosProgmsPost("El programa ya existe");
+        }
+        
+        try {
+            daoPrograma.save(programa);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error en persistencia", ex);
+        }
     }
 }

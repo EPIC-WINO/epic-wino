@@ -19,6 +19,15 @@ import java.util.Map;
 public interface ServiciosProgmsPost {
 
     /**
+     * @obj registrar una programa
+     * @param programa a registrar
+     * @throws ExcepcionServiciosProgmsPost el programa ya existe; algun atributo esta mal definido
+     * o no esta definido en primer lugar
+     * @throws NullPointerException el programa es null
+     */
+    void registrarPrograma(Programa programa) throws ExcepcionServiciosProgmsPost;
+    
+    /**
      * @obj registrar una materia
      * @param materia a registrar
      * @param idAsignatura id de la asignatura en donde estara la materia

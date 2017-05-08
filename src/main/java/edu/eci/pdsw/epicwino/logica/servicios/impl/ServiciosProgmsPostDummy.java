@@ -273,5 +273,10 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         n.add("Maestria");
         return n;
     }
+
+    @Override
+    public void registrarPrograma(Programa programa) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
