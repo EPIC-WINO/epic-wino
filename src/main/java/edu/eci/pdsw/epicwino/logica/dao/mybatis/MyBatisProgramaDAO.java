@@ -42,7 +42,12 @@ public class MyBatisProgramaDAO implements ProgramaDAO{
 
     @Override
     public List<Integer> loadPeriodos() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
+        return programaMapper.loadPeriodos();
+    }
+
+    @Override
+    public int loadCohorte(int idMateria, int idAsignatura, int periodo) throws PersistenceException {
+        return programaMapper.consultarCohorte(idMateria, idAsignatura, periodo);
     }
     
 }

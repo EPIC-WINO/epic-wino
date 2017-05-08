@@ -40,4 +40,14 @@ public interface ProgramaDAO {
      * @throws PersistenceException falla en persistencia
      */
     public List<Integer> loadPeriodos() throws PersistenceException;
+    
+    /**
+     * @obj consultar el cohorte correspondiente a la materia en la asignatura del un periodo
+     * @param idMateria id de la materia
+     * @param idAsignatura id de la asignatura
+     * @param periodo
+     * @return numero de cohorte
+     * @throws PersistenceException falla en persistencia
+     */
+    public int loadCohorte(int idMateria, int idAsignatura, int periodo) throws PersistenceException;
 }
