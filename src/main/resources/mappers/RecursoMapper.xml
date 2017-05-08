@@ -6,9 +6,13 @@
 <mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.RecursoMapper">
     
     <insert id="agregarRecurso">
-        <!-- TODO implementar -->
+        insert INTO recursos (id,nombre,descripcion,cantidad,categoria)
+            VALUES (#{recurso.id},#{recurso.nombre},#{recurso.descripcion},#{recurso.cantidad} ,#{recurso.categoria} );
     </insert>
     
+    <select id="consultarCategoriasRecursos" resultType="java.lang.String">
+        select DISTINCT categoria from recursos;
+    </select>
     <select parameterType="map" id="consultarRecursos" resultMap="RecursoResult">
         <!-- TODO implementar -->
     </select>

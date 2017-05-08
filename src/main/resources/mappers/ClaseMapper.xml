@@ -48,6 +48,26 @@
         where (gruposdematerias.materia_id=#{idMateria}) and (gruposdematerias.periodo= #{periodo})
         order by clas.fecha, clas.hora_inicio;
     </select>
+    <select parameterType="map" id="consultarClasesDeUnPeriodo" resultMap="ClaseResult">
+        select 
+            clas.id as id,
+            clas.fecha as fecha,
+            clas.hora_inicio as horainicio,
+            clas.hora_fin as horafin,
+           
+            rec.id as rec_id,
+            rec.nombre as rec_nombre,
+            rec.descripcion as rec_descripcion,
+            rec.cantidad as rec_cantidad,
+            rec.categoria as rec_categoria
+            
+        from gruposdematerias
+        left join clases as clas on (gruposdematerias.materia_id=clas.materia_id)and (gruposdematerias.periodo=clas.periodo)
+        left join recursos_concedidos as recc on clas.id=recc.clase_id
+        left join recursos as rec on recc.recurso_id=rec.id
+        where (gruposdematerias.periodo= #{periodo})
+        order by clas.fecha, clas.hora_inicio;
+    </select>
     
     <select parameterType="map" id="consultarRecursosConcedidos" resultMap="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.RecursoMapper.RecursoResult">
         select 
@@ -65,7 +85,11 @@
     <insert  id="saveClase" >
             insert INTO clases(id,fecha,hora_inicio,hora_fin,materia_id,periodo)
             VALUES (#{clase.id},#{clase.fecha},#{clase.horainicio},#{clase.horafin},#{idMateria},#{periodo});
-    </insert>  
+    </insert>
+    <insert id="agregarPrestamoRecursoClase">
+        insert INTO recursos_concedidos (clase_id,recurso_id)
+            VALUES (#{clase.id},#{idRecurso} );
+    </insert>
     
     <resultMap type="Clase" id="ClaseResult">
         <id property="id" column="id"/>

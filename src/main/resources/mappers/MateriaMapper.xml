@@ -229,6 +229,28 @@
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
         where requisitos.materia_id=#{idMateria} and requisitos.prerrequisito='false' and mate.id=requisitos.requisito; 
     </select>
+    <select parameterType="map" id="loadProfesoresEnPeriodo" resultMap="ProfesorResult">
+        select DISTINCT
+            prof.id as id,
+            prof.nombre as nombre,
+            prof.tipo as tipo,
+            prof.correo as correo,
+            prof.telefono as telefono
+        from gruposdematerias as grup 
+        left join profesores as prof on grup.profesor_id = prof.id
+        where grup.periodo=#{periodo};
+    </select>
+    <select parameterType="map" id="loadProfesoresEnPeriodoYMateria" resultMap="ProfesorResult">
+        select 
+            prof.id as id,
+            prof.nombre as nombre,
+            prof.tipo as tipo,
+            prof.correo as correo,
+            prof.telefono as telefono
+        from gruposdematerias as grup 
+        left join profesores as prof on grup.profesor_id = prof.id
+        where grup.periodo=#{periodo} and grup.materia_id=#{idMateria};
+    </select>
     
     
     <resultMap type="Materia" id="MateriaResult">
