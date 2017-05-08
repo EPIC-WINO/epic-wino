@@ -56,6 +56,12 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         if (materia == null) {
             throw new NullPointerException("La materia es null");
         }
+        
+        if (materia.getGruposDeMateria() == null) {
+            throw new ExcepcionServiciosProgmsPost(
+                    MessageFormat.format("Atributo de materia mal definido : "
+                            + "GruposDeMateria({0})", materia));
+        }
 
         try {
             daoMateria.saveMateria(materia);
@@ -91,7 +97,6 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             throw new NullPointerException("La clase es null");
         }
 
-        int periodo = 0;
         if (clase.getFecha() == null) {
             throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: fecha");
         }
@@ -108,6 +113,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: recursos");
         }
 
+        int periodo;
         Calendar cal = Calendar.getInstance();
         cal.setTime(clase.getFecha());
         int month = cal.get(Calendar.MONTH);
@@ -115,10 +121,10 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
         periodo = year * 10 + (month < Calendar.JULY ? 1 : 2);
         LOGGER.debug("El periodo calculado es " + periodo);
-        
+
         try {
             daoClase.saveClase(clase, idMateria, periodo);
-        }catch (PersistenceException ex) {
+        } catch (PersistenceException ex) {
             LOGGER.error("Error al guardar la clase", ex);
         }
     }
@@ -147,7 +153,6 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         List<Programa> programas = this.consultarProgramas(periodo);
 
         Set<Materia> materias = new TreeSet<>();
-
         for (Programa programa : programas) {
             for (Asignatura asignatura : programa.getAsignaturas()) {
                 materias.addAll(asignatura.getMaterias());
@@ -407,7 +412,19 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<String> consultarCategoriasRecursos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Recurso> recursos = new ArrayList<>();
+        try {
+            recursos = daoRecurso.loadRecursos();
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error consultando recursos", ex);
+        }
+
+        Set<String> categorias = new TreeSet<>();
+        for (Recurso recurso : recursos) {
+            categorias.add(recurso.getCategoria());
+        }
+
+        return new ArrayList<>(categorias);
     }
 
     @Override
@@ -461,13 +478,14 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public List<String> consultarCategorias() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void registrarRecurso(Recurso recurso) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Registra recurso " + recurso);
+
+        if (recurso.getCantidad() <= 0) {
+            throw new ExcepcionServiciosProgmsPost(
+                    MessageFormat.format("Atributo de recurso mal definido: cantidad ({0})",
+                            recurso.getCantidad()));
+        }
 
         try {
             daoRecurso.save(recurso);
@@ -478,11 +496,32 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public void registrarPrestamoRecursoClase(int idRecurso, Clase clase) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (clase == null) {
+            throw new NullPointerException("La clase es null");
+        }
+        
+        try {
+            daoClase.saveRecursoConcedido(clase.getId(), idRecurso);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error en persistencia", ex);
+        }
     }
 
     @Override
     public List<Recurso> consultarRecursosProgramados(int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Materia> materias = this.consultarMaterias(periodo);
+        
+        Set<Recurso> recursos = new TreeSet<>();
+        for (Materia materia : materias) {
+            for (GrupoDeMateria grupo : materia.getGruposDeMateria()) {
+                if (grupo.getPeriodo() == periodo) {
+                    for (Clase clase : grupo.getClases()) {
+                        recursos.addAll(clase.getRecursos());
+                    }
+                }
+            }
+        }
+        
+        return new ArrayList<>(recursos);
     }
 }

@@ -11,8 +11,6 @@ import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPostFactory;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;

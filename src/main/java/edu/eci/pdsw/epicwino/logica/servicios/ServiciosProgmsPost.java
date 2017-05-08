@@ -237,13 +237,7 @@ public interface ServiciosProgmsPost {
      * @throws ExcepcionServiciosProgmsPost la materia no existe en ese periodo
      */
     Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost;
-
-    /**
-     * @obj consultar las categorias presentes de todos los recursos
-     * @return lista no nula de los nombres de categorias
-     */
-    List<String> consultarCategorias();
-
+    
     /**
      * @obj registrar un nuevo recurso
      * @param recurso a ser registrado
