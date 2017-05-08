@@ -237,7 +237,7 @@ public interface ServiciosProgmsPost {
      * @throws ExcepcionServiciosProgmsPost la materia no existe en ese periodo
      */
     Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost;
-    
+
     /**
      * @obj registrar un nuevo recurso
      * @param recurso a ser registrado
@@ -268,4 +268,23 @@ public interface ServiciosProgmsPost {
      * periodo
      */
     List<Recurso> consultarRecursosProgramados(int periodo) throws ExcepcionServiciosProgmsPost;
+
+    /**
+     * @obj consultar el cohorte correspondiente a una materia en una asignatura
+     * en un periodo
+     * @param idMateria id de la materia
+     * @param idAsignatura id de la asignatura
+     * @param periodo de la materia
+     * @return numero del cohorte
+     * @throws ExcepcionServiciosProgmsPost la materia no existe; la asignatura
+     * no existe; no existe la materia en el periodo
+     */
+    int consultarCohorte(int idMateria, int idAsignatura, int periodo) throws ExcepcionServiciosProgmsPost;
+
+    /**
+     * @obj consultar todos los niveles presentes
+     * @return lista no nula de strings
+     */
+    List<String> consultarNiveles();
+
 }

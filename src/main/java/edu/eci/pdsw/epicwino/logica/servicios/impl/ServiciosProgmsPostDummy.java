@@ -243,5 +243,15 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         recursos.add(r3);
         return recursos; 
     }
+
+    @Override
+    public int consultarCohorte(int idMateria, int idAsignatura, int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<String> consultarNiveles() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
