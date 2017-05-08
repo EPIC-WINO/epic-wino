@@ -10,6 +10,7 @@ import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -135,6 +136,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         asignaturas.add(a0);
         asignaturas.add(a1);
         asignaturas.add(a2);
+        LOGGER.debug(MessageFormat.format("Se retorna lista de asignaturas {0}", asignaturas));
         return asignaturas;
     }
 
@@ -191,6 +193,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         asignaturas.add(a0);
         asignaturas.add(a1);
         asignaturas.add(a2);
+        LOGGER.debug(MessageFormat.format("Se retorna lista de asignaturas {0}", asignaturas));
         return asignaturas;
     }
 
