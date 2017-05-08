@@ -81,9 +81,9 @@ public interface ServiciosProgmsPost {
      * @param fecha en la que son usados los recursos
      * @param horaInicio hora de inicio del uso de los recursos
      * @param horaFin hora de finalizacion del uso de los recursos
-     * @throws ExcepcionServiciosProgmsPost
-     * @obj consular los recursos presentes para prestamo
      * @return lista no nula de recursos presentes para prestamo
+     * @throws ExcepcionServiciosProgmsPost no existe recurso con la categoria
+     * @throws NullPointerException algun parametro es null
      */
     List<Recurso> consultarRecursos(String nombreCategoria, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost;
 
