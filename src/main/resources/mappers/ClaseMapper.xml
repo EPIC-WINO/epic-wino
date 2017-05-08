@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="Logica.Dao.MyBatis.Mappers.ClaseMapper">
-    <select parameterType="map" id="consultarClases" resultMap="ClaseResult">
+<mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.ClaseMapper">
+    <select parameterType="map" id="consultarClasesConRecursos" resultMap="ClaseResult">
         select 
             clas.id as asig_mate_clas_id,
             clas.fecha as asig_mate_clas_fecha,
@@ -23,28 +23,58 @@
             
         from clases as clas 
         left join recursos_concedidos as recc on clas.id=recc.clase_id
-        left join recursos as rec on recc.clase_id=rec.id
-        where  YEAR(clas.fecha) = #{anio} and (((MONTH(clas.fecha) &lt; 6* #{semestre}) and (MONTH(clas.fecha) &gt; 6*( #{semestre}-1)))or (MONTH(clas.fecha)= 6* #{semestre}))
-        order by clas.fecha and clas.hora_inicio;
+        left join recursos as rec on recc.recurso_id=rec.id
+        where  (EXTRACT(YEAR from clas.fecha)= #{anio}) and (((EXTRACT(MONTH from clas.fecha) &lt; 6*#{semestre}) and (EXTRACT(MONTH from clas.fecha)&gt; 6*(#{semestre}-1)))or (EXTRACT(MONTH from clas.fecha)= 6*#{semestre})) and (recc.clase_id is not null) and (recc.recurso_id is not null)
+        order by clas.fecha, clas.hora_inicio;
     </select>
+    
+    <select parameterType="map" id="consultarClases" resultMap="ClaseResult">
+        select 
+            clas.id as id,
+            clas.fecha as fecha,
+            clas.hora_inicio as horainicio,
+            clas.hora_fin as horafin,
+           
+            rec.id as rec_id,
+            rec.nombre as rec_nombre,
+            rec.descripcion as rec_descripcion,
+            rec.cantidad as rec_cantidad,
+            rec.categoria as rec_categoria
+            
+        from gruposdematerias
+        left join clases as clas on (gruposdematerias.materia_id=clas.materia_id)and (gruposdematerias.periodo=clas.periodo)
+        left join recursos_concedidos as recc on clas.id=recc.clase_id
+        left join recursos as rec on recc.recurso_id=rec.id
+        where (gruposdematerias.materia_id=#{idMateria}) and (gruposdematerias.periodo= #{periodo})
+        order by clas.fecha, clas.hora_inicio;
+    </select>
+    
+    <select parameterType="map" id="consultarRecursosConcedidos" resultMap="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.RecursoMapper.RecursoResult">
+        select 
+            
+            rec.id as id,
+            rec.nombre as nombre,
+            rec.descripcion as descripcion,
+            rec.cantidad as cantidad,
+            rec.categoria as categoria
+        from recursos_concedidos as recc
+        left join recursos as rec on recc.recurso_id=rec.id
+        where recc.clase_id= #{idCl};   
+    </select>
+    
+    <insert  id="saveClase" >
+            insert INTO clases(id,fecha,hora_inicio,hora_fin,materia_id,periodo)
+            VALUES (#{clase.id},#{clase.fecha},#{clase.horainicio},#{clase.horafin},#{idMateria},#{periodo});
+    </insert>  
+    
     <resultMap type="Clase" id="ClaseResult">
         <id property="id" column="id"/>
         <result property="fecha" column="fecha"/>
-        <result property="hora_inicio" column="horaInicio"/>
-        <result property="hora_fin" column="horaFin"/>
-        <collection property="recursos" columnPrefix="recc_" ofType="RecursoConcedido" resultMap="RecursoConcedidoResult"/>
+        <result property="horaInicio" column="horainicio"/>
+        <result property="horaFin" column="horafin"/>
+        <collection property="recursos" columnPrefix="rec_" ofType="Recurso" resultMap="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.RecursoMapper.RecursoResult"/>
     </resultMap>
-    <resultMap type="RecursoConcedido" id="RecursoConcedidoResult">
-        <association  property="clase" columnPrefix="clase_" javaType="Clase" resultMap="ClaseResult"/>
-        <association  property="recurso" columnPrefix="rec_" javaType="Recurso" resultMap="RecursoResult"/>
-    </resultMap>
-    <resultMap type="Recurso" id="RecursoResult">
-       <id property="id" column="id"/>
-       <result property="nombre" column="nombre"/>
-       <result property="descripcion" column="descripcion"/>
-       <result property="cantidad" column="cantidad"/>
-       <result property="categoria" column="categoria"/>
-    </resultMap>
+    
     
 </mapper>
 

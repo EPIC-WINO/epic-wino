@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3c.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" 
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
     <h:head>
         <link rel="stylesheet" type="text/css" href="mycss.css"/>
     </h:head>
@@ -35,7 +34,7 @@
                             <button class="menuBarButton">Reportes</button>
                             <div class="dropdown-content">
                                 <a href="ReporteRecursos.xhtml" target="_self">Reporte de Recursos</a>
-                                <a href="ReporteProgramacion.xhtml" target="_self">Reporte de Programación</a>
+                                <a href="ReporteProgramacion.xhtml" target="_self">Reporte de Programacion</a>
                             </div>
                         </div>
                         <div class="dropdown">
@@ -45,35 +44,37 @@
                 </li>
             </ul>
         </div>
-
-        
         <div class="content">
-            <h:form id="ReporteRecursos" style="text-align: center;"> 
-                <h1>Reporte de Recursos</h1>
+            <h:form id="MateriasRegistrada" style="text-align: center;">
+                <h1>Materias Registradas</h1>
+                <p:outputLabel for="programa" value="Programa" styleClass="label"/>
+                <p:selectOneMenu id="programa" value="#{materiasRegistradasBean.programa}" styleClass="scroll">
+                    <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{materiasRegistradasBean.programas}" />
+                </p:selectOneMenu>
+                <p:outputLabel for="nivel" value="Nivel" styleClass="label"/>
+                <p:selectOneMenu id="nivel" value="#{materiasRegistradasBean.nivel}" styleClass="scroll">
+                    <f:selectItem itemLabel="Nivel" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{materiasRegistradasBean.niveles}" />
+                </p:selectOneMenu>
                 <p:outputLabel for="anio" value="Año" styleClass="label"/>
-                <p:selectOneMenu id="anio" value="#{reporteRecursoBean.anio}" styleClass="scroll">
+                <p:selectOneMenu id="anio" value="#{materiasRegistradasBean.anio}" styleClass="scroll">
                     <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{reporteRecursoBean.anios}" />
+                    <f:selectItems value="#{materiasRegistradasBean.anios}" />
                 </p:selectOneMenu>
                 <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>
-                <p:selectOneMenu id="semestre" value="#{reporteRecursoBean.semestre}" styleClass="scroll">
+                <p:selectOneMenu id="semestre" value="#{materiasRegistradasBean.semestre}" styleClass="scroll">
                     <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{reporteRecursoBean.semestres}" />
+                    <f:selectItems value="#{materiasRegistradasBean.semestres}" />
                 </p:selectOneMenu>  
-                
-                <p:commandButton  value="Mostrar" update="reporte" actionListener="#{reporteRecursoBean.actualizarReporte()}" styleClass="button"/>
-                
-                <p:dataTable id="reporte" var="recurso" value="#{reporteRecursoBean.recursos}" styleClass="table" >      
-                    <p:column headerText="Recurso" styleClass="columnText">
-                        <h:outputText value="#{recurso.nombre}" styleClass="outputText"/>
+
+                <p:commandButton  value="Mostrar" update="asignaturas" actionListener="#{materiasRegistradasBean.actualizarMaterias()}" styleClass="button"/>
+
+                <p:dataTable id="asignaturas" var="asignatura" value="#{materiasRegistradasBean.asignaturas}" styleClass="table" >
+                    <p:column headerText="Asignatura" styleClass="columnText">
+                        <h:outputText value="#{asignatura.nombre}" styleClass="outputText"/>
                     </p:column>
-                    <p:column headerText="Descripcion" styleClass="columnText">
-                        <h:outputText value="#{recurso.descripcion}" styleClass="outputText"/>
-                    </p:column>
-                    <p:column headerText="Fecha de utilización" styleClass="columnText">
-                        <h:outputText value="" styleClass="outputText"/>
-                    </p:column>
-                    <p:column headerText="Hora de uso" styleClass="columnText">
+                    <p:column headerText="Materia" styleClass="columnText">
                         <h:outputText value="" styleClass="outputText"/>
                     </p:column>
                 </p:dataTable>
@@ -81,4 +82,3 @@
         </div>
     </h:body>
 </html>
-
