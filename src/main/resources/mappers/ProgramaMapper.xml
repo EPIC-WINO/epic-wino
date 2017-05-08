@@ -41,7 +41,7 @@
             rec.nombre as asig_mate_grup_clas_rec_nombre,
             rec.descripcion as asig_mate_grup_clas_rec_descripcion,
             rec.cantidad as asig_mate_grup_clas_rec_cantidad,
-            rec.categoria as asig_mate_grup_clas_rec_categoria,
+            rec.categoria as asig_mate_grup_clas_rec_categoria
             
       
         from programas as prog 
@@ -52,7 +52,7 @@
         left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
         left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
-        where prog.id = #{programa_id} and grup.periodo = #{periodo}
+        where prog.id = #{programa_id} and grup.periodo = #{periodo};
     </select>
     
     <!-- consultarProgramas -->
@@ -91,7 +91,7 @@
             rec.nombre as asig_mate_grup_clas_rec_nombre,
             rec.descripcion as asig_mate_grup_clas_rec_descripcion,
             rec.cantidad as asig_mate_grup_clas_rec_cantidad,
-            rec.categoria as asig_mate_grup_clas_rec_categoria,
+            rec.categoria as asig_mate_grup_clas_rec_categoria
             
       
         from programas as prog 
@@ -102,14 +102,14 @@
         left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
         left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
-        where prog.id = #{programa_id}
+        where prog.id = #{programa_id};
     </select>
     <select id="loadPeriodos" resultType="java.lang.Integer">
-        select DISTINCT periodo from asignaturas_grupos
+        select DISTINCT periodo from asignaturas_grupos;
     </select>
     <select id="consultarUnCohorte" resultType="java.lang.Integer">
         select cohorte from asignaturas_grupos
-        where materia_id=#{idMateria} and periodo=#{periodo} and asignaturas_id=#{idAsignatura}
+        where materia_id=#{idMateria} and periodo=#{periodo} and asignaturas_id=#{idAsignatura};
     </select>
 
     

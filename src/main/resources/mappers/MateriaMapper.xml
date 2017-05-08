@@ -4,6 +4,153 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.MateriaMapper">
-    
+    <insert  id="saveMateria" >
+        
+            insert INTO materias (id,nombre,creditos,descripcion,asignaturas_id)
+            VALUES (#{m.id},#{m.nombre},#{m.creditos},#{m.descripcion},#{idAsignatura} );
+        
+    </insert> 
+    <select parameterType="map" id="consultarMaterias" resultMap="MateriaResult">
+        select 
+        
+            mate.id as id,
+            mate.nombre as nombre,
+            mate.creditos as creditos,
+            mate.descripcion as descripcion,
+           
+            grup.periodo as grup_periodo,
+        
+            prof.id as grup_prof_id,
+            prof.nombre as grup_prof_nombre,
+            prof.tipo as grup_prof_tipo,
+            prof.correo as grup_prof_correo,
+            prof.telefono as grup_prof_telefono,
+        
+            clas.id as grup_clas_id,
+            clas.fecha as grup_clas_fecha,
+            clas.hora_inicio as grup_clas_horainicio,
+            clas.hora_fin as grup_clas_horafin,
+            
+            rec.id as grup_clas_rec_id,
+            rec.nombre as grup_clas_rec_nombre,
+            rec.descripcion as grup_clas_rec_descripcion,
+            rec.cantidad as grup_clas_rec_cantidad,
+            rec.categoria as grup_clas_rec_categoria
+        
+        from  materias as mate 
+        left join gruposdematerias as grup on mate.id=grup.materia_id
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id;
+    </select>
+    <select parameterType="map" id="consultarMateriasaPorPeriodoYPrograma" resultMap="MateriaResult">
+        select 
+        
+            mate.id as id,
+            mate.nombre as nombre,
+            mate.creditos as creditos,
+            mate.descripcion as descripcion,
+           
+            grup.periodo as grup_periodo,
+        
+            prof.id as grup_prof_id,
+            prof.nombre as grup_prof_nombre,
+            prof.tipo as grup_prof_tipo,
+            prof.correo as grup_prof_correo,
+            prof.telefono as grup_prof_telefono,
+        
+            clas.id as grup_clas_id,
+            clas.fecha as grup_clas_fecha,
+            clas.hora_inicio as grup_clas_horainicio,
+            clas.hora_fin as grup_clas_horafin,
+            
+            rec.id as grup_clas_rec_id,
+            rec.nombre as grup_clas_rec_nombre,
+            rec.descripcion as grup_clas_rec_descripcion,
+            rec.cantidad as grup_clas_rec_cantidad,
+            rec.categoria as grup_clas_rec_categoria
+        
+        from  programas
+        left join asignaturas as asig  on asig.programa_id=programas.id
+        left join materias as mate on mate.asignaturas_id=asig.id
+        left join gruposdematerias as grup on mate.id=grup.materia_id
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id
+        where programas.id=#{idPrograma} and grup.periodo=#{periodo};
+    </select>
+    <select parameterType="map" id="consultarMateriasaPorPeriodoYAsignatura" resultMap="MateriaResult">
+        select 
+        
+            mate.id as id,
+            mate.nombre as nombre,
+            mate.creditos as creditos,
+            mate.descripcion as descripcion,
+           
+            grup.periodo as grup_periodo,
+        
+            prof.id as grup_prof_id,
+            prof.nombre as grup_prof_nombre,
+            prof.tipo as grup_prof_tipo,
+            prof.correo as grup_prof_correo,
+            prof.telefono as grup_prof_telefono,
+        
+            clas.id as grup_clas_id,
+            clas.fecha as grup_clas_fecha,
+            clas.hora_inicio as grup_clas_horainicio,
+            clas.hora_fin as grup_clas_horafin,
+            
+            rec.id as grup_clas_rec_id,
+            rec.nombre as grup_clas_rec_nombre,
+            rec.descripcion as grup_clas_rec_descripcion,
+            rec.cantidad as grup_clas_rec_cantidad,
+            rec.categoria as grup_clas_rec_categoria
+        
+        from asignaturas as asig 
+        left join materias as mate on mate.asignaturas_id=asig.id
+        left join gruposdematerias as grup on mate.id=grup.materia_id
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id
+        where asig.id=#{idAsignatura} and grup.periodo=#{periodo};
+    </select>
+    <select parameterType="map" id="consultarMateriasPorPeriodo" resultMap="MateriaResult">
+        select 
+        
+            mate.id as id,
+            mate.nombre as nombre,
+            mate.creditos as creditos,
+            mate.descripcion as descripcion,
+           
+            grup.periodo as grup_periodo,
+        
+            prof.id as grup_prof_id,
+            prof.nombre as grup_prof_nombre,
+            prof.tipo as grup_prof_tipo,
+            prof.correo as grup_prof_correo,
+            prof.telefono as grup_prof_telefono,
+        
+            clas.id as grup_clas_id,
+            clas.fecha as grup_clas_fecha,
+            clas.hora_inicio as grup_clas_horainicio,
+            clas.hora_fin as grup_clas_horafin,
+            
+            rec.id as grup_clas_rec_id,
+            rec.nombre as grup_clas_rec_nombre,
+            rec.descripcion as grup_clas_rec_descripcion,
+            rec.cantidad as grup_clas_rec_cantidad,
+            rec.categoria as grup_clas_rec_categoria
+        
+        from  materias as mate 
+        left join gruposdematerias as grup on mate.id=grup.materia_id
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id;
+        where grup.periodo=#{periodo};
+    </select>
     
 </mapper>

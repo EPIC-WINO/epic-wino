@@ -64,7 +64,7 @@
     
     <insert  id="saveClase" >
             insert INTO clases(id,fecha,hora_inicio,hora_fin,materia_id,periodo)
-            VALUES (#{clase.id},#{clase.fecha},#{clase.horainicio},#{clase.horafin},#{idMateria},#{periodo})
+            VALUES (#{clase.id},#{clase.fecha},#{clase.horainicio},#{clase.horafin},#{idMateria},#{periodo});
     </insert>  
     
     <resultMap type="Clase" id="ClaseResult">
