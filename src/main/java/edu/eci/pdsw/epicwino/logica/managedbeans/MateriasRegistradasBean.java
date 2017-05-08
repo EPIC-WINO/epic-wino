@@ -37,12 +37,13 @@ public class MateriasRegistradasBean implements Serializable{
     
     private final ServiciosProgmsPost servProg;
     
-    private String programa;
-    private int anio;
-    private int semestre;
-    private List<Asignatura> asignaturas;
-    private int programa_id;
-    private String nivel;
+    private String programa="";
+    private int anio=0;
+    private int semestre=0;
+    private List<Asignatura> asignaturas=new ArrayList<Asignatura>();
+    private int programa_id=0;
+    private String nivel="";
+    
     
     public MateriasRegistradasBean() {
         LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
@@ -55,12 +56,12 @@ public class MateriasRegistradasBean implements Serializable{
     }*/
     
     public List<Asignatura> getAsignaturas(){
-        LOGGER.debug("Se obtiene la lista de asignaturas");
+        LOGGER.debug(MessageFormat.format("Se obtiene la lista de asignaturas -> {0}", asignaturas.size()));
         return asignaturas;
     }
     
     public void setAsignaturas(List<Asignatura> asignaturas){
-        LOGGER.debug("Se establecen los recursos");
+        LOGGER.debug("Se establecen las asignaturas");
         this.asignaturas=asignaturas;
     }
     
@@ -83,22 +84,18 @@ public class MateriasRegistradasBean implements Serializable{
         return m;
     }
     
-    /*public Map<String,String> getNiveles(){
+    public Map<String,String> getNiveles(){
         LOGGER.debug(MessageFormat.format("Se intenta obtener los niveles (anio: {0}, "
                 + "semestre: {1})", anio, semestre));
-        List<Programa> r = null; 
+        List<String> r = null; 
         Map<String,String> niveles = new HashMap<>();
-        try {
-            r = servProg.consultarNiveles();
-            for (String p:r){
-                niveles.put(p,p);
-            }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error consultando niveles", ex);
+        r = servProg.consultarNiveles();
+        for (String p:r){
+            niveles.put(p,p);
         }
         
         return niveles;
-    }*/
+    }
     
     public Map<String,String> getProgramas() {
         LOGGER.debug(MessageFormat.format("Se intenta obtener los programas (anio: {0}, "
@@ -118,8 +115,8 @@ public class MateriasRegistradasBean implements Serializable{
         return programs;
     }
     
-    public int getPrograma_id(){
-        LOGGER.debug(MessageFormat.format("Se intenta obtener los programas (anio: {0}, "
+    public void Programa_id(){
+        LOGGER.debug(MessageFormat.format("Se intenta obtener los programas y su id (anio: {0}, "
                 + "semestre: {1})", anio, semestre));
         List<Programa> r = null; 
         try {
@@ -130,10 +127,8 @@ public class MateriasRegistradasBean implements Serializable{
                 }
             }
         } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error consultando programas", ex);
+            LOGGER.error("Error consultando id de programas", ex);
         }
-        
-        return programa_id;
     }
     
     public void setPrograma(String prog) {
@@ -188,9 +183,8 @@ public class MateriasRegistradasBean implements Serializable{
     
     public void actualizarMaterias() throws ExcepcionServiciosProgmsPost{
         LOGGER.info("Se actualiza el reporte de la vista");
-        if (anio != 0 && semestre != 0){
-            asignaturas = servProg.consultarAsignaturas((anio * 10) + semestre,programa_id);
-        }
+        asignaturas = servProg.consultarAsignaturas((anio * 10) + semestre,programa_id);
+        //LOGGER.debug(MessageFormat.format(""));
     }
     
 }
