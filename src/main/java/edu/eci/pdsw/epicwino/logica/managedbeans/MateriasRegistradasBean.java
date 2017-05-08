@@ -1,25 +1,16 @@
- /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.pdsw.epicwino.logica.managedbeans;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Asignatura;
-import edu.eci.pdsw.epicwino.logica.entidades.Materia;
 import edu.eci.pdsw.epicwino.logica.entidades.Programa;
-import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
 import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPostFactory;
 import java.io.Serializable;
-import java.sql.Time;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.apache.log4j.Logger;
@@ -32,10 +23,10 @@ import org.apache.log4j.Logger;
 @SessionScoped
 public class MateriasRegistradasBean implements Serializable{
     
-    private static final Logger LOGGER = Logger.getLogger(MateriasRegistradasBean.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MateriasRegistradasBean.class);
     private static final long serialVersionUID = 1L;
     
-    private final ServiciosProgmsPost servProg;
+    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();;
     
     private String programa="";
     private int anio=0;
@@ -46,9 +37,7 @@ public class MateriasRegistradasBean implements Serializable{
     
     
     public MateriasRegistradasBean() {
-        LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
-        
-        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
+        LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName())); 
     }
     
     /*public List<Materia> getMaterias(){
@@ -132,18 +121,22 @@ public class MateriasRegistradasBean implements Serializable{
     }
     
     public void setPrograma(String prog) {
+        LOGGER.debug(MessageFormat.format("Se establece el programa (Antes: {0} | Despues: {1})", this.programa, prog));
         this.programa = prog;
     }
     
     public String getPrograma() {
+        LOGGER.debug(MessageFormat.format("Se obtiene el programa: {0}", this.programa));
         return this.programa;
     }
     
     public void setNivel(String nivel) {
+        LOGGER.debug(MessageFormat.format("Se establece el nive del programa (Antes: {0} | Despues: {1})", this.nivel, nivel));
         this.nivel = nivel;
     }
     
     public String getNivel() {
+        LOGGER.debug(MessageFormat.format("Se obtiene el nivel del programa: {0}", this.nivel));
         return this.nivel;
     }
     
@@ -181,10 +174,14 @@ public class MateriasRegistradasBean implements Serializable{
         this.semestre = semestre;
     }  
     
-    public void actualizarMaterias() throws ExcepcionServiciosProgmsPost{
-        LOGGER.info("Se actualiza el reporte de la vista");
-        asignaturas = servProg.consultarAsignaturas((anio * 10) + semestre,programa_id);
-        //LOGGER.debug(MessageFormat.format(""));
+    public void actualizarMaterias(){
+        LOGGER.info("Se actualiza el vista de las materias registradas");
+        try {
+            asignaturas = servProg.consultarAsignaturas((anio * 10) + semestre,programa_id);
+            //LOGGER.debug(MessageFormat.format(""));
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error al consultar las asignaturas", ex);
+        }
     }
     
 }
