@@ -7,6 +7,8 @@ package edu.eci.pdsw.epicwino.tests;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Clase;
 import edu.eci.pdsw.epicwino.logica.entidades.Materia;
+import edu.eci.pdsw.epicwino.logica.entidades.Asignatura;
+import edu.eci.pdsw.epicwino.logica.entidades.Programa;
 import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPostFactory;
@@ -14,7 +16,17 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
+import org.h2.jdbcx.JdbcDataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
+import org.junit.AfterClass;
+
 
 /**
  * Agregar y consultar Clases a una materia existente
@@ -41,7 +53,12 @@ public class ClasesTest {
     public void CE1() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         Materia m1 = new Materia(50,"Gerencia Financiera");
-        //sp.registrarMateria(m1);
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos");
+        Asignatura as1 = new Asignatura(30,"Ejecucion");
+
+        sp.registrarPrograma(prg1);
+        sp.registrarAsignatura(as1, 20);
+        sp.registrarMateria(m1,30);
         
         Clase cl1 = new Clase(40,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Clase cl2 = new Clase(41,java.sql.Date.valueOf("2015-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
@@ -60,7 +77,7 @@ public class ClasesTest {
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         Materia m1 = new Materia(51,"Gerencia Financiera");
         Materia m2 = new Materia(52,"Analisis de Riesgos");
-        //sp.registrarMateria(m1);sp.registrarMateria(m2);
+        sp.registrarMateria(m1,30);sp.registrarMateria(m2,30);
         
         Clase cl1 = new Clase(42,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
                 
@@ -100,6 +117,7 @@ public class ClasesTest {
         
         boolean thrown = false;
         try {
+            sp.registrarMateria(m1,30);
             sp.agregarClase(53, cl1);
             sp.agregarClase(53, cl1);
         } catch (ExcepcionServiciosProgmsPost ex) {
@@ -117,6 +135,7 @@ public class ClasesTest {
         Clase cl2 = new Clase(46,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         boolean thrown = false;
         try {
+            sp.registrarMateria(m1,30);
             sp.agregarClase(54, cl1);
             sp.agregarClase(54, cl2);
         } catch (ExcepcionServiciosProgmsPost ex) {
@@ -124,5 +143,31 @@ public class ClasesTest {
         }
         assertTrue("Se agrega inadecuadamente clases que se cruzan a una materia"
                 + ", cuando esta debe lanzar ExcepcionServiciosProgmsPost",thrown); 
+    }
+    
+    @AfterClass
+    public static void tearDown() {
+        JdbcDataSource ds= new JdbcDataSource();
+        ds.setURL("jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL");
+        ds.setUser("anonymous");
+        ds.setPassword("");
+        try {
+            Connection conn = ds.getConnection();
+            Statement s = conn.createStatement();
+            s.execute("SET REFERENTIAL_INTEGRITY FALSE");
+            Set<String> tables = new HashSet<String>();
+            ResultSet rs = s.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='PUBLIC'");
+            while (rs.next()) {
+                tables.add(rs.getString(1));
+            }
+            rs.close();
+            for (String table : tables){
+                s.executeUpdate("TRUNCATE TABLE " + table);
+            }
+            s.execute("SET REFERENTIAL_INTEGRITY TRUE");
+            s.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }

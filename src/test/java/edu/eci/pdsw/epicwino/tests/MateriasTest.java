@@ -12,9 +12,18 @@ import edu.eci.pdsw.epicwino.logica.entidades.Programa;
 import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPostFactory;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import org.h2.jdbcx.JdbcDataSource;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -73,7 +82,12 @@ public class MateriasTest {
         
         Materia m1 = new Materia(50,"Gerencia Financiera");
         Materia m2 = new Materia(51,"Analisis de Riesgos");
-        //sp.registrarMateria(m1);sp.registrarMateria(m2);
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos");
+        Asignatura as1 = new Asignatura(30,"Ejecucion");
+
+        sp.registrarPrograma(prg1);
+        sp.registrarAsignatura(as1, 20);
+        sp.registrarMateria(m1,30);sp.registrarMateria(m2,30);
         
         Iterator<Materia> matPorPeriodo = sp.consultarMaterias().iterator();
         assertEquals("Se registra o consulta inadecuadamente las materias creadas"
@@ -92,41 +106,32 @@ public class MateriasTest {
         grupo1.setPeriodo(20171);gruposMateria.add(grupo1);
         m1.setGruposDeMateria(gruposMateria);
 
-        //sp.registrarMateria(m1);
+        sp.registrarMateria(m1,30);
         Iterator<Materia> matPorPeriodo = sp.consultarMaterias(20171).iterator();
         
         assertEquals("Se registra o consulta inadecuadamente la materia para el periodo 2017-1"
                     + "cuando esta se debe mostrar la materia : "
                     ,"Gerencia Financiera",matPorPeriodo.next().getNombre());
     }
-    /*
+
     @Test
     public void CE3() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        List<Materia> materiasAsignatura = new ArrayList<>();
-        Materia m1 = new Materia(53,"Gerencia Financiera");materiasAsignatura.add(m1);
+        Materia m1 = new Materia(53,"Gerencia Financiera");
         
         List<GrupoDeMateria> gruposMateria = new ArrayList<>();
         GrupoDeMateria grupo1 = new GrupoDeMateria();
         grupo1.setPeriodo(20172);gruposMateria.add(grupo1);
         m1.setGruposDeMateria(gruposMateria);
         
-        List<Asignatura> asignaturasPrograma = new ArrayList<>();
-        Asignatura a1 = new Asignatura(40,"Ejecucion");
-        a1.setMaterias(materiasAsignatura);asignaturasPrograma.add(a1);
-        
-        Programa pgm1 = new Programa(30,"Maestria en Gerencia de Proyectos");
-        pgm1.setAsignaturas(asignaturasPrograma);
-        
-        sp.registrarPrograma(pgm1);
+        sp.registrarMateria(m1,30);
         Iterator<Materia> matPorPeriodo = sp.consultarMaterias(20172,40).iterator();
         
         assertEquals("Se registra o consulta inadecuadamente la materia para el periodo 2017-1 asignada a una Asignatura"
                     + "cuando esta se debe mostrar la materia : "
                     ,"Gerencia Financiera",matPorPeriodo.next().getNombre());
     }
-    */
     
     @Test
     public void CF1(){
@@ -135,12 +140,12 @@ public class MateriasTest {
         Materia m1 = new Materia(54,"Gerencia Financiera");
         
         boolean thrown = false;
-        /*try{
-            sp.registrarMateria(m1);
-            sp.registrarMateria(m1);
+        try{
+            sp.registrarMateria(m1,30);
+            sp.registrarMateria(m1,30);
         } catch(ExcepcionServiciosProgmsPost e) {
             thrown = true;
-        }*/
+        }
         assertTrue("Se registra inadecuadamente una materia existente"
                 + ", cuando esta debe lanzar ExcepcionServiciosProgmsPost",thrown);
     }
@@ -181,4 +186,30 @@ public class MateriasTest {
     
     @Test
     public void CF3Cohorte(){}
+    
+    @AfterClass
+    public static void tearDown() {
+        JdbcDataSource ds= new JdbcDataSource();
+        ds.setURL("jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL");
+        ds.setUser("anonymous");
+        ds.setPassword("");
+        try {
+            Connection conn = ds.getConnection();
+            Statement s = conn.createStatement();
+            s.execute("SET REFERENTIAL_INTEGRITY FALSE");
+            Set<String> tables = new HashSet<String>();
+            ResultSet rs = s.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='PUBLIC'");
+            while (rs.next()) {
+                tables.add(rs.getString(1));
+            }
+            rs.close();
+            for (String table : tables){
+                s.executeUpdate("TRUNCATE TABLE " + table);
+            }
+            s.execute("SET REFERENTIAL_INTEGRITY TRUE");
+            s.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

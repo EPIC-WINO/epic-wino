@@ -5,6 +5,14 @@
  */
 package edu.eci.pdsw.epicwino.tests;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
+import org.h2.jdbcx.JdbcDataSource;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,4 +59,30 @@ public class AsignaturasTest {
     
     @Test
     public void CF4(){}
+    
+    @AfterClass
+    public static void tearDown() {
+        JdbcDataSource ds= new JdbcDataSource();
+        ds.setURL("jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL");
+        ds.setUser("anonymous");
+        ds.setPassword("");
+        try {
+            Connection conn = ds.getConnection();
+            Statement s = conn.createStatement();
+            s.execute("SET REFERENTIAL_INTEGRITY FALSE");
+            Set<String> tables = new HashSet<String>();
+            ResultSet rs = s.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='PUBLIC'");
+            while (rs.next()) {
+                tables.add(rs.getString(1));
+            }
+            rs.close();
+            for (String table : tables){
+                s.executeUpdate("TRUNCATE TABLE " + table);
+            }
+            s.execute("SET REFERENTIAL_INTEGRITY TRUE");
+            s.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

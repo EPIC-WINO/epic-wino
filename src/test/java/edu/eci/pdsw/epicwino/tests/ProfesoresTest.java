@@ -5,19 +5,30 @@
  */
 package edu.eci.pdsw.epicwino.tests;
 
+import edu.eci.pdsw.epicwino.logica.entidades.Asignatura;
 import edu.eci.pdsw.epicwino.logica.entidades.Clase;
 import edu.eci.pdsw.epicwino.logica.entidades.GrupoDeMateria;
 import edu.eci.pdsw.epicwino.logica.entidades.Materia;
 import edu.eci.pdsw.epicwino.logica.entidades.Profesor;
+import edu.eci.pdsw.epicwino.logica.entidades.Programa;
 import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPostFactory;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.h2.jdbcx.JdbcDataSource;
+import org.junit.After;
+import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -53,6 +64,11 @@ public class ProfesoresTest {
         
         Materia m1 = new Materia(52,"Gerencia Financiera");
         Profesor pf1 = new Profesor(30,"Juan Perez Rodriguez");
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos");
+        Asignatura as1 = new Asignatura(30,"Ejecucion");
+
+        sp.registrarPrograma(prg1);
+        sp.registrarAsignatura(as1, 20);
         
         List<GrupoDeMateria> gruposMateria = new ArrayList<>();
         GrupoDeMateria grupo1 = new GrupoDeMateria();
@@ -65,7 +81,7 @@ public class ProfesoresTest {
         Clase cl = new Clase(40,java.sql.Date.valueOf("2012-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         
         grupo1.setClases(clasesGrupo);
-        //sp.registrarMateria(m1);
+        sp.registrarMateria(m1,30);
         Iterator<Profesor> profesores = sp.consultarProfesores(20121).iterator();
         
         assertEquals("Se consulta inadecuadamente los profesores para el periodo 2012-1"
@@ -94,7 +110,7 @@ public class ProfesoresTest {
         Clase cl = new Clase(40,java.sql.Date.valueOf("2013-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         
         grupo1.setClases(clasesGrupo);
-        //sp.registrarMateria(m1);
+        sp.registrarMateria(m1,30);
         Collection<Profesor> profesores = sp.consultarProfesores(20132);
         
         assertEquals("Se consulta inadecuadamente los profesores para el periodo 2013-2"
@@ -123,7 +139,7 @@ public class ProfesoresTest {
         Clase cl = new Clase(40,java.sql.Date.valueOf("2014-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         
         grupo1.setClases(clasesGrupo);
-        //sp.registrarMateria(m1);
+        sp.registrarMateria(m1,30);
         Profesor profesorMat = sp.consultarProfesor(20141,54);
         
         assertEquals("Se consulta inadecuadamente el profesor para el periodo 2014-1 y materia Gerencia Financiera"
@@ -154,7 +170,7 @@ public class ProfesoresTest {
         grupo1.setClases(clasesGrupo);
         boolean thrown = false;
         try {
-            //sp.registrarMateria(m1);
+            sp.registrarMateria(m1,30);
             Collection<Profesor> profesores = sp.consultarProfesores(20153);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
@@ -175,5 +191,31 @@ public class ProfesoresTest {
         }
         assertTrue("Se consulta inadecuadamente el profesores para una materia que no existe"
                     + "cuando esta debe lanzar ExcepcionServiciosProgmsPost",thrown);
+    }
+    
+    @AfterClass
+    public static void tearDown() {
+        JdbcDataSource ds= new JdbcDataSource();
+        ds.setURL("jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL");
+        ds.setUser("anonymous");
+        ds.setPassword("");
+        try {
+            Connection conn = ds.getConnection();
+            Statement s = conn.createStatement();
+            s.execute("SET REFERENTIAL_INTEGRITY FALSE");
+            Set<String> tables = new HashSet<String>();
+            ResultSet rs = s.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='PUBLIC'");
+            while (rs.next()) {
+                tables.add(rs.getString(1));
+            }
+            rs.close();
+            for (String table : tables){
+                s.executeUpdate("TRUNCATE TABLE " + table);
+            }
+            s.execute("SET REFERENTIAL_INTEGRITY TRUE");
+            s.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
