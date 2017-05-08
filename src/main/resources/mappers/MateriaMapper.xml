@@ -4,12 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.MateriaMapper">
-    <insert  id="saveMateria" >
-        
+    <insert parameterType="map"  id="saveMateria" >
             insert INTO materias (id,nombre,creditos,descripcion,asignaturas_id)
             VALUES (#{m.id},#{m.nombre},#{m.creditos},#{m.descripcion},#{idAsignatura} );
-        
-    </insert> 
+    </insert>
+    
     <select parameterType="map" id="consultarMaterias" resultMap="MateriaResult">
         select 
         
@@ -44,7 +43,8 @@
         left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id;
     </select>
-    <select parameterType="map" id="consultarMateriasaPorPeriodoYPrograma" resultMap="MateriaResult">
+    
+    <select parameterType="map" id="consultarMateriasPorPeriodoYPrograma" resultMap="MateriaResult">
         select 
         
             mate.id as id,
@@ -81,7 +81,8 @@
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
         where programas.id=#{idPrograma} and grup.periodo=#{periodo};
     </select>
-    <select parameterType="map" id="consultarMateriasaPorPeriodoYAsignatura" resultMap="MateriaResult">
+    
+    <select parameterType="map" id="consultarMateriasPorPeriodoYAsignatura" resultMap="MateriaResult">
         select 
         
             mate.id as id,
@@ -117,6 +118,8 @@
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
         where asig.id=#{idAsignatura} and grup.periodo=#{periodo};
     </select>
+    
+    
     <select parameterType="map" id="consultarMateriasPorPeriodo" resultMap="MateriaResult">
         select 
         
@@ -152,6 +155,8 @@
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
         where grup.periodo=#{periodo};
     </select>
+
+
     <select parameterType="map" id="consultarPrerequisitos" resultMap="MateriaResult">
         select 
         
@@ -224,4 +229,28 @@
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
         where requisitos.materia_id=#{idMateria} and requisitos.prerrequisito='false' and mate.id=requisitos.requisito; 
     </select>
+    
+    
+    <resultMap type="Materia" id="MateriaResult">
+        <id property="id" column="id"/>
+        <result property="nombre" column="nombre"/>
+        <result property="creditos" column="creditos"/>
+        <result property="descripcion" column="descripcion"/>
+        <collection property="gruposDeMateria" columnPrefix="grup_" ofType="GrupoDeMateria" resultMap="GrupoDeMateriaResult"/>
+    </resultMap>
+    <resultMap type="GrupoDeMateria" id="GrupoDeMateriaResult">
+        <id property="periodo" column="periodo"/>
+        <association property="profesor" javaType="Profesor" resultMap='ProfesorResult'></association>
+        <collection property="clases" columnPrefix="clas_" ofType="Clase" resultMap="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.ClaseMapper.ClaseResult"/>
+    </resultMap>
+    <resultMap type="Profesor" id="ProfesorResult">
+        <id property="id" column="id"/>
+        <result property="nombre" column="nombre"/>
+        <result property="tipoID" column="tipo"/>
+        <result property="correo" column="correo"/>
+        <result property="telefono" column="telefono"/>
+        
+        <!--La coleccion de comites-->
+    </resultMap>
+    
 </mapper>

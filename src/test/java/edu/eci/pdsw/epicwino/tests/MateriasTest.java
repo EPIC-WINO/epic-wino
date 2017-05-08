@@ -73,7 +73,7 @@ public class MateriasTest {
         
         Materia m1 = new Materia(50,"Gerencia Financiera");
         Materia m2 = new Materia(51,"Analisis de Riesgos");
-        sp.registrarMateria(m1);sp.registrarMateria(m2);
+        //sp.registrarMateria(m1);sp.registrarMateria(m2);
         
         Iterator<Materia> matPorPeriodo = sp.consultarMaterias().iterator();
         assertEquals("Se registra o consulta inadecuadamente las materias creadas"
@@ -92,7 +92,7 @@ public class MateriasTest {
         grupo1.setPeriodo(20171);gruposMateria.add(grupo1);
         m1.setGruposDeMateria(gruposMateria);
 
-        sp.registrarMateria(m1);
+        //sp.registrarMateria(m1);
         Iterator<Materia> matPorPeriodo = sp.consultarMaterias(20171).iterator();
         
         assertEquals("Se registra o consulta inadecuadamente la materia para el periodo 2017-1"
@@ -135,12 +135,12 @@ public class MateriasTest {
         Materia m1 = new Materia(54,"Gerencia Financiera");
         
         boolean thrown = false;
-        try{
+        /*try{
             sp.registrarMateria(m1);
             sp.registrarMateria(m1);
         } catch(ExcepcionServiciosProgmsPost e) {
             thrown = true;
-        }
+        }*/
         assertTrue("Se registra inadecuadamente una materia existente"
                 + ", cuando esta debe lanzar ExcepcionServiciosProgmsPost",thrown);
     }

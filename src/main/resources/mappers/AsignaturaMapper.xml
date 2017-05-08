@@ -5,10 +5,8 @@
   
 <mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.AsignaturaMapper">
     <insert  id="saveAsignatura" >
-        
             insert INTO asignaturas (id,nombre,programa_id)
             VALUES (#{asignatura.id},#{asignatura.nombre},#{idPrograma} );
-        
     </insert>
     <select parameterType="map" id="consultarAsignaturasPorPeriodoYPrograma" resultMap="AsignaturaResult">
         select 
@@ -93,4 +91,10 @@
         where mate.id = #{idMateria};
     </select>   
     
+    
+    <resultMap type="Asignatura" id="AsignaturaResult">
+        <id property="id" column="id"/>
+        <result property="nombre" column="nombre"/>
+        <collection property="materias" columnPrefix="mate_" ofType="Materia" resultMap="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.MateriaMapper.MateriaResult"/>
+    </resultMap>
 </mapper>

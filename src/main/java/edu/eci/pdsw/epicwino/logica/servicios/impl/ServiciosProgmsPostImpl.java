@@ -54,7 +54,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     private MateriaDAO daoMateria;
 
     @Override
-    public void registrarMateria(Materia materia) throws ExcepcionServiciosProgmsPost {
+    public void registrarMateria(Materia materia, int idAsignatura) throws ExcepcionServiciosProgmsPost {
         if (materia == null) {
             throw new NullPointerException("La materia es null");
         }
@@ -66,7 +66,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         }*/
 
         try {
-            daoMateria.saveMateria(materia);
+            daoMateria.saveMateria(materia, idAsignatura);
         } catch (PersistenceException ex) {
             LOGGER.error("Error guardando la materia " + materia, ex);
         }

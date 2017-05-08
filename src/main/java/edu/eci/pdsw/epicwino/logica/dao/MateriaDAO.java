@@ -12,9 +12,10 @@ public interface MateriaDAO {
     /**
      * @obj guardar una materia en peristencia
      * @param materia
+     * @param idAsignatura id de la asignatura
      * @throws PersistenceException falla de persistencia
      */
-    void saveMateria(Materia materia) throws PersistenceException;
+    void saveMateria(Materia materia, int idAsignatura) throws PersistenceException;
     
     /**
      * @obj agregar un nuevo cohorte en una materia de un programa

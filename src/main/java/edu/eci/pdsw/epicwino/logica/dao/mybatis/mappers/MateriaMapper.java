@@ -36,6 +36,7 @@ public interface MateriaMapper {
     
     /**
      * @param materia a guardar
+     * @param idAsignatura id de la asignatura
      */
-    void saveMateria(@Param("materia") Materia materia);
+    void saveMateria(@Param("m") Materia materia, @Param("isAsignatura")int idAsignatura);
 }

@@ -169,7 +169,7 @@ public class RecursosTest {
         
         Clase cl = new Clase(40,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Materia m1 = new Materia(50,"Gerencia Financiera");
-        sp.registrarMateria(m1);
+        //sp.registrarMateria(m1);
         sp.agregarClase(50, cl);
         
         sp.registrarPrestamoRecursoClase(60, cl);
@@ -192,7 +192,7 @@ public class RecursosTest {
         
         Clase cl = new Clase(41,java.sql.Date.valueOf("2017-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Materia m1 = new Materia(51,"Gerencia Financiera");
-        sp.registrarMateria(m1);
+        //sp.registrarMateria(m1);
         sp.agregarClase(51, cl);
         
         sp.registrarPrestamoRecursoClase(62, cl);
@@ -215,7 +215,7 @@ public class RecursosTest {
         Clase cl1 = new Clase(42,java.sql.Date.valueOf("2016-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Clase cl2 = new Clase(43,java.sql.Date.valueOf("2016-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         Materia m1 = new Materia(52,"Gerencia Financiera");
-        sp.registrarMateria(m1);
+        //sp.registrarMateria(m1);
         sp.agregarClase(52, cl1);sp.agregarClase(52, cl2);
         
         sp.registrarPrestamoRecursoClase(64, cl1);
@@ -238,7 +238,7 @@ public class RecursosTest {
         boolean thrown = false;
         try {
             sp.registrarRecurso(rc1);
-            sp.registrarMateria(m1);sp.registrarMateria(m2);
+            //sp.registrarMateria(m1);sp.registrarMateria(m2);
             sp.agregarClase(53, cl1);sp.agregarClase(54, cl2);
             sp.registrarPrestamoRecursoClase(65, cl1);
             sp.registrarPrestamoRecursoClase(65, cl2);

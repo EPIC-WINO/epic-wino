@@ -24,7 +24,7 @@
             <dataSource type="POOLED">
                 <property name="driver" value="org.h2.Driver" />
                 <property name="url" value="jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL" />
-                <property name="username" value="sa" />
+                <property name="username" value="anonymous" />
                 <property name="password" value="" />
             </dataSource>
         </environment>
@@ -32,10 +32,10 @@
     
     <mappers>
         <mapper resource="mappers/ProgramaMapper.xml"></mapper>
-        <mapper resource="mappers/ClaseMapper.xml"></mapper>
-        <mapper resource="mappers/RecursoMapper.xml"></mapper>
         <mapper resource="mappers/AsignaturaMapper.xml"></mapper>
         <mapper resource="mappers/MateriaMapper.xml"></mapper>
+        <mapper resource="mappers/ClaseMapper.xml"></mapper>
+        <mapper resource="mappers/RecursoMapper.xml"></mapper>
     </mappers> 
     
 </configuration>

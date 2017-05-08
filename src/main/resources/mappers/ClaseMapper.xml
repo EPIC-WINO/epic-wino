@@ -49,7 +49,7 @@
         order by clas.fecha, clas.hora_inicio;
     </select>
     
-    <select parameterType="map" id="consultarRecursosConcedidos" resultMap="RecursoResult">
+    <select parameterType="map" id="consultarRecursosConcedidos" resultMap="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.RecursoMapper.RecursoResult">
         select 
             
             rec.id as id,
@@ -72,15 +72,9 @@
         <result property="fecha" column="fecha"/>
         <result property="horaInicio" column="horainicio"/>
         <result property="horaFin" column="horafin"/>
-        <collection property="recursos" columnPrefix="rec_" ofType="Recurso" resultMap="RecursoResult"/>
+        <collection property="recursos" columnPrefix="rec_" ofType="Recurso" resultMap="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.RecursoMapper.RecursoResult"/>
     </resultMap>
-    <resultMap type="Recurso" id="RecursoResult">
-       <id property="id" column="id"/>
-       <result property="nombre" column="nombre"/>
-       <result property="descripcion" column="descripcion"/>
-       <result property="cantidad" column="cantidad"/>
-       <result property="categoria" column="categoria"/>
-    </resultMap>
+    
     
 </mapper>
 

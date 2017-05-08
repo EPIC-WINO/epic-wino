@@ -37,8 +37,8 @@ public class MyBatisMateriaDAO implements MateriaDAO{
     }
 
     @Override
-    public void saveMateria(Materia materia) throws PersistenceException {
-        materiaMapper.saveMateria(materia);
+    public void saveMateria(Materia materia, int idAsignatura) throws PersistenceException {
+        materiaMapper.saveMateria(materia, idAsignatura);
     }
     
 }

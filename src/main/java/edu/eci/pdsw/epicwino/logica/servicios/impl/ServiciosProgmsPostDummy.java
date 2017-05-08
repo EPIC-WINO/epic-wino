@@ -107,7 +107,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public void registrarMateria(Materia materia) throws ExcepcionServiciosProgmsPost {
+    public void registrarMateria(Materia materia, int idAsignatura) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -184,7 +184,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Asignatura> consultarAsignaturas(int periodo, int idPrograma) throws ExcepcionServiciosProgmsPost {
-        List<Asignatura> asignaturas=new ArrayList();
+        List<Asignatura> asignaturas = new ArrayList<>();
         Asignatura a0=new Asignatura(0,"Fundamentos de gerencia de proyectos");
         Asignatura a1=new Asignatura(1,"Teorias gerenciales");
         Asignatura a2=new Asignatura(2,"Fundamentos de la informacion");

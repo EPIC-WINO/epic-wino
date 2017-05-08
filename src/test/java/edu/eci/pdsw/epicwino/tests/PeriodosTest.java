@@ -50,7 +50,7 @@ public class PeriodosTest {
         gruposMateria.add(grupo1);gruposMateria.add(grupo2);
         m1.setGruposDeMateria(gruposMateria);
         
-        sp.registrarMateria(m1);
+        //sp.registrarMateria(m1);
         Iterator<Integer> periodos = sp.consultarPeriodos().iterator();
         
         assertEquals("Se consulta inadecuadamente todos los periodos inscritos"

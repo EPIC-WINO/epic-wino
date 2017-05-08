@@ -125,35 +125,7 @@
         <result property="jornada" column="jornada"/>
         <result property="modalidad" column="modalidad"/>
         <result property="codigoSNIES" column="codigo_SNIES"/>
-        <collection property="asignaturas" columnPrefix="asig_" ofType="Asignatura" resultMap="AsignaturaResult"/>
-    </resultMap>
-    
-    <resultMap type="Asignatura" id="AsignaturaResult">
-        <id property="id" column="id"/>
-        <result property="nombre" column="nombre"/>
-        <collection property="materias" columnPrefix="mate_" ofType="Materia" resultMap="MateriaResult"/>
-    </resultMap>
-    
-    <resultMap type="Materia" id="MateriaResult">
-        <id property="id" column="id"/>
-        <result property="nombre" column="nombre"/>
-        <result property="creditos" column="creditos"/>
-        <result property="descripcion" column="descripcion"/>
-        <collection property="gruposDeMateria" columnPrefix="grup_" ofType="GrupoDeMateria" resultMap="GrupoDeMateriaResult"/>
-    </resultMap>
-    <resultMap type="GrupoDeMateria" id="GrupoDeMateriaResult">
-        <id property="periodo" column="periodo"/>
-        <association property="profesor" javaType="Profesor" resultMap='ProfesorResult'></association>
-        <collection property="clases" columnPrefix="clas_" ofType="Clase" resultMap="Logica.Dao.MyBatis.Mappers.ClaseMapper.ClaseResult"/>
-    </resultMap>
-    <resultMap type="Profesor" id="ProfesorResult">
-        <id property="id" column="id"/>
-        <result property="nombre" column="nombre"/>
-        <result property="tipoID" column="tipo"/>
-        <result property="correo" column="correo"/>
-        <result property="telefono" column="telefono"/>
-        
-        <!--La coleccion de comites-->
+        <collection property="asignaturas" columnPrefix="asig_" ofType="Asignatura" resultMap="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.AsignaturaMapper.AsignaturaResult"/>
     </resultMap>
     
 </mapper>

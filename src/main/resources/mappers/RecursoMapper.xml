@@ -5,5 +5,19 @@
   
 <mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.RecursoMapper">
     
+    <insert id="agregarRecurso">
+        <!-- TODO implementar -->
+    </insert>
     
+    <select parameterType="map" id="consultarRecursos" resultMap="RecursoResult">
+        <!-- TODO implementar -->
+    </select>
+    
+    <resultMap type="Recurso" id="RecursoResult">
+        <id property="id" column="id"/>
+        <result property="nombre" column="nombre"/>
+        <result property="descripcion" column="descripcion"/>
+        <result property="cantidad" column="cantidad"/>
+        <result property="categoria" column="categoria"/>
+    </resultMap>
 </mapper>

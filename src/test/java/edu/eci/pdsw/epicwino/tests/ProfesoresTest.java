@@ -65,7 +65,7 @@ public class ProfesoresTest {
         Clase cl = new Clase(40,java.sql.Date.valueOf("2012-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         
         grupo1.setClases(clasesGrupo);
-        sp.registrarMateria(m1);
+        //sp.registrarMateria(m1);
         Iterator<Profesor> profesores = sp.consultarProfesores(20121).iterator();
         
         assertEquals("Se consulta inadecuadamente los profesores para el periodo 2012-1"
@@ -94,7 +94,7 @@ public class ProfesoresTest {
         Clase cl = new Clase(40,java.sql.Date.valueOf("2013-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         
         grupo1.setClases(clasesGrupo);
-        sp.registrarMateria(m1);
+        //sp.registrarMateria(m1);
         Collection<Profesor> profesores = sp.consultarProfesores(20132);
         
         assertEquals("Se consulta inadecuadamente los profesores para el periodo 2013-2"
@@ -123,7 +123,7 @@ public class ProfesoresTest {
         Clase cl = new Clase(40,java.sql.Date.valueOf("2014-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         
         grupo1.setClases(clasesGrupo);
-        sp.registrarMateria(m1);
+        //sp.registrarMateria(m1);
         Profesor profesorMat = sp.consultarProfesor(20141,54);
         
         assertEquals("Se consulta inadecuadamente el profesor para el periodo 2014-1 y materia Gerencia Financiera"
@@ -154,7 +154,7 @@ public class ProfesoresTest {
         grupo1.setClases(clasesGrupo);
         boolean thrown = false;
         try {
-            sp.registrarMateria(m1);
+            //sp.registrarMateria(m1);
             Collection<Profesor> profesores = sp.consultarProfesores(20153);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;

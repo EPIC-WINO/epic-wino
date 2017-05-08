@@ -41,7 +41,7 @@ public class ClasesTest {
     public void CE1() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         Materia m1 = new Materia(50,"Gerencia Financiera");
-        sp.registrarMateria(m1);
+        //sp.registrarMateria(m1);
         
         Clase cl1 = new Clase(40,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Clase cl2 = new Clase(41,java.sql.Date.valueOf("2015-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
@@ -60,7 +60,7 @@ public class ClasesTest {
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         Materia m1 = new Materia(51,"Gerencia Financiera");
         Materia m2 = new Materia(52,"Analisis de Riesgos");
-        sp.registrarMateria(m1);sp.registrarMateria(m2);
+        //sp.registrarMateria(m1);sp.registrarMateria(m2);
         
         Clase cl1 = new Clase(42,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
                 
