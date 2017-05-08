@@ -14,9 +14,10 @@ public interface ClaseDAO {
      * @obj guarda una clase en una materia
      * @param clase a guardar
      * @param idMateria id de la materia en donde guardar
+     * @param periodo
      * @throws PersistenceException falla en persistencia
      */
-    public void saveClase(Clase clase, int idMateria) throws PersistenceException;
+    public void saveClase(Clase clase, int idMateria, int periodo) throws PersistenceException;
 
     /**
      * @obj consultar todas las clases en un periodo

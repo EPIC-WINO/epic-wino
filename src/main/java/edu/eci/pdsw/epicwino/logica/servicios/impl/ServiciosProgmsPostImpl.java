@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import edu.eci.pdsw.epicwino.logica.dao.ClaseDAO;
 import edu.eci.pdsw.epicwino.logica.dao.MateriaDAO;
 import edu.eci.pdsw.epicwino.logica.dao.RecursoDAO;
+import java.util.Calendar;
 
 /**
  *
@@ -43,19 +44,19 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Inject
     private ProgramaDAO daoPrograma;
-    
-    @Inject 
+
+    @Inject
     private AsignaturaDAO daoAsignatura;
-    
+
     @Inject
     private MateriaDAO daoMateria;
 
     @Override
     public void registrarMateria(Materia materia) throws ExcepcionServiciosProgmsPost {
-        if (materia == null){
+        if (materia == null) {
             throw new NullPointerException("La materia es null");
         }
-        
+
         try {
             daoMateria.saveMateria(materia);
         } catch (PersistenceException ex) {
@@ -85,14 +86,39 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     @Override
     public void agregarClase(int idMateria, Clase clase) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Se agrega la clase {0} a la materia con ID: {1}", clase, idMateria));
-        
+
         if (clase == null) {
             throw new NullPointerException("La clase es null");
         }
+
+        int periodo = 0;
+        if (clase.getFecha() == null) {
+            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: fecha");
+        }
+
+        if (clase.getHoraInicio() == null) {
+            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: horaInicio");
+        }
+
+        if (clase.getHoraFin() == null) {
+            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: horaFin");
+        }
+
+        if (clase.getRecursos() == null) {
+            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: recursos");
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(clase.getFecha());
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+
+        periodo = year * 10 + (month < Calendar.JULY ? 1 : 2);
+        LOGGER.debug("El periodo calculado es " + periodo);
         
         try {
-            daoClase.saveClase(clase, idMateria);
-        } catch (PersistenceException ex) {
+            daoClase.saveClase(clase, idMateria, periodo);
+        }catch (PersistenceException ex) {
             LOGGER.error("Error al guardar la clase", ex);
         }
     }
@@ -257,11 +283,11 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     @Override
     public void registrarAsignatura(Asignatura asignatura, int idPrograma) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Se registra la asignatura {0} en el programa ({1})", asignatura, idPrograma));
-        
+
         if (asignatura == null) {
             throw new NullPointerException("La asignatura es null");
         }
-        
+
         try {
             daoAsignatura.saveAsignatura(asignatura);
         } catch (PersistenceException ex) {
@@ -272,28 +298,28 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     @Override
     public List<Materia> consultarPrerrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Consultar los prerrequisitos de la materia " + idMateria);
-        
+
         List<Materia> materias = null;
         try {
             materias = daoMateria.loadPrerrequisitos(idMateria);
         } catch (PersistenceException ex) {
             LOGGER.error("Error consultando los prerrequisitos de la materia " + idMateria, ex);
         }
-        
+
         return materias;
     }
 
     @Override
     public List<Materia> consultarCorrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Consultar los correquisitos de la materia " + idMateria);
-        
+
         List<Materia> materias = null;
         try {
             materias = daoMateria.loadCorrequisitos(idMateria);
         } catch (PersistenceException ex) {
             LOGGER.error("Error consultando los correquisitos de la materia " + idMateria, ex);
         }
-        
+
         return materias;
     }
 
@@ -358,7 +384,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     @Override
     public List<Clase> consultarClases(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
         List<Materia> materias = this.consultarMaterias(periodo);
-        
+
         boolean found = false;
         Set<Clase> clases = new TreeSet<>();
         for (int i = 0; i < materias.size() && !found; i++) {
@@ -370,12 +396,12 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
                 }
             }
         }
-        
+
         if (!found) {
             throw new ExcepcionServiciosProgmsPost(MessageFormat.format("La "
                     + "materia ({1}) no existe en el periodo {0}", idMateria, periodo));
         }
-        
+
         return new ArrayList<>(clases);
     }
 
@@ -419,8 +445,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     @Override
     public void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Registra nuevo cohorte "
-                    + "({2}) en el programa ({0}), materia ({1})", idPrograma, idMateria, numCohorte));
-        
+                + "({2}) en el programa ({0}), materia ({1})", idPrograma, idMateria, numCohorte));
+
         try {
             daoMateria.agregarCohorte(idPrograma, idMateria, numCohorte);
         } catch (PersistenceException ex) {
@@ -442,7 +468,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     @Override
     public void registrarRecurso(Recurso recurso) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Registra recurso " + recurso);
-        
+
         try {
             daoRecurso.save(recurso);
         } catch (PersistenceException ex) {

@@ -19,13 +19,13 @@ public class MyBatisClaseDAO implements ClaseDAO {
     private ClaseMapper claseMapper;
 
     @Override
-    public void saveClase(Clase c, int idMateria) throws PersistenceException {
-        claseMapper.agregarClase(c, idMateria);
+    public void saveClase(Clase c, int idMateria, int periodo) throws PersistenceException {
+        claseMapper.agregarClase(c, idMateria, periodo);
     }
 
     @Override
     public List<Clase> loadClases(int periodo) throws PersistenceException {
-        return claseMapper.consultarClases(periodo / 10, periodo % 10); // XXX refactorizar
+        return claseMapper.consultarClases(periodo);
     }
 
     @Override
