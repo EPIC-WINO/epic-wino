@@ -1,6 +1,7 @@
 package edu.eci.pdsw.epicwino.logica.managedbeans;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Asignatura;
+import edu.eci.pdsw.epicwino.logica.entidades.Materia;
 import edu.eci.pdsw.epicwino.logica.entidades.Programa;
 import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
@@ -28,24 +29,32 @@ public class MateriasRegistradasBean implements Serializable{
     
     private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();;
     
-    private String programa="";
+    private String programa=null;
     private int anio=0;
     private int semestre=0;
-    private List<Asignatura> asignaturas=new ArrayList<Asignatura>();
+    private List<Asignatura> asignaturas=new ArrayList<>();
     private int programa_id=0;
-    private String nivel="";
+    private String nivel=null;
+    private List<Materia> materias;
+    private int asignatura_id;
     
     
     public MateriasRegistradasBean() {
         LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName())); 
     }
     
-    /*public List<Materia> getMaterias(){
-        
-    }*/
+    public List<Materia> getMaterias(){
+       LOGGER.debug(MessageFormat.format("Se obtiene la lista de materias -> {0}", materias.size()));
+       return materias;     
+    }
+    
+    public void setMaterias(List<Materia> materias){
+        LOGGER.debug("Se establecen las materias");
+        this.materias=materias;
+    }
     
     public List<Asignatura> getAsignaturas(){
-        LOGGER.debug(MessageFormat.format("Se obtiene la lista de asignaturas -> {0}", asignaturas.size()));
+        LOGGER.debug("Se obtiene la lista de asignaturas -> {0}");
         return asignaturas;
     }
     
@@ -176,13 +185,21 @@ public class MateriasRegistradasBean implements Serializable{
     
     public void actualizarMaterias(){
         LOGGER.info("Se actualiza el vista de las materias registradas");
-        try {
-            asignaturas = servProg.consultarAsignaturas((anio * 10) + semestre,programa_id);
-            //LOGGER.debug(MessageFormat.format(""));
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error al consultar las asignaturas", ex);
+        if(programa!=null&&anio!=0&&semestre!=0&&nivel!=null){
+            try {
+                asignaturas = servProg.consultarAsignaturas((anio * 10) + semestre,programa_id);
+                for (Asignatura a:asignaturas){
+                    asignatura_id=a.getId();
+                    materias=servProg.consultarMaterias((anio * 10) + semestre,asignatura_id);
+                }   
+            
+            } catch (ExcepcionServiciosProgmsPost ex) {
+                LOGGER.error("Error al consultar las asignaturas", ex);
+            }
         }
+       
     }
+    
     
 }
 

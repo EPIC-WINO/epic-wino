@@ -67,17 +67,32 @@
                     <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{materiasRegistradasBean.semestres}" />
                 </p:selectOneMenu>  
+                
+                <div>
+                    <p></p>
+                </div>
 
                 <p:commandButton  value="Mostrar" update="asignaturas" actionListener="#{materiasRegistradasBean.actualizarMaterias()}" styleClass="button"/>
 
-                <p:dataTable id="asignaturas" var="asignatura" value="#{materiasRegistradasBean.asignaturas}" styleClass="table" >
+                <p:dataTable id="asignaturas" var="asignatura" value="#{materiasRegistradasBean.asignaturas}" styleClass="table">
+                    <p:column style="width:16px">
+                        <p:rowToggler />
+                    </p:column>
                     <p:column headerText="Asignatura" styleClass="columnText">
                         <h:outputText value="#{asignatura.nombre}" styleClass="outputText"/>
                     </p:column>
-                    <p:column headerText="Materia" styleClass="columnText">
-                        <h:outputText value="" styleClass="outputText"/>
-                    </p:column>
+                    <p:rowExpansion>
+                        <p:dataTable id="materias" var="materia" value="#{materiasRegistradasBean.materias}" styleClass="table">
+                            <p:column headerText="Materia" styleClass="columnText">
+                                <h:outputText value="#{materia.nombre}" styleClass="outputText"/>
+                            </p:column>
+                            <p:column headerText="Materia" styleClass="columnText">
+                                <p:commandButton  value="Modificar"  styleClass="button"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:rowExpansion>
                 </p:dataTable>
+                <p:commandButton onclick="location.href='RegistrarMateria.xhtml'" value="Registrar Nueva Materia" styleClass="button" />
             </h:form>
         </div>
     </h:body>
