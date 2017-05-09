@@ -16,6 +16,10 @@
         insert INTO gruposdematerias (materia_id,periodo,profesor_id)
         VALUES (#{idMateria},#{periodo},#{idProfesor});
     </insert>
+    <insert id="agregarProfesor">
+        insert INTO profesores (id,nombre,tipo,correo,telefono)
+        VALUES (#{idProfesor},#{nombre},#{tipo},#{correo},#{telefono});
+    </insert>
     
     <select parameterType="map" id="consultarMaterias" resultMap="MateriaResult">
         select 
