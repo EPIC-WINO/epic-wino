@@ -15,6 +15,7 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -33,10 +34,10 @@ public class ProgramasTest {
     public ProgramasTest() {
     }
     
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
     }
-    
+    /*
     @Test
     public void CE1(){}
     
@@ -48,7 +49,7 @@ public class ProgramasTest {
     
     @Test
     public void CF2(){}
-    
+    */
     @AfterClass
     public static void tearDown() {
         JdbcDataSource ds= new JdbcDataSource();
