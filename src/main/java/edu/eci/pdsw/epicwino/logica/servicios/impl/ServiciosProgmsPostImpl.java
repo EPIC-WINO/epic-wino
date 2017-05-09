@@ -700,4 +700,9 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             LOGGER.error("Error en persistencia", ex);
         }
     }
+
+    @Override
+    public List<Clase> consultarClasesDeUnPeriodo(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -296,5 +296,13 @@ public interface ServiciosProgmsPost {
      * @return lista no nula de strings
      */
     List<String> consultarNiveles();
+    
+    /**
+     * @obj consultar las clases que se dictan en un periodo
+     * @param periodo
+     * @return lista no nula de clases
+     * @throws ExcepcionServiciosProgmsPost no existe el periodo
+     */
+    List<Clase> consultarClasesDeUnPeriodo(int periodo) throws ExcepcionServiciosProgmsPost;
 
 }
