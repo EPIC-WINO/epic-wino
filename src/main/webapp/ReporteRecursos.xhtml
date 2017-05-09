@@ -71,10 +71,10 @@
                         <h:outputText value="#{recurso.descripcion}" styleClass="outputText"/>
                     </p:column>
                     <p:column headerText="Fecha de utilización" styleClass="columnText">
-                        <h:outputText value="" styleClass="outputText"/>
+                        <h:outputText value="#{reporteRecursoBean.fechaUsoRecurso(recurso.id)}" styleClass="outputText"/>
                     </p:column>
                     <p:column headerText="Hora de uso" styleClass="columnText">
-                        <h:outputText value="" styleClass="outputText"/>
+                        <h:outputText value="#{reporteRecursoBean.horaUsoRecurso(recurso.id)}" styleClass="outputText"/>
                     </p:column>
                 </p:dataTable>
             </h:form>

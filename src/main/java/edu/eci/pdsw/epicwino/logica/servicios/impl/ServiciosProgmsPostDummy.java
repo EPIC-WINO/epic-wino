@@ -115,20 +115,24 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         recursos.add(r3);
         //--------------------------------------
         //Crea clases---------------------------
-        Clase cla1 = new Clase(1, new Date(2000, 1, 1), new Time(1), new Time(1));
-        Clase cla2 = new Clase(1, new Date(2001, 2, 2), new Time(2), new Time(2));
-        Clase cla3 = new Clase(1, new Date(2002, 3, 3), new Time(3), new Time(3));
-        List<Recurso> recurs = new ArrayList<Recurso>();
-        recurs.add(r1);
-        cla1.setRecursos((ArrayList<Recurso>) recurs);
-        recurs.clear();
+        Clase cla1 = new Clase(1, new Date(2017-1900, 2, 15), new Time(11, 30, 0), new Time(1, 0, 0));
+        Clase cla2 = new Clase(2, new Date(2017-1900, 3, 5), new Time(8, 30, 0), new Time(10, 0, 0));
+        Clase cla3 = new Clase(3, new Date(2017-1900, 3, 29), new Time(1, 0, 0), new Time(11, 30, 0));
+        List<Recurso> recurs1 = new ArrayList<Recurso>();
+        recurs1.add(r1);
+        cla1.setRecursos((ArrayList<Recurso>) recurs1);
         
-        recurs.add(r2);
-        cla2.setRecursos((ArrayList<Recurso>) recurs);
-        recurs.clear();
+        List<Recurso> recurs2 = new ArrayList<Recurso>();
+        recurs2.add(r2);
+        cla2.setRecursos((ArrayList<Recurso>) recurs2);
         
-        recurs.add(r3);
-        cla3.setRecursos((ArrayList<Recurso>) recurs);
+        List<Recurso> recurs3 = new ArrayList<Recurso>();
+        recurs3.add(r3);
+        cla3.setRecursos((ArrayList<Recurso>) recurs3);
+        
+        clases.add(cla1);
+        clases.add(cla2);
+        clases.add(cla3);
         //--------------------------------------
         programas.add(p1);
         programas.add(p2);
@@ -305,7 +309,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClasesDeUnPeriodo(int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return clases;
     }
     
 }
