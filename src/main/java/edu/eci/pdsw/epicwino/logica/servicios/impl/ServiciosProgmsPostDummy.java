@@ -25,9 +25,13 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     public static Logger LOGGER  = Logger.getLogger(ServiciosProgmsPostDummy.class);
 
     private List<Programa> programas;
+    private List<Recurso> recursos;
+    private List<Clase> clases;
     
     public ServiciosProgmsPostDummy() {
         programas = new ArrayList<>();
+        recursos = new ArrayList<>();
+        clases = new ArrayList<>();
         poblar();
     }
     
@@ -102,6 +106,30 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         p1.setNivel("Especializacion");
         p2.setNivel("Maestria");
         
+        //Crea recursos-------------------------
+        Recurso r1=new Recurso(1,"Computadores","Computadores dell para uso de las clases",5,"Multimedia");
+        Recurso r2=new Recurso(2,"Video Beam","Video Beam para usar en clases",6,"Multimedia");
+        Recurso r3=new Recurso(3,"Salones de computo","Salones con 20 computadores para uso de estudiantes",3,"Multimedia");
+        recursos.add(r1);
+        recursos.add(r2);
+        recursos.add(r3);
+        //--------------------------------------
+        //Crea clases---------------------------
+        Clase cla1 = new Clase(1, new Date(2000, 1, 1), new Time(1), new Time(1));
+        Clase cla2 = new Clase(1, new Date(2001, 2, 2), new Time(2), new Time(2));
+        Clase cla3 = new Clase(1, new Date(2002, 3, 3), new Time(3), new Time(3));
+        List<Recurso> recurs = new ArrayList<Recurso>();
+        recurs.add(r1);
+        cla1.setRecursos((ArrayList<Recurso>) recurs);
+        recurs.clear();
+        
+        recurs.add(r2);
+        cla2.setRecursos((ArrayList<Recurso>) recurs);
+        recurs.clear();
+        
+        recurs.add(r3);
+        cla3.setRecursos((ArrayList<Recurso>) recurs);
+        //--------------------------------------
         programas.add(p1);
         programas.add(p2);
      
@@ -254,13 +282,6 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Recurso> consultarRecursosProgramados(int periodo) throws ExcepcionServiciosProgmsPost {
-        List<Recurso> recursos = new ArrayList<>();
-        Recurso r1=new Recurso(1,"Computadores","Computadores dell para uso de las clases",5,"Multimedia");
-        Recurso r2=new Recurso(2,"Video Beam","Video Beam para usar en clases",6,"Multimedia");
-        Recurso r3=new Recurso(3,"Salones de computo","Salones con 20 computadores para uso de estudiantes",3,"Multimedia");
-        recursos.add(r1);
-        recursos.add(r2);
-        recursos.add(r3);
         return recursos; 
     }
 
