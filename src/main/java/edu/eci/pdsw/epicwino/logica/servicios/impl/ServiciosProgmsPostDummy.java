@@ -198,9 +198,27 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Materia> consultarMaterias(int periodo, int idAsignatura) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int id=idAsignatura;
+        List<Materia> materias= new ArrayList<>();
+        Materia m1=new Materia(0,"Adminitrar un proyecto");
+        Materia m2=new Materia(1,"Fundamentos de gerencia");
+        Materia m3=new Materia(3,"Teoria de la gerencia");
+        Materia m4=new Materia(4,"Teoria de la organizacion");
+        Materia m5=new Materia(6,"Organizar informacion");
+        Materia m6=new Materia(7,"Informacion en proyectos");
+        if(id==0){
+            materias.add(m1);
+            materias.add(m2);
+        }else if(id==1){
+            materias.add(m3);      
+            materias.add(m4);
+        }else{
+           materias.add(m5);
+            materias.add(m6); 
+        }
+        return materias;
     }
-
+ 
     @Override
     public List<Recurso> consultarRecursos(String nombreCategoria, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
