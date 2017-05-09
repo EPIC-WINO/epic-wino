@@ -27,6 +27,7 @@ import edu.eci.pdsw.epicwino.logica.dao.MateriaDAO;
 import edu.eci.pdsw.epicwino.logica.dao.RecursoDAO;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
@@ -88,7 +89,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     public List<Programa> consultarProgramas(int periodo) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Se consultan los programas en el periodo " + periodo);
 
-        if (!(0 <= periodo && periodo <= 99999)) {
+        if (!this.periodoEsValido(periodo)) {
             throw new ExcepcionServiciosProgmsPost(MessageFormat.format("El periodo es invalido ({0})", periodo));
         }
 
@@ -102,13 +103,24 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
         return programas;
     }
+    
+    /**
+     * @obj un periodo dado es valido
+     * @param periodo a validar
+     * @return el periodo es valido
+     */
+    private boolean periodoEsValido(int periodo) {
+        int anio = periodo / 10;
+        int semestre = periodo % 10;
+        return (1970 <= anio && anio <= 9999) && (1 <= semestre && semestre <= 2);
+    }
 
     @Override
     public void agregarClase(int idMateria, Clase clase) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Se agrega la clase {0} a la materia con ID: {1}", clase, idMateria));
 
         if (!this.materiaExiste(idMateria)) {
-            throw new ExcepcionServiciosProgmsPost("La materia no existe");
+            throw new ExcepcionServiciosProgmsPost("La materia " + idMateria + " no existe");
         }
 
         if (clase == null) {
@@ -116,28 +128,22 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         }
 
         if (clase.getFecha() == null) {
-            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: fecha");
+            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: fecha " + clase);
         }
 
         if (clase.getHoraInicio() == null) {
-            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: horaInicio");
+            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: horaInicio " + clase);
         }
 
         if (clase.getHoraFin() == null) {
-            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: horaFin");
+            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: horaFin " + clase);
         }
 
         /*if (clase.getRecursos() == null) {
             throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: recursos");
         }*/
 
-        int periodo;
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(clase.getFecha());
-        int month = cal.get(Calendar.MONTH);
-        int year = cal.get(Calendar.YEAR);
-
-        periodo = year * 10 + (month < Calendar.JULY ? 1 : 2);
+        int periodo = periodoDeFecha(clase.getFecha());
         LOGGER.debug("El periodo calculado es " + periodo);
 
         try {
@@ -145,6 +151,20 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         } catch (PersistenceException ex) {
             LOGGER.error("Error al guardar la clase", ex);
         }
+    }
+    
+    /**
+     * @obj calcular el periodo a partir de una fecha
+     * @param fecha
+     * @return entero que representa el periodo
+     */
+    private int periodoDeFecha(Date fecha) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fecha);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+
+        return year * 10 + (month < Calendar.JULY ? 1 : 2);
     }
 
     @Override
@@ -615,17 +635,17 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         return found;
     }
 
-    List<Asignatura> consultarAsignaturas() { // XXX revisar
+    List<Asignatura> consultarAsignaturas() {
         LOGGER.debug("Consulta todas las asignaturas");
         
-        List<Asignatura> p = null;
-        try {
-            p = daoAsignatura.consultarAsignaturas();
-        } catch (PersistenceException ex) {
-            LOGGER.error("Error consultando asignaturas", ex);
+        List<Programa> programas = this.consultarProgramas();
+        
+        Set<Asignatura> asignaturas = new HashSet<>();
+        for (Programa programa : programas) {
+            asignaturas.addAll(programa.getAsignaturas());
         }
         
-        return p;
+        return new ArrayList<>(asignaturas);
     }
     
     private boolean programaExiste(int idPrograma) {
