@@ -6,7 +6,7 @@
 <mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.ProgramaMapper">
     
     <!-- cosultarProgramaPorPeriodo -->
-    <select parameterType="map" id="cosultarProgramaPorPeriodo" resultMap="ProgramaResult">
+    <select parameterType="map" id="consultarProgramaPorPeriodo" resultMap="ProgramaResult">
         select 
             prog.id as id,
             prog.nombre as nombre,
