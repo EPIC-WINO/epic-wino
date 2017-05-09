@@ -48,4 +48,11 @@ public interface MateriaDAO {
      * @throws PersistenceException falla de persistencia
      */
     List<Materia> loadCorrequisitos(int idMateria) throws PersistenceException;
+    
+    /**
+     * @obj consultar todas las materias presentes
+     * @return lista no nula de materias
+     * @throws PersistenceException falla en persistencia
+     */
+    List<Materia> consultarMaterias() throws PersistenceException;
 }

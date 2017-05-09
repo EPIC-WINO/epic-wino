@@ -1,6 +1,7 @@
 package edu.eci.pdsw.epicwino.logica.dao;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Asignatura;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,11 @@ public interface AsignaturaDAO {
      * @throws PersistenceException falla en persistencia
      */
     void saveAsignatura(Asignatura asignatura, int idPrograma) throws PersistenceException;
+    
+    /**
+     * @obj consultar las asignaturas presentes
+     * @return lista no nula de asignaturas
+     * @throws PersistenceException falla en persistencia
+     */
+    List<Asignatura> consultarAsignaturas() throws PersistenceException;
 }

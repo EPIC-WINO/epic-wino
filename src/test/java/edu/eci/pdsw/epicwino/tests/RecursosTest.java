@@ -180,7 +180,7 @@ public class RecursosTest {
         
         Clase cl = new Clase(40,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Materia m1 = new Materia(50,"Gerencia Financiera");
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos");
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Maestria");
         Asignatura as1 = new Asignatura(30,"Ejecucion");
 
         sp.registrarPrograma(prg1);

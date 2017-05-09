@@ -5,6 +5,7 @@ import edu.eci.pdsw.epicwino.logica.dao.AsignaturaDAO;
 import edu.eci.pdsw.epicwino.logica.dao.PersistenceException;
 import edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.AsignaturaMapper;
 import edu.eci.pdsw.epicwino.logica.entidades.Asignatura;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,11 @@ public class MyBatisAsignaturaDAO implements AsignaturaDAO{
     @Override
     public void saveAsignatura(Asignatura asignatura, int idPrograma) throws PersistenceException {
         asignaturaMapper.saveAsignatura(asignatura, idPrograma);
+    }
+
+    @Override
+    public List<Asignatura> consultarAsignaturas() throws PersistenceException {
+        return asignaturaMapper.consultarAsignaturas();
     }
     
 }

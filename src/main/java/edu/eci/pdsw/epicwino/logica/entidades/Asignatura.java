@@ -13,10 +13,11 @@ public class Asignatura {
     private List<Materia> materias;
     
     public Asignatura() {
-        
+        nombre = "";
     }
     
     public Asignatura(int id, String nombre) {
+        this();
         this.id = id;
         this.nombre = nombre;
         materias = new ArrayList<>();

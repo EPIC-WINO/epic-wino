@@ -53,7 +53,7 @@ public class ClasesTest {
     public void CE1() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         Materia m1 = new Materia(50,"Gerencia Financiera");
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos");
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Especializacion");
         Asignatura as1 = new Asignatura(30,"Ejecucion");
 
         sp.registrarPrograma(prg1);

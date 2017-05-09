@@ -40,5 +40,10 @@ public class MyBatisMateriaDAO implements MateriaDAO{
     public void saveMateria(Materia materia, int idAsignatura) throws PersistenceException {
         materiaMapper.saveMateria(materia, idAsignatura);
     }
+
+    @Override
+    public List<Materia> consultarMaterias() throws PersistenceException {
+        return materiaMapper.consultarMaterias();
+    }
     
 }

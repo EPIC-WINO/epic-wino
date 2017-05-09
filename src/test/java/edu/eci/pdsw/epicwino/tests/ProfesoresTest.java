@@ -64,7 +64,7 @@ public class ProfesoresTest {
         
         Materia m1 = new Materia(52,"Gerencia Financiera");
         Profesor pf1 = new Profesor(30,"Juan Perez Rodriguez");
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos");
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Maestria");
         Asignatura as1 = new Asignatura(30,"Ejecucion");
 
         sp.registrarPrograma(prg1);

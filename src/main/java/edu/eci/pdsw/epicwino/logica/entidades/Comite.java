@@ -12,6 +12,10 @@ public class Comite {
     private List<Profesor> profesores;
     private List<Reunion> reuniones;
 
+    public Comite() {
+        nombre = "";
+    }
+    
     /**
      * @return the id
      */

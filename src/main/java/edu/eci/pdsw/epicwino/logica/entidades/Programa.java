@@ -18,9 +18,17 @@ public class Programa {
     private List<Asignatura> asignaturas;
 
     
-    public Programa(int id, String nombre) {
+    public Programa() {
+        nombre = "";
+        jornada = "";
+        modalidad = "";
+    }
+    
+    public Programa(int id, String nombre, String nivel) {
+        this();
         this.id = id;
         this.nombre = nombre;
+        this.nivel = nivel;
         asignaturas = new ArrayList<>();
     }
 

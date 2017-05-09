@@ -35,8 +35,8 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         Asignatura a;
         Materia m;
         
-        Programa p1=new Programa(0,"Especializacion en gerencia de proyectos");
-        Programa p2=new Programa(1,"Maestria en gestion de informacion");
+        Programa p1=new Programa(0,"Especializacion en gerencia de proyectos", "Especializacion");
+        Programa p2=new Programa(1,"Maestria en gestion de informacion", "Maestria");
         
         List<Asignatura> asignaturas1=new ArrayList<>();
         List<Asignatura> asignaturas2=new ArrayList<>();

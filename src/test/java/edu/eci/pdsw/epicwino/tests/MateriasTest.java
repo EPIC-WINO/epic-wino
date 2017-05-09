@@ -82,7 +82,7 @@ public class MateriasTest {
         
         Materia m1 = new Materia(50,"Gerencia Financiera");
         Materia m2 = new Materia(51,"Analisis de Riesgos");
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos");
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Maestria");
         Asignatura as1 = new Asignatura(30,"Ejecucion");
 
         sp.registrarPrograma(prg1);

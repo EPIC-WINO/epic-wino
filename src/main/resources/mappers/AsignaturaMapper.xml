@@ -49,6 +49,8 @@
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
         where prog.id = #{idPrograma} and grup.periodo=#{periodo};
     </select>
+    
+    
     <select parameterType="map" id="consultarAsignaturasPorMateria" resultMap="AsignaturaResult">
         select 
         
@@ -91,6 +93,47 @@
         where mate.id = #{idMateria};
     </select>   
     
+    <!-- consultarAsignaturas -->
+    <select parameterType="map" id="consultarAsignaturas" resultMap="AsignaturaResult">
+        select 
+        
+            asig.id as id,
+            asig.nombre as nombre,
+        
+            mate.id as mate_id,
+            mate.nombre as mate_nombre,
+            mate.creditos as mate_creditos,
+            mate.descripcion as mate_descripcion,
+           
+            grup.periodo as mate_grup_periodo,
+        
+            prof.id as mate_grup_prof_id,
+            prof.nombre as mate_grup_prof_nombre,
+            prof.tipo as mate_grup_prof_tipo,
+            prof.correo as mate_grup_prof_correo,
+            prof.telefono as mate_grup_prof_telefono,
+        
+            clas.id as mate_grup_clas_id,
+            clas.fecha as mate_grup_clas_fecha,
+            clas.hora_inicio as mate_grup_clas_horainicio,
+            clas.hora_fin as mate_grup_clas_horafin,
+            
+            rec.id as mate_grup_clas_rec_id,
+            rec.nombre as mate_grup_clas_rec_nombre,
+            rec.descripcion as mate_grup_clas_rec_descripcion,
+            rec.cantidad as mate_grup_clas_rec_cantidad,
+            rec.categoria as mate_grup_clas_rec_categoria
+            
+      
+        
+        from asignaturas as asig 
+        left join materias as mate on asig.id = mate.asignaturas_id
+        left join gruposdematerias as grup on mate.id=grup.materia_id
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id;
+    </select> 
     
     <resultMap type="Asignatura" id="AsignaturaResult">
         <id property="id" column="id"/>

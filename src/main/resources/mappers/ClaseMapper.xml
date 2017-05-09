@@ -82,10 +82,11 @@
         where recc.clase_id= #{idCl};   
     </select>
     
-    <insert  id="saveClase" >
+    <insert id="agregarClase" >
             insert INTO clases(id,fecha,hora_inicio,hora_fin,materia_id,periodo)
-            VALUES (#{clase.id},#{clase.fecha},#{clase.horainicio},#{clase.horafin},#{idMateria},#{periodo});
+            VALUES (#{clase.id},#{clase.fecha},#{clase.horaInicio},#{clase.horaFin},#{materia},#{periodo});
     </insert>
+    
     <insert id="agregarPrestamoRecursoClase">
         insert INTO recursos_concedidos (clase_id,recurso_id)
             VALUES (#{clase.id},#{idRecurso} );

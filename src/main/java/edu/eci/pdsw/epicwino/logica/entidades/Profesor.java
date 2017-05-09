@@ -18,7 +18,10 @@ public class Profesor {
     private List<Comite> comites;
 
     public Profesor() {
-        
+        nombre = "";
+        tipoID = "";
+        correo = "";
+        telefono = "";
     }
     
     public Profesor(int id, String nombre) {

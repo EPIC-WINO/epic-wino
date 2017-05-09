@@ -13,7 +13,13 @@ public class Materia {
     private String descripcion;
     private List<GrupoDeMateria> gruposDeMateria;
 
+    public Materia() {
+        nombre = "";
+        descripcion = "";
+    }
+    
     public Materia(int id, String nombre) {
+        this();
         this.id = id;
         this.nombre = nombre;
     }

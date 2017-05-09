@@ -13,6 +13,11 @@ public class Recurso implements Serializable{
     private int cantidad;
     private String categoria;
 
+    public Recurso() {
+        nombre = "";
+        descripcion = "";
+    }
+    
     public Recurso(int id, String nombre, String descripcion, int cantidad,String categoria) {
         this.id = id;
         this.nombre = nombre;

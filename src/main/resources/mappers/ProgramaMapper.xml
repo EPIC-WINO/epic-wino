@@ -55,8 +55,8 @@
         where prog.id = #{program_id} and grup.periodo = #{periodo};
     </select>
     
-    <!-- consultarProgramas -->
-    <select parameterType="map" id="consultarProgramas" resultMap="ProgramaResult">
+    <!-- consultarProgramasPorPeriodo -->
+    <select parameterType="map" id="consultarProgramasPorPeriodo" resultMap="ProgramaResult">
         select 
             prog.id as id,
             prog.nombre as nombre,
@@ -153,6 +153,7 @@
         where asig.id=#{idAsignatura};
     </select>
     
+    <!-- loadNiveles -->
     <select id="loadNiveles" resultType="java.lang.String">
         select DISTINCT nivel from programas;
     </select>
@@ -161,7 +162,9 @@
     <select id="loadPeriodos" resultType="java.lang.Integer">
         select DISTINCT periodo from asignaturas_grupos;
     </select>
-    <select id="consultarPeriodosPorProgrgrama" resultType="java.lang.Integer">
+    
+    <!-- consultarPeriodosPorPrograma -->
+    <select id="consultarPeriodosPorPrograma" resultType="java.lang.Integer">
         select DISTINCT periodo
         from asignaturas as asig
         left join asignaturas_grupos as asgr on asig.id=asgr.asignaturas_id
@@ -175,11 +178,60 @@
         where materia_id=#{idMateria} and periodo=#{periodo} and asignaturas_id=#{idAsignatura};
     </select>
     
-
+    <!-- registrarPrograma -->
     <insert id="registrarPrograma">
         insert INTO programas (id,nombre,nivel,duracion,jornada,modalidad,codigo_SNIES)
         VALUES (#{programa.id},#{programa.nombre},#{programa.nivel},#{programa.duracion},#{programa.jornada},#{programa.modalidad},#{programa.codigoSNIES} );
     </insert>
+    
+    <!-- consultarProgramas -->
+    <select id="consultarProgramas" resultMap="ProgramaResult">
+        select 
+            prog.id as id,
+            prog.nombre as nombre,
+            prog.nivel as nivel,
+            prog.duracion as duracion,
+            prog.jornada as jornada,
+            prog.modalidad as modalidad,
+            prog.codigo_SNIES as codigo_SNIES,
+        
+            asig.id as asig_id,
+            asig.nombre as asig_nombre,
+        
+            mate.id as asig_mate_id,
+            mate.nombre as asig_mate_nombre,
+            mate.creditos as asig_mate_creditos,
+            mate.descripcion as asig_mate_descripcion,
+           
+            grup.periodo as asig_mate_grup_periodo,
+        
+            prof.id as asig_mate_grup_prof_id,
+            prof.nombre as asig_mate_grup_prof_nombre,
+            prof.tipo as asig_mate_grup_prof_tipo,
+            prof.correo as asig_mate_grup_prof_correo,
+            prof.telefono as asig_mate_grup_prof_telefono,
+        
+            clas.id as asig_mate_grup_clas_id,
+            clas.fecha as asig_mate_grup_clas_fecha,
+            clas.hora_inicio as asig_mate_grup_clas_horainicio,
+            clas.hora_fin as asig_mate_grup_clas_horafin,
+            
+            rec.id as asig_mate_grup_clas_rec_id,
+            rec.nombre as asig_mate_grup_clas_rec_nombre,
+            rec.descripcion as asig_mate_grup_clas_rec_descripcion,
+            rec.cantidad as asig_mate_grup_clas_rec_cantidad,
+            rec.categoria as asig_mate_grup_clas_rec_categoria
+            
+      
+        from programas as prog 
+        left join asignaturas as asig on prog.id = asig.programa_id
+        left join materias as mate on asig.id = mate.asignaturas_id
+        left join gruposdematerias as grup on mate.id=grup.materia_id
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id;
+    </select>
     
     <resultMap type="Programa" id="ProgramaResult">
         <id property="id" column="id"/>

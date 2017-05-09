@@ -50,4 +50,11 @@ public interface ProgramaDAO {
      * @throws PersistenceException falla en persistencia
      */
     public int loadCohorte(int idMateria, int idAsignatura, int periodo) throws PersistenceException;
+    
+    /**
+     * @obj consulat todos los programas presentes
+     * @return lista no nula de programas
+     * @throws PersistenceException falla en persistencia
+     */
+    public List<Programa> consultarProgramas() throws PersistenceException;
 }
