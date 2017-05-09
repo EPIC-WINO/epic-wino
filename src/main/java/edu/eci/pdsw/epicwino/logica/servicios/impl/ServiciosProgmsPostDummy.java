@@ -162,9 +162,9 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     @Override
     public List<Asignatura> consultarAsignaturas(int periodo) throws ExcepcionServiciosProgmsPost {
         List<Asignatura> asignaturas=new ArrayList();
-        Asignatura a0=new Asignatura(0,"Fundamentos de gerencia de proyectos");
-        Asignatura a1=new Asignatura(1,"Teorias gerenciales");
-        Asignatura a2=new Asignatura(2,"Fundamentos de la informacion");
+        Asignatura a0=new Asignatura(1,"Fundamentos de gerencia de proyectos");
+        Asignatura a1=new Asignatura(2,"Teorias gerenciales");
+        Asignatura a2=new Asignatura(3,"Fundamentos de la informacion");
         asignaturas.add(a0);
         asignaturas.add(a1);
         asignaturas.add(a2);
@@ -206,13 +206,13 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         Materia m4=new Materia(4,"Teoria de la organizacion");
         Materia m5=new Materia(6,"Organizacion de la informacion");
         Materia m6=new Materia(7,"Informacion en proyectos");
-        if(id==0){
+        if(id==1){
             materias.add(m1);
             materias.add(m2);
-        }else if(id==1){
+        }else if(id==2){
             materias.add(m3);      
             materias.add(m4);
-        }else{
+        }else if(id==3){
            materias.add(m5);
             materias.add(m6); 
         }
@@ -237,9 +237,9 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     @Override
     public List<Asignatura> consultarAsignaturas(int periodo, int idPrograma) throws ExcepcionServiciosProgmsPost {
         List<Asignatura> asignaturas = new ArrayList<>();
-        Asignatura a0=new Asignatura(0,"Fundamentos de gerencia de proyectos");
-        Asignatura a1=new Asignatura(1,"Teorias gerenciales");
-        Asignatura a2=new Asignatura(2,"Fundamentos de la informacion");
+        Asignatura a0=new Asignatura(1,"Fundamentos de gerencia de proyectos");
+        Asignatura a1=new Asignatura(2,"Teorias gerenciales");
+        Asignatura a2=new Asignatura(3,"Fundamentos de la informacion");
         asignaturas.add(a0);
         asignaturas.add(a1);
         asignaturas.add(a2);

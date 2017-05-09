@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.apache.log4j.Logger;
@@ -36,12 +37,49 @@ public class RegistrarMateriaBean implements Serializable{
     
     private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();;
     
-    private String programa=null;
-    private String asignatura=null;
+    private String programa;
+    private String asignatura;
     private int anio=0;
     private int semestre=0;
     private int programa_id;
     private String nivel;
+    private String prerequisito;
+    private int asignatura_id;
+    private String nombremateria;
+    private String codigo;
+    private String descripcion;
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombremateria() {
+        return nombremateria;
+    }
+
+    public void setNombremateria(String nombremateria) {
+        this.nombremateria = nombremateria;
+    }
+
+    public String getPrerequisito() {
+        return prerequisito;
+    }
+
+    public void setPrerequisito(String prerequisito) {
+        this.prerequisito = prerequisito;
+    }
 
     public String getNivel() {
         return nivel;
@@ -83,10 +121,26 @@ public class RegistrarMateriaBean implements Serializable{
         return asignatura;
     }
     
+    public void Asignatura_id(){
+        LOGGER.debug("Se intentan obtener id de la asignatura");
+        List<Asignatura> asignaturas;
+        try {
+            asignaturas = servProg.consultarAsignaturas(anio*10 + semestre, programa_id);
+            for(Asignatura a:asignaturas){
+                if(a.getNombre().equals(asignatura)){
+                    asignatura_id=a.getId();
+                }
+            }
+            LOGGER.debug(MessageFormat.format("Se obtiene el id de asignatura)",asignatura_id));
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error consultando id de asignatura", ex);
+        }      
+    }
+    
     public Map<String,String> getProgramas() {
         LOGGER.debug(MessageFormat.format("Se intenta obtener los programas (anio: {0}, "
                 + "semestre: {1})", anio, semestre));
-        List<Programa> r = null; 
+        List<Programa> r; 
         Map<String,String> programs  = new HashMap<>();
         try {
             r = servProg.consultarProgramas(anio*10 + semestre);
@@ -104,7 +158,7 @@ public class RegistrarMateriaBean implements Serializable{
     public Map<String,String> getNiveles(){
         LOGGER.debug(MessageFormat.format("Se intenta obtener los niveles (anio: {0}, "
                 + "semestre: {1})", anio, semestre));
-        List<String> r = null; 
+        List<String> r; 
         Map<String,String> niveles = new HashMap<>();
         r = servProg.consultarNiveles();
         for (String p:r){
@@ -117,7 +171,7 @@ public class RegistrarMateriaBean implements Serializable{
     public void Programa_id(){
         LOGGER.debug(MessageFormat.format("Se intenta obtener los programas y su id (anio: {0}, "
                 + "semestre: {1})", anio, semestre));
-        List<Programa> r = null; 
+        List<Programa> r; 
         try {
             r = servProg.consultarProgramas(anio*10 + semestre);
             for (Programa p:r){
@@ -130,8 +184,36 @@ public class RegistrarMateriaBean implements Serializable{
         }
     }
     
-    public void getAsignaturas(){
-        
+    public Map<String,String> getAsignaturas(){
+        LOGGER.debug("Se intentan obtener las asignaturas");
+        Map<String,String> asig  = new HashMap<>();
+        List<Asignatura> a;
+        try {
+            a=servProg.consultarAsignaturas(anio*10 + semestre, programa_id);
+            for(Asignatura as:a){
+                String n=as.getNombre();
+                asig.put(n,n);
+            }
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error consultando asignaturas", ex);
+        }
+        return asig;
+    }
+    
+    public Map<String,String> getPrerequisitos(){
+       LOGGER.debug("Se intentan obtener las materias de prerequisito"); 
+       Map<String,String> pre  = new HashMap<>();
+       List<Materia> m;
+       try {
+           m=servProg.consultarMaterias(anio*10 + semestre, asignatura_id);
+           for (Materia ma:m){
+                String n=ma.getNombre();
+                pre.put(n,n);
+            }
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error consultando prerequisitos", ex);
+        }
+       return pre;
     }
     
     public void getAnios(){
