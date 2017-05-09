@@ -44,7 +44,7 @@ public class RegistrarMateriaBean implements Serializable{
     private int programa_id;
     private String nivel;
     private String prerequisito;
-    private int asignatura_id;
+    private int asignatura_id=2;
     private String nombremateria;
     private String codigo;
     private String descripcion;
