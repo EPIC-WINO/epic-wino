@@ -32,6 +32,7 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -43,9 +44,8 @@ import org.junit.Test;
  * CE3: registrar y consultar adecuadamente el profesor que desarrollan una materia en un periodo (1)
  * 
  * Clases de Frontera
- * CF1: No registrar un profesor que ya existe (1)
- * CF2: No consultar un profesor para un periodo inconsistente, previamente registrado (1)
- * CF3: No consultar el profesor de la materia, cuando no esta inscrita para es periodo (0)
+ * CF1: No consultar un profesor para un periodo inconsistente, previamente registrado (1)
+ * CF2: No consultar el profesor de la materia, cuando no esta inscrita para es periodo (0)
  * 
  * Rectificar : Consultar la disponibilidad de un profesor en un horario
  */
@@ -54,8 +54,13 @@ public class ProfesoresTest {
     public ProfesoresTest() {
     }
     
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() throws ExcepcionServiciosProgmsPost {
+        ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Especializacion");
+        Asignatura as1 = new Asignatura(30,"Ejecucion");
+        sp.registrarPrograma(prg1);
+        sp.registrarAsignatura(as1, 20);
     }
     
     @Test
@@ -64,11 +69,6 @@ public class ProfesoresTest {
         
         Materia m1 = new Materia(52,"Gerencia Financiera");
         Profesor pf1 = new Profesor(30,"Juan Perez Rodriguez");
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Maestria");
-        Asignatura as1 = new Asignatura(30,"Ejecucion");
-
-        sp.registrarPrograma(prg1);
-        sp.registrarAsignatura(as1, 20);
         
         List<GrupoDeMateria> gruposMateria = new ArrayList<>();
         GrupoDeMateria grupo1 = new GrupoDeMateria();
@@ -148,10 +148,7 @@ public class ProfesoresTest {
     }
     
     @Test
-    public void CF1(){}
-    
-    @Test
-    public void CF2(){
+    public void CF1(){
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
         Materia m1 = new Materia(55,"Gerencia Financiera");
@@ -180,7 +177,7 @@ public class ProfesoresTest {
     }
     
     @Test
-    public void CF3(){
+    public void CF2(){
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
         boolean thrown = false;

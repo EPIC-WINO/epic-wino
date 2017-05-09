@@ -19,6 +19,7 @@ import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import org.h2.jdbcx.JdbcDataSource;
@@ -27,6 +28,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 
 /**
  * Registrar y consultar materias nuevas
@@ -70,8 +72,13 @@ public class MateriasTest {
     public MateriasTest() {
     }
     
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() throws ExcepcionServiciosProgmsPost {
+        ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Especializacion");
+        Asignatura as1 = new Asignatura(30,"Ejecucion");
+        sp.registrarPrograma(prg1);
+        sp.registrarAsignatura(as1, 20);
     }
     
     //Registrar y consultar materias nuevas
@@ -82,17 +89,13 @@ public class MateriasTest {
         
         Materia m1 = new Materia(50,"Gerencia Financiera");
         Materia m2 = new Materia(51,"Analisis de Riesgos");
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Maestria");
-        Asignatura as1 = new Asignatura(30,"Ejecucion");
 
-        sp.registrarPrograma(prg1);
-        sp.registrarAsignatura(as1, 20);
         sp.registrarMateria(m1,30);sp.registrarMateria(m2,30);
         
-        Iterator<Materia> matPorPeriodo = sp.consultarMaterias().iterator();
+        Collection<Materia> matPorPeriodo = sp.consultarMaterias();
         assertEquals("Se registra o consulta inadecuadamente las materias creadas"
                     + "cuando esta se debe mostrar las dos materias : "
-                    ,"Gerencia Financiera,Analisis de Riesgos",matPorPeriodo.next().getNombre()+","+matPorPeriodo.next().getNombre());
+                    ,2,matPorPeriodo.size());
     }
     
     @Test
@@ -107,11 +110,11 @@ public class MateriasTest {
         m1.setGruposDeMateria(gruposMateria);
 
         sp.registrarMateria(m1,30);
-        Iterator<Materia> matPorPeriodo = sp.consultarMaterias(20171).iterator();
+        Collection<Materia> matPorPeriodo = sp.consultarMaterias(20171);
         
         assertEquals("Se registra o consulta inadecuadamente la materia para el periodo 2017-1"
                     + "cuando esta se debe mostrar la materia : "
-                    ,"Gerencia Financiera",matPorPeriodo.next().getNombre());
+                    ,1,matPorPeriodo.size());
     }
 
     @Test
@@ -126,11 +129,11 @@ public class MateriasTest {
         m1.setGruposDeMateria(gruposMateria);
         
         sp.registrarMateria(m1,30);
-        Iterator<Materia> matPorPeriodo = sp.consultarMaterias(20172,40).iterator();
+        Collection<Materia> matPorPeriodo = sp.consultarMaterias(20172,40);
         
         assertEquals("Se registra o consulta inadecuadamente la materia para el periodo 2017-1 asignada a una Asignatura"
                     + "cuando esta se debe mostrar la materia : "
-                    ,"Gerencia Financiera",matPorPeriodo.next().getNombre());
+                    ,1,matPorPeriodo.size());
     }
     
     @Test
@@ -151,7 +154,7 @@ public class MateriasTest {
     }
     
     //Consultar Prerrequisitos y Correquisitos de una materia
-    
+    /*
     @Test
     public void CE1CoYRe(){}
     
@@ -186,7 +189,7 @@ public class MateriasTest {
     
     @Test
     public void CF3Cohorte(){}
-    
+    */
     @AfterClass
     public static void tearDown() {
         JdbcDataSource ds= new JdbcDataSource();

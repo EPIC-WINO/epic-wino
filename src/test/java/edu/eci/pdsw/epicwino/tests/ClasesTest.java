@@ -26,6 +26,7 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
 
 /**
@@ -45,19 +46,20 @@ public class ClasesTest {
     public ClasesTest() {
     }
     
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() throws ExcepcionServiciosProgmsPost {
+        ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Especializacion");
+        Asignatura as1 = new Asignatura(30,"Ejecucion");
+        sp.registrarPrograma(prg1);
+        sp.registrarAsignatura(as1, 20);
     }
     
     @Test
     public void CE1() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         Materia m1 = new Materia(50,"Gerencia Financiera");
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Especializacion");
-        Asignatura as1 = new Asignatura(30,"Ejecucion");
 
-        sp.registrarPrograma(prg1);
-        sp.registrarAsignatura(as1, 20);
         sp.registrarMateria(m1,30);
         
         Clase cl1 = new Clase(40,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));

@@ -29,6 +29,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 
 /**
  * Registrar y Consultar Categoria Recursos
@@ -70,8 +71,13 @@ public class RecursosTest {
     public RecursosTest() {
     }
     
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() throws ExcepcionServiciosProgmsPost {
+        ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
+        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Especializacion");
+        Asignatura as1 = new Asignatura(30,"Ejecucion");
+        sp.registrarPrograma(prg1);
+        sp.registrarAsignatura(as1, 20);
     }
     
     //Registrar y Consultar Categoria Recursos
@@ -83,10 +89,10 @@ public class RecursosTest {
         Recurso rc1 = new Recurso(50, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
         Recurso rc2 = new Recurso(51, "Distanciometro", "Calcula la distancia hasta un punto al que se apunte",13, "InstrumentosMedicion");
         sp.registrarRecurso(rc1);sp.registrarRecurso(rc2);
-        Iterator<String> categorias = sp.consultarCategoriasRecursos().iterator();
+        Collection<String> categorias = sp.consultarCategoriasRecursos();
         assertEquals("Se registra o consulta inadecuadamente las categorias de los recursos registrados"
                     + "cuando esta deberia mostrar : "
-                    ,"EquiposComputo,InstrumentosMedicion",categorias.next()+","+categorias.next());
+                    ,2,categorias.size());
     }
     
     @Test
@@ -97,10 +103,10 @@ public class RecursosTest {
         Recurso rc2 = new Recurso(53, "Equipo Teleconferencia", "Permite el intercambio de informacion entre maquinas",9, "EquiposComputo");
         Recurso rc3 = new Recurso(54, "Distanciometro", "Calcula la distancia hasta un punto al que se apunte",13, "InstrumentosMedicion");
         sp.registrarRecurso(rc1);sp.registrarRecurso(rc2);sp.registrarRecurso(rc3);
-        Iterator<String> categorias = sp.consultarCategoriasRecursos().iterator();
+        Collection<String> categorias = sp.consultarCategoriasRecursos();
         assertEquals("Se registra o consulta inadecuadamente las categorias de los recursos registrados"
                     + "cuando esta deberia mostrar : "
-                    ,"EquiposComputo,InstrumentosMedicion",categorias.next()+","+categorias.next());
+                    ,2,categorias.size());
     }
     
     @Test
@@ -180,11 +186,7 @@ public class RecursosTest {
         
         Clase cl = new Clase(40,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Materia m1 = new Materia(50,"Gerencia Financiera");
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Maestria");
-        Asignatura as1 = new Asignatura(30,"Ejecucion");
 
-        sp.registrarPrograma(prg1);
-        sp.registrarAsignatura(as1, 20);
         sp.registrarMateria(m1,30);
         sp.agregarClase(50, cl);
         
