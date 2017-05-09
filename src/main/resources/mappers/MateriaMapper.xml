@@ -263,7 +263,18 @@
         left join profesores as prof on grup.profesor_id = prof.id
         where grup.periodo=#{periodo} and grup.materia_id=#{idMateria};
     </select>
-    
+    <select id="consultarDisponibilidadProfesor" resultType="java.lang.Integer">
+        
+        select count( (clas.id)) as num 
+        
+        from gruposdemateria as grup
+        left join clases as clas on grup.materia_id=clas.materia_id and grup.periodo=clas.periodo
+        left join profesores as prof on grup.profesor_id=prof.id
+        where prof.id=#{idProf} and clas.fecha=#{fecha} and (((clas.hora_inicio &gt;#{horaInicio}) or (clas.hora_inicio=#{horaInicio}) ) and (clas.hora_inicio &lt; {horaFin}))
+        GROUP BY id;
+        
+        
+    </select>
     
     <resultMap type="Materia" id="MateriaResult">
         <id property="id" column="id"/>
