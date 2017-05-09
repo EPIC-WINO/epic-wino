@@ -8,6 +8,14 @@
             insert INTO materias (id,nombre,creditos,descripcion,asignaturas_id)
             VALUES (#{m.id},#{m.nombre},#{m.creditos},#{m.descripcion},#{idAsignatura} );
     </insert>
+    <insert id="agregarCohorte">
+        insert INTO asignaturas_grupos (asignaturas_id,materia_id,periodo,cohorte)
+        VALUES (#{idAsignatura},#{idMateria},#{periodo},#{numCohorte});
+    </insert>
+    <insert id="agregarGrupoDeMateria">
+        insert INTO gruposdematerias (materia_id,periodo,profesor_id)
+        VALUES (#{idMateria},#{periodo},#{idProfesor});
+    </insert>
     
     <select parameterType="map" id="consultarMaterias" resultMap="MateriaResult">
         select 

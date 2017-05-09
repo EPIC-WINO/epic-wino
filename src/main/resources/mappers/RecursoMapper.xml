@@ -9,7 +9,23 @@
         insert INTO recursos (id,nombre,descripcion,cantidad,categoria)
             VALUES (#{recurso.id},#{recurso.nombre},#{recurso.descripcion},#{recurso.cantidad} ,#{recurso.categoria} );
     </insert>
-    
+    <select parameterType="map" id="consultarRecursosDisponibles" resultMap="RecursoResult">
+        select 
+            rec.id as id,
+            rec.nombre as nombre,
+            rec.descripcion as descripcion,
+            rec.cantidad as cantidad,
+            rec.categoria as categoria
+       
+        from  recursos as rec, 
+        (select rec.id as id,count( (clas.id)) as num 
+        from clases as clas
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id
+        where rec.categoria=#{nombreCategoria} and clas.fecha=#{fecha} and (((clas.hora_inicio &gt;#{inicio}) or (clas.hora_inicio=#{inicio}) ) and (clas.hora_inicio &lt; {fin}))
+        GROUP BY id)x
+        where  x.id=rec.id and recursos.cantidad &gt x.num; 
+    </select>
     <select id="consultarCategoriasRecursos" resultType="java.lang.String">
         select DISTINCT categoria from recursos;
     </select>
