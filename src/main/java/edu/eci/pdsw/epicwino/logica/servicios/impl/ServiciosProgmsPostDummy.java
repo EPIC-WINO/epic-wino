@@ -204,7 +204,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         Materia m2=new Materia(1,"Fundamentos de gerencia");
         Materia m3=new Materia(3,"Teoria de la gerencia");
         Materia m4=new Materia(4,"Teoria de la organizacion");
-        Materia m5=new Materia(6,"Organizar informacion");
+        Materia m5=new Materia(6,"Organizacion de la informacion");
         Materia m6=new Materia(7,"Informacion en proyectos");
         if(id==0){
             materias.add(m1);

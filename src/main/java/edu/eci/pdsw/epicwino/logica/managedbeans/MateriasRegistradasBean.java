@@ -54,7 +54,7 @@ public class MateriasRegistradasBean implements Serializable{
     }
     
     public List<Asignatura> getAsignaturas(){
-        LOGGER.debug("Se obtiene la lista de asignaturas -> {0}");
+        LOGGER.debug("Se obtiene la lista de asignaturas");
         return asignaturas;
     }
     
