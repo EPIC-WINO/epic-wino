@@ -40,6 +40,18 @@
         where rec.id=#{idRecurso};
         
     </select>
+    <select parameterType="map" id="consultarRecursosPorPeriodo" resultMap="RecursoResult">
+        select DISTINCT
+            rec.id as id,
+            rec.nombre as nombre,
+            rec.descripcion as descripcion,
+            rec.cantidad as cantidad,
+            rec.categoria as categoria
+        from clases as clas
+        left join  recursos_concedidos as recc on recc.clase_id=clas.id
+        left join recursos as rec on rec.id=recc.recurso_id
+        where clas.periodo=#{periodo}and recc.clase_id is not null;
+    </select>
     
     <select id="consultarCategoriasRecursos" resultType="java.lang.String">
         select DISTINCT categoria from recursos;
