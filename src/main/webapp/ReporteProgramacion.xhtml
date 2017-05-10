@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
         <link rel="stylesheet" type="text/css" href="mycss.css"/>
-    <h:body>
+    <h:body style="padding-bottom: 60px">
         <div class="header">
             <ul class="optionsHeader">
                 <li>
@@ -52,6 +52,12 @@
                     <f:selectItems value="#{reporteBean.programas}" />
                 </p:selectOneMenu>
                 
+                <p:outputLabel for="nivel" value="Nivel" styleClass="label"/>
+                <p:selectOneMenu id="nivel" value="#{materiasRegistradasBean.nivel}" styleClass="scroll">
+                    <f:selectItem itemLabel="Nivel" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{materiasRegistradasBean.niveles}" />
+                </p:selectOneMenu>
+                
                 <p:outputLabel for="anio" value="Año" styleClass="label"/>
                 <p:selectOneMenu id="anio" value="#{reporteBean.anio}" styleClass="scroll">
                     <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
@@ -64,9 +70,9 @@
                     <f:selectItems value="#{reporteBean.semestres}" />
                 </p:selectOneMenu>            
                 
-                <p:commandButton action ="#{reporteBean.acturalizarReporte()}" title="Mostrar" value="Mostrar" styleClass="button"/>
+                <p:commandButton update="reporte" actionListener="#{reporteBean.actualizarReporte()}" title="Mostrar" value="Mostrar" styleClass="button"/>
                 
-                <p:dataTable var="materia" value="#{reporteBean.materias}" styleClass="table">
+                <p:dataTable id="reporte" var="materia" value="#{reporteBean.materias}" styleClass="table">
                     <p:column headerText="Cohorte" styleClass="columnText" style="width:8%;" >
                         <h:outputText value="#{reporteBean.getCohorte(materia)}" styleClass="outputText"/>
                     </p:column>
@@ -92,9 +98,9 @@
                     </p:column>
                     
                     <p:column headerText="" styleClass="columnText" style="width:4%">
-                        <p:commandButton update=":carForm:display" oncomplete="PF('carDialog').show()" icon="fa-columns">
+                        <!--<p:commandButton update=":carForm:display" oncomplete="PF('carDialog').show()" icon="fa-columns">
                             <f:setPropertyActionListener value="#{car}" target="#{dndCarsView.selectedCar}" />
-                        </p:commandButton>
+                        </p:commandButton>-->
                     </p:column>
                 </p:dataTable>
             </h:form>

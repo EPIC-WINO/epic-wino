@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
@@ -27,11 +28,13 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     private List<Programa> programas;
     private List<Recurso> recursos;
     private List<Clase> clases;
+    private List<Asignatura> asignaturas;
     
     public ServiciosProgmsPostDummy() {
         programas = new ArrayList<>();
         recursos = new ArrayList<>();
         clases = new ArrayList<>();
+        asignaturas = new ArrayList<>();
         poblar();
     }
     
@@ -42,7 +45,6 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         Programa p1=new Programa(0,"Especializacion en gerencia de proyectos", "Especializacion");
         Programa p2=new Programa(1,"Maestria en gestion de informacion", "Maestria");
         
-        List<Asignatura> asignaturas1=new ArrayList<>();
         List<Asignatura> asignaturas2=new ArrayList<>();
         
         List<Materia> materias11=new ArrayList<>();
@@ -60,7 +62,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         materias11.add(m);
         
         a.setMaterias(materias11);
-        asignaturas1.add(a);
+        asignaturas.add(a);
         
         a=new Asignatura(1,"Teorias gerenciales");
         
@@ -72,9 +74,9 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         materias12.add(m);
         
         a.setMaterias(materias12);
-        asignaturas1.add(a);
+        asignaturas.add(a);
         
-        p1.setAsignaturas(asignaturas1);
+        p1.setAsignaturas(asignaturas);
         
         a=new Asignatura(2,"Fundamentos de la informacion");
         
@@ -236,13 +238,6 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Asignatura> consultarAsignaturas(int periodo, int idPrograma) throws ExcepcionServiciosProgmsPost {
-        List<Asignatura> asignaturas = new ArrayList<>();
-        Asignatura a0=new Asignatura(1,"Fundamentos de gerencia de proyectos");
-        Asignatura a1=new Asignatura(2,"Teorias gerenciales");
-        Asignatura a2=new Asignatura(3,"Fundamentos de la informacion");
-        asignaturas.add(a0);
-        asignaturas.add(a1);
-        asignaturas.add(a2);
         LOGGER.debug(MessageFormat.format("Se retorna lista de asignaturas {0}", asignaturas));
         return asignaturas;
     }
@@ -294,7 +289,14 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<Integer, Profesor> profesores = new HashMap<>();
+        profesores.put(0, new Profesor(1, "Juan Andrade"));
+        profesores.put(1, new Profesor(2, "Carlos Martinez"));
+        profesores.put(2, new Profesor(3, "Maria Perez"));
+        profesores.put(3, new Profesor(4, "Carla Castillo"));
+        profesores.put(4, new Profesor(5, "Camila Castrillon"));
+        profesores.put(5, new Profesor(6, "Jorge Muñoz"));
+        return profesores.get(idMateria);
     }
 
     @Override
@@ -309,7 +311,8 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public int consultarCohorte(int idMateria, int idAsignatura, int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int cont = 1000;
+        return cont;
     }
 
     @Override
