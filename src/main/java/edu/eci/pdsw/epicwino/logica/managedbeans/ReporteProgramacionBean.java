@@ -9,7 +9,6 @@ import edu.eci.pdsw.epicwino.logica.servicios.ExcepcionServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPostFactory;
 import java.io.Serializable;
-import java.sql.Time;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,9 +33,13 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     
     private final ServiciosProgmsPost servProg;
     
-    private String programa;
-    private int anio;
-    private int semestre;
+    private String programaName = "";
+    private Programa programObject = new Programa();
+    private String nivel = "";
+    private int anio = 0;
+    private int semestre = 0;
+    private List<Materia> materias = new ArrayList<>();
+    private List<Clase> clases = new ArrayList<>();
     
     public ReporteProgramacionBean() {
         LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
@@ -49,22 +52,23 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         
     }
     
-    public List<Materia> getMaterias() { // TODO loggers
-        List<Materia> m = new ArrayList<>();
-        
-        /*for(Programa p : this.getProgramas()) {
-            if (p.getNombre() == this.programa) {
-                for(Asignatura a: p.getAsignaturas()) {
-                    m.addAll(a.getMaterias());
+    public Asignatura getAsignatura(Materia materia) { // TODO loggers
+        Asignatura asignatura = new Asignatura();
+        try {
+            List<Asignatura> asignaturas;
+            asignaturas = servProg.consultarAsignaturas((anio*10)+semestre, programObject.getId());
+            for (Asignatura s : asignaturas) {
+                List<Materia> materias = s.getMaterias();
+                for (Materia m : materias) {
+                    if (m.getId() == materia.getId()) {
+                        asignatura = s;
+                    }
                 }
             }
-        }*/
-        
-        return m;
-    }
-    
-    public Asignatura getAsignatura(Materia m) { // TODO loggers
-        return null; // TODO implementar
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error obteniendo la asignatura.");
+        }
+        return asignatura;
     }
   
     public Map<Integer,Integer> getAnios(){
@@ -104,59 +108,69 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         return programs;
     }
     
-    public List<Asignatura> getAsignaturas(Programa programa) {
-        LOGGER.debug(MessageFormat.format("Se intenta obtener las asignaturas del programa"
-                + "({0})", programa));
-        
-        List<Asignatura> r = null;
-        if (programa != null) {
-            r = programa.getAsignaturas();
-        } else {
-            LOGGER.error("Error consultando asignaturas: el programa es null.");
+    public Map<String,String> getNiveles(){
+        LOGGER.debug(MessageFormat.format("Se intenta obtener los niveles (anio: {0}, "
+                + "semestre: {1})", anio, semestre));
+        List<String> r = null; 
+        Map<String,String> niveles = new HashMap<>();
+        r = servProg.consultarNiveles();
+        for (String p:r){
+            niveles.put(p,p);
         }
         
-        return r;
+        return niveles;
     }
     
-    public List<Materia> getMaterias(Asignatura asignatura) {
-        LOGGER.debug(MessageFormat.format("Se intenta obtener las materias de la asignatura"
-                + "({0})", asignatura));
-        List<Materia> r = null;
-        if (asignatura != null) {
-            r = asignatura.getMaterias();
-        } else {
-             LOGGER.error("Error consultando materias: la asignatura es null.");
-        }
-        
-        return r;
+    public void setNivel(String nivel) {
+        LOGGER.debug(MessageFormat.format("Se establece el nive del programa (Antes: {0} | Despues: {1})", this.nivel, nivel));
+        this.nivel = nivel;
+    }
+    
+    public String getNivel() {
+        LOGGER.debug(MessageFormat.format("Se obtiene el nivel del programa: {0}", this.nivel));
+        return this.nivel;
+    }
+    
+    public List<Materia> getMaterias() {
+        return materias;
     }
     
     public int getCohorte(Materia materia) {
-        return 0; // TODO implementar
+        Asignatura asignatura = new Asignatura();
+        int cohorte = 0;
+        try {
+            List<Asignatura> asignaturas = servProg.consultarAsignaturas((anio*10)+semestre, programObject.getId());
+            for (Asignatura s : asignaturas) {
+                List<Materia> materias = s.getMaterias();
+                for (Materia m : materias) {
+                    if (m.getId() == materia.getId()) {
+                        asignatura = s;
+                    }
+                }
+            }
+            cohorte = servProg.consultarCohorte(materia.getId(), (anio*10)+semestre, asignatura.getId());
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error obteniendo el cohorte.");
+        }
+        return cohorte;
     }
     
-    public Profesor getProfesor(Materia materia) {
-        return null; // TODO implementar
-    }
-    
-    public List<Clase> getClases(Materia materia) {
-        return null; // TODO implementar
-    }
-    
-    public Time getHoraInicio(Clase clase) {
-        return null; // TODO implementar
-    }
-    
-    public Time getHoraFin(Clase clase) {
-        return null; // TODO implementar
+    public Profesor getProfesor(Materia materia) { //TODO Logger
+        Profesor profesor = new Profesor();
+        try {
+            profesor = servProg.consultarProfesor((anio*10)+semestre, materia.getId());
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error obteneindo el profesor.");
+        }
+        return profesor;
     }
     
     public void setPrograma(String prog) {
-        this.programa = prog;
+        this.programaName = prog;
     }
     
     public String getPrograma() {
-        return this.programa;
+        return this.programaName;
     }
 
     /**
@@ -194,7 +208,51 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     }  
     
     public void actualizarReporte(){
-        
+        materias.clear();
+        try {
+            List<Programa> programas = servProg.consultarProgramas((anio*10)+semestre);
+            boolean flag = false;
+            Programa program = null;
+            for (int i = 0; i < programas.size() && !flag; i++) {
+                program = programas.get(i);
+                if (program.getNombre() == programaName && program.getNivel() == nivel) {
+                    flag = true;
+                    programObject = program;
+                }
+            }
+            List<Asignatura> asignaturas = servProg.consultarAsignaturas((anio*10)+semestre, (program.getId()));
+            for (int i = 0; i < asignaturas.size(); i++) {
+                materias.addAll(asignaturas.get(i).getMaterias());
+            }
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error obteniendo las materias.");
+        }
     } 
-
+    
+    /*public List<Asignatura> getAsignaturas(Programa programa) {
+        LOGGER.debug(MessageFormat.format("Se intenta obtener las asignaturas del programa"
+                + "({0})", programa));
+        
+        List<Asignatura> r = null;
+        if (programa != null) {
+            r = programa.getAsignaturas();
+        } else {
+            LOGGER.error("Error consultando asignaturas: el programa es null.");
+        }
+        
+        return r;
+    }*/
+    
+    /*public List<Clase> getClases(Materia materia) {
+        return null; // TODO implementar
+    }
+    
+    public Time getHoraInicio(Clase clase) {
+        return null; // TODO implementar
+    }
+    
+    public Time getHoraFin(Clase clase) {
+        return null; // TODO implementar
+    }*/
+    
 }
