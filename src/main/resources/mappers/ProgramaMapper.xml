@@ -46,7 +46,7 @@
       
         from programas as prog 
         left join asignaturas as asig on prog.id = asig.programa_id
-        left join materias as mate on asig.id = mate.asignatura_id
+        left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
         left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
@@ -96,7 +96,7 @@
       
         from programas as prog 
         left join asignaturas as asig on prog.id = asig.programa_id
-        left join materias as mate on asig.id = mate.asignatura_id
+        left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
         left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
@@ -144,7 +144,7 @@
       
         from programas as prog 
         left join asignaturas as asig on prog.id = asig.programa_id
-        left join materias as mate on asig.id = mate.asignatura_id
+        left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
         left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
