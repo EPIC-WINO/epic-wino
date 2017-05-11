@@ -227,7 +227,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public boolean consultarDisponibilidadRecurso(int idRecurso, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
+    public int consultarDisponibilidadRecurso(int idRecurso, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -331,6 +331,16 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     @Override
     public List<Clase> consultarClasesDeUnPeriodo(int periodo) throws ExcepcionServiciosProgmsPost {
         return clases;
+    }
+
+    @Override
+    public void registrarProfesor(Profesor profesor) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registrarRequisito(int idMateria, int idPrerequisito, boolean prerrequisito) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

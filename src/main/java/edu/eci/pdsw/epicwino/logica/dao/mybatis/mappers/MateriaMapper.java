@@ -1,6 +1,8 @@
 package edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Materia;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -44,4 +46,12 @@ public interface MateriaMapper {
      * @return lista no nula de materias
      */
     List<Materia> consultarMaterias();
+    
+    void agregarProfesor(@Param("idProfesor") int idProfesor, @Param("nombre") String nombre, 
+            @Param("tipo") String tipo, @Param("correo") String correo, @Param("telefono") String telefono);
+    
+    int consultarDisponibilidadProfesor(@Param("idProf") int idProf, 
+            @Param("fecha") Date fecha, @Param("horaInicio") Time horaInicio, @Param("horaFin") Time horaFin);
+    
+    void agregarRequisito(@Param("idMateria") int idMateria, @Param("requisito") int idRequisito, @Param("prerrequisito") String prerrequisito);
 }

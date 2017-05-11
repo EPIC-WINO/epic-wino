@@ -5,6 +5,9 @@ import edu.eci.pdsw.epicwino.logica.dao.MateriaDAO;
 import edu.eci.pdsw.epicwino.logica.dao.PersistenceException;
 import edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.MateriaMapper;
 import edu.eci.pdsw.epicwino.logica.entidades.Materia;
+import edu.eci.pdsw.epicwino.logica.entidades.Profesor;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -44,6 +47,22 @@ public class MyBatisMateriaDAO implements MateriaDAO{
     @Override
     public List<Materia> consultarMaterias() throws PersistenceException {
         return materiaMapper.consultarMaterias();
+    }
+
+    @Override
+    public void agregarProfesor(Profesor profesor) throws PersistenceException {
+        materiaMapper.agregarProfesor(profesor.getId(), profesor.getNombre(), 
+                profesor.getTipoID(), profesor.getCorreo(), profesor.getTelefono());
+    }
+
+    @Override
+    public boolean consultarDisponibilidadProfesor(int idProf, Date fecha, Time horaInicio, Time horaFin) {
+        return materiaMapper.consultarDisponibilidadProfesor(idProf, fecha, horaInicio, horaFin) == 1;
+    }
+
+    @Override
+    public void registrarRequisito(int idMateria, int idRequisito, boolean prerrequisito) throws PersistenceException {
+        materiaMapper.agregarRequisito(idMateria, idRequisito, prerrequisito ? "TRUE" : "FALSE");
     }
     
 }

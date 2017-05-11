@@ -5,6 +5,8 @@ import edu.eci.pdsw.epicwino.logica.dao.PersistenceException;
 import edu.eci.pdsw.epicwino.logica.dao.RecursoDAO;
 import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
 import com.google.inject.Inject;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -25,6 +27,11 @@ public class MyBatisRecursoDAO implements RecursoDAO {
     @Override
     public List<Recurso> loadRecursos() throws PersistenceException {
         return recursoMapper.consultarRecursos();
+    }
+
+    @Override
+    public int consultarDisponibilidadRecurso(int idRecurso, Date fecha, Time horaInicio, Time horaFin) throws PersistenceException {
+        return recursoMapper.consultarDisponibilidadRecurso(idRecurso, fecha, horaInicio, horaFin);
     }
     
 }

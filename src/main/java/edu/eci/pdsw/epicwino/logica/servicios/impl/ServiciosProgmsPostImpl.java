@@ -89,12 +89,13 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     public List<Programa> consultarProgramas(int periodo) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Se consultan los programas en el periodo " + periodo);
 
-        if (!this.periodoEsValido(periodo)) {
+        if (!this.periodoEsValido(periodo) && periodo != 0) {
             throw new ExcepcionServiciosProgmsPost(MessageFormat.format("El periodo es invalido ({0})", periodo));
         }
 
         List<Programa> programas = null;
         try {
+            LOGGER.debug("Se realiza la consulta de los programas a ProgramaDAO");
             programas = daoPrograma.loadProgramas(periodo);
         } catch (PersistenceException ex) {
             LOGGER.error("Error consultando los programas", ex);
@@ -147,6 +148,11 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         LOGGER.debug("El periodo calculado es " + periodo);
 
         try {
+            if (! this.grupoDeMateriaExiste(idMateria, periodo)) {
+                throw new ExcepcionServiciosProgmsPost("No existe un grupo de "
+                        + "materia que relacione la materia con el periodo Materia: " + idMateria + " Periodo: " + periodo);
+            }
+            
             daoClase.saveClase(clase, idMateria, periodo);
         } catch (PersistenceException ex) {
             LOGGER.error("Error al guardar la clase", ex);
@@ -230,8 +236,21 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public boolean consultarDisponibilidadRecurso(int idRecurso, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int consultarDisponibilidadRecurso(int idRecurso, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info(MessageFormat.format("Consultado disponibilidad recurso ({0}) en dia {1}, de {2} a {3}", idRecurso, fecha, horaInicio, horaFin));
+        int r = 0;
+        
+        if (fecha == null || horaInicio == null || horaFin == null) {
+            throw new NullPointerException("Algun parametro es null");
+        }
+        
+        try {
+            r = daoRecurso.consultarDisponibilidadRecurso(idRecurso, fecha, horaInicio, horaFin);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error consultando disponibilidad de recurso " + idRecurso, ex);
+        }
+        
+        return r;
     }
 
     @Override
@@ -241,7 +260,13 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public boolean consultarDisponibilidadProfesor(int idProfesor, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return daoMateria.consultarDisponibilidadProfesor(idProfesor, fecha, horaInicio, horaFin);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error al consultar disponibilidad de profesor", ex);
+        }
+        
+        return false;
     }
 
     @Override
@@ -566,7 +591,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public int consultarCohorte(int idMateria, int idAsignatura, int periodo) throws ExcepcionServiciosProgmsPost {
+    public int consultarCohorte(int idMateria, int periodo, int idAsignatura) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Se consulta el cohorte de la materia "
                 + "({0}) en la asignatura ({1}), en el periodo {2}", idMateria, idAsignatura, periodo));
 
@@ -677,6 +702,10 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         LOGGER.debug("Se consulta si el periodo " + periodo + " existe");
         return this.consultarPeriodos().contains(periodo);
     }
+    
+    private boolean grupoDeMateriaExiste(int idMateria, int periodo) {
+        return false; // TODO implementar
+    }
 
     @Override
     public void registrarPrograma(Programa programa) throws ExcepcionServiciosProgmsPost {
@@ -703,6 +732,25 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClasesDeUnPeriodo(int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayList<>(); // TODO implementar
+    }
+
+    @Override
+    public void registrarProfesor(Profesor profesor) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info("Registra profesor " + profesor);
+        try {
+            daoMateria.agregarProfesor(profesor);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error registrando profesor", ex);
+        }
+    }
+
+    @Override
+    public void registrarRequisito(int idMateria, int idPrerequisito, boolean prerrequisito) throws ExcepcionServiciosProgmsPost {
+        try {
+            daoMateria.registrarRequisito(idMateria, idPrerequisito, prerrequisito);
+        } catch (PersistenceException ex) {
+            LOGGER.error(MessageFormat.format("Error al registrar requisito de la materia ({0}) y del requisito ({1})", idMateria, idPrerequisito), ex);
+        }
     }
 }

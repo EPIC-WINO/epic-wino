@@ -185,7 +185,7 @@
     </insert>
     
     <!-- consultarProgramas -->
-    <select id="consultarProgramas" resultMap="ProgramaResult">
+    <select parameterType="map" id="consultarProgramas" resultMap="ProgramaResult">
         select 
             prog.id as id,
             prog.nombre as nombre,

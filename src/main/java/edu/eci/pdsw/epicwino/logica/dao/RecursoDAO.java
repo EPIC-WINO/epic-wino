@@ -1,6 +1,8 @@
 package edu.eci.pdsw.epicwino.logica.dao;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -23,4 +25,7 @@ public interface RecursoDAO {
      * @throws PersistenceException falla de persistencia
      */
     public List<Recurso> loadRecursos() throws PersistenceException;
+    
+    public int consultarDisponibilidadRecurso(int idRecurso, Date fecha, 
+            Time horaInicio, Time horaFin) throws PersistenceException;
 }

@@ -9,6 +9,7 @@
         insert INTO recursos (id,nombre,descripcion,cantidad,categoria)
             VALUES (#{recurso.id},#{recurso.nombre},#{recurso.descripcion},#{recurso.cantidad} ,#{recurso.categoria} );
     </insert>
+    
     <select parameterType="map" id="consultarRecursosDisponibles" resultMap="RecursoResult">
         select 
             rec.id as id,
@@ -22,12 +23,12 @@
         from clases as clas
         left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
-        where rec.categoria=#{nombreCategoria} and clas.fecha=#{fecha} and (((clas.hora_inicio &gt;#{inicio}) or (clas.hora_inicio=#{inicio}) ) and (clas.hora_inicio &lt; {fin}))
+        where rec.categoria=#{nombreCategoria} and clas.fecha=#{fecha} and (((clas.hora_inicio &gt;#{inicio}) or (clas.hora_inicio=#{inicio}) ) and (clas.hora_inicio &lt; #{fin}))
         GROUP BY id)x on rec.id=x.id
         where  recursos.cantidad &gt; x.num; 
     </select>
     <select id="consultarDisponibilidadRecurso" resultType="java.lang.Integer">
-        select (rec.capacidad-x.num)as numdisponibles
+        select (rec.cantidad-x.num)as numdisponibles
             
        
         from  recursos as rec
@@ -35,7 +36,7 @@
         from clases as clas
         left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
-        where rec.id=#{idRecurso} and clas.fecha=#{fecha} and (((clas.hora_inicio &gt;#{horaInicio}) or (clas.hora_inicio=#{horaInicio}) ) and (clas.hora_inicio &lt; {horaFin}))
+        where rec.id=#{idRecurso} and clas.fecha=#{fecha} and (((clas.hora_inicio &gt;#{horaInicio}) or (clas.hora_inicio=#{horaInicio}) ) and (clas.hora_inicio &lt; #{horaFin}))
         GROUP BY id)x on rec.id=x.id
         where rec.id=#{idRecurso};
         

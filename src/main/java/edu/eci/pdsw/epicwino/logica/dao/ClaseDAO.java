@@ -42,4 +42,6 @@ public interface ClaseDAO {
      * @throws PersistenceException falla en persistencia
      */
     public void saveRecursoConcedido(int idClase, int idRecurso) throws PersistenceException;
+    
+    public void agregarGrupoDeMateria(int idMateria, int periodo, int idProfesor) throws PersistenceException;
 }

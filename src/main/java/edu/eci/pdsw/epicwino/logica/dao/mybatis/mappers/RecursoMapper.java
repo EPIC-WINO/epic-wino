@@ -1,6 +1,8 @@
 package edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,4 +30,7 @@ public interface RecursoMapper {
      * @return recursos con los que se dispone
      */
     public List<Recurso> consultarRecursos();
+    
+    public Integer consultarDisponibilidadRecurso(@Param("idRecurso") int idRecurso, 
+            @Param("fecha") Date fecha, @Param("horaInicio") Time horaInicio, @Param("horaFin") Time horaFin);
 }

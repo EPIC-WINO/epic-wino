@@ -6,8 +6,8 @@ import java.util.List;
  *
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
-public class Materia {
-    private int id;
+public class Materia implements Comparable {
+    private int id; // TODO cambiar por String
     private String nombre;
     private int creditos;
     private String descripcion;
@@ -97,5 +97,11 @@ public class Materia {
     @Override
     public String toString() {
         return "Materia{" + "id=" + id + ", nombre=" + nombre + ", creditos=" + creditos + ", descripcion=" + descripcion + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Materia m = (Materia) o;
+        return m.getId() < this.getId() ? -1 : (m.getId() == this.getId() ? 0 : 1);
     }
 }

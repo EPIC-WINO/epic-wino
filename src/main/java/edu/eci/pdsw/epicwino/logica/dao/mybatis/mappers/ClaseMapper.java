@@ -51,4 +51,12 @@ public interface ClaseMapper {
      */
     public void agregarRecursoConcedido(@Param("idclase") int idCl,
             @Param("recurso") int idRe);
+    
+    /**
+     * @obj agrega un grupo de materia
+     * @param idMateria id de la materia
+     * @param periodo periodo
+     * @param idProfesor id del profesor
+     */
+    void agregarGrupoDeMateria(@Param("idMateria") int idMateria, @Param("periodo") int periodo, @Param("idProfesor") int idProfesor);
 }

@@ -87,6 +87,11 @@
             VALUES (#{clase.id},#{clase.fecha},#{clase.horaInicio},#{clase.horaFin},#{materia},#{periodo});
     </insert>
     
+    <insert id="agregarGrupoDeMateria">
+        insert INTO gruposdematerias (materia_id,periodo,profesor_id)
+        VALUES (#{idMateria},#{periodo},#{idProfesor});
+    </insert>
+    
     <insert id="agregarPrestamoRecursoClase">
         insert INTO recursos_concedidos (clase_id,recurso_id)
             VALUES (#{clase.id},#{idRecurso} );

@@ -37,5 +37,10 @@ public class MyBatisClaseDAO implements ClaseDAO {
     public void saveRecursoConcedido(int idCl, int idRe) throws PersistenceException {
         claseMapper.agregarRecursoConcedido(idCl, idRe);
     }
+
+    @Override
+    public void agregarGrupoDeMateria(int idMateria, int periodo, int idProfesor) throws PersistenceException {
+        claseMapper.agregarGrupoDeMateria(idMateria, periodo, idProfesor);
+    }
     
 }

@@ -40,7 +40,7 @@ p {
     margin:0px;
     text-align: center;
 }
-.body {
+body {
     margin: 0;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     background-image: url("../images/escuela.jpg");

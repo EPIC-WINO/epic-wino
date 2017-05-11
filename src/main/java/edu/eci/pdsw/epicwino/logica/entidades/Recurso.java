@@ -6,7 +6,7 @@ import java.io.Serializable;
  *
  * @author Esteban
  */
-public class Recurso implements Serializable{
+public class Recurso implements Serializable, Comparable{
     private int id;
     private String nombre;
     private String descripcion;
@@ -66,5 +66,11 @@ public class Recurso implements Serializable{
     @Override
     public String toString() {
         return "Recurso{" + "id=" + id + ", nombre=" + nombre + ", cantidad=" + cantidad + "}\n";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Recurso m = (Recurso) o;
+        return m.getId() < this.getId() ? -1 : (m.getId() == this.getId() ? 0 : 1);
     }
 }

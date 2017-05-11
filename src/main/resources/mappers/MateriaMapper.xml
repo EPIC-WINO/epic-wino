@@ -8,18 +8,18 @@
             insert INTO materias (id,nombre,creditos,descripcion,asignaturas_id)
             VALUES (#{m.id},#{m.nombre},#{m.creditos},#{m.descripcion},#{idAsignatura} );
     </insert>
+    
     <insert id="agregarCohorte">
         insert INTO asignaturas_grupos (asignaturas_id,materia_id,periodo,cohorte)
         VALUES (#{idAsignatura},#{idMateria},#{periodo},#{numCohorte});
     </insert>
-    <insert id="agregarGrupoDeMateria">
-        insert INTO gruposdematerias (materia_id,periodo,profesor_id)
-        VALUES (#{idMateria},#{periodo},#{idProfesor});
-    </insert>
+    
     <insert id="agregarProfesor">
         insert INTO profesores (id,nombre,tipo,correo,telefono)
         VALUES (#{idProfesor},#{nombre},#{tipo},#{correo},#{telefono});
     </insert>
+    
+    
     <insert id="agregarRequisito">
         insert INTO requisitos (materia_id,requisito,prerrequisito)
         VALUES (#{idMateria},#{requisito},#{prerrequisito});
@@ -245,6 +245,8 @@
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
         where requisitos.materia_id=#{idMateria} and requisitos.prerrequisito='false' and mate.id=requisitos.requisito; 
     </select>
+    
+    
     <select parameterType="map" id="loadProfesoresEnPeriodo" resultMap="ProfesorResult">
         select DISTINCT
             prof.id as id,
@@ -256,6 +258,8 @@
         left join profesores as prof on grup.profesor_id = prof.id
         where grup.periodo=#{periodo};
     </select>
+    
+    
     <select parameterType="map" id="loadProfesoresEnPeriodoYMateria" resultMap="ProfesorResult">
         select 
             prof.id as id,
@@ -267,6 +271,8 @@
         left join profesores as prof on grup.profesor_id = prof.id
         where grup.periodo=#{periodo} and grup.materia_id=#{idMateria};
     </select>
+    
+    
     <select id="consultarDisponibilidadProfesor" resultType="java.lang.Integer">
         
         select count( (clas.id)) as num 
