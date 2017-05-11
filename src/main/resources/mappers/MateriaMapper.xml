@@ -20,6 +20,10 @@
         insert INTO profesores (id,nombre,tipo,correo,telefono)
         VALUES (#{idProfesor},#{nombre},#{tipo},#{correo},#{telefono});
     </insert>
+    <insert id="agregarRequisito">
+        insert INTO requisitos (materia_id,requisito,prerrequisito)
+        VALUES (#{idMateria},#{requisito},#{prerrequisito});
+    </insert>
     
     <select parameterType="map" id="consultarMaterias" resultMap="MateriaResult">
         select 
