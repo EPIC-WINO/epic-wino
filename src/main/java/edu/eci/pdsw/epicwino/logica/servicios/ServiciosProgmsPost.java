@@ -322,4 +322,10 @@ public interface ServiciosProgmsPost {
      * @throws ExcepcionServiciosProgmsPost la materia o el requisito no existe
      */
     void registrarRequisito(int idMateria, int idPrerequisito, boolean prerrequisito) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * consultar todos los programas registrados
+     * @return lista no nula de programas
+     */
+    List<Programa> consultarProgramas();
 }

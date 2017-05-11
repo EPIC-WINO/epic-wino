@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import edu.eci.pdsw.epicwino.logica.dao.ClaseDAO;
 import edu.eci.pdsw.epicwino.logica.dao.MateriaDAO;
 import edu.eci.pdsw.epicwino.logica.dao.RecursoDAO;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -102,6 +103,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             throw new ExcepcionServiciosProgmsPost("Error consultando los programas", ex);
         }
 
+        LOGGER.debug("Los programas consultados son: " + programas);
+        
         return programas;
     }
     
@@ -685,7 +688,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         return found;
     }
     
-    private List<Programa> consultarProgramas() {
+    @Override
+    public List<Programa> consultarProgramas() {
         LOGGER.debug("Consulta todas los programas");
         
         List<Programa> p = null;
@@ -695,7 +699,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             LOGGER.error("Error consultando programas", ex);
         }
         
-        return p;
+        return p == null ? new ArrayList<Programa>() : p;
     }
 
     private boolean periodoExiste(int periodo) {

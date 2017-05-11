@@ -15,57 +15,57 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.apache.log4j.Logger;
+
 /**
  *
  * @author MariaCamila
  */
-
 @ManagedBean(name = "materiasRegistradasBean")
 @SessionScoped
-public class MateriasRegistradasBean implements Serializable{
-    
+public class MateriasRegistradasBean implements Serializable {
+
     private static final Logger LOGGER = Logger.getLogger(MateriasRegistradasBean.class);
     private static final long serialVersionUID = 1L;
+
+    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
+    ;
     
-    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();;
-    
-    private String programa=null;
-    private int anio=0;
-    private int semestre=0;
-    private List<Asignatura> asignaturas=new ArrayList<>();
-    private int programa_id=0;
-    private String nivel=null;
+    private String programa = "";
+    private int anio = 0;
+    private int semestre = 0;
+    private List<Asignatura> asignaturas = new ArrayList<>();
+    private int programa_id = 0;
+    private String nivel = "";
     private List<Materia> materias;
     private int asignatura_id;
-    
-    
+
     public MateriasRegistradasBean() {
-        LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName())); 
+        LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
     }
-    
-    public List<Materia> getMaterias(){
-       LOGGER.debug(MessageFormat.format("Se obtiene la lista de materias -> {0}", materias.size()));
-       return materias;     
+
+    public List<Materia> getMaterias() {
+        LOGGER.debug(MessageFormat.format("Se obtiene la lista de materias -> {0}", materias.size()));
+        return materias;
     }
-    
-    public void setMaterias(List<Materia> materias){
+
+    public void setMaterias(List<Materia> materias) {
         LOGGER.debug("Se establecen las materias");
-        this.materias=materias;
+        this.materias = materias;
     }
-    
-    public List<Asignatura> getAsignaturas(){
+
+    public List<Asignatura> getAsignaturas() {
         LOGGER.debug("Se obtiene la lista de asignaturas");
         return asignaturas;
     }
-    
-    public void setAsignaturas(List<Asignatura> asignaturas){
+
+    public void setAsignaturas(List<Asignatura> asignaturas) {
         LOGGER.debug("Se establecen las asignaturas");
-        this.asignaturas=asignaturas;
+        this.asignaturas = asignaturas;
     }
-    
-    public Map<Integer,Integer> getAnios(){
+
+    public Map<Integer, Integer> getAnios() {
         LOGGER.debug("Se obtienen los anios");
-        Map<Integer,Integer> periodos  = new HashMap<>();
+        Map<Integer, Integer> periodos = new HashMap<>();
         List<Integer> periods = servProg.consultarPeriodos();
         for (Integer i : periods) {
             i /= 10;
@@ -81,80 +81,78 @@ public class MateriasRegistradasBean implements Serializable{
         m.put(2, 2);
         return m;
     }
-    
-    public Map<String,String> getNiveles(){
+
+    public Map<String, String> getNiveles() {
         LOGGER.debug(MessageFormat.format("Se intenta obtener los niveles (anio: {0}, "
                 + "semestre: {1})", anio, semestre));
-        List<String> r = null; 
-        Map<String,String> niveles = new HashMap<>();
+        List<String> r = null;
+        Map<String, String> niveles = new HashMap<>();
         r = servProg.consultarNiveles();
-        for (String p:r){
-            niveles.put(p,p);
+        for (String p : r) {
+            niveles.put(p, p);
         }
-        
+
         return niveles;
     }
-    
-    public Map<String,String> getProgramas() {
+
+    public Map<String, String> getProgramas() {
         LOGGER.debug(MessageFormat.format("Se intenta obtener los programas (anio: {0}, "
                 + "semestre: {1})", anio, semestre));
-        List<Programa> r = null; 
-        Map<String,String> programs  = new HashMap<>();
-        try {
-            r = servProg.consultarProgramas(anio*10 + semestre);
-            for (Programa p:r){
-                String n=p.getNombre();
-                programs.put(n,n);
-            }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error consultando programas", ex);
+        List<Programa> r = null;
+        Map<String, String> programs = new HashMap<>();
+
+        r = servProg.consultarProgramas();
+        for (Programa p : r) {
+            String n = p.getNombre();
+            programs.put(n, n);
         }
-        
+
         return programs;
     }
-    
-    public void Programa_id(){
+
+    public void Programa_id() {
         LOGGER.debug(MessageFormat.format("Se intenta obtener los programas y su id (anio: {0}, "
                 + "semestre: {1})", anio, semestre));
-        List<Programa> r = null; 
-        try {
-            r = servProg.consultarProgramas(anio*10 + semestre);
-            for (Programa p:r){
-                if (p.getNombre().equals(programa)&&p.getNivel().equals(nivel)){
-                    programa_id=p.getId();
-                }
+        List<Programa> r = servProg.consultarProgramas();
+        boolean found = false;
+        for (Programa p : r) {
+            if (p.getNombre().equals(programa) && p.getNivel().equals(nivel)) {
+                LOGGER.debug("Se encuentra el programa ID: " + p.getId());
+                programa_id = p.getId();
+                found = true;
             }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error consultando id de programas", ex);
+        }
+        if (!found) {
+            LOGGER.error("No se encontro el programa correspondiente Nombre: " + programa);
         }
     }
-    
+
     public void setPrograma(String prog) {
         LOGGER.debug(MessageFormat.format("Se establece el programa (Antes: {0} | Despues: {1})", this.programa, prog));
         this.programa = prog;
     }
-    
+
     public String getPrograma() {
         LOGGER.debug(MessageFormat.format("Se obtiene el programa: {0}", this.programa));
         return this.programa;
     }
-    
+
     public void setNivel(String nivel) {
         LOGGER.debug(MessageFormat.format("Se establece el nive del programa (Antes: {0} | Despues: {1})", this.nivel, nivel));
         this.nivel = nivel;
     }
-    
+
     public String getNivel() {
         LOGGER.debug(MessageFormat.format("Se obtiene el nivel del programa: {0}", this.nivel));
         return this.nivel;
     }
-    
+
     /**
      * @return the anio
      */
     public int getAnio() {
         LOGGER.debug(MessageFormat.format("Se obtiene el anio ({0})", anio));
-        
+
         return anio;
     }
 
@@ -181,26 +179,23 @@ public class MateriasRegistradasBean implements Serializable{
         LOGGER.debug(MessageFormat.format("Se establece el semestre (Antes: {0} | "
                 + "Despues {1})", this.semestre, semestre));
         this.semestre = semestre;
-    }  
-    
-    public void actualizarMaterias(){
+    }
+
+    public void actualizarMaterias() {
         LOGGER.info("Se actualiza el vista de las materias registradas");
-        if(programa!=null&&anio!=0&&semestre!=0&&nivel!=null){
+        Programa_id();
+        if (programa != null && anio != 0 && semestre != 0 && nivel != null) {
             try {
-                asignaturas = servProg.consultarAsignaturas((anio * 10) + semestre,programa_id);
-                for (Asignatura a:asignaturas){
-                    asignatura_id=a.getId();
-                    materias=servProg.consultarMaterias((anio * 10) + semestre,asignatura_id);
-                }   
-            
+                asignaturas = servProg.consultarAsignaturas((anio * 10) + semestre, programa_id);
+                for (Asignatura a : asignaturas) {
+                    asignatura_id = a.getId();
+                    materias = servProg.consultarMaterias((anio * 10) + semestre, asignatura_id);
+                }
+
             } catch (ExcepcionServiciosProgmsPost ex) {
                 LOGGER.error("Error al consultar las asignaturas", ex);
             }
         }
-       
     }
-    
-    
+
 }
-
-

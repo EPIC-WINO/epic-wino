@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
-public class Asignatura {
+public class Asignatura implements Comparable{
     private int id;
     private String nombre;
     private List<Materia> materias;
@@ -68,5 +68,11 @@ public class Asignatura {
     @Override
     public String toString() {
         return "Asignatura{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Asignatura m = (Asignatura) o;
+        return m.getId() < this.getId() ? -1 : (m.getId() == this.getId() ? 0 : 1);
     }
 }

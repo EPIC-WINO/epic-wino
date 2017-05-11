@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
-public class Programa {
+public class Programa implements Comparable{
     private int id;
     private String nombre;
     private String nivel;
@@ -147,5 +147,11 @@ public class Programa {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Programa m = (Programa) o;
+        return m.getId() < this.getId() ? -1 : (m.getId() == this.getId() ? 0 : 1);
     }
 }

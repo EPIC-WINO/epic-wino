@@ -4,105 +4,107 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
-        <link rel="stylesheet" type="text/css" href="mycss.css"/>
+    <link rel="stylesheet" type="text/css" href="mycss.css"/>
     <h:body style="padding-bottom: 60px">
-        <div class="header">
-            <ul class="optionsHeader">
-                <li>
-                    <img src="/images/logo.jpg" alt="Escuela Colombiana de Ingenieria Julio Garavito"/>
-                    <div class="barMenu">
-                        <div class="dropdown">
-                            <button onclick="location.href='index.xhtml'" class="menuBarButton">Inicio</button>
-                        </div>
-                        <div class="dropdown">
-                            <button class="menuBarButton">Programación</button>
-                            <div class="dropdown-content">
-                                <a href="ProgramarMateria.xhtml" target="_self">Programar Materia</a>
+        <h:form id="general">
+            <div class="header">
+                <ul class="optionsHeader">
+                    <li>
+                        <img src="/images/logo.jpg" alt="Escuela Colombiana de Ingenieria Julio Garavito"/>
+                        <div class="barMenu">
+                            <div class="dropdown">
+                                <button onclick="location.href = 'index.xhtml'" class="menuBarButton">Inicio</button>
+                            </div>
+                            <div class="dropdown">
+                                <button class="menuBarButton">Programación</button>
+                                <div class="dropdown-content">
+                                    <a href="ProgramarMateria.xhtml" target="_self">Programar Materia</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="menuBarButton">Registros</button>
+                                <div class="dropdown-content">
+                                    <a href="MateriasRegistradas.xhtml" target="_self">Materias Registradas</a>
+                                    <a href="RegistrarMateria.xhtml" target="_self">Registrar Materia</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="menuBarButton">Reportes</button>
+                                <div class="dropdown-content">
+                                    <a href="ReporteRecursos.xhtml" target="_self">Reporte de Recursos</a>
+                                    <a href="ReporteProgramacion.xhtml" target="_self">Reporte de Programacion</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="menuBarButton">Profesores</button>
                             </div>
                         </div>
-                        <div class="dropdown">
-                            <button class="menuBarButton">Registros</button>
-                            <div class="dropdown-content">
-                                <a href="MateriasRegistradas.xhtml" target="_self">Materias Registradas</a>
-                                <a href="RegistrarMateria.xhtml" target="_self">Registrar Materia</a>
-                            </div>
-                        </div>
-                        <div class="dropdown">
-                            <button class="menuBarButton">Reportes</button>
-                            <div class="dropdown-content">
-                                <a href="ReporteRecursos.xhtml" target="_self">Reporte de Recursos</a>
-                                <a href="ReporteProgramacion.xhtml" target="_self">Reporte de Programacion</a>
-                            </div>
-                        </div>
-                        <div class="dropdown">
-                            <button class="menuBarButton">Profesores</button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="content">
-            <h1>Registrar Materia</h1>
-            <p:outputLabel for="programa" value="Programa" styleClass="label"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="content">
+                <h1>Registrar Materia</h1>
+                <p:outputLabel for="programa" value="Programa" styleClass="label"/>
                 <p:selectOneMenu id="programa" value="#{registrarMateriaBean.programa}" styleClass="scroll">
                     <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{registrarMateriaBean.programas}" />
                 </p:selectOneMenu>
-            <p:outputLabel for="nivel" value="Nivel" styleClass="label"/>
+                <p:outputLabel for="nivel" value="Nivel" styleClass="label"/>
                 <p:selectOneMenu id="nivel" value="#{registrarMateriaBean.nivel}" styleClass="scroll">
                     <f:selectItem itemLabel="Nivel" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{registrarMateriaBean.niveles}" />
                 </p:selectOneMenu>
-            <p:commandButton  value="Crear nueva asignatura"  styleClass="button"/>
-            <div>
-                <p></p>
-            </div>
-            <p:outputLabel for="asignatura" value="Asignatura" styleClass="label"/>
+                <p:commandButton  value="Crear nueva asignatura"  styleClass="button"/>
+                <div>
+                    <p></p>
+                </div>
+                <p:outputLabel for="asignatura" value="Asignatura" styleClass="label"/>
                 <p:selectOneMenu id="asignatura" value="#{registrarMateriaBean.asignatura}" styleClass="scroll">
                     <f:selectItem itemLabel="Asignatura" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{registrarMateriaBean.asignaturas}" />
                 </p:selectOneMenu>
-            <div>
-                <p></p>
-            </div>
-            <p:outputLabel for="prerequisito" value="Pre-requisito" styleClass="label"/>
+                <div>
+                    <p></p>
+                </div>
+                <p:outputLabel for="prerequisito" value="Pre-requisito" styleClass="label"/>
                 <p:selectOneMenu id="prerequisito" value="#{registrarMateriaBean.prerequisito}" styleClass="scroll">
                     <f:selectItem itemLabel="Pre-requisito" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{registrarMateriaBean.prerequisitos}" />
                 </p:selectOneMenu>
-            <p:selectOneButton value="" styleClass="button">
-                <f:selectItem itemLabel="Co-requisito" itemValue="Co-requisito" styleClass="button"/>
-                <f:selectItem itemLabel="Requisito Completo" itemValue="Requisito Completo" styleClass="button"/>
-            </p:selectOneButton>
-            <div>
-                <p></p>
+                <p:selectOneButton value="" styleClass="button">
+                    <f:selectItem itemLabel="Co-requisito" itemValue="Co-requisito" />
+                    <f:selectItem itemLabel="Requisito Completo" itemValue="Requisito Completo" />
+                </p:selectOneButton>
+                <div>
+                    <p></p>
+                </div>
+                <p:outputLabel value="Nombre Materia" styleClass="label"/>
+                <div>
+                    <p></p>
+                </div>
+                <p:outputLabel value="" styleClass="label"/>
+                <p:inputText id="nombremateria" value="#{registrarMateriaBean.nombremateria}"></p:inputText>
+                <div>
+                    <p></p>
+                </div>
+                <p:outputLabel value="Codigo Mnemónico" styleClass="label"/>
+                <div>
+                    <p></p>
+                </div>
+                <p:outputLabel value="" styleClass="label"/>
+                <p:inputText id="codigo" value="#{registrarMateriaBean.codigo}"></p:inputText>
+                <div>
+                    <p></p>
+                </div>
+                <p:outputLabel value="Descripción" styleClass="label"/>
+                <div>
+                    <p></p>
+                </div>
+                <p:outputLabel value="" styleClass="label"/>
+                <p:inputTextarea rows="5" cols="50" completeMethod="#{registrarMateriaBean.descripcion}"/>
+                <p:commandButton  onclick="location.href = 'MateriasRegistradas.xhtml'" value="Registrar Materia"  styleClass="button"/>
+                <p:commandButton  onclick="location.href = 'MateriasRegistradas.xhtml'" value="Cancelar"  styleClass="button"/>
             </div>
-            <p:outputLabel value="Nombre Materia" styleClass="label"/>
-             <div>
-                <p></p>
-            </div>
-            <p:outputLabel value="" styleClass="label"/>
-            <p:inputText id="nombremateria" value="#{registrarMateriaBean.nombremateria}"></p:inputText>
-            <div>
-                <p></p>
-            </div>
-            <p:outputLabel value="Codigo Mnemónico" styleClass="label"/>
-            <div>
-                <p></p>
-            </div>
-            <p:outputLabel value="" styleClass="label"/>
-            <p:inputText id="codigo" value="#{registrarMateriaBean.codigo}"></p:inputText>
-            <div>
-                <p></p>
-            </div>
-            <p:outputLabel value="Descripción" styleClass="label"/>
-            <div>
-                <p></p>
-            </div>
-            <p:outputLabel value="" styleClass="label"/>
-            <p:inputTextarea rows="5" cols="50" completeMethod="#{registrarMateriaBean.descripcion}"/>
-            <p:commandButton  onclick="location.href='MateriasRegistradas.xhtml'" value="Registrar Materia"  styleClass="button"/>
-            <p:commandButton  onclick="location.href='MateriasRegistradas.xhtml'" value="Cancelar"  styleClass="button"/>
-        </div>
+        </h:form>
     </h:body>
 </html>

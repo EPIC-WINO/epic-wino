@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author Esteban
  */
-public class Clase implements Serializable {
+public class Clase implements Serializable, Comparable {
     private int id;
     private Date fecha;
     private Time horaInicio;
@@ -100,5 +100,11 @@ public class Clase implements Serializable {
     @Override
     public String toString() {
         return "Clase{" + "id=" + id + ", fecha=" + fecha + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Clase m = (Clase) o;
+        return m.getId() < this.getId() ? -1 : (m.getId() == this.getId() ? 0 : 1);
     }
 }

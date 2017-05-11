@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
-public class Profesor {
+public class Profesor implements Comparable{
     private int id;
     private String nombre;
     private String tipoID;
@@ -117,5 +117,11 @@ public class Profesor {
     @Override
     public String toString() {
         return "Profesor{" + "id=" + id + ", nombre=" + nombre + ", tipoID=" + tipoID + ", correo=" + correo + ", telefono=" + telefono + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Profesor m = (Profesor) o;
+        return m.getId() < this.getId() ? -1 : (m.getId() == this.getId() ? 0 : 1);
     }
 }

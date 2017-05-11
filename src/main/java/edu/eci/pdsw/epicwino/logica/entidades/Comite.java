@@ -6,7 +6,7 @@ import java.util.List;
  *
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
-public class Comite {
+public class Comite implements Comparable{
     private int id;
     private String nombre;
     private List<Profesor> profesores;
@@ -75,5 +75,11 @@ public class Comite {
     @Override
     public String toString() {
         return "Comite{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Comite m = (Comite) o;
+        return m.getId() < this.getId() ? -1 : (m.getId() == this.getId() ? 0 : 1);
     }
 }

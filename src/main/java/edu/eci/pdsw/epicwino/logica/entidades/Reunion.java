@@ -7,7 +7,7 @@ import java.sql.Time;
  *
  * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
  */
-public class Reunion {
+public class Reunion implements Comparable{
     private int id;
     private Comite comite;
     private Date fecha;
@@ -87,5 +87,11 @@ public class Reunion {
     @Override
     public String toString() {
         return "Reunion{" + "id=" + id + ", comite=" + comite + ", fecha=" + fecha + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Reunion m = (Reunion) o;
+        return m.getId() < this.getId() ? -1 : (m.getId() == this.getId() ? 0 : 1);
     }
 }
