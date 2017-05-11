@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.apache.log4j.Logger;
@@ -28,7 +29,7 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     private static final Logger LOGGER = Logger.getLogger(ReporteProgramacionBean.class);
     private static final long serialVersionUID = 1L;
     
-    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
+    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
     
     private int anio = 0;
     private int semestre = 0;
@@ -100,10 +101,14 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
         this.semestre = semestre;
     }
     
-    public void actualizarReporte() throws ExcepcionServiciosProgmsPost {
+    public void actualizarReporte() {
         LOGGER.info("Se actualiza el reporte de la vista");
-        if (anio != 0 && semestre != 0) {
-            recursos = servProg.consultarRecursosProgramados((anio * 10) + semestre);
+        try {
+            if (anio != 0 && semestre != 0) {
+                recursos = servProg.consultarRecursosProgramados((anio * 10) + semestre);
+            }
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error consultando recursos programados.",ex);
         }
     }
     
