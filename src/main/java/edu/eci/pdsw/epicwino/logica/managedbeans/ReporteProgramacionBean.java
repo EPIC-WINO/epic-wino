@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -39,7 +40,6 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     private int anio = 0;
     private int semestre = 0;
     private List<Materia> materias = new ArrayList<>();
-    private List<Clase> clases = new ArrayList<>();
     
     public ReporteProgramacionBean() {
         LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
@@ -229,6 +229,16 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         }
     } 
     
+    public int getSesiones(Materia materia) {
+        List<Clase> clases = new ArrayList<>();
+        try {
+             clases = servProg.consultarClases((anio*10)+semestre, materia.getId());
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error consultando las sesiones de una materia. ",ex);
+        }
+        return clases.size();
+    }
+    
     /*public List<Asignatura> getAsignaturas(Programa programa) {
         LOGGER.debug(MessageFormat.format("Se intenta obtener las asignaturas del programa"
                 + "({0})", programa));
@@ -243,11 +253,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         return r;
     }*/
     
-    /*public List<Clase> getClases(Materia materia) {
-        return null; // TODO implementar
-    }
-    
-    public Time getHoraInicio(Clase clase) {
+    /*public Time getHoraInicio(Clase clase) {
         return null; // TODO implementar
     }
     
