@@ -370,8 +370,14 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public int consultarCohorte(int idMateria, int idAsignatura, int periodo) throws ExcepcionServiciosProgmsPost {
-        int cont = 1000;
-        return cont;
+        Map<Integer, Integer> cohortes = new HashMap<>();
+        cohortes.put(0, 10);
+        cohortes.put(1, 20);
+        cohortes.put(2, 5);
+        cohortes.put(3, 96);
+        cohortes.put(4, 12);
+        cohortes.put(5, 18);
+        return cohortes.get(idMateria);
     }
 
     @Override

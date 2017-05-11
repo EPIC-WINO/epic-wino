@@ -40,6 +40,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     private int anio = 0;
     private int semestre = 0;
     private List<Materia> materias = new ArrayList<>();
+    private Materia materia = new Materia();
     
     public ReporteProgramacionBean() {
         LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
@@ -50,6 +51,15 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     @PostConstruct
     public void init() {
         
+    }
+    
+    public Materia getMateria() {
+        LOGGER.debug("Retorna la materia: "+materia);
+        return this.materia;
+    }
+    
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
     
     public Asignatura getAsignatura(Materia materia) { // TODO loggers
@@ -243,6 +253,22 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     public int getHoras(Materia materia) {
         return this.getSesiones(materia)*3; 
     }
+    
+    public String getPeriodo() {
+        return anio + "-" + semestre;
+    }
+    
+    public List<Clase> getClases(Materia materia) {
+        List<Clase> clases = new ArrayList<>();
+        try {
+            clases = servProg.consultarClases((anio*10)+semestre, materia.getId());
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error consultando las clases ", ex);
+        }
+        return clases;
+    }
+    
+    
     
     /*public List<Asignatura> getAsignaturas(Programa programa) {
         LOGGER.debug(MessageFormat.format("Se intenta obtener las asignaturas del programa"

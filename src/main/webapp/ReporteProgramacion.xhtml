@@ -97,12 +97,37 @@
                         <h:outputText value="#{reporteBean.getSesiones(materia)}" styleClass="outputText"/>
                     </p:column>
                     
-                    <p:column headerText="" styleClass="columnText" style="width:4%">
-                        <!--<p:commandButton update=":carForm:display" oncomplete="PF('carDialog').show()" icon="fa-columns">
-                            <f:setPropertyActionListener value="#{car}" target="#{dndCarsView.selectedCar}" />
-                        </p:commandButton>-->
+                    <p:column headerText="" styleClass="columnText" style="width:5%">
+                        <p:commandButton update=":reporteProgramacion:detalle" oncomplete="PF('detalleCla').show()" icon="ui-icon-search">
+                            <f:setPropertyActionListener value="#{materia}" target="#{reporteBean.materia}" />
+                        </p:commandButton>
                     </p:column>
                 </p:dataTable>
+                
+                <p:dialog header="Detalle Clases" widgetVar="detalleCla" resizable="false" draggable="false" showEffect="fade" hideEffect="fade" modal="true" style="max-width: 50%">
+                    <p:outputPanel id="detalle">
+                        <h:outputText value="#{reporteBean.programa}" style="color: #990000; font-size: 25px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;"/>
+                        <div>
+                            <p></p>
+                        </div>
+                        <h:outputText value="#{reporteBean.materia.nombre}" style="color: black; font-size: 20px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;"/>
+                        <div>
+                            <p></p>
+                        </div>
+                        <h:outputText value="#{reporteBean.periodo}" />
+                        <p:dataTable var="clase" value="#{reporteBean.getClases(reporteBean.materia)}"  styleClass="table">
+                            <p:column headerText="Fecha" styleClass="columnText">
+                                <h:outputText value="#{clase.fecha}" styleClass="outputText"/> 
+                            </p:column>
+                            <p:column headerText="Horario" styleClass="columnText">
+                                <h:outputText value="#{clase.horaInicio} - #{clase.horaFin}" styleClass="outputText"/> 
+                            </p:column>
+                            <p:column headerText="" styleClass="columnText">
+                                <p:commandButton title="Eliminar" value="Eliminar" styleClass="button"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:outputPanel>
+                </p:dialog>
             </h:form>
         </div>
     </h:body>
