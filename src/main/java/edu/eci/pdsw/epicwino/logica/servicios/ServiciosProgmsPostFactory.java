@@ -81,8 +81,8 @@ public class ServiciosProgmsPostFactory {
     
     public ServiciosProgmsPost getServiciosProgmsPostDummy() {
         LOGGER.debug("Se obtiene DUMMY de servicios");
-        return getServiciosProgmsPost();
-        //return new ServiciosProgmsPostDummy();
+        //return getServiciosProgmsPost();
+        return new ServiciosProgmsPostDummy();
     }
 
     public static ServiciosProgmsPostFactory getInstance(){

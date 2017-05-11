@@ -34,7 +34,7 @@ public class RegistrarMateriaBean implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(MateriasRegistradasBean.class);
     private static final long serialVersionUID = 1L;
     
-    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
+    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
     
     private String programa;
     private String asignatura;
