@@ -25,7 +25,6 @@ import org.apache.log4j.Logger;
 import edu.eci.pdsw.epicwino.logica.dao.ClaseDAO;
 import edu.eci.pdsw.epicwino.logica.dao.MateriaDAO;
 import edu.eci.pdsw.epicwino.logica.dao.RecursoDAO;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;

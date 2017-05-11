@@ -46,9 +46,9 @@
                 </ul>
             </div>
         </h:form>
-        <h:form id="segundo">
-            <div class="content">
-                <h:form id="MateriasRegistrada" style="text-align: center;">
+        <div class="content">
+            <h:form id="MateriasRegistrada" style="text-align: center;">
+                <center>
                     <h1>Materias Registradas</h1>
                     <p:outputLabel for="programa" value="Programa" styleClass="label"/>
                     <p:selectOneMenu id="programa" value="#{materiasRegistradasBean.programa}" styleClass="scroll">
@@ -85,7 +85,7 @@
                             <h:outputText value="#{asignatura.nombre}" styleClass="outputText"/>
                         </p:column>
                         <p:rowExpansion>
-                            <p:dataTable id="materias" var="materia" value="#{materiasRegistradasBean.materias}" styleClass="table">
+                            <p:dataTable id="materias" var="materia" value="#{materiasRegistradasBean.getMaterias(asignatura)}" styleClass="table">
                                 <p:column headerText="Materia" styleClass="columnText">
                                     <h:outputText value="#{materia.nombre}" styleClass="outputText"/>
                                 </p:column>
@@ -96,8 +96,8 @@
                         </p:rowExpansion>
                     </p:dataTable>
                     <p:commandButton onclick="location.href = 'RegistrarMateria.xhtml'" value="Registrar Nueva Materia" styleClass="button" />
-                </h:form>
-            </div>
-        </h:form>
+                </center>
+            </h:form>
+        </div>
     </h:body>
 </html>

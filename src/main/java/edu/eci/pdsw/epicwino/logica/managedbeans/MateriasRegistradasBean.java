@@ -43,9 +43,9 @@ public class MateriasRegistradasBean implements Serializable {
         LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
     }
 
-    public List<Materia> getMaterias() {
+    public List<Materia> getMaterias(Asignatura a) {
         LOGGER.debug(MessageFormat.format("Se obtiene la lista de materias -> {0}", materias.size()));
-        return materias;
+        return a.getMaterias();
     }
 
     public void setMaterias(List<Materia> materias) {
@@ -110,7 +110,7 @@ public class MateriasRegistradasBean implements Serializable {
         return programs;
     }
 
-    public void Programa_id() {
+    public void obtenerIdDePrograma() {
         LOGGER.debug(MessageFormat.format("Se intenta obtener los programas y su id (anio: {0}, "
                 + "semestre: {1})", anio, semestre));
         List<Programa> r = servProg.consultarProgramas();
@@ -183,7 +183,8 @@ public class MateriasRegistradasBean implements Serializable {
 
     public void actualizarMaterias() {
         LOGGER.info("Se actualiza el vista de las materias registradas");
-        Programa_id();
+        
+        obtenerIdDePrograma();
         if (programa != null && anio != 0 && semestre != 0 && nivel != null) {
             try {
                 asignaturas = servProg.consultarAsignaturas((anio * 10) + semestre, programa_id);
