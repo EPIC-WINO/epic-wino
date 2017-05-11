@@ -97,6 +97,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         Map<String,String> programs  = new HashMap<>();
         try {
             r = servProg.consultarProgramas(anio*10 + semestre);
+            LOGGER.debug("Se consultan "+r.size()+" programas -> "+r);
             for (Programa p:r){
                 String n=p.getNombre();
                 programs.put(n,n);
@@ -236,7 +237,11 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         } catch (ExcepcionServiciosProgmsPost ex) {
             LOGGER.error("Error consultando las sesiones de una materia. ",ex);
         }
-        return clases.size();
+        return clases.size(); //Tener en cuenta que utiliza este metodo para calcular las horas
+    }
+    
+    public int getHoras(Materia materia) {
+        return this.getSesiones(materia)*3; 
     }
     
     /*public List<Asignatura> getAsignaturas(Programa programa) {
