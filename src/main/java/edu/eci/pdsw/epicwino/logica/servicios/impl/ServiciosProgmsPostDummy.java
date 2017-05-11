@@ -27,13 +27,23 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     private List<Programa> programas;
     private List<Recurso> recursos;
-    private List<Clase> clases;
+    private List<Clase> clases1;
+    private List<Clase> clases2;
+    private List<Clase> clases3;
+    private List<Clase> clases4;
+    private List<Clase> clases5;
+    private List<Clase> clases6;
     private List<Asignatura> asignaturas;
     
     public ServiciosProgmsPostDummy() {
         programas = new ArrayList<>();
         recursos = new ArrayList<>();
-        clases = new ArrayList<>();
+        clases1 = new ArrayList<>();
+        clases2 = new ArrayList<>();
+        clases3 = new ArrayList<>();
+        clases4 = new ArrayList<>();
+        clases5 = new ArrayList<>();
+        clases6 = new ArrayList<>();
         asignaturas = new ArrayList<>();
         poblar();
     }
@@ -116,7 +126,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         recursos.add(r2);
         recursos.add(r3);
         //--------------------------------------
-        //Crea clases---------------------------
+        //Crea clases1---------------------------
         Clase cla1 = new Clase(1, new Date(2017-1900, 2, 15), new Time(11, 30, 0), new Time(1, 0, 0));
         Clase cla2 = new Clase(2, new Date(2017-1900, 3, 5), new Time(8, 30, 0), new Time(10, 0, 0));
         Clase cla3 = new Clase(3, new Date(2017-1900, 3, 29), new Time(1, 0, 0), new Time(11, 30, 0));
@@ -132,9 +142,49 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         recurs3.add(r3);
         cla3.setRecursos((ArrayList<Recurso>) recurs3);
         
-        clases.add(cla1);
-        clases.add(cla2);
-        clases.add(cla3);
+        clases1.add(cla1);
+        clases1.add(cla2);
+        clases1.add(cla3);
+        
+        Clase cla4 = new Clase(1, new Date(2017-1900, 2, 15), new Time(11, 30, 0), new Time(1, 0, 0));//cambiar datos
+        
+        clases2.add(cla4);
+        
+        Clase cla5 = new Clase(2, new Date(2017-1900, 3, 5), new Time(8, 30, 0), new Time(10, 0, 0));
+        Clase cla6 = new Clase(3, new Date(2017-1900, 3, 29), new Time(1, 0, 0), new Time(11, 30, 0));
+        
+        clases3.add(cla5);
+        clases3.add(cla6);
+        
+        Clase cla10 = new Clase(1, new Date(2017-1900, 2, 15), new Time(11, 30, 0), new Time(1, 0, 0));//cambiar datos
+        Clase cla11 = new Clase(2, new Date(2017-1900, 3, 5), new Time(8, 30, 0), new Time(10, 0, 0));
+        Clase cla12 = new Clase(3, new Date(2017-1900, 3, 29), new Time(1, 0, 0), new Time(11, 30, 0));
+        
+        clases4.add(cla10);
+        clases4.add(cla11);
+        clases4.add(cla12);
+        
+        Clase cla13 = new Clase(1, new Date(2017-1900, 2, 15), new Time(11, 30, 0), new Time(1, 0, 0));//cambiar datos
+        Clase cla14 = new Clase(2, new Date(2017-1900, 3, 5), new Time(8, 30, 0), new Time(10, 0, 0));
+        Clase cla15 = new Clase(3, new Date(2017-1900, 3, 29), new Time(1, 0, 0), new Time(11, 30, 0));
+        
+        clases5.add(cla13);
+        clases5.add(cla14);
+        clases5.add(cla15);
+        
+        Clase cla7 = new Clase(1, new Date(2017-1900, 2, 15), new Time(11, 30, 0), new Time(1, 0, 0));//cambiar datos
+        Clase cla8 = new Clase(2, new Date(2017-1900, 3, 5), new Time(8, 30, 0), new Time(10, 0, 0));
+        Clase cla9 = new Clase(3, new Date(2017-1900, 3, 29), new Time(1, 0, 0), new Time(11, 30, 0));
+        Clase cla16 = new Clase(1, new Date(2017-1900, 2, 15), new Time(11, 30, 0), new Time(1, 0, 0));//cambiar datos
+        Clase cla17 = new Clase(2, new Date(2017-1900, 3, 5), new Time(8, 30, 0), new Time(10, 0, 0));
+        Clase cla18 = new Clase(3, new Date(2017-1900, 3, 29), new Time(1, 0, 0), new Time(11, 30, 0));
+        
+        clases6.add(cla7);
+        clases6.add(cla8);
+        clases6.add(cla9);
+        clases6.add(cla16);
+        clases6.add(cla17);
+        clases6.add(cla18);
         //--------------------------------------
         programas.add(p1);
         programas.add(p2);
@@ -148,6 +198,8 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Programa> consultarProgramas(int periodo) throws ExcepcionServiciosProgmsPost {
+        LOGGER.debug("Se retornas "+programas.size()+" programas -> "+programas);
+        System.out.println("Se retornas "+programas.size()+" programas -> "+programas);
         return programas;
     }
 
@@ -264,7 +316,14 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClases(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<Integer, List<Clase>> clases = new HashMap<>();
+        clases.put(0, clases1);
+        clases.put(1, clases2);
+        clases.put(2, clases3);
+        clases.put(3, clases4);
+        clases.put(4, clases5);
+        clases.put(5, clases6);
+        return clases.get(idMateria);
     }
 
     @Override
@@ -330,7 +389,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClasesDeUnPeriodo(int periodo) throws ExcepcionServiciosProgmsPost {
-        return clases;
+        return clases1;
     }
 
     @Override

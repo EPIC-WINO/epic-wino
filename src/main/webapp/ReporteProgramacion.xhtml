@@ -90,11 +90,11 @@
                     </p:column>
                     
                     <p:column headerText="Horas" styleClass="columnText">
-                        <h:outputText value="" styleClass="outputText"/>
+                        <h:outputText value="#{reporteBean.getHoras(materia)}" styleClass="outputText"/>
                     </p:column>
                     
                     <p:column headerText="Sesiones" styleClass="columnText">
-                        <h:outputText value="" styleClass="outputText"/>
+                        <h:outputText value="#{reporteBean.getSesiones(materia)}" styleClass="outputText"/>
                     </p:column>
                     
                     <p:column headerText="" styleClass="columnText" style="width:4%">
