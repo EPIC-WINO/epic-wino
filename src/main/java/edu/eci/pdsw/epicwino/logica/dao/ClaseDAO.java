@@ -11,24 +11,24 @@ import java.util.List;
 public interface ClaseDAO {
 
     /**
-     * @obj guarda una clase en una materia
+     * guarda una clase en una materia
      * @param clase a guardar
      * @param idMateria id de la materia en donde guardar
-     * @param periodo
+     * @param periodo de la clase
      * @throws PersistenceException falla en persistencia
      */
     public void saveClase(Clase clase, int idMateria, int periodo) throws PersistenceException;
 
     /**
-     * @obj consultar todas las clases en un periodo
-     * @param periodo
+     * consultar todas las clases en un periodo
+     * @param periodo de la clase
      * @return lista no nula de clases
      * @throws PersistenceException falla en persistencia
      */
     public List<Clase> loadClases(int periodo) throws PersistenceException;
 
     /**
-     * @obj consultar los recursos usados por una clase
+     * consultar los recursos usados por una clase
      * @param idClase id de la clase
      * @return lista no nula de recursos
      * @throws PersistenceException falla en persistencia
@@ -36,7 +36,7 @@ public interface ClaseDAO {
     public List<Recurso> loadRecursosConcedidos(int idClase) throws PersistenceException;
 
     /**
-     * @obj guarda el uso de un recurso en una clase en persistencia
+     * guarda el uso de un recurso en una clase en persistencia
      * @param idClase id de la clase
      * @param idRecurso id del recurso
      * @throws PersistenceException falla en persistencia

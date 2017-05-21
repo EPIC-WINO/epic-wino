@@ -10,7 +10,7 @@ import java.util.List;
 public interface AsignaturaDAO {
     
     /**
-     * @obj guardar una asignatura
+     * guardar una asignatura
      * @param asignatura a guardar
      * @param idPrograma id del programa
      * @throws PersistenceException falla en persistencia
@@ -18,7 +18,7 @@ public interface AsignaturaDAO {
     void saveAsignatura(Asignatura asignatura, int idPrograma) throws PersistenceException;
     
     /**
-     * @obj consultar las asignaturas presentes
+     * consultar las asignaturas presentes
      * @return lista no nula de asignaturas
      * @throws PersistenceException falla en persistencia
      */

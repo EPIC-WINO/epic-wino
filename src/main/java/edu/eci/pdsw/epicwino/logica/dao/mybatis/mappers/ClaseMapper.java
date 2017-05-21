@@ -12,31 +12,31 @@ import org.apache.ibatis.annotations.Param;
 public interface ClaseMapper {
 
     /**
-     * @obj agregar a la base de datos una nueva clase en una materia
+     * agregar a la base de datos una nueva clase en una materia
      * @param c clase a agregar
-     * @param periodo
+     * @param periodo de la clase
      * @param idMateria id de la materia
      */
     public void agregarClase(@Param("clase") Clase c,
             @Param("materia") int idMateria, @Param("periodo") int periodo);
 
     /**
-     * @obj consultar en la base de datos la clase asociada con la id
+     * consultar en la base de datos la clase asociada con la id
      * @param id identificador de la clase
      * @return clase asociada al identificador
      */
     public Clase consultarClase(@Param("idclase") int id);
 
     /**
-     * @obj consultar en la base de datos todas las clases asociadas a un año y
+     * consultar en la base de datos todas las clases asociadas a un año y
      * un semestre
-     * @param periodo
+     * @param periodo de las clases
      * @return consulta de todas las clases
      */
     public List<Clase> consultarClases(@Param("periodo") int periodo);
 
     /**
-     * @obj consultar en la base de datos los recursos que requiere la clase
+     * consultar en la base de datos los recursos que requiere la clase
      * para realizarse
      * @param idCl identificador de la clase
      * @return recursos prestados a la clase
@@ -44,7 +44,7 @@ public interface ClaseMapper {
     public List<Recurso> consultarRecursosConcedidos(@Param("idclase") int idCl);
 
     /**
-     * @obj agregar a la base de datos un recurso requerido por una clase para
+     * agregar a la base de datos un recurso requerido por una clase para
      * realizarse
      * @param idCl identificador de la clase
      * @param idRe identificador del recurso
@@ -53,9 +53,9 @@ public interface ClaseMapper {
             @Param("recurso") int idRe);
     
     /**
-     * @obj agrega un grupo de materia
+     * agrega un grupo de materia
      * @param idMateria id de la materia
-     * @param periodo periodo
+     * @param periodo de la materia
      * @param idProfesor id del profesor
      */
     void agregarGrupoDeMateria(@Param("idMateria") int idMateria, @Param("periodo") int periodo, @Param("idProfesor") int idProfesor);

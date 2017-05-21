@@ -13,14 +13,14 @@ import java.util.List;
 public interface RecursoDAO {
 
     /**
-     * @obj registra un nuevo recurso
-     * @param recurso
+     * registra un nuevo recurso
+     * @param recurso a ser registrado
      * @throws PersistenceException falla de persistencia
      */
     public void save(Recurso recurso) throws PersistenceException;
 
     /**
-     * @obj carga todos los recursos presentes en persistencia
+     * carga todos los recursos presentes en persistencia
      * @return lista no nula de recursos
      * @throws PersistenceException falla de persistencia
      */

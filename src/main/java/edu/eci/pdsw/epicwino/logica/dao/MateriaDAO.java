@@ -13,15 +13,15 @@ import java.util.List;
 public interface MateriaDAO {
 
     /**
-     * @obj guardar una materia en peristencia
-     * @param materia
+     * guardar una materia en peristencia
+     * @param materia la materia
      * @param idAsignatura id de la asignatura
      * @throws PersistenceException falla de persistencia
      */
     void saveMateria(Materia materia, int idAsignatura) throws PersistenceException;
 
     /**
-     * @obj agregar un nuevo cohorte en una materia de un programa
+     * agregar un nuevo cohorte en una materia de un programa
      * @param idPrograma id del programa
      * @param idMateria id de la materia
      * @param numCohorte numero del cohorte
@@ -30,14 +30,14 @@ public interface MateriaDAO {
     void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws PersistenceException;
 
     /**
-     * @obj consultar todos los cohorte registrados
+     * consultar todos los cohorte registrados
      * @return lista no nula de enteros
      * @throws PersistenceException falla de persistencia
      */
     List<Integer> loadCohortes() throws PersistenceException;
 
     /**
-     * @obj consultar todos los prerrequisitos de una materia
+     * consultar todos los prerrequisitos de una materia
      * @param idMateria id de la materia
      * @return lista no nula de materias que son prerrequisito de la materia
      * @throws PersistenceException falla de persistencia
@@ -45,7 +45,7 @@ public interface MateriaDAO {
     List<Materia> loadPrerrequisitos(int idMateria) throws PersistenceException;
 
     /**
-     * @obj consultar todos los correquisitos de una materia
+     * consultar todos los correquisitos de una materia
      * @param idMateria id de la materia
      * @return lista no nula de materias que son correquisito de la materia
      * @throws PersistenceException falla de persistencia
@@ -53,14 +53,14 @@ public interface MateriaDAO {
     List<Materia> loadCorrequisitos(int idMateria) throws PersistenceException;
 
     /**
-     * @obj consultar todas las materias presentes
+     * consultar todas las materias presentes
      * @return lista no nula de materias
      * @throws PersistenceException falla en persistencia
      */
     List<Materia> consultarMaterias() throws PersistenceException;
 
     /**
-     * @obj registrar un profesor
+     * registrar un profesor
      * @param profesor a registrar
      * @throws PersistenceException falla en persistencia
      */
@@ -68,18 +68,18 @@ public interface MateriaDAO {
 
     /**
      *
-     * @param idProf
-     * @param fecha
-     * @param horaInicio
-     * @param horaFin
-     * @return
+     * @param idProf id del profesor
+     * @param fecha fecha de disponibilidad
+     * @param horaInicio hora de inicio en la que esta disponible
+     * @param horaFin hora de finalizacion en la que esta disponible
+     * @return el profesor esta disponible
      * @throws PersistenceException falla en persistencia
      */
     boolean consultarDisponibilidadProfesor(int idProf,
             Date fecha, Time horaInicio, Time horaFin) throws PersistenceException;
 
     /**
-     * @obj registrar requisito de una materia
+     * registrar requisito de una materia
      * @param idMateria id de la materia
      * @param idRequisito id de la materia requisito
      * @param prerrequisito es prerrequisito

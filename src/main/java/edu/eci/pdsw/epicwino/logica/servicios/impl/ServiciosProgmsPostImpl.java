@@ -108,7 +108,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
     
     /**
-     * @obj un periodo dado es valido
+     * un periodo dado es valido
      * @param periodo a validar
      * @return el periodo es valido
      */
@@ -162,7 +162,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
     
     /**
-     * @obj calcular el periodo a partir de una fecha
+     * calcular el periodo a partir de una fecha
      * @param fecha
      * @return entero que representa el periodo
      */
