@@ -45,7 +45,8 @@
             
       
         from programas as prog 
-        left join asignaturas as asig on prog.id = asig.programa_id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
@@ -95,7 +96,8 @@
             
       
         from programas as prog 
-        left join asignaturas as asig on prog.id = asig.programa_id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
@@ -143,7 +145,8 @@
             
       
         from programas as prog 
-        left join asignaturas as asig on prog.id = asig.programa_id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
@@ -224,7 +227,8 @@
             
       
         from programas as prog 
-        left join asignaturas as asig on prog.id = asig.programa_id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id

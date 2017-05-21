@@ -88,7 +88,8 @@
             rec.categoria as grup_clas_rec_categoria
         
         from  programas
-        left join asignaturas as asig  on asig.programa_id=programas.id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on mate.asignaturas_id=asig.id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
