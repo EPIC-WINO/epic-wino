@@ -735,7 +735,20 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClasesDeUnPeriodo(int periodo) throws ExcepcionServiciosProgmsPost {
-        return new ArrayList<>(); // TODO implementar
+        if (! this.periodoExiste(periodo)) {
+            throw new ExcepcionServiciosProgmsPost("Error al consultar las "
+                    + "clases, el periodo " + periodo + " no existe");
+        }
+        
+        List<Clase> clases = new ArrayList<>();
+        
+        try {
+            clases = daoClase.consultarClasesDeUnPeriodo(periodo);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error en persistencia al consultar la clases del periodo " + periodo, ex);
+        }
+        
+        return clases;
     }
 
     @Override
@@ -759,6 +772,15 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClasesConRecursos(int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
+        List<Clase> clases = this.consultarClasesDeUnPeriodo(periodo);
+        List<Clase> clasesConRecursos = new ArrayList<>();
+        
+        for (Clase clase : clases) {
+            if (! clase.getRecursos().isEmpty()) {
+                clasesConRecursos.add(clase);
+            }
+        }
+        
+        return clasesConRecursos;
     }
 }
