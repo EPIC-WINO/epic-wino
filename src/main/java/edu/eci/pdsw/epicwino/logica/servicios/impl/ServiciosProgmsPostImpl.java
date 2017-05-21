@@ -117,6 +117,22 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         int semestre = periodo % 10;
         return (1970 <= anio && anio <= 9999) && (1 <= semestre && semestre <= 3);
     }
+    
+    /**
+     * una clase dada es valida (tiene todos sus atributos definidos)
+     * @param clase a comprobar
+     * @return es valida
+     */
+    private boolean claseEsValida(Clase clase) {
+        boolean r = clase != null;
+        
+        r = r && clase.getFecha() != null;
+        r = r && clase.getHoraInicio() != null;
+        r = r && clase.getHoraFin() != null;
+        r = r && clase.getRecursos() != null;
+        
+        return r;
+    }
 
     @Override
     public void agregarClase(int idMateria, Clase clase) throws ExcepcionServiciosProgmsPost {
@@ -130,21 +146,9 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             throw new NullPointerException("La clase es null");
         }
 
-        if (clase.getFecha() == null) {
-            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: fecha " + clase);
+        if (! claseEsValida(clase)) {
+            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido " + clase);
         }
-
-        if (clase.getHoraInicio() == null) {
-            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: horaInicio " + clase);
-        }
-
-        if (clase.getHoraFin() == null) {
-            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: horaFin " + clase);
-        }
-
-        /*if (clase.getRecursos() == null) {
-            throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido: recursos");
-        }*/
 
         int periodo = periodoDeFecha(clase.getFecha());
         LOGGER.debug("El periodo calculado es " + periodo);
