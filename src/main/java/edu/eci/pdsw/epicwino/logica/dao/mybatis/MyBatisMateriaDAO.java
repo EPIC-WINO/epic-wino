@@ -64,5 +64,15 @@ public class MyBatisMateriaDAO implements MateriaDAO{
     public void registrarRequisito(int idMateria, int idRequisito, boolean prerrequisito) throws PersistenceException {
         materiaMapper.agregarRequisito(idMateria, idRequisito, prerrequisito ? "TRUE" : "FALSE");
     }
+
+    @Override
+    public Profesor consultarProfesoresEnPeriodoYMateria(int idMateria, int periodo) throws PersistenceException {
+        return materiaMapper.loadProfesoresEnPeriodoYMateria(idMateria, periodo);
+    }
+
+    @Override
+    public List<Profesor> consultarProfesoresEnPeriodo(int periodo) throws PersistenceException {
+        return materiaMapper.loadProfesoresEnPeriodo(periodo);
+    }
     
 }

@@ -1,6 +1,7 @@
 package edu.eci.pdsw.epicwino.logica.dao;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Clase;
+import edu.eci.pdsw.epicwino.logica.entidades.GrupoDeMateria;
 import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
 import java.util.List;
 
@@ -43,7 +44,21 @@ public interface ClaseDAO {
      */
     public void saveRecursoConcedido(int idClase, int idRecurso) throws PersistenceException;
     
+    /**
+     * agrega un grupo de materia
+     * @param idMateria id de la materia
+     * @param periodo de la materia
+     * @param idProfesor id del profesor que conforma el grupo
+     * @throws PersistenceException falla en persistencia
+     */
     public void agregarGrupoDeMateria(int idMateria, int periodo, int idProfesor) throws PersistenceException;
     
     public List<Clase> consultarClasesDeUnPeriodo(int periodo) throws PersistenceException;
+    
+    /**
+     * consulta todos los grupos de materia presentes
+     * @return lista no nula de Grupos de Materia
+     * @throws PersistenceException falla en persistencia
+     */
+    public List<GrupoDeMateria> consultarGruposDeMaterias() throws PersistenceException;
 }

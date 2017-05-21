@@ -17,10 +17,11 @@ public class Clase implements Serializable, Comparable {
     private ArrayList<Recurso> recursos;
 
     public Clase() {
-        
+        recursos = new ArrayList<>();
     }
     
     public Clase(int id, Date fecha, Time horaInicio, Time horaFin) {
+        this();
         this.id = id;
         this.fecha = fecha;
         this.horaInicio = horaInicio;

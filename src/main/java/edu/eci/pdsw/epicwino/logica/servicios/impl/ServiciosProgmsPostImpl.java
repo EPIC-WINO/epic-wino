@@ -262,7 +262,20 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Profesor> consultarProfesores(int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
+        if (! this.periodoEsValido(periodo)) {
+            throw new ExcepcionServiciosProgmsPost("El periodo " + periodo + " es invalido");
+        }
+        
+        if (! this.periodoExiste(periodo)) {
+            throw new ExcepcionServiciosProgmsPost("El periodo " + periodo + " no existe");
+        }
+        
+        try {
+            return daoMateria.consultarProfesoresEnPeriodo(periodo);
+        } catch (PersistenceException ex) {
+            LOGGER.error("Error al consultar profesores en el periodo " + periodo, ex);
+            throw new ExcepcionServiciosProgmsPost("Error consultando profesores en el periodo " + periodo, ex);
+        }
     }
 
     @Override
@@ -541,7 +554,25 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
+        if (! this.periodoEsValido(periodo)) {
+            throw new ExcepcionServiciosProgmsPost("El periodo " + periodo + " es invalido");
+        }
+        
+        if (! this.periodoExiste(periodo)) {
+            throw new ExcepcionServiciosProgmsPost("El periodo " + periodo + " no existe");
+        }
+        
+        if (! this.materiaExiste(idMateria)) {
+            throw new ExcepcionServiciosProgmsPost("La materia ID: " + idMateria + " no existe");
+        }
+        
+        try {
+            return daoMateria.consultarProfesoresEnPeriodoYMateria(idMateria, periodo);
+        } catch (PersistenceException ex) {
+            LOGGER.error(MessageFormat.format("Error consultando profesor en "
+                    + "periodo {0} y materia {1}", periodo, idMateria), ex);
+            throw new ExcepcionServiciosProgmsPost("Error consultando profesor", ex);
+        }
     }
 
     @Override
@@ -712,7 +743,30 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
     
     private boolean grupoDeMateriaExiste(int idMateria, int periodo) {
-        return true; // TODO implementar
+        LOGGER.debug(MessageFormat.format("Se consulta si el grupo de Materia "
+                + "(idMateria: {0}, periodo: {1})", idMateria, periodo));
+        boolean f = false;
+        
+        List<Materia> materias;
+        try {
+            materias = this.consultarMaterias(periodo);
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error consultando las materias en el periodo " + periodo, ex);
+            return false;
+        }
+        
+        for (int i = 0; i < materias.size() && !f; i++) {
+            if (materias.get(i).getId() == idMateria) {
+                List<GrupoDeMateria> grupos = materias.get(i).getGruposDeMateria();
+                for (int j = 0; j < grupos.size() && !f; j++) {
+                    if (grupos.get(j).getPeriodo() == periodo) {
+                        f = true;
+                    }
+                }
+            }
+        }
+        
+        return f;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers;
 
 import edu.eci.pdsw.epicwino.logica.entidades.Clase;
+import edu.eci.pdsw.epicwino.logica.entidades.GrupoDeMateria;
 import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -65,4 +66,6 @@ public interface ClaseMapper {
     List<Clase> consultarClasesDeUnPeriodo(@Param("periodo") int periodo);
     
     List<Clase> consultarClasesConRecursos(int periodo);
+    
+    List<GrupoDeMateria> consultarGruposDeMaterias();
 }

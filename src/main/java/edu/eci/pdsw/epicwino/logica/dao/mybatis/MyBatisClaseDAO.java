@@ -6,6 +6,7 @@ import edu.eci.pdsw.epicwino.logica.dao.PersistenceException;
 import edu.eci.pdsw.epicwino.logica.entidades.Clase;
 import edu.eci.pdsw.epicwino.logica.entidades.Recurso;
 import com.google.inject.Inject;
+import edu.eci.pdsw.epicwino.logica.entidades.GrupoDeMateria;
 import java.util.List;
 
 /**
@@ -46,6 +47,11 @@ public class MyBatisClaseDAO implements ClaseDAO {
     @Override
     public List<Clase> consultarClasesDeUnPeriodo(int periodo) throws PersistenceException {
         return claseMapper.consultarClasesDeUnPeriodo(periodo);
+    }
+
+    @Override
+    public List<GrupoDeMateria> consultarGruposDeMaterias() throws PersistenceException {
+        return claseMapper.consultarGruposDeMaterias();
     }
     
 }
