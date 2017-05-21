@@ -328,4 +328,12 @@ public interface ServiciosProgmsPost {
      * @return lista no nula de programas
      */
     List<Programa> consultarProgramas();
+    
+    /**
+     * consulta todas las clases en un periodo que tienen recursos
+     * @param periodo de las clases
+     * @return lista no nula de clases
+     * @throws ExcepcionServiciosProgmsPost no existe el periodo
+     */
+    List<Clase> consultarClasesConRecursos(int periodo) throws ExcepcionServiciosProgmsPost;
 }

@@ -234,7 +234,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Recurso> consultarRecursos(String nombreCategoria, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
     }
 
     @Override
@@ -257,7 +257,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Profesor> consultarProfesores(int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
     }
 
     @Override
@@ -536,7 +536,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
     }
 
     @Override
@@ -755,5 +755,10 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         } catch (PersistenceException ex) {
             LOGGER.error(MessageFormat.format("Error al registrar requisito de la materia ({0}) y del requisito ({1})", idMateria, idPrerequisito), ex);
         }
+    }
+
+    @Override
+    public List<Clase> consultarClasesConRecursos(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); // TODO implementar
     }
 }

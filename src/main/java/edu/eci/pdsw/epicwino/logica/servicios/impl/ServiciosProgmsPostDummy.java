@@ -412,5 +412,10 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     public List<Programa> consultarProgramas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<Clase> consultarClasesConRecursos(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
