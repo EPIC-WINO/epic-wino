@@ -22,8 +22,8 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
- * @author Camila Gomez <maria.gomez-ra@mail.escuelaing.edu.co>
+ * @author Alejandro Anzola email: alejandro.anzola@mail.escuelaing.edu.co
+ * @author Camila Gomez email: maria.gomez-ra@mail.escuelaing.edu.co
  */
 @ManagedBean(name = "reporteBean")
 @SessionScoped

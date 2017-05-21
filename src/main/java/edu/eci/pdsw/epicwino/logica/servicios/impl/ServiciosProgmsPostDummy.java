@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
+ * @author Alejandro Anzola email: alejandro.anzola@mail.escuelaing.edu.co
  */
 public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     

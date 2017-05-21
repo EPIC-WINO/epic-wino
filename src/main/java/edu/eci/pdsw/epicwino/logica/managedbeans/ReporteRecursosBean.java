@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.apache.log4j.Logger;
@@ -20,7 +19,7 @@ import org.apache.log4j.Logger;
 /**
  *
  * @author Juan Andrade
- * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
+ * @author Alejandro Anzola email: alejandro.anzola@mail.escuelaing.edu.co
  */
 @ManagedBean(name = "reporteRecursoBean")
 @SessionScoped

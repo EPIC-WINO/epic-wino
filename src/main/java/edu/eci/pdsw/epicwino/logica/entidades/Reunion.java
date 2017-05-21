@@ -5,7 +5,7 @@ import java.sql.Time;
 
 /**
  *
- * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
+ * @author Alejandro Anzola email: alejandro.anzola@mail.escuelaing.edu.co
  */
 public class Reunion implements Comparable{
     private int id;

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  *
  * @author Esteban
- * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
+ * @author Alejandro Anzola email: alejandro.anzola@mail.escuelaing.edu.co
  */
 public class MyBatisRecursoDAO implements RecursoDAO {
     

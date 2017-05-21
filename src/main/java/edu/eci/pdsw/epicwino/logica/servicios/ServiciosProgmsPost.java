@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  *
  * @author Esteban Murcia
- * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
+ * @author Alejandro Anzola email: alejandro.anzola@mail.escuelaing.edu.co
  */
 public interface ServiciosProgmsPost {
 

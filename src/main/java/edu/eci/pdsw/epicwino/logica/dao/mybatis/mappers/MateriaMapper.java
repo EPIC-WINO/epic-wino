@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  *
- * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
+ * @author Alejandro Anzola email: alejandro.anzola@mail.escuelaing.edu.co
  */
 public interface MateriaMapper {
     /**

@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
+ * @author Alejandro Anzola email: alejandro.anzola@mail.escuelaing.edu.co
  */
 public class Programa implements Comparable{
     private int id;

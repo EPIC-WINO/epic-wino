@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author Alejandro Anzola <alejandro.anzola@mail.escuelaing.edu.co>
+ * @author Alejandro Anzola email: alejandro.anzola@mail.escuelaing.edu.co
  * @author Fabian Ardila
  */
 public class MyBatisProgramaDAO implements ProgramaDAO{
