@@ -115,7 +115,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     private boolean periodoEsValido(int periodo) {
         int anio = periodo / 10;
         int semestre = periodo % 10;
-        return (1970 <= anio && anio <= 9999) && (1 <= semestre && semestre <= 2);
+        return (1970 <= anio && anio <= 9999) && (1 <= semestre && semestre <= 3);
     }
 
     @Override
@@ -172,7 +172,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
 
-        return year * 10 + (month < Calendar.JULY ? 1 : 2);
+        return year * 10 + (month <= Calendar.MAY ? 1 : 
+                (month >= Calendar.AUGUST ? 2 : 3));
     }
 
     @Override
@@ -707,7 +708,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
     
     private boolean grupoDeMateriaExiste(int idMateria, int periodo) {
-        return false; // TODO implementar
+        return true; // TODO implementar
     }
 
     @Override
