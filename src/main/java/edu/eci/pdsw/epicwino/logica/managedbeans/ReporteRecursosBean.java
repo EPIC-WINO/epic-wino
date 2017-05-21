@@ -7,11 +7,13 @@ import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPost;
 import edu.eci.pdsw.epicwino.logica.servicios.ServiciosProgmsPostFactory;
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Time;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.util.Pair;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.apache.log4j.Logger;
@@ -28,22 +30,22 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     private static final Logger LOGGER = Logger.getLogger(ReporteProgramacionBean.class);
     private static final long serialVersionUID = 1L;
     
-    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
+    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
     
     private int anio = 0;
     private int semestre = 0;
-    private List<Recurso> recursos = new ArrayList<>();
+    private List<Pair<Recurso, Pair<Date, Pair<Time, Time>>>> recursos = new ArrayList<>();
     
     public ReporteRecursosBean() {
         LOGGER.debug("Se instancia " + this.getClass().getName());
     }
    
-    public List<Recurso> getRecursos(){
+    public List<Pair<Recurso, Pair<Date, Pair<Time, Time>>>> getRecursos(){
         LOGGER.debug("Se obtiene la lista de recursos");
         return recursos;
     }
     
-    public void setRecursos(List<Recurso> recursos){
+    public void setRecursos(List<Pair<Recurso, Pair<Date, Pair<Time, Time>>>> recursos){
         LOGGER.debug("Se establecen los recursos");
         this.recursos=recursos;
     }
@@ -101,65 +103,25 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     }
     
     public void actualizarReporte() {
+        List<Clase> clases = new ArrayList<>();
         LOGGER.info("Se actualiza el reporte de la vista");
         try {
+            LOGGER.info("Se intenta obtener las materias con recursos.");
+            clases = servProg.consultarClasesConRecursos((anio * 10) + semestre);
+            LOGGER.info("Se obtienen las clases que tienen recursos.");
             if (anio != 0 && semestre != 0) {
-                recursos = servProg.consultarRecursosProgramados((anio * 10) + semestre);
+                recursos.clear();
+                for (Clase cla : clases) {
+                    List<Recurso> recur = cla.getRecursos();
+                    LOGGER.info("Se obtienen los recursos de la clase "+cla.getId());
+                    for (Recurso rec : recur) {
+                        recursos.add(new Pair(rec, new Pair(cla.getFecha(), new Pair(cla.getHoraInicio(), cla.getHoraFin()))));
+                        LOGGER.info("Se agrega el recurso " + rec.getNombre());
+                    }
+                }
             }
         } catch (ExcepcionServiciosProgmsPost ex) {
             LOGGER.error("Error consultando recursos programados.",ex);
         }
-    }
-    
-    public Date fechaUsoRecurso(int idRecurso) {
-        List<Clase> clases = new ArrayList<>();
-        Date fecha = null;
-        LOGGER.debug("Busca fecha del uso del recurso.");
-        try {
-            clases = servProg.consultarClasesDeUnPeriodo((anio * 10) + semestre);
-            LOGGER.debug("Comienza iteración sobre las clases del respectivo periodo.");
-            for (Clase cla : clases) {
-                LOGGER.debug("Comienza busqueda en la clase "+cla.getId());
-                List<Recurso> recur = new ArrayList<>();
-                recur = cla.getRecursos();
-                LOGGER.debug("RECURSOS: "+recur.toString());
-                for (Recurso rec : recur) {
-                    LOGGER.debug("Busca recurso "+idRecurso+" y encuentra el recurso "+rec.getId());
-                    if (rec.getId() == idRecurso) {
-                        LOGGER.debug("Encuentra el recurso "+rec.getId());
-                        fecha = cla.getFecha();
-                    }
-                }
-            }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error al consultar las clases de un periodo especifico", ex);
-        }
-        return fecha;
-    }
-    
-    public String horaUsoRecurso(int idRecurso) {
-        List<Clase> clases = new ArrayList<>();
-        String hora = null;
-        LOGGER.debug("Busca hora del uso del recurso.");
-        try {
-            clases = servProg.consultarClasesDeUnPeriodo((anio * 10) + semestre);
-            LOGGER.debug("Comienza iteración sobre las clases del respectivo periodo.");
-            for (Clase cla : clases) {
-                LOGGER.debug("Comienza busqueda en la clase "+cla.getId());
-                List<Recurso> recur = new ArrayList<>();
-                recur = cla.getRecursos();
-                LOGGER.debug("RECURSOS: "+recur.toString());
-                for (Recurso rec : recur) {
-                    LOGGER.debug("Busca recurso "+idRecurso+" y encuentra el recurso "+rec.getId());
-                    if (rec.getId() == idRecurso) {
-                        LOGGER.debug("Encuentra el recurso "+rec.getId());
-                        hora = cla.getHoraInicio().toString()+" - "+cla.getHoraFin().toString();
-                    }
-                }
-            }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error al consultar las clases de un periodo especifico", ex);
-        }
-        return hora;
     }
 }
