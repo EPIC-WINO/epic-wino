@@ -32,7 +32,7 @@ public class MateriasRegistradasBean implements Serializable {
     
     private String programa = "";
     private int anio = 0;
-    private int semestre = 0;
+    private int semestre = 1;
     private List<Asignatura> asignaturas = new ArrayList<>();
     private int programa_id = 0;
     private String nivel = "";
@@ -73,12 +73,25 @@ public class MateriasRegistradasBean implements Serializable {
         }
         return periodos;
     }
+    
+    public int convertirSemestre(String sem){
+        int s; 
+        if("1".equals(sem)){
+            s=1;
+        } else if("2".equals(sem)){
+            s=2;
+        } else {
+            s=3;
+        }
+        return s;
+    }
 
-    public Map<Integer, Integer> getSemestres() {
+    public Map<String, String> getSemestres() {
         LOGGER.debug("Se obtienen los semestres");
-        Map<Integer, Integer> m = new HashMap<>();
-        m.put(1, 1);
-        m.put(2, 2);
+         Map<String, String> m = new HashMap<>();
+        m.put("1", "1");
+        m.put("2", "2");
+        m.put("I", "I");
         return m;
     }
 
@@ -167,18 +180,18 @@ public class MateriasRegistradasBean implements Serializable {
     /**
      * @return the semestre
      */
-    public int getSemestre() {
+    public String getSemestre() {
         LOGGER.debug(MessageFormat.format("Se obtiene el semestre ({0})", semestre));
-        return semestre;
+        return semestre == 1 ? "1" : (semestre == 2 ? "2" : "I");
     }
 
     /**
      * @param semestre the semestre to set
      */
-    public void setSemestre(int semestre) {
+    public void setSemestre(String semestre) {
         LOGGER.debug(MessageFormat.format("Se establece el semestre (Antes: {0} | "
                 + "Despues {1})", this.semestre, semestre));
-        this.semestre = semestre;
+        this.semestre = convertirSemestre(semestre);
     }
 
     public void actualizarMaterias() {

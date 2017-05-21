@@ -237,9 +237,12 @@ public class RegistrarMateriaBean implements Serializable {
         Date fecha = new Date();
         int mes = fecha.getMonth();
         LOGGER.debug(MessageFormat.format("Se obtiene el mes", mes));
-        if (mes > 6) {
-            semestre = 2;
-        } else {
+        if (mes==6 | mes==7) {
+            semestre = 3;
+        }
+        else if(mes>7){
+            semestre=2;
+        }else {
             semestre = 1;
         }
         
