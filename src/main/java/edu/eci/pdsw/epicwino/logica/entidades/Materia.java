@@ -1,5 +1,6 @@
 package edu.eci.pdsw.epicwino.logica.entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public class Materia implements Comparable {
     public Materia() {
         nombre = "";
         descripcion = "";
+        gruposDeMateria = new ArrayList<>();
     }
     
     public Materia(int id, String nombre) {

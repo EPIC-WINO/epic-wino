@@ -58,7 +58,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
         boolean r = materia != null;
         r = r && materia.getDescripcion() != null;
-        //r = r && materia.getGruposDeMateria() != null;
+        r = r && materia.getGruposDeMateria() != null;
         r = r && materia.getNombre() != null;
 
         return r;
