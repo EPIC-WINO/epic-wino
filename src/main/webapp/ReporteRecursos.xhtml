@@ -66,16 +66,16 @@
                 
                 <p:dataTable id="reporte" var="recurso" value="#{reporteRecursoBean.recursos}" styleClass="table" >      
                     <p:column headerText="Recurso" styleClass="columnText">
-                        <h:outputText value="#{recurso.nombre}" styleClass="outputText"/>
+                        <h:outputText value="#{recurso.key.nombre}" styleClass="outputText"/>
                     </p:column>
                     <p:column headerText="Descripcion" styleClass="columnText">
-                        <h:outputText value="#{recurso.descripcion}" styleClass="outputText"/>
+                        <h:outputText value="#{recurso.key.descripcion}" styleClass="outputText"/>
                     </p:column>
                     <p:column headerText="Fecha de utilización" styleClass="columnText">
-                        <h:outputText value="#{reporteRecursoBean.fechaUsoRecurso(recurso.id)}" styleClass="outputText"/>
+                        <h:outputText value="#{recurso.value.key}" styleClass="outputText"/>
                     </p:column>
                     <p:column headerText="Hora de uso" styleClass="columnText">
-                        <h:outputText value="#{reporteRecursoBean.horaUsoRecurso(recurso.id)}" styleClass="outputText"/>
+                        <h:outputText value="#{recurso.value.value.key} - #{recurso.value.value.value}" styleClass="outputText"/>
                     </p:column>
                 </p:dataTable>
             </h:form>
