@@ -5,8 +5,8 @@
   
 <mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.AsignaturaMapper">
     <insert  id="saveAsignatura" >
-            insert INTO asignaturas (id,nombre,programa_id)
-            VALUES (#{asignatura.id},#{asignatura.nombre},#{idPrograma} );
+            insert INTO asignaturas (id,nombre)
+            VALUES (#{asignatura.id},#{asignatura.nombre} );
     </insert>
      <insert id="agregarRequisito">
         insert INTO requisitos (asignatura_id,requisito,prerrequisito)
