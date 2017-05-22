@@ -16,9 +16,11 @@ public interface MateriaMapper {
      * @param idPrograma id del programa
      * @param idMateria id de la materia
      * @param numCohorte numero del cohorte
+     * @param periodo del cohorte
      */
-    void agregarCohorte(@Param("programa") int idPrograma, 
-            @Param("materia") int idMateria, @Param("cohorte") int numCohorte);
+    void agregarCohorte(@Param("idPrograma") int idPrograma, 
+            @Param("idMateria") int idMateria, @Param("numCohorte") int numCohorte,
+            @Param("periodo") int periodo);
     
     /**
      * @return lista no nula de enteros

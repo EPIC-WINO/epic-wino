@@ -25,9 +25,10 @@ public interface MateriaDAO {
      * @param idPrograma id del programa
      * @param idMateria id de la materia
      * @param numCohorte numero del cohorte
+     * @param periodo del cohorte
      * @throws PersistenceException falla de persistencia
      */
-    void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws PersistenceException;
+    void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws PersistenceException;
 
     /**
      * consultar todos los cohorte registrados

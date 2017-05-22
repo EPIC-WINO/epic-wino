@@ -553,12 +553,12 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws ExcepcionServiciosProgmsPost {
+    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Registra nuevo cohorte "
                 + "({2}) en el programa ({0}), materia ({1})", idPrograma, idMateria, numCohorte));
 
         try {
-            daoMateria.agregarCohorte(idPrograma, idMateria, numCohorte);
+            daoMateria.agregarCohorte(idPrograma, idMateria, numCohorte, periodo);
         } catch (PersistenceException ex) {
             LOGGER.error(MessageFormat.format("Error agregando el cohorte "
                     + "({2}) en el programa ({0}), materia ({1})", idPrograma, idMateria, numCohorte));

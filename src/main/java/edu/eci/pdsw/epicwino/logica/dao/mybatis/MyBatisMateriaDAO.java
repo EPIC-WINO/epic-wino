@@ -20,8 +20,8 @@ public class MyBatisMateriaDAO implements MateriaDAO{
     MateriaMapper materiaMapper;
     
     @Override
-    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws PersistenceException {
-        materiaMapper.agregarCohorte(idPrograma, idMateria, numCohorte);
+    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws PersistenceException {
+        materiaMapper.agregarCohorte(idPrograma, idMateria, numCohorte, periodo);
     }
 
     @Override

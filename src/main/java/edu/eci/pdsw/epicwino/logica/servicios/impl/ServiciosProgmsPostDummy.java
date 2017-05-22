@@ -348,11 +348,6 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
         Map<Integer, Profesor> profesores = new HashMap<>();
         profesores.put(0, new Profesor(1, "Juan Andrade"));
@@ -421,6 +416,11 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClasesConRecursos(int periodo) throws ExcepcionServiciosProgmsPost {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

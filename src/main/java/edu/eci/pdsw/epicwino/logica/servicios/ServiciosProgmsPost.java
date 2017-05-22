@@ -259,10 +259,11 @@ public interface ServiciosProgmsPost {
      * @param idPrograma id del programa de la materia del nuevo cohorte
      * @param idMateria id de la materia con el nuevo cohorte
      * @param numCohorte numero del cohorte
+     * @param periodo del cohorte
      * @throws ExcepcionServiciosProgmsPost el cohorte ya existe; la materia no
      * existe; el programa no existe
      */
-    void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws ExcepcionServiciosProgmsPost;
+    void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws ExcepcionServiciosProgmsPost;
 
     /**
      * consultar un profesor a partir de su materia y su periodo
