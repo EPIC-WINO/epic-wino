@@ -370,4 +370,12 @@ public interface ServiciosProgmsPost {
      * @throws ExcepcionServiciosProgmsPost no existe el periodo
      */
     List<Clase> consultarClasesConRecursos(int periodo) throws ExcepcionServiciosProgmsPost;
+    
+    /**
+     * consulta las asignaturas presentes en un programa
+     * @param idPrograma id del programa
+     * @return lista no nula de asignaturas pertencientes al programa
+     * @throws ExcepcionServiciosProgmsPost el programa no existe
+     */
+    List<Asignatura> consultarAsignaturasPorPrograma(int idPrograma) throws ExcepcionServiciosProgmsPost;
 }

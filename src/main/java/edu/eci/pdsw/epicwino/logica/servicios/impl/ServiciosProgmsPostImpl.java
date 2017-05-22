@@ -864,4 +864,29 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
         return clasesConRecursos;
     }
+
+    @Override
+    public List<Asignatura> consultarAsignaturasPorPrograma(int idPrograma) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info("Se consultan las asignaturas del programa " + idPrograma);
+        
+        if (!this.programaExiste(idPrograma)) {
+            throw new ExcepcionServiciosProgmsPost("El programa con id: " + idPrograma + " no existe");
+        }
+        
+        List<Programa> programas = this.consultarProgramas();
+        List<Asignatura> asignaturas = null;
+        
+        for (int i = 0; i < programas.size() && asignaturas == null; i++) {
+            if (programas.get(i).getId() == idPrograma) {
+                asignaturas = programas.get(i).getAsignaturas();
+                if (asignaturas == null) {
+                    LOGGER.error("El programa " + idPrograma + " no tiene definidas sus asignaturas (null)");
+                }
+            }
+        }
+        
+        assert asignaturas != null;
+        
+        return asignaturas;
+    }
 }
