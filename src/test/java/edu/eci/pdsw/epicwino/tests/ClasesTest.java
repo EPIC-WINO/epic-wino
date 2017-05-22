@@ -40,6 +40,16 @@ import org.junit.BeforeClass;
  * CF1: intentar agregar una clase a una materia inexistente (1)
  * CF2: intentar agregar la misma clase dos veces a una materia (1)
  * CF3: intentar agregar dos clases que se cruzan en horario a una materia (2)
+ * 
+ * 
+ * Agregar y Consultar Clases que se daran en un periodo academico
+ * 
+ * Clases de Equivalencia
+ * CE1: vincular satisfactoriamente varias clases y consultar que todas se dictan en el mismo periodo (2)
+ * CE2: agregar satisfactoriamente las clases y consultar que solo una se da en el periodo(1)
+ * 
+ * Clases de Frontera
+ * CF1: intentar consultar clases para un periodo que no existe (0)
  */
 public class ClasesTest {
 
@@ -144,6 +154,66 @@ public class ClasesTest {
             thrown = true;
         }
         assertTrue("Se agrega inadecuadamente clases que se cruzan a una materia"
+                + ", cuando esta debe lanzar ExcepcionServiciosProgmsPost",thrown); 
+    }
+    
+    
+    //Registrar y Consultar Clases que se daran en un periodo Academico
+    
+    @Test
+    public void CE1Periodo() throws ExcepcionServiciosProgmsPost{
+        ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
+        Materia m1 = new Materia(55,"Gerencia Financiera");
+
+        sp.registrarMateria(m1,30);
+        
+        Clase cl1 = new Clase(47,java.sql.Date.valueOf("2017-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl2 = new Clase(48,java.sql.Date.valueOf("2017-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
+        
+        sp.agregarClase(55, cl1);
+        sp.agregarClase(55, cl2);
+        
+        Collection<Clase> clasePorPeriodo = sp.consultarClasesDeUnPeriodo(20171);
+        assertEquals("Se consulta inadecuadamente las clases asociadas a un periodo academico"
+                    + "cuando esta se debe mostrar : "
+                    ,2,clasePorPeriodo.size());
+    }
+    
+    @Test
+    public void CE2Periodo() throws ExcepcionServiciosProgmsPost{
+        ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
+        Materia m1 = new Materia(56,"Gerencia Financiera");
+
+        sp.registrarMateria(m1,30);
+        
+        Clase cl1 = new Clase(49,java.sql.Date.valueOf("2018-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl2 = new Clase(50,java.sql.Date.valueOf("2018-08-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
+        
+        sp.agregarClase(56, cl1);
+        sp.agregarClase(56, cl2);
+        
+        Collection<Clase> clasePorPeriodo = sp.consultarClasesDeUnPeriodo(20181);
+        assertEquals("Se consulta inadecuadamente las clase asociadas a un periodo academico"
+                    + "cuando esta se debe mostrar : "
+                    ,1,clasePorPeriodo.size());
+    }
+    
+    @Test
+    public void CF1Periodo(){
+        ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
+        Materia m1 = new Materia(57,"Gerencia Financiera");
+        Clase cl1 = new Clase(51,java.sql.Date.valueOf("2019-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl2 = new Clase(52,java.sql.Date.valueOf("2019-08-08"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
+        boolean thrown = false;
+        try {
+            sp.registrarMateria(m1,30);
+            sp.agregarClase(57, cl1);
+            sp.agregarClase(57, cl2);
+            sp.consultarClasesDeUnPeriodo(20201);
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            thrown = true;
+        }
+        assertTrue("Se consulta inadecuadamente las clases para un periodo que no estan vinculadas"
                 + ", cuando esta debe lanzar ExcepcionServiciosProgmsPost",thrown); 
     }
     
