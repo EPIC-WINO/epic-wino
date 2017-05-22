@@ -20,8 +20,8 @@ public class MyBatisMateriaDAO implements MateriaDAO{
     MateriaMapper materiaMapper;
     
     @Override
-    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws PersistenceException {
-        materiaMapper.agregarCohorte(idPrograma, idMateria, numCohorte);
+    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws PersistenceException {
+        materiaMapper.agregarCohorte(idPrograma, idMateria, numCohorte, periodo);
     }
 
     @Override
@@ -63,6 +63,16 @@ public class MyBatisMateriaDAO implements MateriaDAO{
     @Override
     public void registrarRequisito(int idMateria, int idRequisito, boolean prerrequisito) throws PersistenceException {
         materiaMapper.agregarRequisito(idMateria, idRequisito, prerrequisito ? "TRUE" : "FALSE");
+    }
+
+    @Override
+    public Profesor consultarProfesoresEnPeriodoYMateria(int idMateria, int periodo) throws PersistenceException {
+        return materiaMapper.loadProfesoresEnPeriodoYMateria(idMateria, periodo);
+    }
+
+    @Override
+    public List<Profesor> consultarProfesoresEnPeriodo(int periodo) throws PersistenceException {
+        return materiaMapper.loadProfesoresEnPeriodo(periodo);
     }
     
 }

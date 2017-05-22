@@ -45,7 +45,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     public ReporteProgramacionBean() {
         LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
         
-        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
+        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
     }
     
     @PostConstruct
@@ -91,12 +91,25 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         }
         return periodos;
     }
+    
+    public int convertirSemestre(String sem){
+        int s; 
+        if("1".equals(sem)){
+            s=1;
+        } else if("2".equals(sem)){
+            s=2;
+        } else {
+            s=3;
+        }
+        return s;
+    }
 
-    public Map<Integer, Integer> getSemestres() {
+    public Map<String, String> getSemestres() {
         LOGGER.debug("Se obtienen los semestres");
-        Map<Integer, Integer> m = new HashMap<>();
-        m.put(1, 1);
-        m.put(2, 2);
+        Map<String, String> m = new HashMap<>();
+        m.put("1", "1");
+        m.put("2", "2");
+        m.put("I", "I");
         return m;
     }
     
@@ -105,15 +118,11 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
                 + "semestre: {1})", anio, semestre));
         List<Programa> r = null; 
         Map<String,String> programs  = new HashMap<>();
-        try {
-            r = servProg.consultarProgramas(anio*10 + semestre);
-            LOGGER.debug("Se consultan "+r.size()+" programas -> "+r);
-            for (Programa p:r){
-                String n=p.getNombre();
-                programs.put(n,n);
-            }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error consultando programas", ex);
+        r = servProg.consultarProgramas();
+        LOGGER.debug("Se consultan "+r.size()+" programas -> "+r);
+        for (Programa p:r){
+            String n=p.getNombre();
+            programs.put(n,n);
         }
         
         return programs;
@@ -204,24 +213,35 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     /**
      * @return the semestre
      */
-    public int getSemestre() {
+    public String getSemestre() {
         LOGGER.debug(MessageFormat.format("Se obtiene el semestre ({0})", semestre));
-        return semestre;
+        String s = "";
+        switch(semestre) {
+            case 1:
+                s = "1";
+                break;
+            case 2:
+                s = "2";
+                break;
+            case 3:
+                s = "I";
+        }
+        return s;
     }
 
     /**
      * @param semestre the semestre to set
      */
-    public void setSemestre(int semestre) {
+    public void setSemestre(String semestre) {
         LOGGER.debug(MessageFormat.format("Se establece el semestre (Antes: {0} | "
                 + "Despues {1})", this.semestre, semestre));
-        this.semestre = semestre;
+        this.semestre = convertirSemestre(semestre);
     }  
     
     public void actualizarReporte(){
         materias.clear();
         try {
-            List<Programa> programas = servProg.consultarProgramas((anio*10)+semestre);
+            List<Programa> programas = servProg.consultarProgramas();
             boolean flag = false;
             Programa program = null;
             for (int i = 0; i < programas.size() && !flag; i++) {

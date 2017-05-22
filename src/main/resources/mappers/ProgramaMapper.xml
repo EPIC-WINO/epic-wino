@@ -45,7 +45,8 @@
             
       
         from programas as prog 
-        left join asignaturas as asig on prog.id = asig.programa_id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
@@ -95,7 +96,8 @@
             
       
         from programas as prog 
-        left join asignaturas as asig on prog.id = asig.programa_id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
@@ -143,7 +145,8 @@
             
       
         from programas as prog 
-        left join asignaturas as asig on prog.id = asig.programa_id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
@@ -160,22 +163,21 @@
     
     <!-- loadPeriodos -->
     <select id="loadPeriodos" resultType="java.lang.Integer">
-        select DISTINCT periodo from asignaturas_grupos;
+        select DISTINCT periodo from programas_grupos;
     </select>
     
     <!-- consultarPeriodosPorPrograma -->
     <select id="consultarPeriodosPorPrograma" resultType="java.lang.Integer">
         select DISTINCT periodo
-        from asignaturas as asig
-        left join asignaturas_grupos as asgr on asig.id=asgr.asignaturas_id
-        where asignaturas.programa_id=#{idPrograma};
+        from programas_grupos
+        where programa_id=#{idPrograma};
     </select>
     
     
     <!-- consultarCohorte -->
     <select id="consultarCohorte" resultType="java.lang.Integer">
-        select cohorte from asignaturas_grupos
-        where materia_id=#{idMateria} and periodo=#{periodo} and asignaturas_id=#{idAsignatura};
+        select cohorte from programas_grupos
+        where materia_id=#{idMateria} and periodo=#{periodo} and programa_id=#{idPrograma};
     </select>
     
     <!-- registrarPrograma -->
@@ -224,7 +226,8 @@
             
       
         from programas as prog 
-        left join asignaturas as asig on prog.id = asig.programa_id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id

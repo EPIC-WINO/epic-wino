@@ -1,22 +1,12 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-05-07 03:27:48.832
+-- Last modification date: 2017-05-22 01:05:46.364
 
 -- tables
 -- Table: asignaturas
 CREATE TABLE asignaturas (
     id int  NOT NULL,
     nombre varchar(50)  NOT NULL,
-    programa_id int  NOT NULL,
     CONSTRAINT asignaturas_pk PRIMARY KEY (id)
-);
-
--- Table: asignaturas_grupos
-CREATE TABLE asignaturas_grupos (
-    asignaturas_id int  NOT NULL,
-    materia_id varchar(4)  NOT NULL,
-    periodo int  NOT NULL,
-    cohorte int  NOT NULL,
-    CONSTRAINT asignaturas_grupos_pk PRIMARY KEY (asignaturas_id,materia_id,periodo)
 );
 
 -- Table: clases
@@ -97,6 +87,22 @@ CREATE TABLE programas (
 
 COMMENT ON TABLE programas IS 'La duración se mide en meses ';
 
+-- Table: programas_asignaturas
+CREATE TABLE programas_asignaturas (
+    programa_id int  NOT NULL,
+    asignatura_id int  NOT NULL,
+    CONSTRAINT programas_asignaturas_pk PRIMARY KEY (programa_id,asignatura_id)
+);
+
+-- Table: programas_grupos
+CREATE TABLE programas_grupos (
+    programa_id int  NOT NULL,
+    materia_id varchar(4)  NOT NULL,
+    periodo int  NOT NULL,
+    cohorte int  NOT NULL,
+    CONSTRAINT programas_grupos_pk PRIMARY KEY (programa_id,materia_id,periodo)
+);
+
 -- Table: recursos
 CREATE TABLE recursos (
     id int  NOT NULL,
@@ -116,10 +122,10 @@ CREATE TABLE recursos_concedidos (
 
 -- Table: requisitos
 CREATE TABLE requisitos (
-    materia_id varchar(4)  NOT NULL,
-    requisito varchar(4)  NOT NULL,
+    asignatura_id int  NOT NULL,
+    requisito int  NOT NULL,
     prerrequisito boolean  NOT NULL,
-    CONSTRAINT requisitos_pk PRIMARY KEY (materia_id,requisito)
+    CONSTRAINT requisitos_pk PRIMARY KEY (asignatura_id,requisito)
 );
 
 -- Table: reuniones
@@ -133,20 +139,8 @@ CREATE TABLE reuniones (
 );
 
 -- foreign keys
--- Reference: Asignatura_Programa (table: asignaturas)
-ALTER TABLE asignaturas ADD CONSTRAINT Asignatura_Programa
-    FOREIGN KEY (programa_id)
-    REFERENCES programas (id)  
-;
-
--- Reference: Asignaturas_Grupos_Asignaturas (table: asignaturas_grupos)
-ALTER TABLE asignaturas_grupos ADD CONSTRAINT Asignaturas_Grupos_Asignaturas
-    FOREIGN KEY (asignaturas_id)
-    REFERENCES asignaturas (id)  
-;
-
--- Reference: Asignaturas_Grupos_GrupoDeMateria (table: asignaturas_grupos)
-ALTER TABLE asignaturas_grupos ADD CONSTRAINT Asignaturas_Grupos_GrupoDeMateria
+-- Reference: Asignaturas_Grupos_GrupoDeMateria (table: programas_grupos)
+ALTER TABLE programas_grupos ADD CONSTRAINT Asignaturas_Grupos_GrupoDeMateria
     FOREIGN KEY (materia_id, periodo)
     REFERENCES gruposdematerias (materia_id, periodo)
 ;
@@ -172,56 +166,73 @@ ALTER TABLE reuniones ADD CONSTRAINT Comite_Reunion
 -- Reference: GrupoDeMateria_Materias (table: gruposdematerias)
 ALTER TABLE gruposdematerias ADD CONSTRAINT GrupoDeMateria_Materias
     FOREIGN KEY (materia_id)
-    REFERENCES materias (id)
+    REFERENCES materias (id)  
 ;
 
 -- Reference: GrupoDeMateria_Profesores (table: gruposdematerias)
 ALTER TABLE gruposdematerias ADD CONSTRAINT GrupoDeMateria_Profesores
     FOREIGN KEY (profesor_id)
-    REFERENCES profesores (id)  
+    REFERENCES profesores (id)
 ;
 
 -- Reference: HorarioProfesores_Profesores (table: horario_profesores)
 ALTER TABLE horario_profesores ADD CONSTRAINT HorarioProfesores_Profesores
     FOREIGN KEY (profesor_id)
-    REFERENCES profesores (id)  
-;
-
--- Reference: Materia_Requisito (table: requisitos)
-ALTER TABLE requisitos ADD CONSTRAINT Materia_Requisito
-    FOREIGN KEY (requisito)
-    REFERENCES materias (id)  
+    REFERENCES profesores (id)
 ;
 
 -- Reference: Materias_Asignaturas (table: materias)
 ALTER TABLE materias ADD CONSTRAINT Materias_Asignaturas
     FOREIGN KEY (asignaturas_id)
-    REFERENCES asignaturas (id)  
+    REFERENCES asignaturas (id)
 ;
 
 -- Reference: Profesor_Comite_Comite (table: profesores_comite)
 ALTER TABLE profesores_comite ADD CONSTRAINT Profesor_Comite_Comite
     FOREIGN KEY (comite_id)
-    REFERENCES comites (id)  
+    REFERENCES comites (id)
 ;
 
 -- Reference: Profesor_Comite_Profesor (table: profesores_comite)
 ALTER TABLE profesores_comite ADD CONSTRAINT Profesor_Comite_Profesor
     FOREIGN KEY (profesor_id)
-    REFERENCES profesores (id)  
+    REFERENCES profesores (id)
 ;
 
 -- Reference: RecursoConcedido_Recurso (table: recursos_concedidos)
 ALTER TABLE recursos_concedidos ADD CONSTRAINT RecursoConcedido_Recurso
     FOREIGN KEY (recurso_id)
-    REFERENCES recursos (id)  
+    REFERENCES recursos (id)
 ;
 
--- Reference: Requisito_Materia (table: requisitos)
-ALTER TABLE requisitos ADD CONSTRAINT Requisito_Materia
-    FOREIGN KEY (materia_id)
-    REFERENCES materias (id)  
+-- Reference: Requisito_asignaturas (table: requisitos)
+ALTER TABLE requisitos ADD CONSTRAINT Requisito_asignaturas
+    FOREIGN KEY (asignatura_id)
+    REFERENCES asignaturas (id)
+;
+
+-- Reference: Requisito_asignaturas2 (table: requisitos)
+ALTER TABLE requisitos ADD CONSTRAINT Requisito_asignaturas2
+    FOREIGN KEY (requisito)
+    REFERENCES asignaturas (id)
+;
+
+-- Reference: asignaturas_grupos_programas (table: programas_grupos)
+ALTER TABLE programas_grupos ADD CONSTRAINT asignaturas_grupos_programas
+    FOREIGN KEY (programa_id)
+    REFERENCES programas (id)
+;
+
+-- Reference: programas_asignaturas_asignaturas (table: programas_asignaturas)
+ALTER TABLE programas_asignaturas ADD CONSTRAINT programas_asignaturas_asignaturas
+    FOREIGN KEY (asignatura_id)
+    REFERENCES asignaturas (id)
+;
+
+-- Reference: programas_asignaturas_programas (table: programas_asignaturas)
+ALTER TABLE programas_asignaturas ADD CONSTRAINT programas_asignaturas_programas
+    FOREIGN KEY (programa_id)
+    REFERENCES programas (id)
 ;
 
 -- End of file.
-

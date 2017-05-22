@@ -5,8 +5,16 @@
   
 <mapper namespace="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.AsignaturaMapper">
     <insert  id="saveAsignatura" >
-            insert INTO asignaturas (id,nombre,programa_id)
-            VALUES (#{asignatura.id},#{asignatura.nombre},#{idPrograma} );
+            insert INTO asignaturas (id,nombre)
+            VALUES (#{asignatura.id},#{asignatura.nombre} );
+    </insert>
+     <insert id="agregarRequisito">
+        insert INTO requisitos (asignatura_id,requisito,prerrequisito)
+        VALUES (#{idAsignatura},#{requisito},#{prerrequisito});
+    </insert>
+    <insert id="agregarAsignaturaAPrograma">
+        insert INTO programas_asignaturas (programa_id,asignatura_id)
+        VALUES (#{idPrograma},#{idAsignatura});
     </insert>
     <select parameterType="map" id="consultarAsignaturasPorPeriodoYPrograma" resultMap="AsignaturaResult">
         select 
@@ -40,7 +48,8 @@
             
       
         from programas as prog 
-        left join asignaturas as asig on prog.id = asig.programa_id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on asig.id = mate.asignaturas_id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
@@ -134,7 +143,91 @@
         left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id;
     </select> 
-    
+    <select parameterType="map" id="consultarPrerequisitos" resultMap="AsignaturaResult">
+        select 
+        
+            asig.id as id,
+            asig.nombre as nombre,
+        
+            mate.id as mate_id,
+            mate.nombre as mate_nombre,
+            mate.creditos as mate_creditos,
+            mate.descripcion as mate_descripcion,
+           
+            grup.periodo as mate_grup_periodo,
+        
+            prof.id as mate_grup_prof_id,
+            prof.nombre as mate_grup_prof_nombre,
+            prof.tipo as mate_grup_prof_tipo,
+            prof.correo as mate_grup_prof_correo,
+            prof.telefono as mate_grup_prof_telefono,
+        
+            clas.id as mate_grup_clas_id,
+            clas.fecha as mate_grup_clas_fecha,
+            clas.hora_inicio as mate_grup_clas_horainicio,
+            clas.hora_fin as mate_grup_clas_horafin,
+            
+            rec.id as mate_grup_clas_rec_id,
+            rec.nombre as mate_grup_clas_rec_nombre,
+            rec.descripcion as mate_grup_clas_rec_descripcion,
+            rec.cantidad as mate_grup_clas_rec_cantidad,
+            rec.categoria as mate_grup_clas_rec_categoria
+            
+      
+        
+        from asignaturas as asig
+        left join requisitos on requisitos.asignatura_id=asig.id 
+        left join materias as mate on asig.id = mate.asignaturas_id
+        left join gruposdematerias as grup on mate.id=grup.materia_id
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id;
+        where requisitos.asignatura_id=#{idAsignatura} and requisitos.prerrequisito='true' and asig.id=requisitos.requisito; 
+    </select>
+    <select parameterType="map" id="consultarCorequisitos" resultMap="AsignaturaResult">
+        select 
+        
+            asig.id as id,
+            asig.nombre as nombre,
+        
+            mate.id as mate_id,
+            mate.nombre as mate_nombre,
+            mate.creditos as mate_creditos,
+            mate.descripcion as mate_descripcion,
+           
+            grup.periodo as mate_grup_periodo,
+        
+            prof.id as mate_grup_prof_id,
+            prof.nombre as mate_grup_prof_nombre,
+            prof.tipo as mate_grup_prof_tipo,
+            prof.correo as mate_grup_prof_correo,
+            prof.telefono as mate_grup_prof_telefono,
+        
+            clas.id as mate_grup_clas_id,
+            clas.fecha as mate_grup_clas_fecha,
+            clas.hora_inicio as mate_grup_clas_horainicio,
+            clas.hora_fin as mate_grup_clas_horafin,
+            
+            rec.id as mate_grup_clas_rec_id,
+            rec.nombre as mate_grup_clas_rec_nombre,
+            rec.descripcion as mate_grup_clas_rec_descripcion,
+            rec.cantidad as mate_grup_clas_rec_cantidad,
+            rec.categoria as mate_grup_clas_rec_categoria
+            
+      
+        
+        from asignaturas as asig
+        left join requisitos on requisitos.asignatura_id=asig.id  
+        left join materias as mate on asig.id = mate.asignaturas_id
+        left join gruposdematerias as grup on mate.id=grup.materia_id
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id;
+        where requisitos.asignatura_id=#{idAsignatura} and requisitos.prerrequisito='false' and asig.id=requisitos.requisito; 
+    </select>
+   
     <resultMap type="Asignatura" id="AsignaturaResult">
         <id property="id" column="id"/>
         <result property="nombre" column="nombre"/>

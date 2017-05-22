@@ -25,9 +25,10 @@ public interface MateriaDAO {
      * @param idPrograma id del programa
      * @param idMateria id de la materia
      * @param numCohorte numero del cohorte
+     * @param periodo del cohorte
      * @throws PersistenceException falla de persistencia
      */
-    void agregarCohorte(int idPrograma, int idMateria, int numCohorte) throws PersistenceException;
+    void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws PersistenceException;
 
     /**
      * consultar todos los cohorte registrados
@@ -86,4 +87,21 @@ public interface MateriaDAO {
      * @throws PersistenceException falla en persistencia
      */
     void registrarRequisito(int idMateria, int idRequisito, boolean prerrequisito) throws PersistenceException;
+    
+    /**
+     * consulta un profesor que esta registrado en un periodo en una materia
+     * @param idMateria id de la materia
+     * @param periodo en el que esta presente la materia y profesor
+     * @return profesor
+     * @throws PersistenceException falla en persistencia
+     */
+    Profesor consultarProfesoresEnPeriodoYMateria(int idMateria, int periodo) throws PersistenceException;
+    
+    /**
+     * consulta todos los profesores presentes en un periodo
+     * @param periodo en donde se consultaran los profesores
+     * @return lista no nula de profesores
+     * @throws PersistenceException falla en persistencia
+     */
+    List<Profesor> consultarProfesoresEnPeriodo(int periodo) throws PersistenceException;
 }

@@ -81,6 +81,35 @@
         left join recursos as rec on recc.recurso_id=rec.id
         where recc.clase_id= #{idCl};   
     </select>
+    <select parameterType="map" id="consultarGruposDeMaterias" resultMap="edu.eci.pdsw.epicwino.logica.dao.mybatis.mappers.MateriaMapper.GrupoDeMateriaResult">
+        select 
+            
+           
+            grup.periodo as periodo,
+        
+            prof.id as prof_id,
+            prof.nombre as prof_nombre,
+            prof.tipo as prof_tipo,
+            prof.correo as prof_correo,
+            prof.telefono as prof_telefono,
+        
+            clas.id as clas_id,
+            clas.fecha as clas_fecha,
+            clas.hora_inicio as clas_horainicio,
+            clas.hora_fin as clas_horafin,
+            
+            rec.id as clas_rec_id,
+            rec.nombre as clas_rec_nombre,
+            rec.descripcion as clas_rec_descripcion,
+            rec.cantidad as clas_rec_cantidad,
+            rec.categoria as clas_rec_categoria
+            
+        from gruposdematerias as grup 
+        left join profesores as prof on grup.profesor_id = prof.id
+        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
+        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
+        left join recursos as rec on recursos_concedidos.recurso_id=rec.id;
+    </select>
     
     <insert id="agregarClase" >
             insert INTO clases(id,fecha,hora_inicio,hora_fin,materia_id,periodo)

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.apache.log4j.Logger;
@@ -73,12 +74,25 @@ public class MateriasRegistradasBean implements Serializable {
         }
         return periodos;
     }
+    
+    public int convertirSemestre(String sem){
+        int s; 
+        if("1".equals(sem)){
+            s=1;
+        } else if("2".equals(sem)){
+            s=2;
+        } else {
+            s=3;
+        }
+        return s;
+    }
 
-    public Map<Integer, Integer> getSemestres() {
+    public Map<String, String> getSemestres() {
         LOGGER.debug("Se obtienen los semestres");
-        Map<Integer, Integer> m = new HashMap<>();
-        m.put(1, 1);
-        m.put(2, 2);
+        Map<String, String> m = new HashMap<>();
+        m.put("1", "1");
+        m.put("2", "2");
+        m.put("I", "I");
         return m;
     }
 
@@ -101,10 +115,14 @@ public class MateriasRegistradasBean implements Serializable {
         List<Programa> r = null;
         Map<String, String> programs = new HashMap<>();
 
-        r = servProg.consultarProgramas();
-        for (Programa p : r) {
-            String n = p.getNombre();
-            programs.put(n, n);
+        try {
+            r = servProg.consultarProgramas((anio * 10) + semestre);
+            for (Programa p : r) {
+                String n = p.getNombre();
+                programs.put(n, n);
+            }
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error al consultar los programas", ex);
         }
 
         return programs;
@@ -113,18 +131,24 @@ public class MateriasRegistradasBean implements Serializable {
     public void obtenerIdDePrograma() {
         LOGGER.debug(MessageFormat.format("Se intenta obtener los programas y su id (anio: {0}, "
                 + "semestre: {1})", anio, semestre));
-        List<Programa> r = servProg.consultarProgramas();
-        boolean found = false;
-        for (Programa p : r) {
-            if (p.getNombre().equals(programa) && p.getNivel().equals(nivel)) {
-                LOGGER.debug("Se encuentra el programa ID: " + p.getId());
-                programa_id = p.getId();
-                found = true;
+        List<Programa> r;
+        try {
+            r = servProg.consultarProgramas((anio * 10) + semestre);
+            boolean found = false;
+            for (Programa p : r) {
+                if (p.getNombre().equals(programa) && p.getNivel().equals(nivel)) {
+                    LOGGER.debug("Se encuentra el programa ID: " + p.getId());
+                    programa_id = p.getId();
+                    found = true;
+                }
             }
+            if (!found) {
+                LOGGER.error("No se encontro el programa correspondiente Nombre: " + programa);
+            }
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error al consultar id del programa", ex);
         }
-        if (!found) {
-            LOGGER.error("No se encontro el programa correspondiente Nombre: " + programa);
-        }
+        
     }
 
     public void setPrograma(String prog) {
@@ -167,18 +191,29 @@ public class MateriasRegistradasBean implements Serializable {
     /**
      * @return the semestre
      */
-    public int getSemestre() {
+    public String getSemestre() {
         LOGGER.debug(MessageFormat.format("Se obtiene el semestre ({0})", semestre));
-        return semestre;
+        String s = "";
+        switch(semestre) {
+            case 1:
+                s = "1";
+                break;
+            case 2:
+                s = "2";
+                break;
+            case 3:
+                s = "I";
+        }
+        return s;
     }
 
     /**
      * @param semestre the semestre to set
      */
-    public void setSemestre(int semestre) {
+    public void setSemestre(String semestre) {
         LOGGER.debug(MessageFormat.format("Se establece el semestre (Antes: {0} | "
                 + "Despues {1})", this.semestre, semestre));
-        this.semestre = semestre;
+        this.semestre = convertirSemestre(semestre);
     }
 
     public void actualizarMaterias() {

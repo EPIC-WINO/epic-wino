@@ -42,13 +42,12 @@ public class RegistrarMateriaBean implements Serializable {
     private int semestre = 0;
     private int programa_id;
     private String nivel;
-    private String requisito;
-    private String prerrequisito;
     private int asignatura_id = 0;
     private String nombremateria;
     private String codigo;
     private String descripcion;
     private int periodo;
+
     
     public String getDescripcion() {
         return descripcion;
@@ -142,17 +141,21 @@ public class RegistrarMateriaBean implements Serializable {
                 + "semestre: {1})", anio, semestre));
         List<Programa> r;
         Map<String, String> programs = new HashMap<>();
-        try {
-            r = servProg.consultarProgramas(periodo);
-            for (Programa p : r) {
-                String n = p.getNombre();
-                programs.put(n, n);
-            }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error consultando programas", ex);
+        r = servProg.consultarProgramas();
+        for (Programa p : r) {
+            String n = p.getNombre();
+            programs.put(n, n);
         }
         
         return programs;
+    }
+    
+    public Map<String,String> getTipos(){
+        LOGGER.debug("Se intentan obtener los tipos de requisito");
+        Map<String,String> tipos=new HashMap<>();
+        tipos.put("Correquisito", "Correquisito");
+        tipos.put("Completo", "Completo");
+        return tipos;
     }
     
     public Map<String, String> getNiveles() {
@@ -237,40 +240,15 @@ public class RegistrarMateriaBean implements Serializable {
         Date fecha = new Date();
         int mes = fecha.getMonth();
         LOGGER.debug(MessageFormat.format("Se obtiene el mes", mes));
-        if (mes > 6) {
-            semestre = 2;
-        } else {
+        if (mes==6 | mes==7) {
+            semestre = 3;
+        }
+        else if(mes>7){
+            semestre=2;
+        }else {
             semestre = 1;
         }
         
-    }
-
-    /**
-     * @return the requisito
-     */
-    public String getRequisito() {
-        return requisito;
-    }
-
-    /**
-     * @param requisito the requisito to set
-     */
-    public void setRequisito(String requisito) {
-        this.requisito = requisito;
-    }
-
-    /**
-     * @return the prerrequisito
-     */
-    public String getPrerrequisito() {
-        return prerrequisito;
-    }
-
-    /**
-     * @param prerrequisito the prerrequisito to set
-     */
-    public void setPrerrequisito(String prerrequisito) {
-        this.prerrequisito = prerrequisito;
     }
 
     /**

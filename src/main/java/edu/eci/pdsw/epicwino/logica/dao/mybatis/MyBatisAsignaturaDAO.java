@@ -18,7 +18,8 @@ public class MyBatisAsignaturaDAO implements AsignaturaDAO{
     
     @Override
     public void saveAsignatura(Asignatura asignatura, int idPrograma) throws PersistenceException {
-        asignaturaMapper.saveAsignatura(asignatura, idPrograma);
+        asignaturaMapper.saveAsignatura(asignatura);
+        asignaturaMapper.agregarAsignaturaAPrograma(idPrograma, asignatura.getId());
     }
 
     @Override

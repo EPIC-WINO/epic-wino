@@ -10,8 +10,8 @@
     </insert>
     
     <insert id="agregarCohorte">
-        insert INTO asignaturas_grupos (asignaturas_id,materia_id,periodo,cohorte)
-        VALUES (#{idAsignatura},#{idMateria},#{periodo},#{numCohorte});
+        insert INTO programas_grupos (programa_id,materia_id,periodo,cohorte)
+        VALUES (#{idPrograma},#{idMateria},#{periodo},#{numCohorte});
     </insert>
     
     <insert id="agregarProfesor">
@@ -20,10 +20,7 @@
     </insert>
     
     
-    <insert id="agregarRequisito">
-        insert INTO requisitos (materia_id,requisito,prerrequisito)
-        VALUES (#{idMateria},#{requisito},#{prerrequisito});
-    </insert>
+    
     
     <select parameterType="map" id="consultarMaterias" resultMap="MateriaResult">
         select 
@@ -88,7 +85,8 @@
             rec.categoria as grup_clas_rec_categoria
         
         from  programas
-        left join asignaturas as asig  on asig.programa_id=programas.id
+        left join programas_asignaturas as pras  on prog.id = pras.programa_id
+        left join asignaturas as asig on pras.asignatura_id = asig.id
         left join materias as mate on mate.asignaturas_id=asig.id
         left join gruposdematerias as grup on mate.id=grup.materia_id
         left join profesores as prof on grup.profesor_id = prof.id
@@ -171,82 +169,6 @@
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
         where grup.periodo=#{periodo};
     </select>
-
-
-    <select parameterType="map" id="consultarPrerequisitos" resultMap="MateriaResult">
-        select 
-        
-            mate.id as id,
-            mate.nombre as nombre,
-            mate.creditos as creditos,
-            mate.descripcion as descripcion,
-           
-            grup.periodo as grup_periodo,
-        
-            prof.id as grup_prof_id,
-            prof.nombre as grup_prof_nombre,
-            prof.tipo as grup_prof_tipo,
-            prof.correo as grup_prof_correo,
-            prof.telefono as grup_prof_telefono,
-        
-            clas.id as grup_clas_id,
-            clas.fecha as grup_clas_fecha,
-            clas.hora_inicio as grup_clas_horainicio,
-            clas.hora_fin as grup_clas_horafin,
-            
-            rec.id as grup_clas_rec_id,
-            rec.nombre as grup_clas_rec_nombre,
-            rec.descripcion as grup_clas_rec_descripcion,
-            rec.cantidad as grup_clas_rec_cantidad,
-            rec.categoria as grup_clas_rec_categoria
-        
-        from  materias as mate
-        left join requisitos on mate.id=requisitos.materia_id 
-        left join gruposdematerias as grup on mate.id=grup.materia_id
-        left join profesores as prof on grup.profesor_id = prof.id
-        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
-        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
-        left join recursos as rec on recursos_concedidos.recurso_id=rec.id
-        where requisitos.materia_id=#{idMateria} and requisitos.prerrequisito='true' and mate.id=requisitos.requisito; 
-    </select>
-    <select parameterType="map" id="consultarCorequisitos" resultMap="MateriaResult">
-        select 
-        
-            mate.id as id,
-            mate.nombre as nombre,
-            mate.creditos as creditos,
-            mate.descripcion as descripcion,
-           
-            grup.periodo as grup_periodo,
-        
-            prof.id as grup_prof_id,
-            prof.nombre as grup_prof_nombre,
-            prof.tipo as grup_prof_tipo,
-            prof.correo as grup_prof_correo,
-            prof.telefono as grup_prof_telefono,
-        
-            clas.id as grup_clas_id,
-            clas.fecha as grup_clas_fecha,
-            clas.hora_inicio as grup_clas_horainicio,
-            clas.hora_fin as grup_clas_horafin,
-            
-            rec.id as grup_clas_rec_id,
-            rec.nombre as grup_clas_rec_nombre,
-            rec.descripcion as grup_clas_rec_descripcion,
-            rec.cantidad as grup_clas_rec_cantidad,
-            rec.categoria as grup_clas_rec_categoria
-        
-        from  materias as mate
-        left join requisitos on mate.id=requisitos.materia_id 
-        left join gruposdematerias as grup on mate.id=grup.materia_id
-        left join profesores as prof on grup.profesor_id = prof.id
-        left join clases as clas on (clas.materia_id = grup.materia_id and clas.periodo=grup.periodo)
-        left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
-        left join recursos as rec on recursos_concedidos.recurso_id=rec.id
-        where requisitos.materia_id=#{idMateria} and requisitos.prerrequisito='false' and mate.id=requisitos.requisito; 
-    </select>
-    
-    
     <select parameterType="map" id="loadProfesoresEnPeriodo" resultMap="ProfesorResult">
         select DISTINCT
             prof.id as id,
@@ -258,7 +180,15 @@
         left join profesores as prof on grup.profesor_id = prof.id
         where grup.periodo=#{periodo};
     </select>
-    
+    <select parameterType="map" id="loadProfesores" resultMap="ProfesorResult">
+        select DISTINCT
+            prof.id as id,
+            prof.nombre as nombre,
+            prof.tipo as tipo,
+            prof.correo as correo,
+            prof.telefono as telefono
+        from profesores 
+    </select>
     
     <select parameterType="map" id="loadProfesoresEnPeriodoYMateria" resultMap="ProfesorResult">
         select 
