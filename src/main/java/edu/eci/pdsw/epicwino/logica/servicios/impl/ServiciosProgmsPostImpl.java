@@ -66,6 +66,9 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public void registrarMateria(Materia materia, int idAsignatura) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info(MessageFormat.format("Se intenta registrar un materia "
+                + "(materia: {0}, idAsignatura: {1})", materia, idAsignatura));
+
         if (materia == null) {
             throw new NullPointerException("La materia es null");
         }
@@ -103,12 +106,13 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         }
 
         LOGGER.debug("Los programas consultados son: " + programas);
-        
+
         return programas;
     }
-    
+
     /**
      * un periodo dado es valido
+     *
      * @param periodo a validar
      * @return el periodo es valido
      */
@@ -117,20 +121,22 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         int semestre = periodo % 10;
         return (1970 <= anio && anio <= 9999) && (1 <= semestre && semestre <= 3);
     }
-    
+
     /**
      * una clase dada es valida (tiene todos sus atributos definidos)
+     *
      * @param clase a comprobar
      * @return es valida
      */
     private boolean claseEsValida(Clase clase) {
+        LOGGER.debug("Se verifica si la clase " + clase + " es valida");
         boolean r = clase != null;
-        
+
         r = r && clase.getFecha() != null;
         r = r && clase.getHoraInicio() != null;
         r = r && clase.getHoraFin() != null;
         r = r && clase.getRecursos() != null;
-        
+
         return r;
     }
 
@@ -146,7 +152,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             throw new NullPointerException("La clase es null");
         }
 
-        if (! claseEsValida(clase)) {
+        if (!claseEsValida(clase)) {
             throw new ExcepcionServiciosProgmsPost("Atributo de clase no definido " + clase);
         }
 
@@ -154,19 +160,20 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         LOGGER.debug("El periodo calculado es " + periodo);
 
         try {
-            if (! this.grupoDeMateriaExiste(idMateria, periodo)) {
+            if (!this.grupoDeMateriaExiste(idMateria, periodo)) {
                 throw new ExcepcionServiciosProgmsPost("No existe un grupo de "
                         + "materia que relacione la materia con el periodo Materia: " + idMateria + " Periodo: " + periodo);
             }
-            
+
             daoClase.saveClase(clase, idMateria, periodo);
         } catch (PersistenceException ex) {
             LOGGER.error("Error al guardar la clase", ex);
         }
     }
-    
+
     /**
      * calcular el periodo a partir de una fecha
+     *
      * @param fecha
      * @return entero que representa el periodo
      */
@@ -176,8 +183,8 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
 
-        return year * 10 + (month <= Calendar.MAY ? 1 : 
-                (month >= Calendar.AUGUST ? 2 : 3));
+        return year * 10 + (month <= Calendar.MAY ? 1
+                : (month >= Calendar.AUGUST ? 2 : 3));
     }
 
     @Override
@@ -190,7 +197,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         } catch (PersistenceException ex) {
             LOGGER.error("Error consultando materias", ex);
         }
-        
+
         return p;
     }
 
@@ -246,30 +253,32 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     public int consultarDisponibilidadRecurso(int idRecurso, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Consultado disponibilidad recurso ({0}) en dia {1}, de {2} a {3}", idRecurso, fecha, horaInicio, horaFin));
         int r = 0;
-        
+
         if (fecha == null || horaInicio == null || horaFin == null) {
             throw new NullPointerException("Algun parametro es null");
         }
-        
+
         try {
             r = daoRecurso.consultarDisponibilidadRecurso(idRecurso, fecha, horaInicio, horaFin);
         } catch (PersistenceException ex) {
             LOGGER.error("Error consultando disponibilidad de recurso " + idRecurso, ex);
         }
-        
+
         return r;
     }
 
     @Override
     public List<Profesor> consultarProfesores(int periodo) throws ExcepcionServiciosProgmsPost {
-        if (! this.periodoEsValido(periodo)) {
+        LOGGER.info("Se consultan los profesores en el periodo " + periodo);
+
+        if (!this.periodoEsValido(periodo)) {
             throw new ExcepcionServiciosProgmsPost("El periodo " + periodo + " es invalido");
         }
-        
-        if (! this.periodoExiste(periodo)) {
+
+        if (!this.periodoExiste(periodo)) {
             throw new ExcepcionServiciosProgmsPost("El periodo " + periodo + " no existe");
         }
-        
+
         try {
             return daoMateria.consultarProfesoresEnPeriodo(periodo);
         } catch (PersistenceException ex) {
@@ -280,12 +289,16 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public boolean consultarDisponibilidadProfesor(int idProfesor, Date fecha, Time horaInicio, Time horaFin) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info(MessageFormat.format("Se consulta la disponibilidad "
+                + "de un profesor (idProfesor: {0}, fecha: {1}, horaInicio: {2}"
+                + ", horaFin: {3})", idProfesor, fecha, horaInicio, horaFin));
+
         try {
             return daoMateria.consultarDisponibilidadProfesor(idProfesor, fecha, horaInicio, horaFin);
         } catch (PersistenceException ex) {
             LOGGER.error("Error al consultar disponibilidad de profesor", ex);
         }
-        
+
         return false;
     }
 
@@ -554,18 +567,20 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
-        if (! this.periodoEsValido(periodo)) {
+        LOGGER.info("Se consulta el profesor del periodo " + periodo + " de la materia " + idMateria);
+
+        if (!this.periodoEsValido(periodo)) {
             throw new ExcepcionServiciosProgmsPost("El periodo " + periodo + " es invalido");
         }
-        
-        if (! this.periodoExiste(periodo)) {
+
+        if (!this.periodoExiste(periodo)) {
             throw new ExcepcionServiciosProgmsPost("El periodo " + periodo + " no existe");
         }
-        
-        if (! this.materiaExiste(idMateria)) {
+
+        if (!this.materiaExiste(idMateria)) {
             throw new ExcepcionServiciosProgmsPost("La materia ID: " + idMateria + " no existe");
         }
-        
+
         try {
             return daoMateria.consultarProfesoresEnPeriodoYMateria(idMateria, periodo);
         } catch (PersistenceException ex) {
@@ -694,23 +709,23 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         for (int i = 0; i < p.size() && !found; i++) {
             found = p.get(i).getId() == idAsignatura;
         }
-        
+
         return found;
     }
 
     List<Asignatura> consultarAsignaturas() {
         LOGGER.debug("Consulta todas las asignaturas");
-        
+
         List<Programa> programas = this.consultarProgramas();
-        
+
         Set<Asignatura> asignaturas = new HashSet<>();
         for (Programa programa : programas) {
             asignaturas.addAll(programa.getAsignaturas());
         }
-        
+
         return new ArrayList<>(asignaturas);
     }
-    
+
     private boolean programaExiste(int idPrograma) {
         LOGGER.debug("Se consulta si el programa " + idPrograma + " existe");
 
@@ -719,21 +734,21 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         for (int i = 0; i < p.size() && !found; i++) {
             found = p.get(i).getId() == idPrograma;
         }
-        
+
         return found;
     }
-    
+
     @Override
     public List<Programa> consultarProgramas() {
-        LOGGER.debug("Consulta todas los programas");
-        
+        LOGGER.info("Consulta todas los programas");
+
         List<Programa> p = null;
         try {
             p = daoPrograma.consultarProgramas();
         } catch (PersistenceException ex) {
             LOGGER.error("Error consultando programas", ex);
         }
-        
+
         return p == null ? new ArrayList<Programa>() : p;
     }
 
@@ -741,12 +756,12 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         LOGGER.debug("Se consulta si el periodo " + periodo + " existe");
         return this.consultarPeriodos().contains(periodo);
     }
-    
+
     private boolean grupoDeMateriaExiste(int idMateria, int periodo) {
         LOGGER.debug(MessageFormat.format("Se consulta si el grupo de Materia "
                 + "(idMateria: {0}, periodo: {1})", idMateria, periodo));
         boolean f = false;
-        
+
         List<Materia> materias;
         try {
             materias = this.consultarMaterias(periodo);
@@ -754,7 +769,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             LOGGER.error("Error consultando las materias en el periodo " + periodo, ex);
             return false;
         }
-        
+
         for (int i = 0; i < materias.size() && !f; i++) {
             if (materias.get(i).getId() == idMateria) {
                 List<GrupoDeMateria> grupos = materias.get(i).getGruposDeMateria();
@@ -765,7 +780,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
                 }
             }
         }
-        
+
         return f;
     }
 
@@ -794,19 +809,21 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClasesDeUnPeriodo(int periodo) throws ExcepcionServiciosProgmsPost {
-        if (! this.periodoExiste(periodo)) {
+        LOGGER.info("Se consultan las clases del periodo " + periodo);
+
+        if (!this.periodoExiste(periodo)) {
             throw new ExcepcionServiciosProgmsPost("Error al consultar las "
                     + "clases, el periodo " + periodo + " no existe");
         }
-        
+
         List<Clase> clases = new ArrayList<>();
-        
+
         try {
             clases = daoClase.consultarClasesDeUnPeriodo(periodo);
         } catch (PersistenceException ex) {
             LOGGER.error("Error en persistencia al consultar la clases del periodo " + periodo, ex);
         }
-        
+
         return clases;
     }
 
@@ -822,6 +839,9 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public void registrarRequisito(int idMateria, int idPrerequisito, boolean prerrequisito) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info(MessageFormat.format("Se intenta registrar un nuevo "
+                + "requisito (idMateria: {0}, idPrerequisito: {1}, "
+                + "Completo: {2})", idMateria, idPrerequisito, prerrequisito));
         try {
             daoMateria.registrarRequisito(idMateria, idPrerequisito, prerrequisito);
         } catch (PersistenceException ex) {
@@ -831,15 +851,17 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
     @Override
     public List<Clase> consultarClasesConRecursos(int periodo) throws ExcepcionServiciosProgmsPost {
+        LOGGER.info("Se consultarn las clases con recursos del periodo " + periodo);
+
         List<Clase> clases = this.consultarClasesDeUnPeriodo(periodo);
         List<Clase> clasesConRecursos = new ArrayList<>();
-        
+
         for (Clase clase : clases) {
-            if (! clase.getRecursos().isEmpty()) {
+            if (!clase.getRecursos().isEmpty()) {
                 clasesConRecursos.add(clase);
             }
         }
-        
+
         return clasesConRecursos;
     }
 }
