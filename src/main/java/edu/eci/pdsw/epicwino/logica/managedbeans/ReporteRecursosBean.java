@@ -30,7 +30,7 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     private static final Logger LOGGER = Logger.getLogger(ReporteProgramacionBean.class);
     private static final long serialVersionUID = 1L;
     
-    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
+    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
     
     private int anio = 0;
     private int semestre = 0;
@@ -61,11 +61,24 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
         return periodos;
     }
     
-    public Map<Integer, Integer> getSemestres() {
+    public int convertirSemestre(String sem){
+        int s; 
+        if("1".equals(sem)){
+            s=1;
+        } else if("2".equals(sem)){
+            s=2;
+        } else {
+            s=3;
+        }
+        return s;
+    }
+    
+    public Map<String, String> getSemestres() {
         LOGGER.debug("Se obtienen los semestres");
-        Map<Integer, Integer> m = new HashMap<>();
-        m.put(1, 1);
-        m.put(2, 2);
+        Map<String, String> m = new HashMap<>();
+        m.put("1", "1");
+        m.put("2", "2");
+        m.put("I", "I");
         return m;
     }
     
@@ -88,18 +101,29 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     /**
      * @return the semestre
      */
-    public int getSemestre() {
+    public String getSemestre() {
         LOGGER.debug(MessageFormat.format("Se obtiene el semestre ({0})", semestre));
-        return semestre;
+        String s = "";
+        switch(semestre) {
+            case 1:
+                s = "1";
+                break;
+            case 2:
+                s = "2";
+                break;
+            case 3:
+                s = "I";
+        }
+        return s;
     }
 
     /**
      * @param semestre the semestre to set
      */
-    public void setSemestre(int semestre) {
+    public void setSemestre(String semestre) {
         LOGGER.debug(MessageFormat.format("Se establece el semestre (Antes: {0} "
                 + "| Despues: {1})", this.semestre, semestre));
-        this.semestre = semestre;
+        this.semestre = convertirSemestre(semestre);
     }
     
     public void actualizarReporte() {
