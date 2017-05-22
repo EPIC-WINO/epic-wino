@@ -44,12 +44,6 @@
             </div>
             <div class="content">
                 <h1>Registrar Materia</h1>
-                <p:outputLabel for="periodos" value="Periodo" styleClass="label"/>
-                <p:selectOneMenu id="periodos" value="#{registrarMateriaBean.periodo}" styleClass="scroll" >
-                    <f:selectItem itemLabel="Periodos" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{registrarMateriaBean.periodos}" />
-                    <p:ajax update=":general:programa"/>
-                </p:selectOneMenu>
                 
                 <p:outputLabel for="programa" value="Programa" styleClass="label"/>
                 <p:selectOneMenu id="programa" value="#{registrarMateriaBean.programa}" styleClass="scroll">
@@ -65,60 +59,43 @@
                 </p:selectOneMenu>
                 
                 <p:commandButton  value="Crear nueva asignatura"  styleClass="button"/>
+                
                 <div>
                     <p></p>
                 </div>
+                
                 <p:outputLabel for="asignatura" value="Asignatura" styleClass="label"/>
                 <p:selectOneMenu id="asignatura" value="#{registrarMateriaBean.asignatura}" styleClass="scroll" immediate="true">
                     <f:selectItem itemLabel="Asignatura" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{registrarMateriaBean.asignaturas}" />
-                    <p:ajax update=":general:prerequisito"/>
                 </p:selectOneMenu>
-                <div>
-                    <p></p>
-                </div>
-                <p:outputLabel for="prerequisito" value="Pre-requisito" styleClass="label"/>
-                <p:selectOneMenu id="prerequisito" value="#{registrarMateriaBean.prerrequisito}" styleClass="scroll">
-                    <f:selectItem itemLabel="Pre-requisito" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{registrarMateriaBean.prerequisitos}" />
-                </p:selectOneMenu>
-
+                
                 <div>
                     <p></p>
                 </div>
                 
-                <p:selectOneButton value="#{registrarMateriaBean.requisito}">
-                    <f:selectItem itemLabel="Correquisito" itemValue="correquisito" />
-                    <f:selectItem itemLabel="Requisito Completo" itemValue="prerrequisito" />
-                </p:selectOneButton>
-                
-                <p></p>
-                
-                <!-- <p:selectOneButton value="" styleClass="button">
-                    <f:selectItem itemLabel="Co-requisito" itemValue="Co-requisito" />
-                    <f:selectItem itemLabel="Requisito Completo" itemValue="Requisito Completo" />
-                </p:selectOneButton> -->
-                <div>
-                    <p></p>
-                </div>
                 <p:outputLabel value="Nombre Materia" styleClass="label"/>
                 <div>
                     <p></p>
                 </div>
                 <p:outputLabel value="" styleClass="label"/>
                 <p:inputText id="nombremateria" value="#{registrarMateriaBean.nombremateria}"></p:inputText>
+                
                 <div>
                     <p></p>
                 </div>
+                
                 <p:outputLabel value="Codigo Mnemónico" styleClass="label"/>
                 <div>
                     <p></p>
                 </div>
                 <p:outputLabel value="" styleClass="label"/>
                 <p:inputText id="codigo" value="#{registrarMateriaBean.codigo}"></p:inputText>
+                
                 <div>
                     <p></p>
                 </div>
+                
                 <p:outputLabel value="Descripción" styleClass="label"/>
                 <div>
                     <p></p>
