@@ -45,7 +45,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     public ReporteProgramacionBean() {
         LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
         
-        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
+        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
     }
     
     @PostConstruct
@@ -118,15 +118,11 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
                 + "semestre: {1})", anio, semestre));
         List<Programa> r = null; 
         Map<String,String> programs  = new HashMap<>();
-        try {
-            r = servProg.consultarProgramas(anio*10 + semestre);
-            LOGGER.debug("Se consultan "+r.size()+" programas -> "+r);
-            for (Programa p:r){
-                String n=p.getNombre();
-                programs.put(n,n);
-            }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error consultando programas", ex);
+        r = servProg.consultarProgramas();
+        LOGGER.debug("Se consultan "+r.size()+" programas -> "+r);
+        for (Programa p:r){
+            String n=p.getNombre();
+            programs.put(n,n);
         }
         
         return programs;
@@ -245,7 +241,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     public void actualizarReporte(){
         materias.clear();
         try {
-            List<Programa> programas = servProg.consultarProgramas((anio*10)+semestre);
+            List<Programa> programas = servProg.consultarProgramas();
             boolean flag = false;
             Programa program = null;
             for (int i = 0; i < programas.size() && !flag; i++) {

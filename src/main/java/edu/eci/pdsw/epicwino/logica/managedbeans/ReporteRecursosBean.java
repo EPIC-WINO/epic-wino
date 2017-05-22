@@ -30,7 +30,7 @@ public class ReporteRecursosBean implements Serializable { // FIXME logica cambi
     private static final Logger LOGGER = Logger.getLogger(ReporteProgramacionBean.class);
     private static final long serialVersionUID = 1L;
     
-    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
+    private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
     
     private int anio = 0;
     private int semestre = 0;
