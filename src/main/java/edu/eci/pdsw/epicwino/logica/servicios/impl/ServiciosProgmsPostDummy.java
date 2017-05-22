@@ -34,6 +34,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     private List<Clase> clases5;
     private List<Clase> clases6;
     private List<Asignatura> asignaturas;
+    private List<Materia> materias;
     
     public ServiciosProgmsPostDummy() {
         programas = new ArrayList<>();
@@ -45,6 +46,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         clases5 = new ArrayList<>();
         clases6 = new ArrayList<>();
         asignaturas = new ArrayList<>();
+        materias = new ArrayList<>();
         poblar();
     }
     
@@ -72,6 +74,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         materias11.add(m);
         
         a.setMaterias(materias11);
+        materias.addAll(materias11);
         asignaturas.add(a);
         
         a=new Asignatura(1,"Teorias gerenciales");
@@ -84,6 +87,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         materias12.add(m);
         
         a.setMaterias(materias12);
+        materias.addAll(materias12);
         asignaturas.add(a);
         
         p1.setAsignaturas(asignaturas);
@@ -98,6 +102,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         materias21.add(m);
         
         a.setMaterias(materias21);
+        materias.addAll(materias21);
         asignaturas2.add(a);
         
         a=new Asignatura(3,"Organizacion gerencial");
@@ -111,6 +116,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         materias22.add(m);
         
         a.setMaterias(materias22);
+        materias.addAll(materias22);
         asignaturas2.add(a);
        
         p2.setAsignaturas(asignaturas2);
@@ -205,7 +211,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Materia> consultarMaterias(int periodo) throws ExcepcionServiciosProgmsPost {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return materias;
     }
 
     @Override
