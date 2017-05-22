@@ -29,7 +29,6 @@ public class MateriasRegistradasBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
-    ;
     
     private String programa = "";
     private int anio = 0;
