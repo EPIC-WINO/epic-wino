@@ -10,8 +10,8 @@
     </insert>
     
     <insert id="agregarCohorte">
-        insert INTO asignaturas_grupos (asignaturas_id,materia_id,periodo,cohorte)
-        VALUES (#{idAsignatura},#{idMateria},#{periodo},#{numCohorte});
+        insert INTO programas_grupos (programa_id,materia_id,periodo,cohorte)
+        VALUES (#{idPrograma},#{idMateria},#{periodo},#{numCohorte});
     </insert>
     
     <insert id="agregarProfesor">
