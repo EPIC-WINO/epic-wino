@@ -12,6 +12,10 @@
         insert INTO requisitos (asignatura_id,requisito,prerrequisito)
         VALUES (#{idAsignatura},#{requisito},#{prerrequisito});
     </insert>
+    <insert id="agregarAsignaturaAPrograma">
+        insert INTO programas_asignaturas (programa_id,asignatura_id)
+        VALUES (#{idPrograma},#{idAsignatura});
+    </insert>
     <select parameterType="map" id="consultarAsignaturasPorPeriodoYPrograma" resultMap="AsignaturaResult">
         select 
         
