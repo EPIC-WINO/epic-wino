@@ -75,10 +75,10 @@ public class MateriasTest {
     @BeforeClass
     public static void setUp() throws ExcepcionServiciosProgmsPost {
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Especializacion");
+        Programa prg1 = new Programa(30,"Gerencia de Proyectos", "Especializacion");
         Asignatura as1 = new Asignatura(30,"Ejecucion");
         sp.registrarPrograma(prg1);
-        sp.registrarAsignatura(as1, 20);
+        sp.registrarAsignatura(as1, 30);
     }
     
     //Registrar y consultar materias nuevas
@@ -87,32 +87,33 @@ public class MateriasTest {
     public void CE1() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Materia m1 = new Materia(50,"Gerencia Financiera");
-        Materia m2 = new Materia(51,"Analisis de Riesgos");
-
+        Materia m1 = new Materia(40,"Gerencia Financiera");
+        Materia m2 = new Materia(41,"Analisis de Riesgos");
+        
+        Collection<Materia> matPorPeriodoBef = sp.consultarMaterias();
         sp.registrarMateria(m1,30);sp.registrarMateria(m2,30);
         
-        Collection<Materia> matPorPeriodo = sp.consultarMaterias();
+        Collection<Materia> matPorPeriodoAft = sp.consultarMaterias();
         assertEquals("Se registra o consulta inadecuadamente las materias creadas"
                     + "cuando esta se debe mostrar las dos materias : "
-                    ,2,matPorPeriodo.size());
+                    ,2,matPorPeriodoAft.size()-matPorPeriodoBef.size());
     }
     
     @Test
     public void CE2() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Materia m1 = new Materia(52,"Gerencia Financiera");
+        Materia m1 = new Materia(42,"Gerencia Financiera");
         
         List<GrupoDeMateria> gruposMateria = new ArrayList<>();
         GrupoDeMateria grupo1 = new GrupoDeMateria();
-        grupo1.setPeriodo(20171);gruposMateria.add(grupo1);
+        grupo1.setPeriodo(20041);gruposMateria.add(grupo1);
         m1.setGruposDeMateria(gruposMateria);
 
         sp.registrarMateria(m1,30);
-        Collection<Materia> matPorPeriodo = sp.consultarMaterias(20171);
+        Collection<Materia> matPorPeriodo = sp.consultarMaterias(20041);
         
-        assertEquals("Se registra o consulta inadecuadamente la materia para el periodo 2017-1"
+        assertEquals("Se registra o consulta inadecuadamente la materia para el periodo 2004-1"
                     + "cuando esta se debe mostrar la materia : "
                     ,1,matPorPeriodo.size());
     }
@@ -121,17 +122,17 @@ public class MateriasTest {
     public void CE3() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Materia m1 = new Materia(53,"Gerencia Financiera");
+        Materia m1 = new Materia(43,"Gerencia Financiera");
         
         List<GrupoDeMateria> gruposMateria = new ArrayList<>();
         GrupoDeMateria grupo1 = new GrupoDeMateria();
-        grupo1.setPeriodo(20172);gruposMateria.add(grupo1);
+        grupo1.setPeriodo(20042);gruposMateria.add(grupo1);
         m1.setGruposDeMateria(gruposMateria);
         
         sp.registrarMateria(m1,30);
-        Collection<Materia> matPorPeriodo = sp.consultarMaterias(20172,40);
+        Collection<Materia> matPorPeriodo = sp.consultarMaterias(20042,30);
         
-        assertEquals("Se registra o consulta inadecuadamente la materia para el periodo 2017-1 asignada a una Asignatura"
+        assertEquals("Se registra o consulta inadecuadamente la materia para el periodo 2004-2 asignada a una Asignatura"
                     + "cuando esta se debe mostrar la materia : "
                     ,1,matPorPeriodo.size());
     }
@@ -140,7 +141,7 @@ public class MateriasTest {
     public void CF1(){
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Materia m1 = new Materia(54,"Gerencia Financiera");
+        Materia m1 = new Materia(44,"Gerencia Financiera");
         
         boolean thrown = false;
         try{
@@ -190,29 +191,4 @@ public class MateriasTest {
     @Test
     public void CF3Cohorte(){}
     */
-    @AfterClass
-    public static void tearDown() {
-        JdbcDataSource ds= new JdbcDataSource();
-        ds.setURL("jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL");
-        ds.setUser("anonymous");
-        ds.setPassword("");
-        try {
-            Connection conn = ds.getConnection();
-            Statement s = conn.createStatement();
-            s.execute("SET REFERENTIAL_INTEGRITY FALSE");
-            Set<String> tables = new HashSet<String>();
-            ResultSet rs = s.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='PUBLIC'");
-            while (rs.next()) {
-                tables.add(rs.getString(1));
-            }
-            rs.close();
-            for (String table : tables){
-                s.executeUpdate("TRUNCATE TABLE " + table);
-            }
-            s.execute("SET REFERENTIAL_INTEGRITY TRUE");
-            s.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
 }

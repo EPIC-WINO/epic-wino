@@ -74,10 +74,10 @@ public class RecursosTest {
     @BeforeClass
     public static void setUp() throws ExcepcionServiciosProgmsPost {
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Especializacion");
-        Asignatura as1 = new Asignatura(30,"Ejecucion");
+        Programa prg1 = new Programa(70,"Gerencia de Proyectos", "Especializacion");
+        Asignatura as1 = new Asignatura(70,"Ejecucion");
         sp.registrarPrograma(prg1);
-        sp.registrarAsignatura(as1, 20);
+        sp.registrarAsignatura(as1, 70);
     }
     
     //Registrar y Consultar Categoria Recursos
@@ -86,34 +86,36 @@ public class RecursosTest {
     public void CE1() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Recurso rc1 = new Recurso(50, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
-        Recurso rc2 = new Recurso(51, "Distanciometro", "Calcula la distancia hasta un punto al que se apunte",13, "InstrumentosMedicion");
+        Recurso rc1 = new Recurso(1, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
+        Recurso rc2 = new Recurso(2, "Distanciometro", "Calcula la distancia hasta un punto al que se apunte",13, "InstrumentosMedicion");
+        Collection<String> categoriasBef = sp.consultarCategoriasRecursos();
         sp.registrarRecurso(rc1);sp.registrarRecurso(rc2);
-        Collection<String> categorias = sp.consultarCategoriasRecursos();
+        Collection<String> categoriasAft = sp.consultarCategoriasRecursos();
         assertEquals("Se registra o consulta inadecuadamente las categorias de los recursos registrados"
                     + "cuando esta deberia mostrar : "
-                    ,2,categorias.size());
+                    ,categoriasBef.size()!=categoriasAft.size());
     }
     
     @Test
     public void CE2() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Recurso rc1 = new Recurso(52, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
-        Recurso rc2 = new Recurso(53, "Equipo Teleconferencia", "Permite el intercambio de informacion entre maquinas",9, "EquiposComputo");
-        Recurso rc3 = new Recurso(54, "Distanciometro", "Calcula la distancia hasta un punto al que se apunte",13, "InstrumentosMedicion");
+        Recurso rc1 = new Recurso(3, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
+        Recurso rc2 = new Recurso(4, "Equipo Teleconferencia", "Permite el intercambio de informacion entre maquinas",9, "EquiposComputo");
+        Recurso rc3 = new Recurso(5, "Distanciometro", "Calcula la distancia hasta un punto al que se apunte",13, "InstrumentosMedicion");
+        Collection<String> categoriasBef = sp.consultarCategoriasRecursos();
         sp.registrarRecurso(rc1);sp.registrarRecurso(rc2);sp.registrarRecurso(rc3);
-        Collection<String> categorias = sp.consultarCategoriasRecursos();
+        Collection<String> categoriasAft = sp.consultarCategoriasRecursos();
         assertEquals("Se registra o consulta inadecuadamente las categorias de los recursos registrados"
                     + "cuando esta deberia mostrar : "
-                    ,2,categorias.size());
+                    ,categoriasBef.size()!=categoriasAft.size());
     }
     
     @Test
     public void CF1() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Recurso rc1 = new Recurso(55, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
+        Recurso rc1 = new Recurso(6, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
         boolean thrown = false;
         try{
             sp.registrarRecurso(rc1);
@@ -132,25 +134,25 @@ public class RecursosTest {
     public void CE1Disponibilidad() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Recurso rc1 = new Recurso(56, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
-        Recurso rc2 = new Recurso(57, "Distanciometro", "Calcula la distancia hasta un punto al que se apunte",13, "InstrumentosMedicion");
+        Recurso rc1 = new Recurso(7, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputoApple");
+        Recurso rc2 = new Recurso(8, "Distanciometro", "Calcula la distancia hasta un punto al que se apunte",13, "InstrumentosMedicion");
         sp.registrarRecurso(rc1);sp.registrarRecurso(rc2);
         
-        Iterator<Recurso> recursosDisp = sp.consultarRecursos("EquiposComputo", java.sql.Date.valueOf("2011-04-08"), java.sql.Time.valueOf("07:00:00"), java.sql.Time.valueOf("10:00:00")).iterator();
+        Iterator<Recurso> recursosDisp = sp.consultarRecursos("EquiposComputoApple", java.sql.Date.valueOf("2011-04-08"), java.sql.Time.valueOf("07:00:00"), java.sql.Time.valueOf("10:00:00")).iterator();
         assertEquals("Se registra o consulta inadecuadamente la disponibilidad de recursos para una fecha de la Categoria "
                     + "EquiposComputo, cuando esta deberia mostrar el recurso : "
                     ,"Computadores Portatiles",recursosDisp.next().getNombre());
         assertEquals("Se registra o consulta inadecuadamente la disponibilidad del recurso Distanciometro para una fecha"
                     + "cuando esta deberia mostrar el recurso : "
-                    ,true,sp.consultarDisponibilidadRecurso(57, java.sql.Date.valueOf("2011-04-08"), java.sql.Time.valueOf("07:00:00"), java.sql.Time.valueOf("10:00:00")));
+                    ,true,sp.consultarDisponibilidadRecurso(7, java.sql.Date.valueOf("2011-04-08"), java.sql.Time.valueOf("07:00:00"), java.sql.Time.valueOf("10:00:00")));
     }
     
     @Test
     public void CE2Disponibilidad() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Recurso rc1 = new Recurso(58, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
-        Recurso rc2 = new Recurso(59, "Distanciometro", "Calcula la distancia hasta un punto al que se apunte",13, "InstrumentosMedicion");
+        Recurso rc1 = new Recurso(9, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
+        Recurso rc2 = new Recurso(10, "Distanciometro", "Calcula la distancia hasta un punto al que se apunte",13, "InstrumentosMedicion");
         sp.registrarRecurso(rc1);sp.registrarRecurso(rc2);
         
         Collection<Recurso> recursosDisp = sp.consultarRecursos("Control", java.sql.Date.valueOf("2010-04-08"), java.sql.Time.valueOf("07:00:00"), java.sql.Time.valueOf("10:00:00"));
@@ -165,7 +167,7 @@ public class RecursosTest {
 
         boolean thrown = false;
         try{
-            sp.consultarDisponibilidadRecurso(100, java.sql.Date.valueOf("2009-04-08"), java.sql.Time.valueOf("07:00:00"), java.sql.Time.valueOf("10:00:00"));
+            sp.consultarDisponibilidadRecurso(500, java.sql.Date.valueOf("2009-04-08"), java.sql.Time.valueOf("07:00:00"), java.sql.Time.valueOf("10:00:00"));
         } catch(ExcepcionServiciosProgmsPost e) {
             thrown = true;
         }
@@ -180,22 +182,22 @@ public class RecursosTest {
     public void CE1Prestamo() throws ExcepcionServiciosProgmsPost {
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Recurso rc1 = new Recurso(60, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
-        Recurso rc2 = new Recurso(61, "Equipo Teleconferencia", "Permite el intercambio de informacion entre maquinas",9, "EquiposComputo");
+        Recurso rc1 = new Recurso(11, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
+        Recurso rc2 = new Recurso(12, "Equipo Teleconferencia", "Permite el intercambio de informacion entre maquinas",9, "EquiposComputo");
         sp.registrarRecurso(rc1);sp.registrarRecurso(rc2);
         
-        Clase cl = new Clase(40,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
-        Materia m1 = new Materia(50,"Gerencia Financiera");
+        Clase cl = new Clase(60,java.sql.Date.valueOf("2020-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Materia m1 = new Materia(120,"Gerencia Financiera");
 
-        sp.registrarMateria(m1,30);
-        sp.agregarClase(50, cl);
+        sp.registrarMateria(m1,70);
+        sp.agregarClase(120, cl);
         
-        sp.registrarPrestamoRecursoClase(60, cl);
-        sp.registrarPrestamoRecursoClase(61, cl);
-        Collection<Recurso> rccs = sp.consultarRecursosProgramados(20152);
+        sp.registrarPrestamoRecursoClase(11, cl);
+        sp.registrarPrestamoRecursoClase(12, cl);
+        Collection<Recurso> rccs = sp.consultarRecursosProgramados(20202);
         assertEquals("Se consulta inadecuadamente la disponibilidad de un recurso"
                     + "cuando este ya esta prestado en ese horario."
-                    ,false,sp.consultarDisponibilidadRecurso(60, java.sql.Date.valueOf("2015-04-08"), java.sql.Time.valueOf("07:00:00"), java.sql.Time.valueOf("10:00:00")));
+                    ,false,sp.consultarDisponibilidadRecurso(11, java.sql.Date.valueOf("2020-04-08"), java.sql.Time.valueOf("07:00:00"), java.sql.Time.valueOf("10:00:00")));
         assertEquals("Se conceden o consulta inadecuadamente los recursos a la clase"
                     + "cuando esta no se da en la fecha indicada."
                     ,0,rccs.size());
@@ -204,21 +206,21 @@ public class RecursosTest {
     public void CE2Prestamo() throws ExcepcionServiciosProgmsPost {
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Recurso rc1 = new Recurso(62, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
-        Recurso rc2 = new Recurso(63, "Equipo Teleconferencia", "Permite el intercambio de informacion entre maquinas",9, "EquiposComputo");
+        Recurso rc1 = new Recurso(13, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
+        Recurso rc2 = new Recurso(14, "Equipo Teleconferencia", "Permite el intercambio de informacion entre maquinas",9, "EquiposComputo");
         sp.registrarRecurso(rc1);sp.registrarRecurso(rc2);
         
-        Clase cl = new Clase(41,java.sql.Date.valueOf("2017-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
-        Materia m1 = new Materia(51,"Gerencia Financiera");
-        sp.registrarMateria(m1,30);
-        sp.agregarClase(51, cl);
+        Clase cl = new Clase(61,java.sql.Date.valueOf("2021-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Materia m1 = new Materia(121,"Gerencia Financiera");
+        sp.registrarMateria(m1,70);
+        sp.agregarClase(121, cl);
         
-        sp.registrarPrestamoRecursoClase(62, cl);
-        sp.registrarPrestamoRecursoClase(63, cl);
-        Collection<Recurso> rccs = sp.consultarRecursosProgramados(20171);
+        sp.registrarPrestamoRecursoClase(13, cl);
+        sp.registrarPrestamoRecursoClase(14, cl);
+        Collection<Recurso> rccs = sp.consultarRecursosProgramados(20211);
         assertEquals("Se consulta inadecuadamente la disponibilidad de un recurso"
                     + "cuando este ya esta disponible en ese horario."
-                    ,true,sp.consultarDisponibilidadRecurso(62, java.sql.Date.valueOf("2017-04-08"), java.sql.Time.valueOf("11:00:00"), java.sql.Time.valueOf("11:30:00")));
+                    ,true,sp.consultarDisponibilidadRecurso(13, java.sql.Date.valueOf("2021-04-08"), java.sql.Time.valueOf("11:00:00"), java.sql.Time.valueOf("11:30:00")));
         assertEquals("Se conceden o consulta inadecuadamente los recursos a la clase"
                     + "cuando esta se debe dar en la fecha indicada."
                     ,2,rccs.size());
@@ -227,18 +229,18 @@ public class RecursosTest {
     public void CF1Prestamo() throws ExcepcionServiciosProgmsPost {
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Recurso rc1 = new Recurso(64, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
+        Recurso rc1 = new Recurso(15, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
         sp.registrarRecurso(rc1);
         
-        Clase cl1 = new Clase(42,java.sql.Date.valueOf("2016-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
-        Clase cl2 = new Clase(43,java.sql.Date.valueOf("2016-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
-        Materia m1 = new Materia(52,"Gerencia Financiera");
-        sp.registrarMateria(m1,30);
-        sp.agregarClase(52, cl1);sp.agregarClase(52, cl2);
+        Clase cl1 = new Clase(62,java.sql.Date.valueOf("2022-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl2 = new Clase(63,java.sql.Date.valueOf("2022-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
+        Materia m1 = new Materia(122,"Gerencia Financiera");
+        sp.registrarMateria(m1,70);
+        sp.agregarClase(122, cl1);sp.agregarClase(122, cl2);
         
-        sp.registrarPrestamoRecursoClase(64, cl1);
-        sp.registrarPrestamoRecursoClase(64, cl2);
-        Iterator<Recurso> rccs = sp.consultarRecursosProgramados(20161).iterator();
+        sp.registrarPrestamoRecursoClase(15, cl1);
+        sp.registrarPrestamoRecursoClase(15, cl2);
+        Iterator<Recurso> rccs = sp.consultarRecursosProgramados(20221).iterator();
         
         assertEquals("Se conceden o consulta inadecuadamente los recursos a las clases"
                     + "cuando esta se debe dar el mismo recurso igual al numero de clases (2)."
@@ -248,48 +250,22 @@ public class RecursosTest {
     public void CF2Prestamo() {
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Recurso rc1 = new Recurso(65, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
-        Clase cl1 = new Clase(44,java.sql.Date.valueOf("2012-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
-        Clase cl2 = new Clase(45,java.sql.Date.valueOf("2012-04-08"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
-        Materia m1 = new Materia(53,"Gerencia Financiera");
-        Materia m2 = new Materia(54,"Analisis de Riesgos");
+        Recurso rc1 = new Recurso(16, "Computadores Portatiles", "Ordenador pequeño personal transportable",48, "EquiposComputo");
+        Clase cl1 = new Clase(64,java.sql.Date.valueOf("2012-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl2 = new Clase(65,java.sql.Date.valueOf("2012-04-08"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
+        Materia m1 = new Materia(123,"Gerencia Financiera");
+        Materia m2 = new Materia(124,"Analisis de Riesgos");
         boolean thrown = false;
         try {
             sp.registrarRecurso(rc1);
-            sp.registrarMateria(m1,30);sp.registrarMateria(m2,30);
-            sp.agregarClase(53, cl1);sp.agregarClase(54, cl2);
-            sp.registrarPrestamoRecursoClase(65, cl1);
-            sp.registrarPrestamoRecursoClase(65, cl2);
+            sp.registrarMateria(m1,70);sp.registrarMateria(m2,70);
+            sp.agregarClase(123, cl1);sp.agregarClase(124, cl2);
+            sp.registrarPrestamoRecursoClase(16, cl1);
+            sp.registrarPrestamoRecursoClase(16, cl2);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }
         assertTrue("Se conceden o consulta inadecuadamente los recursos a la clase"
                     + "cuando esta no debe conceder el mismo recurso a la clases que se dan al tiempo.",thrown);
-    }
-    
-    @AfterClass
-    public static void tearDown() {
-        JdbcDataSource ds= new JdbcDataSource();
-        ds.setURL("jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL");
-        ds.setUser("anonymous");
-        ds.setPassword("");
-        try {
-            Connection conn = ds.getConnection();
-            Statement s = conn.createStatement();
-            s.execute("SET REFERENTIAL_INTEGRITY FALSE");
-            Set<String> tables = new HashSet<String>();
-            ResultSet rs = s.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='PUBLIC'");
-            while (rs.next()) {
-                tables.add(rs.getString(1));
-            }
-            rs.close();
-            for (String table : tables){
-                s.executeUpdate("TRUNCATE TABLE " + table);
-            }
-            s.execute("SET REFERENTIAL_INTEGRITY TRUE");
-            s.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
     }
 }
