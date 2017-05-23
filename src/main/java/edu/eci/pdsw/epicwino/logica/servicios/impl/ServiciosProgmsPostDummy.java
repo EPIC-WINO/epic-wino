@@ -221,7 +221,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Asignatura> consultarAsignaturas(String idMateria) throws ExcepcionServiciosProgmsPost {
-        List<Asignatura> asignaturas=new ArrayList();
+        List<Asignatura> asignaturas=new ArrayList<>();
         Asignatura a0=new Asignatura(1,"Fundamentos de gerencia de proyectos");
         Asignatura a1=new Asignatura(2,"Teorias gerenciales");
         Asignatura a2=new Asignatura(3,"Fundamentos de la informacion");
@@ -329,7 +329,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         clases.put(3, clases4);
         clases.put(4, clases5);
         clases.put(5, clases6);
-        return clases.get(idMateria);
+        return clases.get(2); // XXX
     }
 
     @Override
@@ -356,7 +356,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         profesores.put(3, new Profesor(4, "Carla Castillo"));
         profesores.put(4, new Profesor(5, "Camila Castrillon"));
         profesores.put(5, new Profesor(6, "Jorge Muñoz"));
-        return profesores.get(idMateria);
+        return profesores.get(1); // XXX
     }
 
     @Override
@@ -378,12 +378,12 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         cohortes.put(3, 96);
         cohortes.put(4, 12);
         cohortes.put(5, 18);
-        return cohortes.get(idMateria);
+        return cohortes.get(4); // XXX
     }
 
     @Override
     public List<String> consultarNiveles() {
-        List<String> n=new ArrayList();
+        List<String> n=new ArrayList<>();
         n.add("Especializacion");
         n.add("Maestria");
         return n;

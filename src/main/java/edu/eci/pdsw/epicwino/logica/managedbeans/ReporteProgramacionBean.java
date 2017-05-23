@@ -70,7 +70,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
             for (Asignatura s : asignaturas) {
                 List<Materia> materias = s.getMaterias();
                 for (Materia m : materias) {
-                    if (m.getId() == materia.getId()) {
+                    if (m.getId().equals(materia.getId())) {
                         asignatura = s;
                     }
                 }
@@ -164,7 +164,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
             for (Asignatura s : asignaturas) {
                 List<Materia> materias = s.getMaterias();
                 for (Materia m : materias) {
-                    if (m.getId() == materia.getId()) {
+                    if (m.getId().equals(materia.getId())) {
                         asignatura = s;
                     }
                 }
@@ -247,7 +247,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
             Programa program = null;
             for (int i = 0; i < programas.size() && !flag; i++) {
                 program = programas.get(i);
-                if (program.getNombre() == programaName && program.getNivel() == nivel) {
+                if (program.getNombre().equals(programaName) && program.getNivel().equals(nivel)) {
                     flag = true;
                     programObject = program;
                 }
