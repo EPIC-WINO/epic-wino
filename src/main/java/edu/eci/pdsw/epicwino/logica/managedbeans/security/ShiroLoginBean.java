@@ -14,13 +14,14 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ManagedBean(name = "loginBean")
 @ViewScoped
 public class ShiroLoginBean implements Serializable {
 
-    private static final Logger LOGGER = Logger.getLogger(ShiroLoginBean.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShiroLoginBean.class);
     private static final long serialVersionUID = 0x77d63d310L;
 
     private String username;
