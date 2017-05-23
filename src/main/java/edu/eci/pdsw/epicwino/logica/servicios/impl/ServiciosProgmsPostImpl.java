@@ -561,7 +561,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
 
         Map<Asignatura, Integer> cohortes = new HashMap<>();
         for (Asignatura asignatura : asignaturas) {
-            cohortes.put(asignatura, this.consultarCohorte(idMateria, asignatura.getId(), periodo));
+            cohortes.put(asignatura, this.consultarCohorte(idMateria,periodo,asignatura.getId()));
         }
 
         return cohortes;

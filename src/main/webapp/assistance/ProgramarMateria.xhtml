@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
-        <link rel="stylesheet" type="text/css" href="../mycss.css"/>
+    <link rel="stylesheet" type="text/css" href="../mycss.css"/>
     <h:body style="padding-bottom: 60px">
         <div class="header">
             <ul class="optionsHeader">
@@ -12,7 +12,7 @@
                     <img src="/images/logo.jpg" alt="Escuela Colombiana de Ingenieria Julio Garavito"/>
                     <div class="barMenu">
                         <div class="dropdown">
-                            <button onclick="location.href='../index.xhtml'" class="menuBarButton">Inicio</button>
+                            <button onclick="location.href = '../index.xhtml'" class="menuBarButton">Inicio</button>
                         </div>
                         <div class="dropdown">
                             <button class="menuBarButton">Programación</button>
@@ -34,14 +34,14 @@
                                 <a href="../coordination/ReporteProgramacion.xhtml" target="_self">Reporte de Programacion</a>
                             </div>
                         </div>
-                    </li>
-                </ul>
-            </div>
+                </li>
+            </ul>
+        </div>
         </h:form>
         <div class="content">
             <h:form id="ProgramarPeriodo">
                 <h1>Programar Periodo</h1>
-                
+
                 <div style="text-align: center">
                     <p:outputLabel for="programa" value="Programa" styleClass="label"/>
                     <p:selectOneMenu id="programa" value="#{programarMateriaBean.programa}" styleClass="scroll">
@@ -60,35 +60,88 @@
                 </div>
                 <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%"></HR>
                 <p:outputLabel for="asignatura" value="Asignatura" styleClass="titulo"/>
-                
+
                 <div>
                     <p></p>
                 </div>
-                
+
                 <p:selectOneMenu id="asignatura" value="#{programarMateriaBean.asignatura}" styleClass="scroll" immediate="true" style="margin-left: 70px;">
                     <f:selectItem itemLabel="Asignatura" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{programarMateriaBean.asignaturas}" />
                 </p:selectOneMenu>
-                
+
                 <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
                 <p:outputLabel value="Periodo" styleClass="titulo"/>
-                
+
                 <div>
                     <p></p>
                 </div>
-                
+
                 <p:outputLabel for="anio" value="Año" styleClass="label"/>
                 <p:selectOneMenu id="anio" value="#{programarMateriaBean.anio}" styleClass="scroll">
                     <f:selectItem itemLabel="Año" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{programarMateriaBean.anios}" />
                 </p:selectOneMenu>
-                
+
                 <p:outputLabel for="semestre" value="Semestre" styleClass="label"/>
                 <p:selectOneMenu id="semestre" value="#{programarMateriaBean.semestre}" styleClass="scroll">
                     <f:selectItem itemLabel="Semestre" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{programarMateriaBean.semestres}" />
                 </p:selectOneMenu>
-                
+
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" color="white"></HR>
+                <p:outputLabel value="Asignatura" styleClass="titulo"/>
+
+                <div>
+                    <p></p>
+                </div>
+
+                <p:outputLabel for="asignatura" value="" styleClass="label"/>
+                <p:selectOneMenu id="asignatura" value="#{programarMateriaBean.asignatura}" styleClass="scroll">
+                    <f:selectItem itemLabel="Asignatura" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{programarMateriaBean.asignaturas}" />
+                    <p:ajax update=":ProgramarPeriodo:materia"/>
+                </p:selectOneMenu>
+
+                <p:commandButton  value="Consultar Materias"  styleClass="button"/>
+
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" color="white"></HR>
+
+                <p:outputLabel value="Materia" styleClass="titulo"/>
+
+                <div>
+                    <p></p>
+                </div>
+
+                <p:outputLabel for="materia" value="" styleClass="label"/>
+                <p:selectOneMenu id="materia" value="#{programarMateriaBean.materia}" styleClass="scroll">
+                    <f:selectItem itemLabel="Materia" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{programarMateriaBean.materias}" />
+                    <p:ajax update=":ProgramarPeriodo:cohorte"/>
+                </p:selectOneMenu>
+
+                <p:commandButton  value="Consultar Cohortes"  styleClass="button"/>
+
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" color="white"></HR>
+
+                <p:outputLabel value="Cohorte" styleClass="titulo"/>
+
+                <div>
+                    <p></p>
+                </div>
+
+                <p:outputLabel for="cohorte" value="" styleClass="label"/>
+                <p:selectOneMenu id="cohorte" value="#{programarMateriaBean.cohorte}" styleClass="scroll">
+                    <f:selectItem itemLabel="Cohorte" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{programarMateriaBean.cohortes}" />
+                </p:selectOneMenu>
+
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" color="white"></HR>
+
+                <center>
+                    <p:commandButton  onclick="location.href = 'RegistrarClase.xhtml'" value="Registrar Clases"  styleClass="button"/>
+                </center>
+
                 <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" color="white"></HR>
             </h:form>
         </div>

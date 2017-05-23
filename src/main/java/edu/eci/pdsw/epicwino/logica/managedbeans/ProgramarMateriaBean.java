@@ -47,6 +47,7 @@ public class ProgramarMateriaBean implements Serializable {
     private String profesor; 
     private int programa_id;
     private String nivel;
+    private String materia_id;
 
     public String getNivel() {
         return nivel;
@@ -168,7 +169,8 @@ public class ProgramarMateriaBean implements Serializable {
 
     public void setAsignatura(String asignatura) {
         this.asignatura = asignatura;
-        Asignatura_id();
+
+        idAsignatura();
     }
     
     public Map<String, String> getAsignaturas(){
@@ -212,6 +214,7 @@ public class ProgramarMateriaBean implements Serializable {
 
     public void setMateria(String materia) {
         this.materia = materia;
+        idMateria();
     }
 
     public int getCohorte() {
@@ -221,6 +224,33 @@ public class ProgramarMateriaBean implements Serializable {
     public void setCohorte(int cohorte) {
         this.cohorte = cohorte;
     }
+    
+    public Map<Integer,Integer> getCohortes(){
+        LOGGER.debug("Se intentan obtener los cohortes");
+        Map<Integer,Integer> co= new HashMap<>();
+        co.put(25, 25);
+        co.put(24,24);
+        return co;
+
+    }
+    
+    public void idMateria(){
+        LOGGER.debug("Se intentan obtener id de materia");
+        idAsignatura();
+        try {
+            LOGGER.debug("Se esta obteniendo id con id de asignatura numero" + asignatura_id + "con año" + anio + "con semestre" + semestre);
+            List<Materia> mate=servProg.consultarMaterias((anio * 10) + semestre, asignatura_id);
+            for(Materia m:mate){
+                if(m.getNombre().equals(materia)){
+                    materia_id=m.getId();
+                }
+            }
+            LOGGER.debug("Se obtiene id de materia" + materia + "su ID es" + materia_id);
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error al consultar id de la materia", ex);
+        }
+        
+    }
 
     public String getProfesor() {
         return profesor;
@@ -228,6 +258,38 @@ public class ProgramarMateriaBean implements Serializable {
 
     public void setProfesor(String profesor) {
         this.profesor = profesor;
+    }
+    
+    public void idAsignatura(){
+        LOGGER.debug("Se intentan obtener id de asignatura");
+        Programa_id();
+        try {
+            List<Asignatura> asign=servProg.consultarAsignaturasPorPrograma(programa_id);
+            for (Asignatura a:asign){
+                if(a.getNombre().equals(asignatura)){
+                    asignatura_id=a.getId();
+                }
+            }
+            LOGGER.debug("Se  obtiene id de asignatura"+ asignatura + "con ID" + asignatura_id);
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error al consultar id de asignatura", ex);
+        }
+    }
+    
+    public Map<String, String> getMaterias(){
+        LOGGER.debug("Se intentan obtener las materias");
+        idAsignatura();
+        Map<String, String> mat = new HashMap<>();
+        try {
+            List<Materia> m= servProg.consultarMaterias((anio * 10) + semestre, asignatura_id);
+            for (Materia ma:m){
+                String n=ma.getNombre();
+                mat.put(n, n);
+            }
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error al consultar materias", ex);
+        }
+        return mat;
     }
     
     
