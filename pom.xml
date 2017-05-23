@@ -35,19 +35,19 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
-          <dependency>
-               <groupId>javax.servlet</groupId>
-               <artifactId>jstl</artifactId>
-               <version>1.2</version>
-          </dependency>
-          <dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
         </dependency> 
 
-       <!-- logger -->       
+        <!-- logger -->       
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -73,6 +73,26 @@
         </dependency>
         
         <!-- logger -->
+        
+        <!--security-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <!--security-->
         
         <!-- Dependencia de PostgreSQL -->
         <dependency>
@@ -130,7 +150,7 @@
                     <port>8080</port>
                     <path>/</path>
                 </configuration>            
-             </plugin> 
+            </plugin> 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
