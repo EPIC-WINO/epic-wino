@@ -36,17 +36,14 @@ public class RegistrarMateriaBean implements Serializable {
     
     private final ServiciosProgmsPost servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
     
-    private String programa;
+    private String programa = "";
     private String asignatura;
-    private int anio = 0;
-    private int semestre = 0;
     private int programa_id;
     private String nivel;
     private int asignatura_id = 0;
     private String nombremateria;
     private String codigo;
     private String descripcion;
-    private int periodo;
 
     
     public String getDescripcion() {
@@ -81,22 +78,6 @@ public class RegistrarMateriaBean implements Serializable {
         this.nivel = nivel;
     }
     
-    public int getAnio() {
-        return anio;
-    }
-    
-    public void setAnio(int anio) {
-        this.anio = anio;
-    }
-    
-    public int getSemestre() {
-        return semestre;
-    }
-    
-    public void setSemestre(int semestre) {
-        this.semestre = semestre;
-    }
-    
     public void setPrograma(String programa) {
         LOGGER.debug("Se establece el nombre del programa '" + programa + "'");
         this.programa = programa;
@@ -124,7 +105,7 @@ public class RegistrarMateriaBean implements Serializable {
         Programa_id();
         List<Asignatura> asignaturas;
         try {
-            asignaturas = servProg.consultarAsignaturas(periodo, programa_id);
+            asignaturas = servProg.consultarAsignaturasPorPrograma(programa_id);
             for (Asignatura a : asignaturas) {
                 if (a.getNombre().equals(asignatura)) {
                     asignatura_id = a.getId();
@@ -137,8 +118,6 @@ public class RegistrarMateriaBean implements Serializable {
     }
     
     public Map<String, String> getProgramas() {
-        LOGGER.debug(MessageFormat.format("Se intenta obtener los programas (anio: {0}, "
-                + "semestre: {1})", anio, semestre));
         List<Programa> r;
         Map<String, String> programs = new HashMap<>();
         r = servProg.consultarProgramas();
@@ -159,8 +138,6 @@ public class RegistrarMateriaBean implements Serializable {
     }
     
     public Map<String, String> getNiveles() {
-        LOGGER.debug(MessageFormat.format("Se intenta obtener los niveles (anio: {0}, "
-                + "semestre: {1})", anio, semestre));
         List<String> r;
         Map<String, String> niveles = new HashMap<>();
         r = servProg.consultarNiveles();
@@ -172,8 +149,6 @@ public class RegistrarMateriaBean implements Serializable {
     }
     
     public void Programa_id() {
-        LOGGER.debug(MessageFormat.format("Se intenta obtener los programas y su id (anio: {0}, "
-                + "semestre: {1})", anio, semestre));
         List<Programa> r;
         r = servProg.consultarProgramas();
         for (Programa p : r) {
@@ -189,7 +164,8 @@ public class RegistrarMateriaBean implements Serializable {
         List<Asignatura> a;
         Programa_id();
         try {
-            a = servProg.consultarAsignaturas(periodo, programa_id);
+            LOGGER.debug("Se intentan obtener las asignaturas del programa "+programa+" con ID: "+programa_id);
+            a = servProg.consultarAsignaturasPorPrograma(programa_id);
             for (Asignatura as : a) {
                 String n = as.getNombre();
                 asig.put(n, n);
@@ -198,70 +174,5 @@ public class RegistrarMateriaBean implements Serializable {
             LOGGER.error("Error consultando asignaturas", ex);
         }
         return asig;
-    }
-    
-    public Map<String, String> getPrerequisitos() {
-        LOGGER.debug("Se intentan obtener las materias de prerequisito");
-        Map<String, String> pre = new HashMap<>();
-        Asignatura_id();
-        List<Materia> m;
-        try {
-            m = servProg.consultarMaterias(anio * 10 + semestre, asignatura_id);
-            for (Materia ma : m) {
-                String n = ma.getNombre();
-                pre.put(n, n);
-            }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error consultando prerequisitos", ex);
-        }
-        return new TreeMap<>();
-    }
-    
-    public void getAnios() {
-        LOGGER.debug("Se obtienen los anios");
-        List<Integer> p = new ArrayList<>();
-        List<Integer> periods = servProg.consultarPeriodos();
-        for (Integer i : periods) {
-            i /= 10;
-            p.add(i);
-        }
-        int mayor = 0;
-        for (Integer m : p) {
-            if (m > mayor) {
-                mayor = m;
-            }
-        }
-        LOGGER.debug(MessageFormat.format("Se obtiene el año mayor)", mayor));
-        anio = mayor;
-    }
-    
-    public void getSemestres() {
-        LOGGER.debug("Se intenta obtener la fecha");
-        Date fecha = new Date();
-        int mes = fecha.getMonth();
-        LOGGER.debug(MessageFormat.format("Se obtiene el mes", mes));
-        if (mes==6 | mes==7) {
-            semestre = 3;
-        }
-        else if(mes>7){
-            semestre=2;
-        }else {
-            semestre = 1;
-        }
-        
-    }
-
-    /**
-     * @return the periodo
-     */
-    public int getPeriodo() {
-        return periodo;
-    }
-
-    /**
-     * @param periodo the periodo to set
-     */
-    public void setPeriodo(int periodo) {
-        this.periodo = periodo;
     }
 }
