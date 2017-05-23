@@ -54,8 +54,8 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
         Asignatura a;
         Materia m;
         
-        Programa p1=new Programa(0,"Especializacion en gerencia de proyectos", "Especializacion");
-        Programa p2=new Programa(1,"Maestria en gestion de informacion", "Maestria");
+        Programa p1=new Programa(0,"Gerencia de proyectos", "Especializacion");
+        Programa p2=new Programa(1,"Gestion de informacion", "Maestria");
         
         List<Asignatura> asignaturas2=new ArrayList<>();
         
@@ -411,7 +411,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
 
     @Override
     public List<Programa> consultarProgramas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return programas;
     }
 
     @Override

@@ -42,7 +42,9 @@
                     </li>
                 </ul>
             </div>
+        </h:form>
             <div class="content">
+                <h:form id="RegistrarMateria" >
                 <h1>Registrar Materia</h1>
                 
                 <p:outputLabel for="programa" value="Programa" styleClass="label"/>
@@ -55,14 +57,15 @@
                 <p:selectOneMenu id="nivel" value="#{registrarMateriaBean.nivel}" styleClass="scroll">
                     <f:selectItem itemLabel="Nivel" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{registrarMateriaBean.niveles}" />
-                    <p:ajax update=":general:asignatura"/>
+                    <p:ajax update=":RegistrarMateria:asignatura"/>
                 </p:selectOneMenu>
                 
-                <p:commandButton  value="Crear nueva asignatura"  styleClass="button"/>
+                <p:commandButton  value="Consultar"  styleClass="button"/>
                 
                 <div>
                     <p></p>
                 </div>
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
                 
                 <p:outputLabel for="asignatura" value="Asignatura" styleClass="label"/>
                 <p:selectOneMenu id="asignatura" value="#{registrarMateriaBean.asignatura}" styleClass="scroll" immediate="true">
@@ -73,6 +76,7 @@
                 <div>
                     <p></p>
                 </div>
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
                 
                 <p:outputLabel value="Nombre Materia" styleClass="label"/>
                 <div>
@@ -84,6 +88,7 @@
                 <div>
                     <p></p>
                 </div>
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
                 
                 <p:outputLabel value="Codigo Mnemónico" styleClass="label"/>
                 <div>
@@ -95,6 +100,7 @@
                 <div>
                     <p></p>
                 </div>
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
                 
                 <p:outputLabel value="Descripción" styleClass="label"/>
                 <div>
@@ -102,9 +108,14 @@
                 </div>
                 <p:outputLabel value="" styleClass="label"/>
                 <p:inputTextarea rows="5" cols="50" completeMethod="#{registrarMateriaBean.descripcion}"/>
-                <p:commandButton  onclick="location.href = 'MateriasRegistradas.xhtml'" value="Registrar Materia"  styleClass="button"/>
-                <p:commandButton  onclick="location.href = 'MateriasRegistradas.xhtml'" value="Cancelar"  styleClass="button"/>
-            </div>
-        </h:form>
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
+                <center>
+                    <p:commandButton  onclick="location.href = 'MateriasRegistradas.xhtml'" value="Registrar Materia"  styleClass="button"/>
+                    <p:commandButton  onclick="location.href = 'MateriasRegistradas.xhtml'" value="Cancelar"  styleClass="button"/>
+                </center>
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
+            </h:form>
+        </div>
+        
     </h:body>
 </html>
