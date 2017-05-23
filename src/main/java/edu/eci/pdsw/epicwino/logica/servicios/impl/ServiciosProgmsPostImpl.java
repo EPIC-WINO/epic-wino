@@ -81,6 +81,10 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             throw new ExcepcionServiciosProgmsPost("La asignatura " + idAsignatura + " no existe");
         }
 
+        if (this.materiaExiste(materia.getId())) {
+            throw new ExcepcionServiciosProgmsPost("La materia " + materia.getId() + " ya existe");
+        }
+
         try {
             daoMateria.saveMateria(materia, idAsignatura);
         } catch (PersistenceException ex) {
@@ -367,11 +371,31 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             throw new ExcepcionServiciosProgmsPost("El programa " + idPrograma + " no existe");
         }
 
+        if (this.asignaturaExiste(asignatura.getId()) || this.asignaturaExisteEnPrograma(asignatura.getId(), idPrograma)) {
+            throw new ExcepcionServiciosProgmsPost("La asignatura " + asignatura.getId() + "ya existe");
+        }
+
         try {
             daoAsignatura.saveAsignatura(asignatura, idPrograma);
         } catch (PersistenceException ex) {
             LOGGER.error("Error al guardar la asignatura " + asignatura);
         }
+    }
+
+    private boolean asignaturaExisteEnPrograma(int idAsignatura, int idPrograma) {
+        boolean found = false;
+
+        try {
+            List<Asignatura> asignaturas = this.consultarAsignaturasPorPrograma(idPrograma);
+
+            for (int i = 0; i < asignaturas.size() && !found; i++) {
+                found = asignaturas.get(i).getId() == idAsignatura;
+            }
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            // lo ignora
+        }
+
+        return found;
     }
 
     @Override
@@ -830,11 +854,42 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     @Override
     public void registrarProfesor(Profesor profesor) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Registra profesor " + profesor);
+
+        if (profesorExiste(profesor.getId())) {
+            throw new ExcepcionServiciosProgmsPost("El profesor " + profesor + " ya existe");
+        }
+
         try {
             daoMateria.agregarProfesor(profesor);
         } catch (PersistenceException ex) {
             LOGGER.error("Error registrando profesor", ex);
         }
+    }
+
+    /**
+     * un profesor ya existe
+     *
+     * @param idProfesor id del profesor
+     * @return el profesor con ese ID ya existe
+     */
+    private boolean profesorExiste(int idProfesor) {
+        boolean f = false;
+
+        List<Integer> periodos = this.consultarPeriodos();
+
+        try {
+            for (int i = 0; i < periodos.size() && !f; i++) {
+                List<Profesor> profesores = this.consultarProfesores(periodos.get(i));
+
+                for (int j = 0; j < profesores.size() && !f; j++) {
+                    f = profesores.get(j).getId() == idProfesor;
+                }
+            }
+        } catch (ExcepcionServiciosProgmsPost e) {
+            // lo ignora
+        }
+
+        return f;
     }
 
     @Override
@@ -868,14 +923,14 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     @Override
     public List<Asignatura> consultarAsignaturasPorPrograma(int idPrograma) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Se consultan las asignaturas del programa " + idPrograma);
-        
+
         if (!this.programaExiste(idPrograma)) {
             throw new ExcepcionServiciosProgmsPost("El programa con id: " + idPrograma + " no existe");
         }
-        
+
         List<Programa> programas = this.consultarProgramas();
         List<Asignatura> asignaturas = null;
-        
+
         for (int i = 0; i < programas.size() && asignaturas == null; i++) {
             if (programas.get(i).getId() == idPrograma) {
                 asignaturas = programas.get(i).getAsignaturas();
@@ -884,9 +939,9 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
                 }
             }
         }
-        
+
         assert asignaturas != null;
-        
+
         return asignaturas;
     }
 }
