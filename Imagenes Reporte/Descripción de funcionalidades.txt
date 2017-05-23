@@ -1,0 +1,22 @@
+1. Inicio: esta es la vista en donde el ususario puede acceder a cualquier funcionalidad de la plataforma, 
+hay varios botones los cuales al darles click los dirige a la respectiva vista.
+
+2. MateriasRegistradas: en esta vista se pueden consultar todas las asignaturas de un programa 
+(para el que se elige el programa y el nivel, ya sea de Maestria o de Especialización)en determinado periodo 
+(para el cual se debe indicar el año y el semestre). Asi mismo para cada asignatura se despliega su lista de materias correspondientes.
+
+3. RegistrarMateria: en esta vista se registra una nueva materia eligiendo el programa y asignatura al cual va a pertenecer y signandole las caracteristicas basicas de la misma
+(Nombre, Código Mnemónico, Descripcion y Creditos), asi mismo se podrá ver que quedo registrada al dar click en el boton de Registrar Materia el cual conduce
+a la vista de Materias Registradas o se puede cancelar el registro
+
+4.ReporteProgramación: en esta vista se puede ver un reporte de un programa dado en un determinado periodo, para esto se veran sus asignaturas con sus 
+respectivas clases, cohortes, profrsores, horas y sesiones asi como un reporta por cada materia de las clases programadas en el periodo.
+
+5.ReporteProgramación1: este es un detalle de las clases por cada materia de un programa dado en un periodo que se deriva de la vista de Reporte de 
+Programación, asi se podran ver las clases con sus respectivas fecha y horas ya programadas.
+
+6.ReporteRecursos: en esta vista se pueden consultar todos los recursos programados en un determinado periodo, se mostraran los horarios y fechas en los 
+cuales estarán en uso.
+
+ 
+
