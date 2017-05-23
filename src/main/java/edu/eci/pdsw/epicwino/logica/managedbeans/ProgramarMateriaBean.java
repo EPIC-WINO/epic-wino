@@ -92,26 +92,14 @@ public class ProgramarMateriaBean implements Serializable {
     }
     
      public void Programa_id() {
-        LOGGER.debug(MessageFormat.format("Se intenta obtener los programas y su id (anio: {0}, "
-                + "semestre: {1})", anio, semestre));
         List<Programa> r;
-        try {
-            r = servProg.consultarProgramas((anio * 10) + semestre);
-            boolean found = false;
-            for (Programa p : r) {
-                if (p.getNombre().equals(programa) && p.getNivel().equals(nivel)) {
-                    LOGGER.debug("Se encuentra el programa ID: " + p.getId());
-                    programa_id = p.getId();
-                    found = true;
-                }
+        r = servProg.consultarProgramas();
+        for (Programa p : r) {
+            if (p.getNombre().equals(programa) && p.getNivel().equals(nivel)) {
+                programa_id = p.getId();
             }
-            if (!found) {
-                LOGGER.error("No se encontro el programa correspondiente Nombre: " + programa);
-            }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error al consultar id del programa", ex);
         }
-    }
+     }
 
     public int getAnio() {
         return anio;
@@ -185,8 +173,10 @@ public class ProgramarMateriaBean implements Serializable {
         LOGGER.debug("Se obtienen los anios");
         Map<String, String> asig  = new HashMap<>();
         List<Asignatura> a;
+        Programa_id();
         try {
-            a=servProg.consultarAsignaturas((anio * 10) + semestre, programa_id);
+            LOGGER.debug("Se intentan obtener las asignaturas del programa "+programa+" con ID: "+programa_id);
+            a=servProg.consultarAsignaturasPorPrograma(programa_id);
             for (Asignatura as:a){
                 String n=as.getNombre();
                 asig.put(n,n);
