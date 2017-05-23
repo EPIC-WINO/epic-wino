@@ -84,12 +84,13 @@ public class RegistrarMateriaBean implements Serializable {
         Programa_id();
     }
     
-    public void setAsignatura(String asignatura) {
-        this.asignatura = asignatura;
-    }
-    
     public String getPrograma() {
         return programa;
+    }
+    
+    public void setAsignatura(String asignatura) {
+        this.asignatura = asignatura;
+        Asignatura_id();
     }
     
     public String getAsignatura() {
@@ -129,14 +130,6 @@ public class RegistrarMateriaBean implements Serializable {
         return programs;
     }
     
-    public Map<String,String> getTipos(){
-        LOGGER.debug("Se intentan obtener los tipos de requisito");
-        Map<String,String> tipos=new HashMap<>();
-        tipos.put("Correquisito", "Correquisito");
-        tipos.put("Completo", "Completo");
-        return tipos;
-    }
-    
     public Map<String, String> getNiveles() {
         List<String> r;
         Map<String, String> niveles = new HashMap<>();
@@ -174,5 +167,11 @@ public class RegistrarMateriaBean implements Serializable {
             LOGGER.error("Error consultando asignaturas", ex);
         }
         return asig;
+    }
+    
+    public void registrarMateria() {
+        Materia materia = new Materia();
+        materia.setNombre(nombremateria);
+        materia.setDescripcion(descripcion);
     }
 }
