@@ -46,22 +46,22 @@ http://epic-wino.herokuapp.com/
 > - **Trello Específico:** https://trello.com/b/9eVV98cw/current-sprint
 
 - **Sprint 1:**
--Sprint-Backlog:
+> - Sprint-Backlog:
 ![](sprint1-backlog.PNG)
--Sprint-Burdown Chart:
+> - Sprint-Burdown Chart:
 ![](sprint1-burdownchart.PNG)
--Para este Sprint presentamos algunos inconvenientes en cuanto a coordinación y asignación de las tareas por lo que para fechas cercanas al Review  decidimos intentar solucionar esos inconvenientes con exceso de tareas asignadas para cada integrante de acuerdo a las tareas que se iban finalizando pero que realmente provocó mayor descoordinación para el producto del review.
+> - Para este Sprint presentamos algunos inconvenientes en cuanto a coordinación y asignación de las tareas por lo que para fechas cercanas al Review  decidimos intentar solucionar esos inconvenientes con exceso de tareas asignadas para cada integrante de acuerdo a las tareas que se iban finalizando pero que realmente provocó mayor descoordinación para el producto del review.
 
 - **Sprint 2:**
--Sprint-Backlog:
+> - Sprint-Backlog:
 ![](sprint2-backlog.PNG)
--Sprint-Burdown Chart:
+> - Sprint-Burdown Chart:
 ![](sprint2-burdownchart.PNG)
--Para este Sprint por la experiencia que obtuvimos en el anterior decidimos realizar un planning bastante más elaborado de acuerdo a las mejores destrezas que tenía cada integrante entonces se le asignaba cierto tipo de tareas, de está forma aumentaríamos la calidad del trabajo de cada integrante y de lo que al final se convertiría en un producto viable al momento del review.
+> - Para este Sprint por la experiencia que obtuvimos en el anterior decidimos realizar un planning bastante más elaborado de acuerdo a las mejores destrezas que tenía cada integrante entonces se le asignaba cierto tipo de tareas, de está forma aumentaríamos la calidad del trabajo de cada integrante y de lo que al final se convertiría en un producto viable al momento del review.
 
 - **Sprint 3:**
--Sprint-Backlog:
+> - Sprint-Backlog:
 ![](sprint3-backlog.PNG)
--Sprint-Burdown Chart:
+> - Sprint-Burdown Chart:
 ![](sprint3-burdownchart.PNG)
--Para este sprint tuvimos inconvenientes con la disponibilidad de tiempo por parte de todos los miembros del equipo por lo cual intentamos utilizar otra estrategia y fue asignarnos tareas de acuerdo a las destrezas de los integrantes (al igual que en el sprint anterior) pero de igual manera tambien acordar esas tareas por historias de uso para avanzar en todas las historias de uso a la par y que no quedase con inconsistencias el producto final.
+> - Para este sprint tuvimos inconvenientes con la disponibilidad de tiempo por parte de todos los miembros del equipo por lo cual intentamos utilizar otra estrategia y fue asignarnos tareas de acuerdo a las destrezas de los integrantes (al igual que en el sprint anterior) pero de igual manera tambien acordar esas tareas por historias de uso para avanzar en todas las historias de uso a la par y que no quedase con inconsistencias el producto final.
