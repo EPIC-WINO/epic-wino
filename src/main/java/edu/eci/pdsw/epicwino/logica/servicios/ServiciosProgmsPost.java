@@ -29,13 +29,13 @@ public interface ServiciosProgmsPost {
     void registrarPrograma(Programa programa) throws ExcepcionServiciosProgmsPost;
 
     /**
-     * registrar una materia
+     * registrar una materia junto con sus grupos (si tiene)
      *
      * @param materia a registrar
      * @param idAsignatura id de la asignatura en donde estara la materia
      * @throws ExcepcionServiciosProgmsPost si ya existe, tiene algun conflicto
      * con otra materia en el horario ; existe algun atributo mal definido o no
-     * esta definido; la asignatura no existe
+     * esta definido; la asignatura no existe; no es posible registrar los grupos contenidos
      * @throws NullPointerException si la materia es null
      */
     void registrarMateria(Materia materia, int idAsignatura) throws ExcepcionServiciosProgmsPost;

@@ -86,7 +86,25 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         }
 
         try {
+            for (GrupoDeMateria grupo : materia.getGruposDeMateria()) {
+                if (!this.periodoEsValido(grupo.getPeriodo())) {
+                    throw new ExcepcionServiciosProgmsPost(
+                            MessageFormat.format(
+                                    "El periodo del grupo {0}, de la materia "
+                                    + "{1} es invalido ({2})", grupo, materia, grupo.getPeriodo()));
+                }
+
+                if (grupo.getProfesor() == null || !profesorExiste(grupo.getProfesor().getId())) {
+                    throw new ExcepcionServiciosProgmsPost(MessageFormat.format("El profesor {2} "
+                            + "del grupo {0}, de la materia {1} no existe o es invalido", grupo, materia, grupo.getProfesor()));
+                }
+            }
+
             daoMateria.saveMateria(materia, idAsignatura);
+            
+            for (GrupoDeMateria grupo : materia.getGruposDeMateria()) {
+                daoClase.agregarGrupoDeMateria(materia.getId(), grupo.getPeriodo(), grupo.getProfesor().getId());
+            }
         } catch (PersistenceException ex) {
             LOGGER.error("Error guardando la materia " + materia, ex);
         }

@@ -41,7 +41,7 @@ public class MyBatisClaseDAO implements ClaseDAO {
 
     @Override
     public void agregarGrupoDeMateria(int idMateria, int periodo, int idProfesor) throws PersistenceException {
-        claseMapper.agregarGrupoDeMateria(idMateria, periodo, idProfesor);
+        claseMapper.agregarGrupoDeMateria(Integer.toString(idMateria), periodo, idProfesor);
     }
 
     @Override
