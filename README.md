@@ -3,11 +3,11 @@
 #### **Periodo Académico: 2017-1**
 #### **Curso: Proceso De Desarrollo De Software**
 #### **Integrantes:**
- - Maria Camila Gomez Ramirez - ***rol***
- - Fabian Augusto Ardila Rodriguez - ***rol***
- - Alejandro Anzola Avila - ***rol***
- - Juan Jose Andrade Pardo - ***rol***
- - Jossie Esteban Murcia Triviño - ***rol***
+ - Maria Camila Gomez Ramirez - ***Scrum team member***
+ - Fabian Augusto Ardila Rodriguez - ***Scrum team member***
+ - Alejandro Anzola Avila - ***Scrum Master-Scrum team member***
+ - Juan Jose Andrade Pardo - ***Scrum team member***
+ - Jossie Esteban Murcia Triviño - ***Scrum team member***
 #### **Profesor:**
  - Hector Fabio Cadavid Rengifo - ***Dueño de Producto***
 #### **Descripción del Producto:**
