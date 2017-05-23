@@ -5,7 +5,7 @@
 #### **Integrantes:**
  - Maria Camila Gomez Ramirez - ***Scrum team member***
  - Fabian Augusto Ardila Rodriguez - ***Scrum team member***
- - Alejandro Anzola Avila - ***Scrum Master-Scrum team member***
+ - Alejandro Anzola Avila - ***Scrum Master***
  - Juan Jose Andrade Pardo - ***Scrum team member***
  - Jossie Esteban Murcia Triviño - ***Scrum team member***
 #### **Profesor:**
