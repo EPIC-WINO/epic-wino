@@ -88,11 +88,54 @@
                     <p></p>
                 </div>
                 
-                <p:outputLabel for="asignatura" value="Asignatura" styleClass="label"/>
-                    <p:selectOneMenu id="asignatura" value="#{programarMateriaBean.asignatura}" styleClass="scroll">
-                        <f:selectItem itemLabel="Asignatura" itemValue="" noSelectionOption="true"/>
-                        <f:selectItems value="#{programarMateriaBean.asignaturas}" />
-                    </p:selectOneMenu>
+                <p:outputLabel for="asignatura" value="" styleClass="label"/>
+                <p:selectOneMenu id="asignatura" value="#{programarMateriaBean.asignatura}" styleClass="scroll">
+                    <f:selectItem itemLabel="Asignatura" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{programarMateriaBean.asignaturas}" />
+                    <p:ajax update=":ProgramarPeriodo:materia"/>
+                </p:selectOneMenu>
+                
+                <p:commandButton  value="Consultar Materias"  styleClass="button"/>
+                
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" color="white"></HR>
+                
+                <p:outputLabel value="Materia" styleClass="titulo"/>
+                
+                <div>
+                    <p></p>
+                </div>
+                
+                <p:outputLabel for="materia" value="" styleClass="label"/>
+                <p:selectOneMenu id="materia" value="#{programarMateriaBean.materia}" styleClass="scroll">
+                    <f:selectItem itemLabel="Materia" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{programarMateriaBean.materias}" />
+                    <p:ajax update=":ProgramarPeriodo:cohorte"/>
+                </p:selectOneMenu>
+                
+                <p:commandButton  value="Consultar Cohortes"  styleClass="button"/>
+                
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" color="white"></HR>
+                
+                <p:outputLabel value="Cohorte" styleClass="titulo"/>
+                
+                <div>
+                    <p></p>
+                </div>
+                
+                <p:outputLabel for="cohorte" value="" styleClass="label"/>
+                <p:selectOneMenu id="cohorte" value="#{programarMateriaBean.cohorte}" styleClass="scroll">
+                    <f:selectItem itemLabel="Cohorte" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{programarMateriaBean.cohortes}" />
+                </p:selectOneMenu>
+                
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" color="white"></HR>
+                
+                <center>
+                    <p:commandButton  onclick="location.href = 'RegistrarClase.xhtml'" value="Registrar Clases"  styleClass="button"/>
+                </center>
+                
+                 <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" color="white"></HR>
+                
             </h:form>
         </div>
     </h:body>       
