@@ -85,6 +85,17 @@ body {
     text-align: center;
     color: black;
 }
+
+.titulo{
+    display: inline;
+    margin: 60px auto 0 auto;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 20px;
+    padding: 70px 20px 10px 70px;
+    text-align: center;
+    color: #990000;
+}
+
 .input {
     display: inline;
     font-size: 13px;
