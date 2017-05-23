@@ -34,9 +34,9 @@ a las Materias Registradas o se puede cancelar el registro
  - Persistencia: Mantiene una base de datos, donde permite manipular los datos y enviarle la información que necesita la capa lógica
 
 - **Modelo de Base de Datos:**
-![](BaseDeDatos.png)
+![](BaseDeDatos.PNG)
 - **Modelo de Base de Datos:**
-![](DiagramaDeClases.png)
+![](DiagramaDeClases.PNG)
 - **Aplicación:**
 http://epic-wino.herokuapp.com/
 #### **Descripción del Proceso:**
