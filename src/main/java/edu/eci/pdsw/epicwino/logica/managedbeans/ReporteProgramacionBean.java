@@ -45,7 +45,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     public ReporteProgramacionBean() {
         LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
         
-        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPost();
+        servProg = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostDummy();
     }
     
     @PostConstruct
@@ -159,6 +159,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         Asignatura asignatura = new Asignatura();
         int cohorte = 0;
         try {
+            LOGGER.debug("Se consultan asignaturas en el año: "+anio+" y el semestre: "+semestre+". Del programa con ID: "+programObject.getId());
             List<Asignatura> asignaturas = servProg.consultarAsignaturas((anio*10)+semestre, programObject.getId());
             for (Asignatura s : asignaturas) {
                 List<Materia> materias = s.getMaterias();
@@ -281,6 +282,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
     public List<Clase> getClases(Materia materia) {
         List<Clase> clases = new ArrayList<>();
         try {
+            LOGGER.debug("Se consultan las clases en el periodo: "+anio+"-"+semestre+" para la materia con ID: "+materia.getId());
             clases = servProg.consultarClases((anio*10)+semestre, materia.getId());
         } catch (ExcepcionServiciosProgmsPost ex) {
             LOGGER.error("Error consultando las clases ", ex);
