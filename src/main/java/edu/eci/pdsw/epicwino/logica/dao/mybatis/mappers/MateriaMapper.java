@@ -58,7 +58,7 @@ public interface MateriaMapper {
     
     void agregarRequisito(@Param("idMateria") int idMateria, @Param("requisito") int idRequisito, @Param("prerrequisito") String prerrequisito);
     
-    Profesor loadProfesoresEnPeriodoYMateria(@Param("idMateria") int idMateria, @Param("periodo") int periodo);
+    Profesor loadProfesoresEnPeriodoYMateria(@Param("idMateria") String idMateria, @Param("periodo") int periodo); // XXX corregir, idMateria es String
     
     List<Profesor> loadProfesoresEnPeriodo(@Param("periodo") int periodo);
 }

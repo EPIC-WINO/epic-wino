@@ -76,7 +76,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
                 }
             }
         } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error obteniendo la asignatura.");
+            LOGGER.error("Error obteniendo la asignatura.", ex);
         }
         return asignatura;
     }
@@ -170,7 +170,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
             }
             cohorte = servProg.consultarCohorte(materia.getId(), (anio*10)+semestre, asignatura.getId());
         } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error obteniendo el cohorte.");
+            LOGGER.error("Error obteniendo el cohorte.", ex);
         }
         return cohorte;
     }
@@ -180,7 +180,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
         try {
             profesor = servProg.consultarProfesor((anio*10)+semestre, materia.getId());
         } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error obteneindo el profesor.");
+            LOGGER.error("Error obteneindo el profesor.", ex);
         }
         return profesor;
     }
@@ -256,7 +256,7 @@ public class ReporteProgramacionBean implements Serializable { // FIXME logica c
                 materias.addAll(asignaturas.get(i).getMaterias());
             }
         } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error obteniendo las materias.");
+            LOGGER.error("Error obteniendo las materias.", ex);
         }
     } 
     

@@ -67,7 +67,7 @@ public class MyBatisMateriaDAO implements MateriaDAO{
 
     @Override
     public Profesor consultarProfesoresEnPeriodoYMateria(int idMateria, int periodo) throws PersistenceException {
-        return materiaMapper.loadProfesoresEnPeriodoYMateria(idMateria, periodo);
+        return materiaMapper.loadProfesoresEnPeriodoYMateria(Integer.toString(idMateria), periodo);
     }
 
     @Override
