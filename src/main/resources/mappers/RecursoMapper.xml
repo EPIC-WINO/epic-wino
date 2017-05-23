@@ -37,7 +37,7 @@
         left join recursos_concedidos on recursos_concedidos.clase_id=clas.id
         left join recursos as rec on recursos_concedidos.recurso_id=rec.id
         where rec.id=#{idRecurso} and clas.fecha=#{fecha} and (((clas.hora_inicio &gt;#{horaInicio}) or (clas.hora_inicio=#{horaInicio}) ) and (clas.hora_inicio &lt; #{horaFin}))
-        GROUP BY id)x on rec.id=x.id
+        GROUP BY rec.id)x on rec.id=x.id
         where rec.id=#{idRecurso};
         
     </select>
