@@ -41,6 +41,7 @@ public class ProgramarMateriaBean implements Serializable {
     private int anio;
     private int semestre;
     private String asignatura;
+    private int asignatura_id = 0;
     private String materia;
     private int cohorte;
     private String profesor; 
@@ -167,6 +168,7 @@ public class ProgramarMateriaBean implements Serializable {
 
     public void setAsignatura(String asignatura) {
         this.asignatura = asignatura;
+        Asignatura_id();
     }
     
     public Map<String, String> getAsignaturas(){
@@ -186,6 +188,23 @@ public class ProgramarMateriaBean implements Serializable {
         }
         return asig; 
     } 
+    
+    public void Asignatura_id() {
+        LOGGER.debug("Se intentan obtener id de la asignatura");
+        Programa_id();
+        List<Asignatura> asignaturas;
+        try {
+            asignaturas = servProg.consultarAsignaturasPorPrograma(programa_id);
+            for (Asignatura a : asignaturas) {
+                if (a.getNombre().equals(asignatura)) {
+                    asignatura_id = a.getId();
+                }
+            }
+            LOGGER.debug(MessageFormat.format("Se obtiene el id de asignatura)", asignatura_id));
+        } catch (ExcepcionServiciosProgmsPost ex) {
+            LOGGER.error("Error consultando id de asignatura", ex);
+        }
+    }
 
     public String getMateria() {
         return materia;
