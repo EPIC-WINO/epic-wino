@@ -57,45 +57,46 @@ public class PeriodosTest {
     public void CE1() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         
-        Materia m1 = new Materia(52,"Gerencia Financiera");
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Maestria");
-        Asignatura as1 = new Asignatura(30,"Ejecucion");
+        Materia m1 = new Materia(60,"Gerencia Financiera");
+        Programa prg1 = new Programa(40,"Gerencia de Proyectos", "Maestria");
+        Asignatura as1 = new Asignatura(40,"Ejecucion");
 
         sp.registrarPrograma(prg1);
-        sp.registrarAsignatura(as1, 20);
+        sp.registrarAsignatura(as1, 40);
         
         List<GrupoDeMateria> gruposMateria = new ArrayList<>();
         GrupoDeMateria grupo1 = new GrupoDeMateria();
         GrupoDeMateria grupo2 = new GrupoDeMateria();
-        grupo1.setPeriodo(20171);grupo2.setPeriodo(20172);
+        grupo1.setPeriodo(20071);grupo2.setPeriodo(20072);
         gruposMateria.add(grupo1);gruposMateria.add(grupo2);
         m1.setGruposDeMateria(gruposMateria);
         
-        sp.registrarMateria(m1,30);
-        Collection<Integer> periodos = sp.consultarPeriodos();
+        Collection<Integer> periodosBef = sp.consultarPeriodos();
+        sp.registrarMateria(m1,40);
+        Collection<Integer> periodosAft = sp.consultarPeriodos();
         
         assertEquals("Se consulta inadecuadamente todos los periodos inscritos"
                     + "cuando esta se debe mostrar los periodos : "
-                    ,2,periodos.size());
+                    ,2,periodosAft.size()-periodosBef.size());
     }
     
     @Test
     public void CE2() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Programa prg1 = new Programa(21,"Gerencia de Proyectos", "Especializacion");
-        Asignatura as1 = new Asignatura(31,"Ejecucion");
-        Materia m1 = new Materia(51,"Gerencia Financiera");
+        Programa prg1 = new Programa(41,"Gerencia de Proyectos", "Especializacion");
+        Asignatura as1 = new Asignatura(41,"Ejecucion");
+        Materia m1 = new Materia(61,"Gerencia Financiera");
         
         List<GrupoDeMateria> gruposMateria = new ArrayList<>();
         GrupoDeMateria grupo1 = new GrupoDeMateria();
-        grupo1.setPeriodo(20181);gruposMateria.add(grupo1);
+        grupo1.setPeriodo(20081);gruposMateria.add(grupo1);
         m1.setGruposDeMateria(gruposMateria);
         
         sp.registrarPrograma(prg1);
-        sp.registrarAsignatura(as1, 21);
-        sp.registrarMateria(m1, 31);
+        sp.registrarAsignatura(as1, 41);
+        sp.registrarMateria(m1, 41);
         
-        Iterator<Integer> periodos = sp.consultarPeriodos(21).iterator();
+        Iterator<Integer> periodos = sp.consultarPeriodos(41).iterator();
         assertEquals("Se consulta inadecuadamente todos los periodos inscritos"
                     + "cuando esta se debe mostrar el periodo : "
                     ,(Integer)20181,periodos.next());
@@ -104,27 +105,27 @@ public class PeriodosTest {
     @Test
     public void CE3() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Programa prg1 = new Programa(22,"Gerencia de Proyectos", "Especializacion");
-        Asignatura as1 = new Asignatura(32,"Ejecucion");
-        Materia m1 = new Materia(52,"Gerencia Financiera");
-        Materia m2 = new Materia(53,"Analisis de Riesgos");
+        Programa prg1 = new Programa(42,"Gerencia de Proyectos", "Especializacion");
+        Asignatura as1 = new Asignatura(42,"Ejecucion");
+        Materia m1 = new Materia(62,"Gerencia Financiera");
+        Materia m2 = new Materia(63,"Analisis de Riesgos");
         
         List<GrupoDeMateria> gruposMateria1 = new ArrayList<>();
         GrupoDeMateria grupo1 = new GrupoDeMateria();
-        grupo1.setPeriodo(20191);gruposMateria1.add(grupo1);
+        grupo1.setPeriodo(20091);gruposMateria1.add(grupo1);
         m1.setGruposDeMateria(gruposMateria1);
         
         List<GrupoDeMateria> gruposMateria2 = new ArrayList<>();
         GrupoDeMateria grupo2 = new GrupoDeMateria();
-        grupo2.setPeriodo(20191);gruposMateria2.add(grupo2);
+        grupo2.setPeriodo(20091);gruposMateria2.add(grupo2);
         m2.setGruposDeMateria(gruposMateria2);
         
         sp.registrarPrograma(prg1);
-        sp.registrarAsignatura(as1, 22);
-        sp.registrarMateria(m1, 32);
-        sp.registrarMateria(m2, 32);
+        sp.registrarAsignatura(as1, 42);
+        sp.registrarMateria(m1, 42);
+        sp.registrarMateria(m2, 42);
         
-        Collection<Integer> periodos = sp.consultarPeriodos(22);
+        Collection<Integer> periodos = sp.consultarPeriodos(42);
         assertEquals("Se consulta inadecuadamente el periodo inscrito para dos materias de un mismo programa"
                     + "cuando esta se debe mostrar solo un periodo : "
                     ,1,periodos.size());
@@ -136,37 +137,11 @@ public class PeriodosTest {
         boolean thrown = false;
         Iterator<Integer> periodos;
         try {
-            periodos = sp.consultarPeriodos(100).iterator();
+            periodos = sp.consultarPeriodos(500).iterator();
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }
         assertTrue("Se consulta inadecuadamente los periodos de un programa inexistente"
                 + ", cuando esta debe lanzar ExcepcionServiciosProgmsPost",thrown);
-    }
-    
-    @AfterClass
-    public static void tearDown() {
-        JdbcDataSource ds= new JdbcDataSource();
-        ds.setURL("jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL");
-        ds.setUser("anonymous");
-        ds.setPassword("");
-        try {
-            Connection conn = ds.getConnection();
-            Statement s = conn.createStatement();
-            s.execute("SET REFERENTIAL_INTEGRITY FALSE");
-            Set<String> tables = new HashSet<String>();
-            ResultSet rs = s.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='PUBLIC'");
-            while (rs.next()) {
-                tables.add(rs.getString(1));
-            }
-            rs.close();
-            for (String table : tables){
-                s.executeUpdate("TRUNCATE TABLE " + table);
-            }
-            s.execute("SET REFERENTIAL_INTEGRITY TRUE");
-            s.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
     }
 }

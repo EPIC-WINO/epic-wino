@@ -60,7 +60,7 @@ public class ClasesTest {
     public static void setUp() throws ExcepcionServiciosProgmsPost {
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
         Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Especializacion");
-        Asignatura as1 = new Asignatura(30,"Ejecucion");
+        Asignatura as1 = new Asignatura(20,"Ejecucion");
         sp.registrarPrograma(prg1);
         sp.registrarAsignatura(as1, 20);
     }
@@ -68,17 +68,17 @@ public class ClasesTest {
     @Test
     public void CE1() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Materia m1 = new Materia(50,"Gerencia Financiera");
+        Materia m1 = new Materia(20,"Gerencia Financiera");
 
-        sp.registrarMateria(m1,30);
+        sp.registrarMateria(m1,20);
         
-        Clase cl1 = new Clase(40,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
-        Clase cl2 = new Clase(41,java.sql.Date.valueOf("2015-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
+        Clase cl1 = new Clase(1,java.sql.Date.valueOf("2001-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl2 = new Clase(2,java.sql.Date.valueOf("2001-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         
-        sp.agregarClase(50, cl1);
-        sp.agregarClase(50, cl2);
+        sp.agregarClase(20, cl1);
+        sp.agregarClase(20, cl2);
         
-        Collection<Clase> clasePorMat = sp.consultarClases(20151, 50);
+        Collection<Clase> clasePorMat = sp.consultarClases(20011, 20);
         assertEquals("Se agrega o consulta inadecuadamente las clases a una materia"
                     + "cuando esta se debe mostrar : "
                     ,2,clasePorMat.size());
@@ -87,20 +87,20 @@ public class ClasesTest {
     @Test
     public void CE2() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Materia m1 = new Materia(51,"Gerencia Financiera");
-        Materia m2 = new Materia(52,"Analisis de Riesgos");
-        sp.registrarMateria(m1,30);sp.registrarMateria(m2,30);
+        Materia m1 = new Materia(21,"Gerencia Financiera");
+        Materia m2 = new Materia(22,"Analisis de Riesgos");
+        sp.registrarMateria(m1,20);sp.registrarMateria(m2,20);
         
-        Clase cl1 = new Clase(42,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl1 = new Clase(3,java.sql.Date.valueOf("2001-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
                 
-        sp.agregarClase(51, cl1);
-        sp.agregarClase(52, cl1);
+        sp.agregarClase(21, cl1);
+        sp.agregarClase(22, cl1);
         
-        Collection<Clase> clasePorMat = sp.consultarClases(20151, 51);
+        Collection<Clase> clasePorMat = sp.consultarClases(20011, 21);
         assertEquals("Se agrega o consulta inadecuadamente la clase a dos materias"
                     + "cuando esta se debe mostrar : "
                     ,1,clasePorMat.size());
-        clasePorMat = sp.consultarClases(20151, 52);
+        clasePorMat = sp.consultarClases(20011, 22);
         assertEquals("Se agrega o consulta inadecuadamente laa clasea a dos materias"
                     + "cuando esta se debe mostrar : "
                     ,1,clasePorMat.size());
@@ -109,11 +109,11 @@ public class ClasesTest {
     @Test
     public void CF1(){
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Clase cl1 = new Clase(43,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl1 = new Clase(4,java.sql.Date.valueOf("2001-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         
         boolean thrown = false;
         try {
-            sp.agregarClase(80, cl1);
+            sp.agregarClase(500, cl1);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }
@@ -124,14 +124,14 @@ public class ClasesTest {
     @Test
     public void CF2(){
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Materia m1 = new Materia(53,"Gerencia Financiera");
-        Clase cl1 = new Clase(44,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Materia m1 = new Materia(23,"Gerencia Financiera");
+        Clase cl1 = new Clase(5,java.sql.Date.valueOf("2001-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         
         boolean thrown = false;
         try {
-            sp.registrarMateria(m1,30);
-            sp.agregarClase(53, cl1);
-            sp.agregarClase(53, cl1);
+            sp.registrarMateria(m1,20);
+            sp.agregarClase(23, cl1);
+            sp.agregarClase(23, cl1);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }
@@ -142,14 +142,14 @@ public class ClasesTest {
     @Test
     public void CF3(){
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Materia m1 = new Materia(54,"Gerencia Financiera");
-        Clase cl1 = new Clase(45,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
-        Clase cl2 = new Clase(46,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
+        Materia m1 = new Materia(24,"Gerencia Financiera");
+        Clase cl1 = new Clase(6,java.sql.Date.valueOf("2001-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl2 = new Clase(7,java.sql.Date.valueOf("2001-04-08"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         boolean thrown = false;
         try {
-            sp.registrarMateria(m1,30);
-            sp.agregarClase(54, cl1);
-            sp.agregarClase(54, cl2);
+            sp.registrarMateria(m1,20);
+            sp.agregarClase(24, cl1);
+            sp.agregarClase(24, cl2);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }
@@ -163,17 +163,17 @@ public class ClasesTest {
     @Test
     public void CE1Periodo() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Materia m1 = new Materia(55,"Gerencia Financiera");
+        Materia m1 = new Materia(25,"Gerencia Financiera");
 
-        sp.registrarMateria(m1,30);
+        sp.registrarMateria(m1,20);
         
-        Clase cl1 = new Clase(47,java.sql.Date.valueOf("2017-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
-        Clase cl2 = new Clase(48,java.sql.Date.valueOf("2017-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
+        Clase cl1 = new Clase(8,java.sql.Date.valueOf("2002-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl2 = new Clase(9,java.sql.Date.valueOf("2002-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         
-        sp.agregarClase(55, cl1);
-        sp.agregarClase(55, cl2);
+        sp.agregarClase(25, cl1);
+        sp.agregarClase(25, cl2);
         
-        Collection<Clase> clasePorPeriodo = sp.consultarClasesDeUnPeriodo(20171);
+        Collection<Clase> clasePorPeriodo = sp.consultarClasesDeUnPeriodo(20021);
         assertEquals("Se consulta inadecuadamente las clases asociadas a un periodo academico"
                     + "cuando esta se debe mostrar : "
                     ,2,clasePorPeriodo.size());
@@ -182,17 +182,17 @@ public class ClasesTest {
     @Test
     public void CE2Periodo() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Materia m1 = new Materia(56,"Gerencia Financiera");
+        Materia m1 = new Materia(26,"Gerencia Financiera");
 
-        sp.registrarMateria(m1,30);
+        sp.registrarMateria(m1,20);
         
-        Clase cl1 = new Clase(49,java.sql.Date.valueOf("2018-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
-        Clase cl2 = new Clase(50,java.sql.Date.valueOf("2018-08-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
+        Clase cl1 = new Clase(10,java.sql.Date.valueOf("2003-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl2 = new Clase(11,java.sql.Date.valueOf("2003-08-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         
-        sp.agregarClase(56, cl1);
-        sp.agregarClase(56, cl2);
+        sp.agregarClase(26, cl1);
+        sp.agregarClase(26, cl2);
         
-        Collection<Clase> clasePorPeriodo = sp.consultarClasesDeUnPeriodo(20181);
+        Collection<Clase> clasePorPeriodo = sp.consultarClasesDeUnPeriodo(20031);
         assertEquals("Se consulta inadecuadamente las clase asociadas a un periodo academico"
                     + "cuando esta se debe mostrar : "
                     ,1,clasePorPeriodo.size());
@@ -201,45 +201,19 @@ public class ClasesTest {
     @Test
     public void CF1Periodo(){
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Materia m1 = new Materia(57,"Gerencia Financiera");
-        Clase cl1 = new Clase(51,java.sql.Date.valueOf("2019-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
-        Clase cl2 = new Clase(52,java.sql.Date.valueOf("2019-08-08"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
+        Materia m1 = new Materia(27,"Gerencia Financiera");
+        Clase cl1 = new Clase(12,java.sql.Date.valueOf("2019-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
+        Clase cl2 = new Clase(13,java.sql.Date.valueOf("2019-08-08"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         boolean thrown = false;
         try {
-            sp.registrarMateria(m1,30);
-            sp.agregarClase(57, cl1);
-            sp.agregarClase(57, cl2);
-            sp.consultarClasesDeUnPeriodo(20201);
+            sp.registrarMateria(m1,20);
+            sp.agregarClase(27, cl1);
+            sp.agregarClase(27, cl2);
+            sp.consultarClasesDeUnPeriodo(19981);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }
         assertTrue("Se consulta inadecuadamente las clases para un periodo que no estan vinculadas"
                 + ", cuando esta debe lanzar ExcepcionServiciosProgmsPost",thrown); 
-    }
-    
-    @AfterClass
-    public static void tearDown() {
-        JdbcDataSource ds= new JdbcDataSource();
-        ds.setURL("jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL");
-        ds.setUser("anonymous");
-        ds.setPassword("");
-        try {
-            Connection conn = ds.getConnection();
-            Statement s = conn.createStatement();
-            s.execute("SET REFERENTIAL_INTEGRITY FALSE");
-            Set<String> tables = new HashSet<String>();
-            ResultSet rs = s.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='PUBLIC'");
-            while (rs.next()) {
-                tables.add(rs.getString(1));
-            }
-            rs.close();
-            for (String table : tables){
-                s.executeUpdate("TRUNCATE TABLE " + table);
-            }
-            s.execute("SET REFERENTIAL_INTEGRITY TRUE");
-            s.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
     }
 }

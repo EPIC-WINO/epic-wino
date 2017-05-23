@@ -53,23 +53,23 @@ public class ProgramasTest {
     @Test
     public void CE1() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Programa prg1 = new Programa(20,"Gerencia de Proyectos", "Especializacion");
-        Programa prg2 = new Programa(21,"Gestion de Informacion", "Maestria");
-        Asignatura as1 = new Asignatura(30,"Ejecucion");
-        Asignatura as2 = new Asignatura(31,"Operacion");
-        Materia m1 = new Materia(50,"Gerencia Financiera");
-        Materia m2 = new Materia(51,"Analisis de Riesgos");
+        Programa prg1 = new Programa(60,"Gerencia de Proyectos", "Especializacion");
+        Programa prg2 = new Programa(61,"Gestion de Informacion", "Maestria");
+        Asignatura as1 = new Asignatura(60,"Ejecucion");
+        Asignatura as2 = new Asignatura(61,"Operacion");
+        Materia m1 = new Materia(100,"Gerencia Financiera");
+        Materia m2 = new Materia(101,"Analisis de Riesgos");
         Clase cl1 = new Clase(40,java.sql.Date.valueOf("2015-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Clase cl2 = new Clase(41,java.sql.Date.valueOf("2015-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         
         sp.registrarPrograma(prg1);
         sp.registrarPrograma(prg2);
-        sp.registrarAsignatura(as1, 20);
-        sp.registrarAsignatura(as2, 21);
-        sp.registrarMateria(m1, 30);
-        sp.registrarMateria(m2, 31);
-        sp.agregarClase(50, cl1);
-        sp.agregarClase(51, cl2);
+        sp.registrarAsignatura(as1, 60);
+        sp.registrarAsignatura(as2, 61);
+        sp.registrarMateria(m1, 60);
+        sp.registrarMateria(m2, 61);
+        sp.agregarClase(100, cl1);
+        sp.agregarClase(101, cl2);
         
         Collection<Programa> progPorPer = sp.consultarProgramas(20151);
         assertEquals("Se registra o consulta inadecuadamente los programas programados para un periodo academico"
@@ -80,13 +80,13 @@ public class ProgramasTest {
     @Test
     public void CE2() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Programa prg1 = new Programa(22,"Gerencia de Proyectos", "Especializacion");
-        Asignatura as1 = new Asignatura(32,"Ejecucion");
+        Programa prg1 = new Programa(62,"Gerencia de Proyectos", "Especializacion");
+        Asignatura as1 = new Asignatura(62,"Ejecucion");
         
         sp.registrarPrograma(prg1);
-        sp.registrarAsignatura(as1, 22);
+        sp.registrarAsignatura(as1, 62);
         
-        Collection<Programa> progPorAsignatura = sp.consultarPrograma(32);
+        Collection<Programa> progPorAsignatura = sp.consultarPrograma(62);
         assertEquals("Se registra o consulta inadecuadamente el programa asociado a una asignatura"
                     + "cuando esta se debe mostrar : "
                     ,1,progPorAsignatura.size());
@@ -95,16 +95,16 @@ public class ProgramasTest {
     @Test
     public void CE3() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Programa prg1 = new Programa(23,"Gerencia de Proyectos", "Especializacion");
-        Programa prg2 = new Programa(24,"Gestion de Informacion", "Maestria");
-        Asignatura as1 = new Asignatura(33,"Ejecucion");
+        Programa prg1 = new Programa(63,"Gerencia de Proyectos", "Especializacion");
+        Programa prg2 = new Programa(64,"Gestion de Informacion", "Maestria");
+        Asignatura as1 = new Asignatura(63,"Ejecucion");
         
         sp.registrarPrograma(prg1);
         sp.registrarPrograma(prg2);
-        sp.registrarAsignatura(as1, 23);
-        sp.registrarAsignatura(as1, 24);
+        sp.registrarAsignatura(as1, 63);
+        sp.registrarAsignatura(as1, 64);
         
-        Collection<Programa> progPorAsignatura = sp.consultarPrograma(33);
+        Collection<Programa> progPorAsignatura = sp.consultarPrograma(63);
         assertEquals("Se registra o consulta inadecuadamente los programas asociados a una asignatura"
                     + "cuando esta se debe mostrar : "
                     ,2,progPorAsignatura.size());
@@ -113,7 +113,7 @@ public class ProgramasTest {
     @Test
     public void CF1(){
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Programa prg1 = new Programa(25,"Gerencia de Proyectos", "Especializacion");
+        Programa prg1 = new Programa(65,"Gerencia de Proyectos", "Especializacion");
         boolean thrown = false;
         try {
             sp.registrarPrograma(prg1);
@@ -128,7 +128,7 @@ public class ProgramasTest {
     @Test
     public void CF2(){
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Programa prg1 = new Programa(26,"Gerencia de Proyectos", "Especializacion");
+        Programa prg1 = new Programa(66,"Gerencia de Proyectos", "Especializacion");
         boolean thrown = false;
         try {
             sp.registrarPrograma(prg1);
@@ -143,43 +143,17 @@ public class ProgramasTest {
     @Test
     public void CF3(){
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
-        Programa prg1 = new Programa(27,"Gerencia de Proyectos", "Especializacion");
-        Asignatura as1 = new Asignatura(34,"Ejecucion");
+        Programa prg1 = new Programa(67,"Gerencia de Proyectos", "Especializacion");
+        Asignatura as1 = new Asignatura(64,"Ejecucion");
         boolean thrown = false;
         try {
             sp.registrarPrograma(prg1);
-            sp.registrarAsignatura(as1, 27);
-            sp.consultarPrograma(100);
+            sp.registrarAsignatura(as1, 67);
+            sp.consultarPrograma(700);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }
         assertTrue("Se consulta inadecuadamente un programa consultado con una asignatura que no existe"
                 + ", cuando esta debe lanzar ExcepcionServiciosProgmsPost",thrown); 
-    }
-    
-    @AfterClass
-    public static void tearDown() {
-        JdbcDataSource ds= new JdbcDataSource();
-        ds.setURL("jdbc:h2:file:./target/db/testdb;MODE=PostgreSQL");
-        ds.setUser("anonymous");
-        ds.setPassword("");
-        try {
-            Connection conn = ds.getConnection();
-            Statement s = conn.createStatement();
-            s.execute("SET REFERENTIAL_INTEGRITY FALSE");
-            Set<String> tables = new HashSet<String>();
-            ResultSet rs = s.executeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA='PUBLIC'");
-            while (rs.next()) {
-                tables.add(rs.getString(1));
-            }
-            rs.close();
-            for (String table : tables){
-                s.executeUpdate("TRUNCATE TABLE " + table);
-            }
-            s.execute("SET REFERENTIAL_INTEGRITY TRUE");
-            s.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
     }
 }
