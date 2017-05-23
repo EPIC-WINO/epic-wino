@@ -46,7 +46,7 @@
             <div class="content">
                 <h:form id="RegistrarMateria" >
                 <h1>Registrar Materia</h1>
-                
+                <div style="text-align: center">
                 <p:outputLabel for="programa" value="Programa" styleClass="label"/>
                 <p:selectOneMenu id="programa" value="#{registrarMateriaBean.programa}" styleClass="scroll">
                     <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
@@ -60,15 +60,19 @@
                     <p:ajax update=":RegistrarMateria:asignatura"/>
                 </p:selectOneMenu>
                 
-                <p:commandButton  value="Consultar"  styleClass="button"/>
-                
+                <p:commandButton  value="Consultar"  styleClass="button" style="margin: 20px;"/>
+                </div>
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%"></HR>
                 <div>
                     <p></p>
                 </div>
                 <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
                 
                 <p:outputLabel for="asignatura" value="Asignatura" styleClass="label"/>
-                <p:selectOneMenu id="asignatura" value="#{registrarMateriaBean.asignatura}" styleClass="scroll" immediate="true">
+                <div>
+                    <p></p>
+                </div>
+                <p:selectOneMenu id="asignatura" value="#{registrarMateriaBean.asignatura}" styleClass="scroll" immediate="true" style="margin-left: 90px;">
                     <f:selectItem itemLabel="Asignatura" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{registrarMateriaBean.asignaturas}" />
                 </p:selectOneMenu>
@@ -110,7 +114,7 @@
                 <p:inputTextarea rows="5" cols="50" completeMethod="#{registrarMateriaBean.descripcion}"/>
                 <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
                 <center>
-                    <p:commandButton  onclick="location.href = 'MateriasRegistradas.xhtml'" value="Registrar Materia"  styleClass="button"/>
+                    <p:commandButton  onclick="location.href = 'MateriasRegistradas.xhtml'" value="Registrar Materia" actionListener="#{registrarMateriaBean.registrarMateria()}" styleClass="button"/>
                     <p:commandButton  onclick="location.href = 'MateriasRegistradas.xhtml'" value="Cancelar"  styleClass="button"/>
                 </center>
                 <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
