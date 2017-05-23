@@ -76,7 +76,7 @@ public class ProgramasTest {
                     + "cuando esta se debe mostrar : "
                     ,2,progPorPer.size());
     }
-    /*
+    
     @Test
     public void CE2() throws ExcepcionServiciosProgmsPost{
         ServiciosProgmsPost sp = ServiciosProgmsPostFactory.getInstance().getServiciosProgmsPostTesting();
@@ -86,10 +86,10 @@ public class ProgramasTest {
         sp.registrarPrograma(prg1);
         sp.registrarAsignatura(as1, 62);
         
-        Collection<Programa> progPorAsignatura = sp.consultarPrograma(62);
+        Programa progPorAsignatura = sp.consultarPrograma(62);
         assertEquals("Se registra o consulta inadecuadamente el programa asociado a una asignatura"
                     + "cuando esta se debe mostrar : "
-                    ,1,progPorAsignatura.size());
+                    ,"Gerencia de Proyectos",progPorAsignatura.getNombre());
     }
     
     @Test
@@ -104,11 +104,11 @@ public class ProgramasTest {
         sp.registrarAsignatura(as1, 63);
         sp.registrarAsignatura(as1, 64);
         
-        Collection<Programa> progPorAsignatura = sp.consultarPrograma(63);
+        Programa progPorAsignatura = sp.consultarPrograma(64);
         assertEquals("Se registra o consulta inadecuadamente los programas asociados a una asignatura"
                     + "cuando esta se debe mostrar : "
-                    ,2,progPorAsignatura.size());
-    }*/
+                    ,"Gestion de Informacion",progPorAsignatura.getNombre());
+    }
     
     @Test
     public void CF1(){

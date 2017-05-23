@@ -153,42 +153,4 @@ public class MateriasTest {
         assertTrue("Se registra inadecuadamente una materia existente"
                 + ", cuando esta debe lanzar ExcepcionServiciosProgmsPost",thrown);
     }
-    
-    //Consultar Prerrequisitos y Correquisitos de una materia
-    /*
-    @Test
-    public void CE1CoYRe(){}
-    
-    @Test
-    public void CE2CoYRe(){}
-    
-    @Test
-    public void CE3CoYRe(){}
-    
-    @Test
-    public void CF1CoYRe(){}
-    
-    @Test
-    public void CF2CoYRe(){}
-    
-    //Agregar y consultar un cohorte, agregando por programa y materia, consultando por materia y periodo
-    
-    @Test
-    public void CE1Cohorte(){}
-    
-    @Test
-    public void CE2Cohorte(){}
-    
-    @Test
-    public void CE3Cohorte(){}
-    
-    @Test
-    public void CF1Cohorte(){}
-    
-    @Test
-    public void CF2Cohorte(){}
-    
-    @Test
-    public void CF3Cohorte(){}
-    */
 }
