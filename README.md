@@ -34,9 +34,34 @@ a las Materias Registradas o se puede cancelar el registro
  - Persistencia: Mantiene una base de datos, donde permite manipular los datos y enviarle la información que necesita la capa lógica
 
 - **Modelo de Base de Datos:**
-![](BaseDeDatos.PNG)
+![](BaseDeDatos.png)
 - **Modelo de Base de Datos:**
-![](DiagramaDeClases.PNG)
+![](DiagramaDeClases.png)
 - **Aplicación:**
 http://epic-wino.herokuapp.com/
 #### **Descripción del Proceso:**
+- **Descripción de la Metodología:**
+- **Enlaces a Trello:**
+> - **Trello General:** https://trello.com/b/q2orSdQD/2017-1-proypdsw-epic-wino
+> - **Trello Específico:** https://trello.com/b/9eVV98cw/current-sprint
+
+- **Sprint 1:**
+..* Sprint-Backlog:
+![](sprint1-backlog.PNG)
+..* Sprint-Burdown Chart:
+![](sprint1-burdownchart.PNG)
+..* Para este Sprint presentamos algunos inconvenientes en cuanto a coordinación y asignación de las tareas por lo que para fechas cercanas al Review  decidimos intentar solucionar esos inconvenientes con exceso de tareas asignadas para cada integrante de acuerdo a las tareas que se iban finalizando pero que realmente provocó mayor descoordinación para el producto del review.
+
+- **Sprint 2:**
+..* Sprint-Backlog:
+![](sprint2-backlog.PNG)
+..* Sprint-Burdown Chart:
+![](sprint2-burdownchart.PNG)
+..* Para este Sprint por la experiencia que obtuvimos en el anterior decidimos realizar un planning bastante más elaborado de acuerdo a las mejores destrezas que tenía cada integrante entonces se le asignaba cierto tipo de tareas, de está forma aumentaríamos la calidad del trabajo de cada integrante y de lo que al final se convertiría en un producto viable al momento del review.
+
+- **Sprint 3:**
+..* Sprint-Backlog:
+![](sprint3-backlog.PNG)
+..* Sprint-Burdown Chart:
+![](sprint3-burdownchart.PNG)
+..* Para este sprint tuvimos inconvenientes con la disponibilidad de tiempo por parte de todos los miembros del equipo por lo cual intentamos utilizar otra estrategia y fue asignarnos tareas de acuerdo a las destrezas de los integrantes (al igual que en el sprint anterior) pero de igual manera tambien acordar esas tareas por historias de uso para avanzar en todas las historias de uso a la par y que no quedase con inconsistencias el producto final.
