@@ -40,3 +40,7 @@ a las Materias Registradas o se puede cancelar el registro
 - **Aplicación:**
 http://epic-wino.herokuapp.com/
 #### **Descripción del Proceso:**
+
+
+- **release-burndown chart:**
+![](ReleaseBurnDownChart.PNG)
