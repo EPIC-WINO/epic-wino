@@ -34,34 +34,43 @@
                                 <a href="../coordination/ReporteProgramacion.xhtml" target="_self">Reporte de Programacion</a>
                             </div>
                         </div>
-                        <div class="dropdown">
-                            <button class="menuBarButton">Profesores</button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
+                    </li>
+                </ul>
+            </div>
+        </h:form>
         <div class="content">
             <h:form id="ProgramarPeriodo">
                 <h1>Programar Periodo</h1>
                 
-                <p:outputLabel for="programa" value="Programa" styleClass="label"/>
-                <p:selectOneMenu id="programa" value="#{programarMateriaBean.programa}" styleClass="scroll">
-                    <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{programarMateriaBean.programas}" />
-                </p:selectOneMenu>
+                <div style="text-align: center">
+                    <p:outputLabel for="programa" value="Programa" styleClass="label"/>
+                    <p:selectOneMenu id="programa" value="#{programarMateriaBean.programa}" styleClass="scroll">
+                        <f:selectItem itemLabel="Programa" itemValue="" noSelectionOption="true"/>
+                        <f:selectItems value="#{programarMateriaBean.programas}" />
+                    </p:selectOneMenu>
 
-                <p:outputLabel for="nivel" value="Nivel" styleClass="label"/>
-                <p:selectOneMenu id="nivel" value="#{programarMateriaBean.nivel}" styleClass="scroll">
-                    <f:selectItem itemLabel="Nivel" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{programarMateriaBean.niveles}" />
-                    <p:ajax update=":ProgramarPeriodo:asignatura"/>
+                    <p:outputLabel for="nivel" value="Nivel" styleClass="label"/>
+                    <p:selectOneMenu id="nivel" value="#{programarMateriaBean.nivel}" styleClass="scroll">
+                        <f:selectItem itemLabel="Nivel" itemValue="" noSelectionOption="true"/>
+                        <f:selectItems value="#{programarMateriaBean.niveles}" />
+                        <p:ajax update=":ProgramarPeriodo:asignatura"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton  value="Consultar"  styleClass="button"/>
+                </div>
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%"></HR>
+                <p:outputLabel for="asignatura" value="Asignatura" styleClass="titulo"/>
+                
+                <div>
+                    <p></p>
+                </div>
+                
+                <p:selectOneMenu id="asignatura" value="#{programarMateriaBean.asignatura}" styleClass="scroll" immediate="true" style="margin-left: 70px;">
+                    <f:selectItem itemLabel="Asignatura" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{programarMateriaBean.asignaturas}" />
                 </p:selectOneMenu>
                 
-                <p:commandButton  value="Consultar"  styleClass="button"/>
-
-                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%"></HR>
-
+                <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" COLOR="WHITE"></HR>
                 <p:outputLabel value="Periodo" styleClass="titulo"/>
                 
                 <div>
@@ -81,18 +90,6 @@
                 </p:selectOneMenu>
                 
                 <HR ALIGN="LEFT|RIGTH|CENTER NOSHADE" SIZE="1%" WIDTH="90%" color="white"></HR>
-                
-                <p:outputLabel value="Asignatura" styleClass="titulo"/>
-                
-                <div>
-                    <p></p>
-                </div>
-                
-                <p:outputLabel for="asignatura" value="Asignatura" styleClass="label"/>
-                    <p:selectOneMenu id="asignatura" value="#{programarMateriaBean.asignatura}" styleClass="scroll">
-                        <f:selectItem itemLabel="Asignatura" itemValue="" noSelectionOption="true"/>
-                        <f:selectItems value="#{programarMateriaBean.asignaturas}" />
-                    </p:selectOneMenu>
             </h:form>
         </div>
     </h:body>       
