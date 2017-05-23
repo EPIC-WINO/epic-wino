@@ -105,7 +105,7 @@ public class AsignaturasTest {
         sp.registrarAsignatura(as1, 3);sp.registrarAsignatura(as2, 4);
         sp.registrarMateria(m1, 3);sp.registrarMateria(m1, 4);
         
-        Collection<Asignatura> asigMateria = sp.consultarAsignaturas(3);
+        Collection<Asignatura> asigMateria = sp.consultarAsignaturas("3");
         assertEquals("Se registra o consulta inadecuadamente las asignaturas relacionadas a una materias"
                     + "cuando esta se debe mostrar las asignaturas : "
                     ,2,asigMateria.size());
@@ -181,7 +181,7 @@ public class AsignaturasTest {
         try{
             sp.registrarPrograma(prg1);
             sp.registrarAsignatura(as1, 9);
-            sp.consultarAsignaturas(4);
+            sp.consultarAsignaturas("4");
         } catch(ExcepcionServiciosProgmsPost e) {
             thrown = true;
         }

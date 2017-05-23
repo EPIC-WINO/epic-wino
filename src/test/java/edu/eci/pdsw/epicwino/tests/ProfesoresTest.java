@@ -143,7 +143,7 @@ public class ProfesoresTest {
         
         grupo1.setClases(clasesGrupo);
         sp.registrarMateria(m1,50);
-        Profesor profesorMat = sp.consultarProfesor(20121,82);
+        Profesor profesorMat = sp.consultarProfesor(20121,"82");
         
         assertEquals("Se consulta inadecuadamente el profesor para el periodo 2012-1 y materia Gerencia Financiera"
                     + "cuando esta debe mostrar el profesor : "
@@ -186,7 +186,7 @@ public class ProfesoresTest {
         
         boolean thrown = false;
         try {
-            Profesor profesorMat = sp.consultarProfesor(20132,600);
+            Profesor profesorMat = sp.consultarProfesor(20132,"600");
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }

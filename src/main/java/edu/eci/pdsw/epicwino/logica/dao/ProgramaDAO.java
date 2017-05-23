@@ -49,7 +49,7 @@ public interface ProgramaDAO {
      * @return numero de cohorte
      * @throws PersistenceException falla en persistencia
      */
-    public int loadCohorte(int idMateria, int idAsignatura, int periodo) throws PersistenceException;
+    public int loadCohorte(String idMateria, int idAsignatura, int periodo) throws PersistenceException;
     
     /**
      * consulat todos los programas presentes

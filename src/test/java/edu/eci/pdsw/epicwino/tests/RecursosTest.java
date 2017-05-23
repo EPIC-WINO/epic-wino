@@ -190,7 +190,7 @@ public class RecursosTest {
         Materia m1 = new Materia(120,"Gerencia Financiera");
 
         sp.registrarMateria(m1,70);
-        sp.agregarClase(120, cl);
+        sp.agregarClase("120", cl);
         
         sp.registrarPrestamoRecursoClase(11, cl);
         sp.registrarPrestamoRecursoClase(12, cl);
@@ -213,7 +213,7 @@ public class RecursosTest {
         Clase cl = new Clase(61,java.sql.Date.valueOf("2021-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Materia m1 = new Materia(121,"Gerencia Financiera");
         sp.registrarMateria(m1,70);
-        sp.agregarClase(121, cl);
+        sp.agregarClase("121", cl);
         
         sp.registrarPrestamoRecursoClase(13, cl);
         sp.registrarPrestamoRecursoClase(14, cl);
@@ -236,7 +236,7 @@ public class RecursosTest {
         Clase cl2 = new Clase(63,java.sql.Date.valueOf("2022-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         Materia m1 = new Materia(122,"Gerencia Financiera");
         sp.registrarMateria(m1,70);
-        sp.agregarClase(122, cl1);sp.agregarClase(122, cl2);
+        sp.agregarClase("122", cl1);sp.agregarClase("122", cl2);
         
         sp.registrarPrestamoRecursoClase(15, cl1);
         sp.registrarPrestamoRecursoClase(15, cl2);
@@ -259,7 +259,7 @@ public class RecursosTest {
         try {
             sp.registrarRecurso(rc1);
             sp.registrarMateria(m1,70);sp.registrarMateria(m2,70);
-            sp.agregarClase(123, cl1);sp.agregarClase(124, cl2);
+            sp.agregarClase("123", cl1);sp.agregarClase("124", cl2);
             sp.registrarPrestamoRecursoClase(16, cl1);
             sp.registrarPrestamoRecursoClase(16, cl2);
         } catch (ExcepcionServiciosProgmsPost ex) {

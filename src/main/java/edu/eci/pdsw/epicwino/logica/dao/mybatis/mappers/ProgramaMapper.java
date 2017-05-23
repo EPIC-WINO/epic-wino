@@ -21,7 +21,7 @@ public interface ProgramaMapper {
     
     public List<Integer> loadPeriodos();
     
-    public int consultarCohorte(@Param("idMateria") int idMateria, 
+    public int consultarCohorte(@Param("idMateria") String idMateria, 
             @Param("idAsignatura") int idAsignatura, 
             @Param("periodo") int periodo);
             

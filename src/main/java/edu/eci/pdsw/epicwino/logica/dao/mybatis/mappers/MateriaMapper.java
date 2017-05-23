@@ -19,7 +19,7 @@ public interface MateriaMapper {
      * @param periodo del cohorte
      */
     void agregarCohorte(@Param("idPrograma") int idPrograma, 
-            @Param("idMateria") int idMateria, @Param("numCohorte") int numCohorte,
+            @Param("idMateria") String idMateria, @Param("numCohorte") int numCohorte,
             @Param("periodo") int periodo);
     
     /**
@@ -31,13 +31,13 @@ public interface MateriaMapper {
      * @param idMateria id de la materia
      * @return lista no nula de materias que son prerrequisito de la materia
      */
-    List<Materia> loadPrerrequisitos(@Param("materia") int idMateria);
+    List<Materia> loadPrerrequisitos(@Param("materia") String idMateria);
     
     /**
      * @param idMateria id de la materia
      * @return lista no nula de materias que son correquisito de la materia
      */
-    List<Materia> loadCorrequisitos(@Param("materia") int idMateria);
+    List<Materia> loadCorrequisitos(@Param("materia") String idMateria);
     
     /**
      * @param materia a guardar
@@ -56,9 +56,9 @@ public interface MateriaMapper {
     int consultarDisponibilidadProfesor(@Param("idProf") int idProf, 
             @Param("fecha") Date fecha, @Param("horaInicio") Time horaInicio, @Param("horaFin") Time horaFin);
     
-    void agregarRequisito(@Param("idMateria") int idMateria, @Param("requisito") int idRequisito, @Param("prerrequisito") String prerrequisito);
+    void agregarRequisito(@Param("idMateria") String idMateria, @Param("requisito") int idRequisito, @Param("prerrequisito") String prerrequisito);
     
-    Profesor loadProfesoresEnPeriodoYMateria(@Param("idMateria") String idMateria, @Param("periodo") int periodo); // XXX corregir, idMateria es String
+    Profesor loadProfesoresEnPeriodoYMateria(@Param("idMateria") String idMateria, @Param("periodo") int periodo);
     
     List<Profesor> loadProfesoresEnPeriodo(@Param("periodo") int periodo);
 }

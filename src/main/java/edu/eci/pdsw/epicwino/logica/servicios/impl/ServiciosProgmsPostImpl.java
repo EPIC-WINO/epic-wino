@@ -163,7 +163,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public void agregarClase(int idMateria, Clase clase) throws ExcepcionServiciosProgmsPost {
+    public void agregarClase(String idMateria, Clase clase) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Se agrega la clase {0} a la materia con ID: {1}", clase, idMateria));
 
         if (!this.materiaExiste(idMateria)) {
@@ -350,7 +350,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public List<Asignatura> consultarAsignaturas(int idMateria) throws ExcepcionServiciosProgmsPost {
+    public List<Asignatura> consultarAsignaturas(String idMateria) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Consulta las asignaturas que tiene la materia ({0})", idMateria));
 
         List<Asignatura> as = this.consultarAsignaturas();
@@ -361,7 +361,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
             List<Materia> materias = asignatura.getMaterias();
             boolean f = false;
             for (int i = 0; i < materias.size() && !f; i++) {
-                if (materias.get(i).getId() == idMateria) {
+                if (materias.get(i).getId().equals(idMateria)) {
                     found = true;
                     f = true;
                     asignaturas.add(asignatura);
@@ -417,7 +417,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public List<Materia> consultarPrerrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost {
+    public List<Materia> consultarPrerrequisitos(String idMateria) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Consultar los prerrequisitos de la materia " + idMateria);
 
         List<Materia> materias = null;
@@ -431,7 +431,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public List<Materia> consultarCorrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost {
+    public List<Materia> consultarCorrequisitos(String idMateria) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Consultar los correquisitos de la materia " + idMateria);
 
         List<Materia> materias = null;
@@ -507,7 +507,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public List<Clase> consultarClases(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
+    public List<Clase> consultarClases(int periodo, String idMateria) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Se consultan las clases de la materia"
                 + "({0}) en el periodo ({1})", idMateria, periodo));
 
@@ -517,7 +517,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         Set<Clase> clases = new TreeSet<>();
         for (int i = 0; i < materias.size() && !found; i++) {
             Materia materia = materias.get(i);
-            if (materia.getId() == idMateria) {
+            if (materia.getId().equals(idMateria)) {
                 found = true;
                 for (GrupoDeMateria grupo : materia.getGruposDeMateria()) {
                     clases.addAll(grupo.getClases());
@@ -553,7 +553,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public Map<Asignatura, Integer> consultarCohortesPorAsignatura(int idMateria, int periodo) throws ExcepcionServiciosProgmsPost {
+    public Map<Asignatura, Integer> consultarCohortesPorAsignatura(String idMateria, int periodo) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Se consultan los cohortes por asignatura a partir"
                 + "de la materia ({0}) en el periodo {1}", idMateria, periodo));
 
@@ -595,7 +595,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws ExcepcionServiciosProgmsPost {
+    public void agregarCohorte(int idPrograma, String idMateria, int numCohorte, int periodo) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Registra nuevo cohorte "
                 + "({2}) en el programa ({0}), materia ({1})", idPrograma, idMateria, numCohorte));
 
@@ -608,7 +608,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
+    public Profesor consultarProfesor(int periodo, String idMateria) throws ExcepcionServiciosProgmsPost {
         LOGGER.info("Se consulta el profesor del periodo " + periodo + " de la materia " + idMateria);
 
         if (!this.periodoEsValido(periodo)) {
@@ -686,7 +686,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public int consultarCohorte(int idMateria, int periodo, int idAsignatura) throws ExcepcionServiciosProgmsPost {
+    public int consultarCohorte(String idMateria, int periodo, int idAsignatura) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Se consulta el cohorte de la materia "
                 + "({0}) en la asignatura ({1}), en el periodo {2}", idMateria, idAsignatura, periodo));
 
@@ -730,14 +730,14 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         return new ArrayList<>(niveles);
     }
 
-    private boolean materiaExiste(int idMateria) {
+    private boolean materiaExiste(String idMateria) {
         LOGGER.debug("Se consulta si la materia " + idMateria + " existe");
 
         List<Materia> materias = this.consultarMaterias();
 
         boolean found = false;
         for (int i = 0; i < materias.size() && !found; i++) {
-            found = materias.get(i).getId() == idMateria;
+            found = materias.get(i).getId().equals(idMateria);
         }
 
         return found;
@@ -799,7 +799,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         return this.consultarPeriodos().contains(periodo);
     }
 
-    private boolean grupoDeMateriaExiste(int idMateria, int periodo) {
+    private boolean grupoDeMateriaExiste(String idMateria, int periodo) {
         LOGGER.debug(MessageFormat.format("Se consulta si el grupo de Materia "
                 + "(idMateria: {0}, periodo: {1})", idMateria, periodo));
         boolean f = false;
@@ -813,7 +813,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
         }
 
         for (int i = 0; i < materias.size() && !f; i++) {
-            if (materias.get(i).getId() == idMateria) {
+            if (materias.get(i).getId().equals(idMateria)) {
                 List<GrupoDeMateria> grupos = materias.get(i).getGruposDeMateria();
                 for (int j = 0; j < grupos.size() && !f; j++) {
                     if (grupos.get(j).getPeriodo() == periodo) {
@@ -911,7 +911,7 @@ public class ServiciosProgmsPostImpl implements ServiciosProgmsPost {
     }
 
     @Override
-    public void registrarRequisito(int idMateria, int idPrerequisito, boolean prerrequisito) throws ExcepcionServiciosProgmsPost {
+    public void registrarRequisito(String idMateria, int idPrerequisito, boolean prerrequisito) throws ExcepcionServiciosProgmsPost {
         LOGGER.info(MessageFormat.format("Se intenta registrar un nuevo "
                 + "requisito (idMateria: {0}, idPrerequisito: {1}, "
                 + "Completo: {2})", idMateria, idPrerequisito, prerrequisito));

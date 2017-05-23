@@ -20,7 +20,7 @@ public class MyBatisClaseDAO implements ClaseDAO {
     private ClaseMapper claseMapper;
 
     @Override
-    public void saveClase(Clase c, int idMateria, int periodo) throws PersistenceException {
+    public void saveClase(Clase c, String idMateria, int periodo) throws PersistenceException {
         claseMapper.agregarClase(c, idMateria, periodo);
     }
 
@@ -40,8 +40,8 @@ public class MyBatisClaseDAO implements ClaseDAO {
     }
 
     @Override
-    public void agregarGrupoDeMateria(int idMateria, int periodo, int idProfesor) throws PersistenceException {
-        claseMapper.agregarGrupoDeMateria(Integer.toString(idMateria), periodo, idProfesor);
+    public void agregarGrupoDeMateria(String idMateria, int periodo, int idProfesor) throws PersistenceException {
+        claseMapper.agregarGrupoDeMateria(idMateria, periodo, idProfesor);
     }
 
     @Override

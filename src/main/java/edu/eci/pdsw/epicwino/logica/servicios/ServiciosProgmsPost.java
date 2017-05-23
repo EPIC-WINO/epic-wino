@@ -61,7 +61,7 @@ public interface ServiciosProgmsPost {
      * periodo
      * @throws NullPointerException si algun parametro es nulo
      */
-    void agregarClase(int idMateria, Clase clase) throws ExcepcionServiciosProgmsPost;
+    void agregarClase(String idMateria, Clase clase) throws ExcepcionServiciosProgmsPost;
 
     /**
      * consulta todas las materias registradas
@@ -167,7 +167,7 @@ public interface ServiciosProgmsPost {
      * @throws ExcepcionServiciosProgmsPost la materia no existe ; no hay
      * ninguna asignatura con la materia (inconsistencia)
      */
-    List<Asignatura> consultarAsignaturas(int idMateria) throws ExcepcionServiciosProgmsPost;
+    List<Asignatura> consultarAsignaturas(String idMateria) throws ExcepcionServiciosProgmsPost;
 
     /**
      * registrar una nueva asignatura
@@ -187,7 +187,7 @@ public interface ServiciosProgmsPost {
      * @return lista no nula de materias que son prerequisitos de la materia
      * @throws ExcepcionServiciosProgmsPost la materia no existe
      */
-    List<Materia> consultarPrerrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost;
+    List<Materia> consultarPrerrequisitos(String idMateria) throws ExcepcionServiciosProgmsPost;
 
     /**
      * consultar los correquisitos de una materia
@@ -196,7 +196,7 @@ public interface ServiciosProgmsPost {
      * @return lista no nula de materias que son correquisitos de la materia
      * @throws ExcepcionServiciosProgmsPost la materia no existe
      */
-    List<Materia> consultarCorrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost;
+    List<Materia> consultarCorrequisitos(String idMateria) throws ExcepcionServiciosProgmsPost;
 
     /**
      * consultar los periodos registrados
@@ -222,7 +222,7 @@ public interface ServiciosProgmsPost {
      * @return lista no nula de clases
      * @throws ExcepcionServiciosProgmsPost la materia no existe
      */
-    List<Clase> consultarClases(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost;
+    List<Clase> consultarClases(int periodo, String idMateria) throws ExcepcionServiciosProgmsPost;
 
     /**
      * consultar las categorias de todos los recursos presentes
@@ -241,7 +241,7 @@ public interface ServiciosProgmsPost {
      * tiene a la materia
      * @throws ExcepcionServiciosProgmsPost la materia no existe en ese periodo
      */
-    Map<Asignatura, Integer> consultarCohortesPorAsignatura(int idMateria, int periodo) throws ExcepcionServiciosProgmsPost;
+    Map<Asignatura, Integer> consultarCohortesPorAsignatura(String idMateria, int periodo) throws ExcepcionServiciosProgmsPost;
 
     /**
      * consultar un programa a partir de la asignatura que esta contenida en
@@ -263,7 +263,7 @@ public interface ServiciosProgmsPost {
      * @throws ExcepcionServiciosProgmsPost el cohorte ya existe; la materia no
      * existe; el programa no existe
      */
-    void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws ExcepcionServiciosProgmsPost;
+    void agregarCohorte(int idPrograma, String idMateria, int numCohorte, int periodo) throws ExcepcionServiciosProgmsPost;
 
     /**
      * consultar un profesor a partir de su materia y su periodo
@@ -273,7 +273,7 @@ public interface ServiciosProgmsPost {
      * @return profesor que dicta la materia en el periodo
      * @throws ExcepcionServiciosProgmsPost la materia no existe en ese periodo
      */
-    Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost;
+    Profesor consultarProfesor(int periodo, String idMateria) throws ExcepcionServiciosProgmsPost;
 
     /**
      * registrar un nuevo recurso
@@ -319,7 +319,7 @@ public interface ServiciosProgmsPost {
      * @throws ExcepcionServiciosProgmsPost la materia no existe; la asignatura
      * no existe; no existe la materia en el periodo
      */
-    int consultarCohorte(int idMateria, int periodo, int idAsignatura) throws ExcepcionServiciosProgmsPost;
+    int consultarCohorte(String idMateria, int periodo, int idAsignatura) throws ExcepcionServiciosProgmsPost;
 
     /**
      * consultar todos los niveles presentes
@@ -353,7 +353,7 @@ public interface ServiciosProgmsPost {
      * @param prerrequisito es prerrequisito
      * @throws ExcepcionServiciosProgmsPost la materia o el requisito no existe
      */
-    void registrarRequisito(int idMateria, int idPrerequisito, boolean prerrequisito) throws ExcepcionServiciosProgmsPost;
+    void registrarRequisito(String idMateria, int idPrerequisito, boolean prerrequisito) throws ExcepcionServiciosProgmsPost;
 
     /**
      * consultar todos los programas registrados

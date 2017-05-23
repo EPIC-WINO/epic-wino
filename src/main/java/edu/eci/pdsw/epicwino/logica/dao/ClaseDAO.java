@@ -18,7 +18,7 @@ public interface ClaseDAO {
      * @param periodo de la clase
      * @throws PersistenceException falla en persistencia
      */
-    public void saveClase(Clase clase, int idMateria, int periodo) throws PersistenceException;
+    public void saveClase(Clase clase, String idMateria, int periodo) throws PersistenceException;
 
     /**
      * consultar todas las clases en un periodo
@@ -51,7 +51,7 @@ public interface ClaseDAO {
      * @param idProfesor id del profesor que conforma el grupo
      * @throws PersistenceException falla en persistencia
      */
-    public void agregarGrupoDeMateria(int idMateria, int periodo, int idProfesor) throws PersistenceException;
+    public void agregarGrupoDeMateria(String idMateria, int periodo, int idProfesor) throws PersistenceException;
     
     public List<Clase> consultarClasesDeUnPeriodo(int periodo) throws PersistenceException;
     

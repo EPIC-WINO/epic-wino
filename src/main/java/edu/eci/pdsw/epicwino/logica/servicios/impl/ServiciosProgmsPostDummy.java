@@ -220,7 +220,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public List<Asignatura> consultarAsignaturas(int periodo) throws ExcepcionServiciosProgmsPost {
+    public List<Asignatura> consultarAsignaturas(String idMateria) throws ExcepcionServiciosProgmsPost {
         List<Asignatura> asignaturas=new ArrayList();
         Asignatura a0=new Asignatura(1,"Fundamentos de gerencia de proyectos");
         Asignatura a1=new Asignatura(2,"Teorias gerenciales");
@@ -247,7 +247,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public void agregarClase(int idMateria, Clase clase) throws ExcepcionServiciosProgmsPost {
+    public void agregarClase(String idMateria, Clase clase) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -306,12 +306,12 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public List<Materia> consultarPrerrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost {
+    public List<Materia> consultarPrerrequisitos(String idMateria) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Materia> consultarCorrequisitos(int idMateria) throws ExcepcionServiciosProgmsPost {
+    public List<Materia> consultarCorrequisitos(String idMateria) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -321,7 +321,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public List<Clase> consultarClases(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
+    public List<Clase> consultarClases(int periodo, String idMateria) throws ExcepcionServiciosProgmsPost {
         Map<Integer, List<Clase>> clases = new HashMap<>();
         clases.put(0, clases1);
         clases.put(1, clases2);
@@ -338,7 +338,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public Map<Asignatura, Integer> consultarCohortesPorAsignatura(int idMateria, int periodo) throws ExcepcionServiciosProgmsPost {
+    public Map<Asignatura, Integer> consultarCohortesPorAsignatura(String idMateria, int periodo) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -348,7 +348,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public Profesor consultarProfesor(int periodo, int idMateria) throws ExcepcionServiciosProgmsPost {
+    public Profesor consultarProfesor(int periodo, String idMateria) throws ExcepcionServiciosProgmsPost {
         Map<Integer, Profesor> profesores = new HashMap<>();
         profesores.put(0, new Profesor(1, "Juan Andrade"));
         profesores.put(1, new Profesor(2, "Carlos Martinez"));
@@ -370,7 +370,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public int consultarCohorte(int idMateria, int idAsignatura, int periodo) throws ExcepcionServiciosProgmsPost {
+    public int consultarCohorte(String idMateria, int idAsignatura, int periodo) throws ExcepcionServiciosProgmsPost {
         Map<Integer, Integer> cohortes = new HashMap<>();
         cohortes.put(0, 10);
         cohortes.put(1, 20);
@@ -405,7 +405,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public void registrarRequisito(int idMateria, int idPrerequisito, boolean prerrequisito) throws ExcepcionServiciosProgmsPost {
+    public void registrarRequisito(String idMateria, int idPrerequisito, boolean prerrequisito) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -420,7 +420,7 @@ public final class ServiciosProgmsPostDummy implements ServiciosProgmsPost {
     }
 
     @Override
-    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws ExcepcionServiciosProgmsPost {
+    public void agregarCohorte(int idPrograma, String idMateria, int numCohorte, int periodo) throws ExcepcionServiciosProgmsPost {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

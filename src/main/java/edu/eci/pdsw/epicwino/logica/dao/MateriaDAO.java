@@ -28,7 +28,7 @@ public interface MateriaDAO {
      * @param periodo del cohorte
      * @throws PersistenceException falla de persistencia
      */
-    void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws PersistenceException;
+    void agregarCohorte(int idPrograma, String idMateria, int numCohorte, int periodo) throws PersistenceException;
 
     /**
      * consultar todos los cohorte registrados
@@ -43,7 +43,7 @@ public interface MateriaDAO {
      * @return lista no nula de materias que son prerrequisito de la materia
      * @throws PersistenceException falla de persistencia
      */
-    List<Materia> loadPrerrequisitos(int idMateria) throws PersistenceException;
+    List<Materia> loadPrerrequisitos(String idMateria) throws PersistenceException;
 
     /**
      * consultar todos los correquisitos de una materia
@@ -51,7 +51,7 @@ public interface MateriaDAO {
      * @return lista no nula de materias que son correquisito de la materia
      * @throws PersistenceException falla de persistencia
      */
-    List<Materia> loadCorrequisitos(int idMateria) throws PersistenceException;
+    List<Materia> loadCorrequisitos(String idMateria) throws PersistenceException;
 
     /**
      * consultar todas las materias presentes
@@ -86,7 +86,7 @@ public interface MateriaDAO {
      * @param prerrequisito es prerrequisito
      * @throws PersistenceException falla en persistencia
      */
-    void registrarRequisito(int idMateria, int idRequisito, boolean prerrequisito) throws PersistenceException;
+    void registrarRequisito(String idMateria, int idRequisito, boolean prerrequisito) throws PersistenceException;
     
     /**
      * consulta un profesor que esta registrado en un periodo en una materia
@@ -95,7 +95,7 @@ public interface MateriaDAO {
      * @return profesor
      * @throws PersistenceException falla en persistencia
      */
-    Profesor consultarProfesoresEnPeriodoYMateria(int idMateria, int periodo) throws PersistenceException;
+    Profesor consultarProfesoresEnPeriodoYMateria(String idMateria, int periodo) throws PersistenceException;
     
     /**
      * consulta todos los profesores presentes en un periodo

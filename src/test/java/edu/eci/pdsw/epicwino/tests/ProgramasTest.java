@@ -68,8 +68,8 @@ public class ProgramasTest {
         sp.registrarAsignatura(as2, 61);
         sp.registrarMateria(m1, 60);
         sp.registrarMateria(m2, 61);
-        sp.agregarClase(100, cl1);
-        sp.agregarClase(101, cl2);
+        sp.agregarClase("100", cl1);
+        sp.agregarClase("101", cl2);
         
         Collection<Programa> progPorPer = sp.consultarProgramas(20151);
         assertEquals("Se registra o consulta inadecuadamente los programas programados para un periodo academico"

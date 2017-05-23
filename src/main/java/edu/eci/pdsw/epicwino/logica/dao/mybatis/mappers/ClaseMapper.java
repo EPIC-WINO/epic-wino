@@ -19,7 +19,7 @@ public interface ClaseMapper {
      * @param idMateria id de la materia
      */
     public void agregarClase(@Param("clase") Clase c,
-            @Param("materia") int idMateria, @Param("periodo") int periodo);
+            @Param("materia") String idMateria, @Param("periodo") int periodo);
 
     /**
      * consultar en la base de datos la clase asociada con la id
@@ -61,7 +61,7 @@ public interface ClaseMapper {
      */
     void agregarGrupoDeMateria(@Param("idMateria") String idMateria, @Param("periodo") int periodo, @Param("idProfesor") int idProfesor); // XXX corregir; Discrepancia entre logica y BD (tipo de idMateria)
     
-    List<Clase> consultarClases(@Param("idMateria") int idMateria, @Param("periodo") int periodo);
+    List<Clase> consultarClases(@Param("idMateria") String idMateria, @Param("periodo") int periodo);
     
     List<Clase> consultarClasesDeUnPeriodo(@Param("periodo") int periodo);
     

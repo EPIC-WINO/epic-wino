@@ -8,7 +8,7 @@ import java.util.List;
  * @author Alejandro Anzola email: alejandro.anzola@mail.escuelaing.edu.co
  */
 public class Materia implements Comparable {
-    private int id; // TODO cambiar por String
+    private String id; // TODO cambiar por String
     private String nombre;
     private int creditos;
     private String descripcion;
@@ -20,23 +20,27 @@ public class Materia implements Comparable {
         gruposDeMateria = new ArrayList<>();
     }
     
-    public Materia(int id, String nombre) {
+    public Materia(String id, String nombre) {
         this();
         this.id = id;
         this.nombre = nombre;
+    }
+    
+    public Materia(int id, String nombre) {
+        this(Integer.toString(id), nombre);
     }
 
     /**
      * @return the id
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -104,6 +108,7 @@ public class Materia implements Comparable {
     @Override
     public int compareTo(Object o) {
         Materia m = (Materia) o;
-        return m.getId() < this.getId() ? -1 : (m.getId() == this.getId() ? 0 : 1);
+        return id.compareTo(m.getId());
+        /*return m.getId() < this.getId() ? -1 : (m.getId() == this.getId() ? 0 : 1);*/
     }
 }

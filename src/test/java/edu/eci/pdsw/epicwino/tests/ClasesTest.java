@@ -75,10 +75,10 @@ public class ClasesTest {
         Clase cl1 = new Clase(1,java.sql.Date.valueOf("2001-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Clase cl2 = new Clase(2,java.sql.Date.valueOf("2001-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         
-        sp.agregarClase(20, cl1);
-        sp.agregarClase(20, cl2);
+        sp.agregarClase("20", cl1);
+        sp.agregarClase("20", cl2);
         
-        Collection<Clase> clasePorMat = sp.consultarClases(20011, 20);
+        Collection<Clase> clasePorMat = sp.consultarClases(20011, "20");
         assertEquals("Se agrega o consulta inadecuadamente las clases a una materia"
                     + "cuando esta se debe mostrar : "
                     ,2,clasePorMat.size());
@@ -93,14 +93,14 @@ public class ClasesTest {
         
         Clase cl1 = new Clase(3,java.sql.Date.valueOf("2001-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
                 
-        sp.agregarClase(21, cl1);
-        sp.agregarClase(22, cl1);
+        sp.agregarClase("21", cl1);
+        sp.agregarClase("22", cl1);
         
-        Collection<Clase> clasePorMat = sp.consultarClases(20011, 21);
+        Collection<Clase> clasePorMat = sp.consultarClases(20011, "21");
         assertEquals("Se agrega o consulta inadecuadamente la clase a dos materias"
                     + "cuando esta se debe mostrar : "
                     ,1,clasePorMat.size());
-        clasePorMat = sp.consultarClases(20011, 22);
+        clasePorMat = sp.consultarClases(20011, "22");
         assertEquals("Se agrega o consulta inadecuadamente laa clasea a dos materias"
                     + "cuando esta se debe mostrar : "
                     ,1,clasePorMat.size());
@@ -113,7 +113,7 @@ public class ClasesTest {
         
         boolean thrown = false;
         try {
-            sp.agregarClase(500, cl1);
+            sp.agregarClase("500", cl1);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }
@@ -130,8 +130,8 @@ public class ClasesTest {
         boolean thrown = false;
         try {
             sp.registrarMateria(m1,20);
-            sp.agregarClase(23, cl1);
-            sp.agregarClase(23, cl1);
+            sp.agregarClase("23", cl1);
+            sp.agregarClase("23", cl1);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }
@@ -148,8 +148,8 @@ public class ClasesTest {
         boolean thrown = false;
         try {
             sp.registrarMateria(m1,20);
-            sp.agregarClase(24, cl1);
-            sp.agregarClase(24, cl2);
+            sp.agregarClase("24", cl1);
+            sp.agregarClase("24", cl2);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;
         }
@@ -170,8 +170,8 @@ public class ClasesTest {
         Clase cl1 = new Clase(8,java.sql.Date.valueOf("2002-04-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Clase cl2 = new Clase(9,java.sql.Date.valueOf("2002-04-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         
-        sp.agregarClase(25, cl1);
-        sp.agregarClase(25, cl2);
+        sp.agregarClase("25", cl1);
+        sp.agregarClase("25", cl2);
         
         Collection<Clase> clasePorPeriodo = sp.consultarClasesDeUnPeriodo(20021);
         assertEquals("Se consulta inadecuadamente las clases asociadas a un periodo academico"
@@ -189,8 +189,8 @@ public class ClasesTest {
         Clase cl1 = new Clase(10,java.sql.Date.valueOf("2003-03-08"),java.sql.Time.valueOf("07:00:00"),java.sql.Time.valueOf("10:00:00"));
         Clase cl2 = new Clase(11,java.sql.Date.valueOf("2003-08-13"),java.sql.Time.valueOf("08:00:00"),java.sql.Time.valueOf("11:00:00"));
         
-        sp.agregarClase(26, cl1);
-        sp.agregarClase(26, cl2);
+        sp.agregarClase("26", cl1);
+        sp.agregarClase("26", cl2);
         
         Collection<Clase> clasePorPeriodo = sp.consultarClasesDeUnPeriodo(20031);
         assertEquals("Se consulta inadecuadamente las clase asociadas a un periodo academico"
@@ -207,8 +207,8 @@ public class ClasesTest {
         boolean thrown = false;
         try {
             sp.registrarMateria(m1,20);
-            sp.agregarClase(27, cl1);
-            sp.agregarClase(27, cl2);
+            sp.agregarClase("27", cl1);
+            sp.agregarClase("27", cl2);
             sp.consultarClasesDeUnPeriodo(19981);
         } catch (ExcepcionServiciosProgmsPost ex) {
             thrown = true;

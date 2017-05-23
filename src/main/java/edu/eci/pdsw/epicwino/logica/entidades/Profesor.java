@@ -25,6 +25,7 @@ public class Profesor implements Comparable{
     }
     
     public Profesor(int id, String nombre) {
+        this();
         this.id = id;
         this.nombre  = nombre;
         comites = new ArrayList<>();

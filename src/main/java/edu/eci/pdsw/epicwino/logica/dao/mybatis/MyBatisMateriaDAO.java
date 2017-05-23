@@ -20,7 +20,7 @@ public class MyBatisMateriaDAO implements MateriaDAO{
     MateriaMapper materiaMapper;
     
     @Override
-    public void agregarCohorte(int idPrograma, int idMateria, int numCohorte, int periodo) throws PersistenceException {
+    public void agregarCohorte(int idPrograma, String idMateria, int numCohorte, int periodo) throws PersistenceException {
         materiaMapper.agregarCohorte(idPrograma, idMateria, numCohorte, periodo);
     }
 
@@ -30,12 +30,12 @@ public class MyBatisMateriaDAO implements MateriaDAO{
     }
 
     @Override
-    public List<Materia> loadPrerrequisitos(int idMateria) throws PersistenceException {
+    public List<Materia> loadPrerrequisitos(String idMateria) throws PersistenceException {
         return materiaMapper.loadPrerrequisitos(idMateria);
     }
 
     @Override
-    public List<Materia> loadCorrequisitos(int idMateria) throws PersistenceException {
+    public List<Materia> loadCorrequisitos(String idMateria) throws PersistenceException {
         return materiaMapper.loadCorrequisitos(idMateria);
     }
 
@@ -61,13 +61,13 @@ public class MyBatisMateriaDAO implements MateriaDAO{
     }
 
     @Override
-    public void registrarRequisito(int idMateria, int idRequisito, boolean prerrequisito) throws PersistenceException {
+    public void registrarRequisito(String idMateria, int idRequisito, boolean prerrequisito) throws PersistenceException {
         materiaMapper.agregarRequisito(idMateria, idRequisito, prerrequisito ? "TRUE" : "FALSE");
     }
 
     @Override
-    public Profesor consultarProfesoresEnPeriodoYMateria(int idMateria, int periodo) throws PersistenceException {
-        return materiaMapper.loadProfesoresEnPeriodoYMateria(Integer.toString(idMateria), periodo);
+    public Profesor consultarProfesoresEnPeriodoYMateria(String idMateria, int periodo) throws PersistenceException {
+        return materiaMapper.loadProfesoresEnPeriodoYMateria(idMateria, periodo);
     }
 
     @Override

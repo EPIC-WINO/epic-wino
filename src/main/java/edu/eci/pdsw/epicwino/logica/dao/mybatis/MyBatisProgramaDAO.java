@@ -46,7 +46,7 @@ public class MyBatisProgramaDAO implements ProgramaDAO{
     }
 
     @Override
-    public int loadCohorte(int idMateria, int idAsignatura, int periodo) throws PersistenceException {
+    public int loadCohorte(String idMateria, int idAsignatura, int periodo) throws PersistenceException {
         return programaMapper.consultarCohorte(idMateria, idAsignatura, periodo);
     }
 
