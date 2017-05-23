@@ -39,6 +39,7 @@ public class MateriasRegistradasBean implements Serializable {
     private List<Materia> materias;
     private int asignatura_id;
 
+
     public MateriasRegistradasBean() {
         LOGGER.debug(MessageFormat.format("Se instancia {0}", this.getClass().getName()));
     }

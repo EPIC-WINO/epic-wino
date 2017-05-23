@@ -44,6 +44,15 @@ public class RegistrarMateriaBean implements Serializable {
     private String nombremateria;
     private String codigo;
     private String descripcion;
+    private int creditos;
+
+    public int getCreditos() {
+        return creditos;
+    }
+
+    public void setCreditos(int creditos) {
+        this.creditos = creditos;
+    }
 
     
     public String getDescripcion() {
@@ -173,5 +182,6 @@ public class RegistrarMateriaBean implements Serializable {
         Materia materia = new Materia();
         materia.setNombre(nombremateria);
         materia.setDescripcion(descripcion);
+        materia.setCreditos(creditos);
     }
 }
