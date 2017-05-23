@@ -114,14 +114,10 @@ public class MateriasRegistradasBean implements Serializable {
         List<Programa> r = null;
         Map<String, String> programs = new HashMap<>();
 
-        try {
-            r = servProg.consultarProgramas((anio * 10) + semestre);
-            for (Programa p : r) {
-                String n = p.getNombre();
-                programs.put(n, n);
-            }
-        } catch (ExcepcionServiciosProgmsPost ex) {
-            LOGGER.error("Error al consultar los programas", ex);
+        r = servProg.consultarProgramas();
+        for (Programa p : r) {
+            String n = p.getNombre();
+            programs.put(n, n);
         }
 
         return programs;
